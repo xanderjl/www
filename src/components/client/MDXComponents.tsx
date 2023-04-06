@@ -1,7 +1,8 @@
 'use client'
 
-import { Heading, HeadingProps, Text, TextProps } from '@chakra-ui/react'
-import { FC } from 'react'
+import type { HeadingProps, TextProps } from '@chakra-ui/react';
+import { Heading, Text } from '@chakra-ui/react'
+import type { FC } from 'react'
 
 export const H1: FC<HeadingProps> = ({ children, ...rest }) => (
   <Heading as='h1' size='2xl' {...rest}>

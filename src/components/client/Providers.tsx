@@ -2,7 +2,7 @@
 
 import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
-import { FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 
 export interface ProvidersProps {
   children: ReactNode

@@ -1,4 +1,5 @@
-import { FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
+
 import { Providers } from '@/components/client/Providers'
 import { Layout } from '@/components/client/routes/home/layout'
 

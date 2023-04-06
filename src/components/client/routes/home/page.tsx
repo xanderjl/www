@@ -1,7 +1,7 @@
 'use client'
 
 import { Heading } from '@chakra-ui/react'
-import { FC } from 'react'
+import type { FC } from 'react'
 
 export const Page: FC = () => {
   return (

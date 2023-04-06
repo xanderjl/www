@@ -1,4 +1,5 @@
-import { MDXComponents } from 'mdx/types'
+import type { MDXComponents } from 'mdx/types'
+
 import { H1, H2, H3, H4, H5, H6, P } from '@/components/client/MDXComponents'
 
 export const useMDXComponents = (components: MDXComponents): MDXComponents => {

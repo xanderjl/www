@@ -1,9 +1,13 @@
 'use client'
 
-import { NextPage } from 'next'
+import type { Draw } from '@react-p5/core'
+import type { SketchProps } from '@react-p5/sketch'
+import type { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 
-import { Draw } from '@react-p5/core'
-import { Sketch } from '@/components/client/Sketch'
+const Sketch = dynamic<SketchProps>(() => import('@react-p5/sketch'), {
+  ssr: false
+})
 
 const Page: NextPage = () => {
   const draw: Draw = p5 => {

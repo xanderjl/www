@@ -1,5 +1,6 @@
+import type { NextPage } from 'next'
+
 import { Page } from '@/components/client/routes/home/page'
-import { NextPage } from 'next'
 
 const Home: NextPage = () => <Page />
 

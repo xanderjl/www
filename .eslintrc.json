@@ -6,7 +6,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals",
+    "next/core-web-vitals"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
@@ -23,6 +23,8 @@
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
     "unused-imports/no-unused-imports": "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
       {
@@ -32,8 +34,6 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/consistent-type-imports": "error",
     "import/consistent-type-specifier-style": [
       "error",
       "prefer-top-level"

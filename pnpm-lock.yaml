@@ -23,14 +23,14 @@ dependencies:
     specifier: ^13.2.4
     version: 13.2.4(@mdx-js/loader@2.3.0)(@mdx-js/react@2.3.0)
   '@react-p5/core':
-    specifier: ^1.2.0
-    version: 1.2.0(p5.js-svg@1.3.3)(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^1.3.0
+    version: 1.3.0(p5.js-svg@1.3.3)(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0)
   '@react-p5/sketch':
-    specifier: ^0.2.0
-    version: 0.2.0(@chakra-ui/react@2.5.5)(@emotion/react@11.10.6)(@emotion/styled@11.10.6)(framer-motion@10.10.0)(p5.js-svg@1.3.3)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.3.1
+    version: 0.3.1(@chakra-ui/react@2.5.5)(@emotion/react@11.10.6)(@emotion/styled@11.10.6)(framer-motion@10.10.0)(p5.js-svg@1.3.3)(react-dom@18.2.0)(react@18.2.0)
   '@react-p5/utils':
-    specifier: ^0.2.0
-    version: 0.2.0(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.3.1
+    version: 0.3.1(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0)
   framer-motion:
     specifier: ^10.10.0
     version: 10.10.0(react-dom@18.2.0)(react@18.2.0)
@@ -54,6 +54,9 @@ devDependencies:
   '@types/node':
     specifier: 18.15.11
     version: 18.15.11
+  '@types/p5':
+    specifier: ^1.6.0
+    version: 1.6.0
   '@types/react':
     specifier: 18.0.33
     version: 18.0.33
@@ -72,6 +75,9 @@ devDependencies:
   eslint-config-next:
     specifier: 13.2.4
     version: 13.2.4(eslint@8.37.0)(typescript@5.0.3)
+  eslint-plugin-prettier:
+    specifier: ^4.2.1
+    version: 4.2.1(eslint@8.37.0)(prettier@2.8.7)
   eslint-plugin-simple-import-sort:
     specifier: ^10.0.0
     version: 10.0.0(eslint@8.37.0)
@@ -1660,25 +1666,11 @@ packages:
     resolution: {integrity: sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==}
     dev: false
 
-  /@react-p5/core@1.2.0(p5.js-svg@1.3.3)(p5@1.5.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-a90YpzyDXwGPKW6ZiF9RToGoxfWYRv/PldGJ7ugKVz3J7pm99RvZFnGpKi0X3FUR/U3kORlz7pVAbVpjELAHuA==}
+  /@react-p5/core@1.3.0(p5.js-svg@1.3.3)(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-nkepKjHqnU8nwv2RytCIfL4oK/zARlSV5OUAsQnINMdUS7P1Gy5Gq0ILoc+c/0S+ekkcrkZk1C8/kZtVZzrmqA==}
     peerDependencies:
-      p5: 1.4.x
-      p5.js-svg: 1.3.3
-      react: 18.x
-      react-dom: 18.x
-    dependencies:
-      p5: 1.5.0
-      p5.js-svg: 1.3.3
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@react-p5/core@1.2.0(p5.js-svg@1.3.3)(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-a90YpzyDXwGPKW6ZiF9RToGoxfWYRv/PldGJ7ugKVz3J7pm99RvZFnGpKi0X3FUR/U3kORlz7pVAbVpjELAHuA==}
-    peerDependencies:
-      p5: 1.4.x
-      p5.js-svg: 1.3.3
+      p5: ^1.6.0
+      p5.js-svg: ^1.3.3
       react: 18.x
       react-dom: 18.x
     dependencies:
@@ -1688,31 +1680,31 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@react-p5/sketch@0.2.0(@chakra-ui/react@2.5.5)(@emotion/react@11.10.6)(@emotion/styled@11.10.6)(framer-motion@10.10.0)(p5.js-svg@1.3.3)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-0KJyBmnoAKcEEN9owiU5apMdzC9ZMwHk5bvDnqfryvd6W6AfLaPsfd3jsNS6Ia5DQlA9Gqo889T1xCUOOLbd/w==}
+  /@react-p5/sketch@0.3.1(@chakra-ui/react@2.5.5)(@emotion/react@11.10.6)(@emotion/styled@11.10.6)(framer-motion@10.10.0)(p5.js-svg@1.3.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-KTxwBW9bOUrbbSzwGDXgUI7Zfsely2ZzH1SNhjBBd7aX/WrX/IeHpxhbIE2jxAceUyByRsSVvLDTHfuEFBtazA==}
     peerDependencies:
-      '@chakra-ui/react': 2.3.6
-      '@emotion/react': 11.10.4
-      '@emotion/styled': 11.10.4
-      framer-motion: 7.6.1
-      p5.js-svg: 1.3.3
+      '@chakra-ui/react': ^2.3.6
+      '@emotion/react': ^11.10.4
+      '@emotion/styled': ^11.10.4
+      framer-motion: ^7.6.1
+      p5.js-svg: ^1.3.3
     dependencies:
       '@chakra-ui/react': 2.5.5(@emotion/react@11.10.6)(@emotion/styled@11.10.6)(@types/react@18.0.33)(framer-motion@10.10.0)(react-dom@18.2.0)(react@18.2.0)
       '@emotion/react': 11.10.6(@types/react@18.0.33)(react@18.2.0)
       '@emotion/styled': 11.10.6(@emotion/react@11.10.6)(@types/react@18.0.33)(react@18.2.0)
-      '@react-p5/core': 1.2.0(p5.js-svg@1.3.3)(p5@1.5.0)(react-dom@18.2.0)(react@18.2.0)
+      '@react-p5/core': 1.3.0(p5.js-svg@1.3.3)(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0)
       framer-motion: 10.10.0(react-dom@18.2.0)(react@18.2.0)
-      p5: 1.5.0
+      p5: 1.6.0
       p5.js-svg: 1.3.3
     transitivePeerDependencies:
       - react
       - react-dom
     dev: false
 
-  /@react-p5/utils@0.2.0(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-iULQsD/aSqSF8wM6Iwhee6jqgaV59yQTQTIYExqrwOFscFEZRwDSEgUbaQWP52S0He8RmuR6yjR/eIHYZJOxNQ==}
+  /@react-p5/utils@0.3.1(p5@1.6.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-e32WQ5KKfaTrCpx9WBPXBvHMuu5zZm9chuZb2qB/u9gsDrV9dI9+BgGTjAELN27FtZcUM8p4aW5rQpFASsKrxA==}
     peerDependencies:
-      p5: 1.4.x
+      p5: ^1.6.x
       react: 18.x
       react-dom: 18.x
     dependencies:
@@ -1809,6 +1801,10 @@ packages:
 
   /@types/node@18.15.11:
     resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
+
+  /@types/p5@1.6.0:
+    resolution: {integrity: sha512-1DuGI41woYiMjEGh0hvt1NJPMvjiBHQO/4uKvPCy3IYvytCAq/c3S+0zlRrfhzwVNjydwr2hgkfdBTnptd6nSw==}
+    dev: true
 
   /@types/parse-json@4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -2800,6 +2796,22 @@ packages:
       semver: 6.3.0
     dev: true
 
+  /eslint-plugin-prettier@4.2.1(eslint@8.37.0)(prettier@2.8.7):
+    resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      eslint: '>=7.28.0'
+      eslint-config-prettier: '*'
+      prettier: '>=2.0.0'
+    peerDependenciesMeta:
+      eslint-config-prettier:
+        optional: true
+    dependencies:
+      eslint: 8.37.0
+      prettier: 2.8.7
+      prettier-linter-helpers: 1.0.0
+    dev: true
+
   /eslint-plugin-react-hooks@4.6.0(eslint@8.37.0):
     resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
     engines: {node: '>=10'}
@@ -3015,6 +3027,10 @@ packages:
 
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
+
+  /fast-diff@1.2.0:
+    resolution: {integrity: sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==}
+    dev: true
 
   /fast-glob@3.2.12:
     resolution: {integrity: sha512-DVj4CQIYYow0BlaelwK1pHl5n5cRSJfM60UA0zK891sVInoPri2Ekj7+e1CT3/3qxXenpI+nBBmQAcJPJgaj4w==}
@@ -4313,10 +4329,6 @@ packages:
     resolution: {integrity: sha512-orFgaXka6ze1LQ5lu8UIfePQ35zytvWIeWPT4LGeJ/lwTyXaqkjSuoMtIKvrUZ5M/g2dsqKhn262LbDLow6Otw==}
     dev: false
 
-  /p5@1.5.0:
-    resolution: {integrity: sha512-zZFMVUmGkXe2G5H6Sw7xsVhgdxMyEN/6SZnZqYdQ51513kTqPslLnukkwTbGf8YtW0RetTU0FTjYQMXnFD7KnQ==}
-    dev: false
-
   /p5@1.6.0:
     resolution: {integrity: sha512-RowF+RxfVUhJm/YKXL5TCFzTqnwAIwK6W1VGs9LAqSf3PCmLz9Igbxzlf0Ry5IMV71L42wipCdH/bDiNsqAstA==}
     dev: false
@@ -4400,6 +4412,13 @@ packages:
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: true
+
+  /prettier-linter-helpers@1.0.0:
+    resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      fast-diff: 1.2.0
     dev: true
 
   /prettier@2.8.7:

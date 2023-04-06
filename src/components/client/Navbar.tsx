@@ -1,8 +1,10 @@
 'use client'
 
 import { Link } from '@chakra-ui/next-js'
-import { Container, Flex, FlexProps } from '@chakra-ui/react'
-import { FC } from 'react'
+import type { FlexProps } from '@chakra-ui/react'
+import { Container, Flex } from '@chakra-ui/react'
+import type { FC } from 'react'
+
 import { routes } from '@/routes'
 
 export const Navbar: FC<FlexProps> = () => {
@@ -19,7 +21,9 @@ export const Navbar: FC<FlexProps> = () => {
         </Link>
         <Flex gap={4}>
           {routes.map(({ path, title }) => (
-            <Link href={path}>{title}</Link>
+            <Link key={path} href={path}>
+              {title}
+            </Link>
           ))}
         </Flex>
       </Container>
