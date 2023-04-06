@@ -1,11 +1,6 @@
+import { Page } from '@/components/client/routes/home/page'
 import { NextPage } from 'next'
 
-const Home: NextPage = () => {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  )
-}
+const Home: NextPage = () => <Page />
 
 export default Home
