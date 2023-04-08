@@ -11,5 +11,9 @@ export const routes: Route[] = [
   {
     title: 'About',
     path: '/about'
+  },
+  {
+    title: 'Sketches',
+    path: '/sketches'
   }
 ]
