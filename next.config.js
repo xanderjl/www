@@ -1,12 +1,13 @@
-const withMDX = require('@next/mdx')()
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withMDX = require('@next/mdx')();
 
 /** @type {import('next').NextConfig} */
-let nextConfig = {
+const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'mdx'],
   experimental: {
     appDir: true,
-  },
-}
+    mdxRs: true,
+  }
+};
 
-nextConfig = withMDX(nextConfig)
-
-module.exports = nextConfig
+module.exports = withMDX(nextConfig);

@@ -2,12 +2,28 @@
 
 import { Link } from '@chakra-ui/next-js'
 import type { FlexProps } from '@chakra-ui/react'
-import { Container, Flex } from '@chakra-ui/react'
-import type { FC } from 'react'
+import { Button, Container, Flex, forwardRef } from '@chakra-ui/react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { BiSearch } from 'react-icons/bi'
 
 import { routes } from '@/routes'
 
-export const Navbar: FC<FlexProps> = () => {
+export interface NavbarProps extends FlexProps {
+  onOpen: () => void
+}
+
+export const Navbar = forwardRef<NavbarProps, 'button'>(({ onOpen }, ref) => {
+  const pathname = usePathname()
+  const [isSketchRoute, setSketchRoute] = useState<boolean>(false)
+
+  useEffect(() => {
+    // check if the current route is a sketches subroute
+    const sketchRoute =
+      pathname.includes('/sketches') && pathname !== '/sketches'
+    setSketchRoute(sketchRoute)
+  }, [pathname])
+
   return (
     <Flex py={4} boxShadow='md'>
       <Container
@@ -15,11 +31,24 @@ export const Navbar: FC<FlexProps> = () => {
         maxW='container.lg'
         display='flex'
         justifyContent='space-between'
+        alignItems='center'
       >
-        <Link href='/' fontWeight='bold'>
-          Home
-        </Link>
-        <Flex gap={4}>
+        <Flex gap={4} alignItems='center'>
+          <Link href='/' fontWeight='bold'>
+            Home
+          </Link>
+          {isSketchRoute && (
+            <Button
+              ref={ref}
+              size='sm'
+              leftIcon={<BiSearch />}
+              onClick={onOpen}
+            >
+              Search
+            </Button>
+          )}
+        </Flex>
+        <Flex gap={4} alignItems='center'>
           {routes.map(({ path, title }) => (
             <Link key={path} href={path}>
               {title}
@@ -29,4 +58,4 @@ export const Navbar: FC<FlexProps> = () => {
       </Container>
     </Flex>
   )
-}
+})

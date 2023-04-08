@@ -1,10 +1,11 @@
 'use client'
 
 import type { Draw } from '@react-p5/core'
+import { getDimensions } from '@react-p5/utils'
 
 import { Sketch } from '@/components/client/Sketch'
 
-const dimensions = [800, 600]
+const dimensions = getDimensions('A4')
 
 const SketchIdea = () => {
   const draw: Draw = p5 => {
