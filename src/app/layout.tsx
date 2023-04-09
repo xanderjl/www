@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react'
 
 import { Providers } from '@/components/client/Providers'
-import { Layout } from '@/components/client/routes/home/layout'
-import { getSketchSlugs } from '@/utils/data/getSketchSlugs'
 
 export interface RootLayoutProps {
   children: ReactNode
@@ -16,15 +14,11 @@ export const metadata = {
   description: 'A starter template for Next.js with Chakra UI'
 }
 
-const RootLayout = async ({ children }: RootLayoutProps) => {
-  const list = await getSketchSlugs()
-
+const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang='en'>
       <body>
-        <Providers>
-          <Layout list={list}>{children}</Layout>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

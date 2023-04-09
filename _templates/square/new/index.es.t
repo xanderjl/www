@@ -1,12 +1,14 @@
+---
+to: src/app/(p5)/sketches/<%= name %>/page.tsx
+---
 'use client'
 
 import type { ColorValue, Draw } from '@react-p5/core'
-import { getDimensions } from '@react-p5/utils'
 
 import { Sketch } from '@/components/client/Sketch'
 
-const Test = () => {
-  const dimensions: number[] = getDimensions('A4')
+const <%= h.changeCase.pascal(name) %> = () => {
+  const dimensions: number[] = [2048, 2048]
   const padding: number[] = [40]
   const background: ColorValue = [255, 253, 252]
 
@@ -22,4 +24,4 @@ const Test = () => {
   )
 }
 
-export default Test
+export default <%= h.changeCase.pascal(name) %>
