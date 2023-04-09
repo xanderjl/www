@@ -7,11 +7,11 @@ import Fuse from 'fuse.js'
 import type { FC } from 'react'
 import { useState } from 'react'
 
-export interface SearchProps<T> extends FlexProps {
-  list: T[]
+export interface SketchSearchProps extends FlexProps {
+  list: string[]
 }
 
-export const Search: FC<SearchProps<string>> = ({ list, ...rest }) => {
+export const SketchSearch: FC<SketchSearchProps> = ({ list, ...rest }) => {
   const fuse = new Fuse(list)
   const [searchArray, setSearchArray] = useState<
     Fuse.FuseResult<string>[] | undefined
