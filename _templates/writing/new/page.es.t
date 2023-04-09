@@ -1,5 +1,5 @@
 ---
-to: src/app/(mainSite)/writing/<%= name %>/page.tsx
+to: src/app/(writing)/writing/<%= name %>/page.tsx
 ---
 
 import Writing from './post.mdx'

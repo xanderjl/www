@@ -1,5 +1,5 @@
 ---
-to: src/app/(mainSite)/writing/<%= name %>/post.mdx
+to: src/app/(writing)/writing/<%= name %>/post.mdx
 ---
 
 # Hello World
