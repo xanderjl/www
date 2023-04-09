@@ -6,11 +6,11 @@ import type { FC } from 'react'
 
 import { Navbar } from '@/components/client/Navbar'
 
-export const Layout: FC<ContainerProps> = ({ children }) => {
-  return (
-    <>
-      <Navbar />
-      <Container maxW='container.lg'>{children}</Container>
-    </>
-  )
-}
+export const Layout: FC<ContainerProps> = ({ children }) => (
+  <>
+    <Navbar />
+    <Container maxW='container.lg' py={8}>
+      {children}
+    </Container>
+  </>
+)

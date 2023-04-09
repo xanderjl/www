@@ -13,6 +13,10 @@ export const routes: Route[] = [
     path: '/about'
   },
   {
+    title: 'Writing',
+    path: '/writing'
+  },
+  {
     title: 'Sketches',
     path: '/sketches'
   }
