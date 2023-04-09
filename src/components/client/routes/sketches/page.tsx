@@ -4,7 +4,7 @@ import { Container, Heading } from '@chakra-ui/react'
 import type { FC } from 'react'
 
 import { Navbar } from '@/components/client/Navbar'
-import { SketchSearch } from '@/components/client/SketchSearch'
+import { Search } from '@/components/client/Search'
 
 export interface PageProps {
   list: string[]
@@ -24,7 +24,7 @@ export const Page: FC<PageProps> = ({ list }) => {
         <Heading as='h1' size='2xl' pb={4}>
           Search Sketches
         </Heading>
-        <SketchSearch list={list} />
+        <Search list={list} path='/sketches/' />
       </Container>
     </>
   )

@@ -1,5 +1,5 @@
 ---
-to: src/app/(p5)/sketches/<%= name %>/page.tsx
+to: src/components/client/sketches/<%= name %>.tsx
 ---
 'use client'
 

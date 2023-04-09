@@ -1,7 +1,18 @@
 'use client'
 
-import type { HeadingProps, TextProps } from '@chakra-ui/react'
-import { Heading, Text } from '@chakra-ui/react'
+import type {
+  HeadingProps,
+  ListItemProps,
+  ListProps,
+  TextProps
+} from '@chakra-ui/react'
+import {
+  Heading,
+  ListItem,
+  OrderedList,
+  Text,
+  UnorderedList
+} from '@chakra-ui/react'
 import type { FC } from 'react'
 
 export const H1: FC<HeadingProps> = ({ children, ...rest }) => (
@@ -44,6 +55,24 @@ export const P: FC<TextProps> = ({ children, ...rest }) => (
   <Text pb={4} {...rest}>
     {children}
   </Text>
+)
+
+export const Ul: FC<ListProps> = ({ children, ...rest }) => (
+  <UnorderedList pb={4} {...rest}>
+    {children}
+  </UnorderedList>
+)
+
+export const Ol: FC<ListProps> = ({ children, ...rest }) => (
+  <OrderedList pb={4} {...rest}>
+    {children}
+  </OrderedList>
+)
+
+export const Li: FC<ListItemProps> = ({ children, ...rest }) => (
+  <ListItem pb={2} {...rest}>
+    {children}
+  </ListItem>
 )
 
 // TODO: complete mdx components

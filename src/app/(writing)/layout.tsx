@@ -7,7 +7,11 @@ export interface MainSiteLayoutProps {
 }
 
 export const metadata = {
-  title: 'Writing'
+  title: {
+    default: 'Writing',
+    template: 'Xandy Dandy | %s'
+  },
+  description: 'A starter template for Next.js with Chakra UI'
 }
 
 const WritingLayout: FC<MainSiteLayoutProps> = ({ children }) => (

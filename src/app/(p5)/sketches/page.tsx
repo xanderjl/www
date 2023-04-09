@@ -1,8 +1,8 @@
 import { Page } from '@/components/client/routes/sketches/page'
-import { getSketchSlugs } from '@/utils/data/getSketchSlugs'
+import { getDirSlugs } from '@/utils/data/getDirSlugs'
 
 const SketchesPage = async () => {
-  const list = await getSketchSlugs()
+  const list = await getDirSlugs('./src/app/(p5)/sketches')
 
   return <Page list={list} />
 }

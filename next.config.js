@@ -7,7 +7,8 @@ const nextConfig = {
   experimental: {
     appDir: true,
     mdxRs: true,
-  }
+  },
+  output: 'export'
 };
 
 module.exports = withMDX(nextConfig);

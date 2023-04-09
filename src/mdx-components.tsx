@@ -1,6 +1,18 @@
 import type { MDXComponents } from 'mdx/types'
 
-import { H1, H2, H3, H4, H5, H6, P } from '@/components/client/MDXComponents'
+import { CodeBlock } from '@/components/client/CodeBlock'
+import {
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Li,
+  Ol,
+  P,
+  Ul
+} from '@/components/client/MDXComponents'
 
 export const useMDXComponents = (components: MDXComponents): MDXComponents => {
   return {
@@ -11,6 +23,11 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
     h5: H5,
     h6: H6,
     p: P,
+    ul: Ul,
+    ol: Ol,
+    li: Li,
+    // @ts-expect-error - MDXComponents is not typed correctly
+    code: CodeBlock,
     ...components
   }
 }

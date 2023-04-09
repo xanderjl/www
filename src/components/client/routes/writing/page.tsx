@@ -3,7 +3,7 @@
 import { Flex, Heading } from '@chakra-ui/react'
 import type { FC } from 'react'
 
-import { WritingSearch } from '@/components/client/WritingSearch'
+import { Search } from '@/components/client/Search'
 
 export interface PageProps {
   list: string[]
@@ -14,6 +14,6 @@ export const Page: FC<PageProps> = ({ list }) => (
     <Heading as='h1' size='2xl' pb={4}>
       Search Writing
     </Heading>
-    <WritingSearch list={list} />
+    <Search list={list} path='/writing/' />
   </Flex>
 )

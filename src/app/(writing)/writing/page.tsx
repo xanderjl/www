@@ -1,8 +1,8 @@
 import { Page } from '@/components/client/routes/writing/page'
-import { getWritingSlugs } from '@/utils/data/getWritingSlugs'
+import { getDirSlugs } from '@/utils/data/getDirSlugs'
 
 const WritingPage = async () => {
-  const list = await getWritingSlugs()
+  const list = await getDirSlugs('./src/app/(writing)/writing')
 
   return <Page list={list} />
 }

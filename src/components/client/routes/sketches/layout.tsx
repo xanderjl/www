@@ -16,7 +16,7 @@ import type { FC } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
 
-import { SketchSearch } from '@/components/client/SketchSearch'
+import { Search } from '@/components/client/Search'
 
 export interface LayoutProps extends BoxProps {
   list: string[]
@@ -48,7 +48,7 @@ export const Layout: FC<LayoutProps> = ({ children, list }) => {
         <DrawerContent display='flex' flexDirection='column' gap={2} px={4}>
           <DrawerCloseButton />
           <DrawerHeader>Search Sketches</DrawerHeader>
-          <SketchSearch list={list} />
+          <Search list={list} path='/sketches/' />
         </DrawerContent>
       </Drawer>
       {isSketchRoute && (
