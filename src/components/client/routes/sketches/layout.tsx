@@ -45,7 +45,7 @@ export const Layout: FC<LayoutProps> = ({ children, list }) => {
         <DrawerOverlay />
         <DrawerContent display='flex' flexDirection='column' gap={2} px={4}>
           <DrawerCloseButton />
-          <DrawerHeader>Search Sketches</DrawerHeader>
+          <DrawerHeader px={0}>Search Sketches</DrawerHeader>
           <Search list={list} path='/sketches/' />
         </DrawerContent>
       </Drawer>

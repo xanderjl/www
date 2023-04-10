@@ -1,6 +1,6 @@
 'use client'
 
-import type { ColorValue, Draw, Setup, WindowResized } from '@react-p5/core'
+import type { ColorValue, Draw, P5, Setup, WindowResized } from '@react-p5/core'
 import { convertSeed, getDimensions } from '@react-p5/utils'
 import { useState } from 'react'
 
@@ -26,6 +26,19 @@ const poem: string[] = [
   `"I hope that I was able to help you`
 ]
 
+type Coordinates = [number, number, string]
+
+const initialCoordinates = (
+  p5: P5,
+  poem: string[],
+  margin: number
+): Coordinates[] =>
+  poem.map(string => [
+    p5.random(margin * 2, p5.width - margin * 2),
+    p5.random(margin * 2, p5.height - margin * 2),
+    string
+  ])
+
 const Rachelle = () => {
   const dimensions: number[] = getDimensions('A4')
   const padding: number[] = [40]
@@ -34,25 +47,16 @@ const Rachelle = () => {
   const poemString = poem.join()
   const marginRatio = 0.05
   const seed = convertSeed(poemString)
-  const [coordinates, setCoordinates] = useState<
-    (number | string)[][][] | null
-  >(null)
+  const [coordinates, setCoordinates] = useState<Coordinates[] | null>(null)
   const [margin, setMargin] = useState<number>(0)
+  console.log({ coordinates })
 
   const setup: Setup = p5 => {
     const margin = p5.width * marginRatio
 
-    const coordinates = poem.map(phrase =>
-      Array.from({ length: phrase.length }, () => [
-        p5.random(margin * 2, p5.width - margin * 2),
-        p5.random(margin * 2, p5.height - margin * 2),
-        phrase
-      ])
-    )
-
     // initialize state
     setMargin(margin)
-    setCoordinates(coordinates)
+    setCoordinates(initialCoordinates(p5, poem, margin))
   }
 
   const draw: Draw = p5 => {
@@ -62,14 +66,12 @@ const Rachelle = () => {
     p5.noFill()
 
     // mark starting coordinates
-    coordinates?.forEach(phrase =>
-      phrase.forEach(([x, y, s]) => {
-        // const sMod = p5.width / s.length
-        const d = p5.width * 0.0025
+    coordinates?.forEach(([x, y, s]) => {
+      const sMod = p5.width / s.length
+      const d = p5.width * 0.0025
 
-        p5.circle(x as number, y as number, d) // draw circle
-      })
-    )
+      p5.circle(x as number, y as number, sMod * d)
+    })
 
     // apply border
     p5.rect(margin, margin, p5.width - margin * 2, p5.height - margin * 2)
@@ -78,17 +80,9 @@ const Rachelle = () => {
   const windowResized: WindowResized = p5 => {
     const margin = p5.width * marginRatio
 
-    const coordinates = poem.map(phrase =>
-      Array.from({ length: phrase.length }, () => [
-        p5.random(margin * 2, p5.width - margin * 2),
-        p5.random(margin * 2, p5.height - margin * 2),
-        phrase
-      ])
-    )
-
     // update state
     setMargin(margin)
-    setCoordinates(coordinates)
+    setCoordinates(initialCoordinates(p5, poem, margin))
   }
 
   return (
@@ -100,6 +94,7 @@ const Rachelle = () => {
       dimensions={dimensions}
       padding={padding}
       background={background}
+      renderSVG
     />
   )
 }
