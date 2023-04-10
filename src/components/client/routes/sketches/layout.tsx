@@ -1,6 +1,6 @@
 'use client'
 
-import type { BoxProps, ButtonProps } from '@chakra-ui/react'
+import type { BoxProps } from '@chakra-ui/react'
 import {
   Button,
   Drawer,
@@ -8,10 +8,9 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Flex,
   useDisclosure
 } from '@chakra-ui/react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import type { FC } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
@@ -22,16 +21,7 @@ export interface LayoutProps extends BoxProps {
   list: string[]
 }
 
-const buttonStyles: ButtonProps = {
-  colorScheme: 'red',
-  opacity: 0.3,
-  _hover: {
-    opacity: 1
-  }
-}
-
 export const Layout: FC<LayoutProps> = ({ children, list }) => {
-  const { back } = useRouter()
   const pathname = usePathname()
   const [isSketchRoute, setSketchRoute] = useState<boolean>(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -60,19 +50,20 @@ export const Layout: FC<LayoutProps> = ({ children, list }) => {
         </DrawerContent>
       </Drawer>
       {isSketchRoute && (
-        <Flex as='nav' position='absolute' top={8} left={8} gap={2}>
-          <Button {...buttonStyles} onClick={back}>
-            Back
-          </Button>
-          <Button
-            ref={btnRef}
-            leftIcon={<BiSearch />}
-            {...buttonStyles}
-            onClick={onOpen}
-          >
-            Sketches
-          </Button>
-        </Flex>
+        <Button
+          ref={btnRef}
+          colorScheme='red'
+          position='absolute'
+          top={8}
+          left={8}
+          opacity={0.6}
+          _hover={{
+            opacity: 1
+          }}
+          onClick={onOpen}
+        >
+          <BiSearch />
+        </Button>
       )}
       {children}
     </>

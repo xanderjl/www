@@ -93,6 +93,7 @@ const Rachelle = () => {
 
   return (
     <Sketch
+      seed={seed}
       setup={setup}
       draw={draw}
       windowResized={windowResized}
