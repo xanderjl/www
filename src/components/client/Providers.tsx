@@ -4,6 +4,8 @@ import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
 import type { FC, ReactNode } from 'react'
 
+import { theme } from '@/theme'
+
 export interface ProvidersProps {
   children: ReactNode
 }
@@ -11,7 +13,7 @@ export interface ProvidersProps {
 export const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <CacheProvider>
-      <ChakraProvider>{children}</ChakraProvider>
+      <ChakraProvider theme={theme}>{children}</ChakraProvider>
     </CacheProvider>
   )
 }

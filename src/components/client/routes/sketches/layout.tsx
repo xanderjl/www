@@ -1,6 +1,6 @@
 'use client'
 
-import type { BoxProps } from '@chakra-ui/react'
+import type { BoxProps, ButtonProps } from '@chakra-ui/react'
 import {
   Button,
   Drawer,
@@ -20,6 +20,14 @@ import { Search } from '@/components/client/Search'
 
 export interface LayoutProps extends BoxProps {
   list: string[]
+}
+
+const buttonStyles: ButtonProps = {
+  colorScheme: 'red',
+  opacity: 0.3,
+  _hover: {
+    opacity: 1
+  }
 }
 
 export const Layout: FC<LayoutProps> = ({ children, list }) => {
@@ -52,9 +60,16 @@ export const Layout: FC<LayoutProps> = ({ children, list }) => {
         </DrawerContent>
       </Drawer>
       {isSketchRoute && (
-        <Flex position='absolute' top={8} left={8} gap={2}>
-          <Button onClick={back}>Back</Button>
-          <Button ref={btnRef} leftIcon={<BiSearch />} onClick={onOpen}>
+        <Flex as='nav' position='absolute' top={8} left={8} gap={2}>
+          <Button {...buttonStyles} onClick={back}>
+            Back
+          </Button>
+          <Button
+            ref={btnRef}
+            leftIcon={<BiSearch />}
+            {...buttonStyles}
+            onClick={onOpen}
+          >
             Sketches
           </Button>
         </Flex>

@@ -20,7 +20,7 @@ export const Search: FC<SearchProps> = ({ list, path, ...rest }) => {
   >(undefined)
 
   return (
-    <Flex direction='column' {...rest}>
+    <Flex direction='column' gap={2} {...rest}>
       <Input
         type='text'
         placeholder='Search'
@@ -33,6 +33,7 @@ export const Search: FC<SearchProps> = ({ list, path, ...rest }) => {
         display='flex'
         flexDirection='column'
         gap={1}
+        m={0}
         listStyleType='none'
         listStylePosition='outside'
       >

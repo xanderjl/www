@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 'use client'
 
 import { Box } from '@chakra-ui/react'
@@ -24,15 +23,22 @@ export const CodeBlock: FC<CodeBlockProps> = ({ children }) => {
           mb={4}
           borderRadius={8}
           overflowX='scroll'
-          fontSize={{ base: 'sm', sm: 'md' }}
+          fontSize={{ base: 'xs', sm: 'sm' }}
         >
-          {tokens.map((line, i) => (
-            <Box {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <Box as='span' {...getTokenProps({ token, key })} />
-              ))}
-            </Box>
-          ))}
+          {tokens.map((line, i) => {
+            const { key, ...rest } = getLineProps({ line, key: i })
+            return (
+              <Box key={key} {...rest}>
+                {line.map((token, key) => {
+                  const { key: tokenKey, ...rest } = getTokenProps({
+                    token,
+                    key
+                  })
+                  return <Box as='span' key={tokenKey} {...rest} />
+                })}
+              </Box>
+            )
+          })}
         </Box>
       )}
     </Highlight>
