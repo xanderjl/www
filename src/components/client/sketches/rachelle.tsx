@@ -67,7 +67,7 @@ const Rachelle = () => {
         // const sMod = p5.width / s.length
         const d = p5.width * 0.0025
 
-        p5.circle(x as number, y as number, d)
+        p5.circle(x as number, y as number, d) // draw circle
       })
     )
 
