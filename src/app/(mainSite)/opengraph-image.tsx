@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/server'
 
+import baseUrl from '@/utils/baseUrl'
+
 export const alt = 'Xander Low'
 export const size = {
   width: 1200,
@@ -7,12 +9,17 @@ export const size = {
 }
 export const contentType = 'image/png'
 
-const OpenGraphImage = () => {
+const OpenGraphImage = async () => {
+  const fontData = await fetch(
+    `${baseUrl}/assets/fonts/Inter/Inter-Bold.ttf`
+  ).then(res => res.arrayBuffer())
+
   return new ImageResponse(
     (
       <div
         style={{
           fontSize: 128,
+          fontFamily: 'Inter',
           background: 'white',
           width: '100%',
           height: '100%',
@@ -24,7 +31,11 @@ const OpenGraphImage = () => {
         Xander Low
       </div>
     ),
-    size
+    {
+      width: size.width,
+      height: size.height,
+      fonts: [{ data: fontData, name: 'Inter', weight: 700 }]
+    }
   )
 }
 
