@@ -10,31 +10,60 @@ export const size = {
 export const contentType = 'image/png'
 
 const OpenGraphImage = async () => {
-  const fontData = await fetch(
+  const interData = await fetch(
     `${baseUrl}/assets/fonts/Inter/Inter-Bold.ttf`
+  ).then(res => res.arrayBuffer())
+  const dmMonoData = await fetch(
+    `${baseUrl}/assets/fonts/DM_Mono/DMMono-Regular.ttf`
   ).then(res => res.arrayBuffer())
 
   return new ImageResponse(
     (
       <div
         style={{
-          fontSize: 128,
           fontFamily: 'Inter',
           background: 'white',
           width: '100%',
           height: '100%',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }}
       >
-        Xander Low
+        <h1
+          style={{
+            fontSize: 128,
+            fontFamily: 'Inter'
+          }}
+        >
+          Xander Low
+        </h1>
+        <span
+          style={{
+            fontSize: 64,
+            fontFamily: 'DM Mono'
+          }}
+        >
+          Developing on the web
+        </span>
       </div>
     ),
     {
       width: size.width,
       height: size.height,
-      fonts: [{ data: fontData, name: 'Inter', weight: 700 }]
+      fonts: [
+        {
+          name: 'Inter',
+          data: interData,
+          weight: 700
+        },
+        {
+          name: 'DM Mono',
+          data: dmMonoData,
+          weight: 400
+        }
+      ]
     }
   )
 }
