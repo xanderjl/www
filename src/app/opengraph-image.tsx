@@ -8,13 +8,19 @@ export const size = {
   height: 630
 }
 export const contentType = 'image/png'
+export const config = {
+  runtime: 'edge'
+}
 
 const OpenGraphImage = async () => {
   const interData = await fetch(
-    `${baseUrl}/assets/fonts/Inter/Inter-Bold.ttf`
+    new URL(`${baseUrl}/assets/fonts/Inter/Inter-Bold.ttf`, import.meta.url)
   ).then(res => res.arrayBuffer())
   const dmMonoData = await fetch(
-    `${baseUrl}/assets/fonts/DM_Mono/DMMono-Regular.ttf`
+    new URL(
+      `${baseUrl}/assets/fonts/DM_Mono/DMMono-Regular.ttf`,
+      import.meta.url
+    )
   ).then(res => res.arrayBuffer())
 
   return new ImageResponse(
