@@ -10,10 +10,10 @@ import {
   DrawerOverlay,
   useDisclosure
 } from '@chakra-ui/react'
+import { Search as SearchIcon } from 'iconoir-react'
 import { usePathname } from 'next/navigation'
 import type { FC } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { BiSearch } from 'react-icons/bi'
 
 import { Search } from '@/components/client/Search'
 
@@ -56,13 +56,14 @@ export const Layout: FC<LayoutProps> = ({ children, list }) => {
           position='absolute'
           top={8}
           left={8}
+          p={1}
           opacity={0.6}
           _hover={{
             opacity: 1
           }}
           onClick={onOpen}
         >
-          <BiSearch />
+          <SearchIcon />
         </Button>
       )}
       {children}
