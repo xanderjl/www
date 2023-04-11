@@ -49,7 +49,6 @@ const Rachelle = () => {
   const seed = convertSeed(poemString)
   const [coordinates, setCoordinates] = useState<Coordinates[] | null>(null)
   const [margin, setMargin] = useState<number>(0)
-  console.log({ coordinates })
 
   const setup: Setup = p5 => {
     const margin = p5.width * marginRatio
