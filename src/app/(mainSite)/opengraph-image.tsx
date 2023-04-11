@@ -1,5 +1,12 @@
 import { ImageResponse } from 'next/server'
 
+export const alt = 'Xander Low'
+export const size = {
+  width: 1200,
+  height: 630
+}
+export const contentType = 'image/png'
+
 const OpenGraphImage = () => {
   return new ImageResponse(
     (
@@ -17,10 +24,7 @@ const OpenGraphImage = () => {
         Xander Low
       </div>
     ),
-    {
-      width: 1200,
-      height: 630
-    }
+    size
   )
 }
 
