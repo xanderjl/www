@@ -33,9 +33,21 @@ const initialCoordinates = (
   poem: string[],
   margin: number
 ): Coordinates[] =>
-  poem.map(string => [
-    p5.random(margin * 2, p5.width - margin * 2),
-    p5.random(margin * 2, p5.height - margin * 2),
+  poem.map((string, i) => [
+    p5.map(
+      p5.noise(string.length * i, p5.width - margin),
+      0,
+      1,
+      margin,
+      p5.width - margin
+    ),
+    p5.map(
+      p5.noise(string.length * i, p5.height - margin * 2),
+      0,
+      1,
+      margin,
+      p5.height - margin
+    ),
     string
   ])
 
