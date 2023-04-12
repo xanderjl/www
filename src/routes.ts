@@ -9,8 +9,8 @@ export const routes: Route[] = [
     path: '/'
   },
   {
-    title: 'About',
-    path: '/about'
+    title: 'OSS',
+    path: '/open-source'
   },
   {
     title: 'Writing',

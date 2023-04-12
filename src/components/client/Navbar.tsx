@@ -23,6 +23,7 @@ export const Navbar: FC<FlexProps> = () => {
     <>
       <Flex
         py={4}
+        height='auto'
         boxShadow='md'
         zIndex='sticky'
         direction='column'
@@ -61,9 +62,8 @@ export const Navbar: FC<FlexProps> = () => {
         </Container>
         <Container
           display={{ base: isOpen ? 'flex' : 'none', sm: 'none' }}
+          pt={4}
           flexDirection='column'
-          transition='opacity 2s ease-in-out'
-          opacity={isOpen ? 1 : 0}
         >
           {filteredRoutes.map(({ path, title }) => (
             <Link key={path} href={path} {...linkProps}>
