@@ -8,9 +8,9 @@ export const size = {
   height: 630
 }
 export const contentType = 'image/png'
-export const config = {
-  runtime: 'edge'
-}
+// export const config = {
+//   runtime: 'edge'
+// }
 
 const OpenGraphImage = async () => {
   const interData = await fetch(
