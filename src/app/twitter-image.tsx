@@ -1,21 +1,24 @@
 import { ImageResponse } from 'next/server'
 
 import {
-  description as ogDescription,
-  title as ogTitle
+  description as twDescription,
+  title as twTitle
 } from '@/sharedMetadata'
 import baseUrl from '@/utils/baseUrl'
 
-export const title = ogTitle
-export const alt = ogTitle
-export const description = ogDescription
+export const title = twTitle
+export const alt = twTitle
+export const description = twDescription
 export const size = {
   width: 1200,
   height: 630
 }
+export const card = 'summary_large_image'
 export const contentType = 'image/png'
+export const creator = '@xandydandy'
+export const site = '@xandydandy'
 
-const OpenGraphImage = async () => {
+const TwitterImage = async () => {
   const interData = await fetch(
     new URL(`${baseUrl}/assets/fonts/Inter/Inter-Bold.ttf`, import.meta.url)
   ).then(res => res.arrayBuffer())
@@ -46,7 +49,7 @@ const OpenGraphImage = async () => {
             fontFamily: 'Inter'
           }}
         >
-          {ogTitle}
+          {twTitle}
         </h1>
         <span
           style={{
@@ -54,7 +57,7 @@ const OpenGraphImage = async () => {
             fontFamily: 'DM Mono'
           }}
         >
-          {ogDescription}
+          {twDescription}
         </span>
       </div>
     ),
@@ -77,4 +80,4 @@ const OpenGraphImage = async () => {
   )
 }
 
-export default OpenGraphImage
+export default TwitterImage

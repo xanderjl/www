@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { Providers } from '@/components/client/Providers'
+import { description, title } from '@/sharedMetadata'
 import baseUrl from '@/utils/baseUrl'
 
 export interface RootLayoutProps {
@@ -9,10 +10,10 @@ export interface RootLayoutProps {
 
 export const metadata = {
   title: {
-    default: 'Xandy Dandy | Home',
-    template: 'Xandy Dandy | %s'
+    default: `${title} | Home`,
+    template: `${title} | %s`
   },
-  description: 'A starter template for Next.js with Chakra UI',
+  description,
   metadataBase: new URL(baseUrl)
 }
 
