@@ -6,17 +6,12 @@ import {
 } from '@/sharedMetadata'
 import baseUrl from '@/utils/baseUrl'
 
-export const title = twTitle
 export const alt = twTitle
-export const description = twDescription
 export const size = {
   width: 1200,
   height: 630
 }
-export const card = 'summary_large_image'
 export const contentType = 'image/png'
-export const creator = '@xandydandy'
-export const site = '@xandydandy'
 
 const TwitterImage = async () => {
   const interData = await fetch(

@@ -14,7 +14,14 @@ export const metadata = {
     template: `${title} | %s`
   },
   description,
-  metadataBase: new URL(baseUrl)
+  metadataBase: new URL(baseUrl),
+  twitter: {
+    title,
+    description,
+    card: 'summary_large_image',
+    site: new URL(baseUrl),
+    handle: '@xandydandy'
+  }
 }
 
 const RootLayout = ({ children }: RootLayoutProps) => {
