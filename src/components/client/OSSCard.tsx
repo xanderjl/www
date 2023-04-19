@@ -40,6 +40,7 @@ export const OSSCard: FC<OSSCardProps> = ({
           display='flex'
           justifyContent='space-between'
           color='black'
+          background='transparent'
           _hover={{ color: 'red.300' }}
         >
           <Text as='span' flex={1}>
