@@ -9,7 +9,14 @@ import { Navbar } from '@/components/client/Navbar'
 export const Layout: FC<ContainerProps> = ({ children }) => (
   <Flex flexDirection='column' minH='100vh' w='100%'>
     <Navbar />
-    <Container as='main' flex={1} maxW='container.lg' py={8}>
+    <Container
+      as='main'
+      flex={1}
+      display='flex'
+      flexDirection='column'
+      maxW='container.lg'
+      py={8}
+    >
       {children}
     </Container>
   </Flex>

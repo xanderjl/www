@@ -1,6 +1,5 @@
 'use client'
 
-import type { LinkProps } from '@chakra-ui/next-js'
 import { Link } from '@chakra-ui/next-js'
 import type { FlexProps } from '@chakra-ui/react'
 import { Button, Container, Flex, useDisclosure } from '@chakra-ui/react'
@@ -8,11 +7,6 @@ import { Cancel, Menu } from 'iconoir-react'
 import type { FC } from 'react'
 
 import { routes } from '@/routes'
-
-const linkProps: Omit<LinkProps, 'href'> = {
-  textDecoration: 'none',
-  _hover: { color: 'red.300' }
-}
 
 const filteredRoutes = routes.filter(({ path }) => path !== '/')
 
@@ -37,7 +31,7 @@ export const Navbar: FC<FlexProps> = () => {
           alignItems='center'
         >
           <Flex gap={4} alignItems='center'>
-            <Link href='/' fontWeight='bold' {...linkProps}>
+            <Link href='/' fontWeight='bold'>
               Home
             </Link>
           </Flex>
@@ -47,7 +41,7 @@ export const Navbar: FC<FlexProps> = () => {
             alignItems='center'
           >
             {filteredRoutes.map(({ path, title }) => (
-              <Link key={path} href={path} {...linkProps}>
+              <Link key={path} href={path}>
                 {title}
               </Link>
             ))}
@@ -66,7 +60,7 @@ export const Navbar: FC<FlexProps> = () => {
           flexDirection='column'
         >
           {filteredRoutes.map(({ path, title }) => (
-            <Link key={path} href={path} {...linkProps}>
+            <Link key={path} href={path}>
               {title}
             </Link>
           ))}
