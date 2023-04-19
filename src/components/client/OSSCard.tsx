@@ -39,7 +39,6 @@ export const OSSCard: FC<OSSCardProps> = ({
           href={url}
           display='flex'
           justifyContent='space-between'
-          color='black'
           background='transparent'
           _hover={{ color: 'red.300' }}
         >

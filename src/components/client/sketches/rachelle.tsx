@@ -51,6 +51,20 @@ const initialCoordinates = (
     string
   ])
 
+const shape = (p5: P5, x: number, y: number, sMod = 1) => {
+  const array = Array.from({ length: sMod })
+  array.forEach((_, i) => {
+    // const w = i * sMod * 0.1
+    const xPos = x + i * 10
+    const yPos = y + i * 10
+    const w = p5.map(p5.noise(x * i, y * i), 0, 1, 10, 100)
+    const h = i * sMod * 0.1
+    p5.rect(xPos, yPos, w, h)
+  })
+
+  p5.rect(x, y, p5.random(10) * sMod, p5.random(10) * sMod)
+}
+
 const Rachelle = () => {
   const dimensions: number[] = getDimensions('A4')
   const padding: number[] = [40]
@@ -78,10 +92,9 @@ const Rachelle = () => {
 
     // mark starting coordinates
     coordinates?.forEach(([x, y, s]) => {
-      const sMod = p5.width / s.length
-      const d = p5.width * 0.0025
+      const sMod = Math.ceil(p5.width / s.length)
 
-      p5.circle(x as number, y as number, sMod * d)
+      shape(p5, x, y, sMod)
     })
 
     // apply border
