@@ -31,7 +31,9 @@ const TwitterImage = async () => {
         <img
           src={`${baseUrl}/assets/images/icon.svg`}
           alt={alt}
-          tw='absolute top-10 right-10 w-72 h-72'
+          width='18rem'
+          height='18rem'
+          tw='absolute top-10 right-10'
         />
         <div tw='flex flex-col justify-end items-start'>
           <h1 tw='text-9xl' style={{ fontFamily: 'Inter' }}>
