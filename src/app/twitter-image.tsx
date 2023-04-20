@@ -26,34 +26,21 @@ const TwitterImage = async () => {
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          fontFamily: 'Inter',
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <h1
-          style={{
-            fontSize: 128,
-            fontFamily: 'Inter'
-          }}
-        >
-          {twTitle}
-        </h1>
-        <span
-          style={{
-            fontSize: 64,
-            fontFamily: 'DM Mono'
-          }}
-        >
-          {twDescription}
-        </span>
+      <div tw='flex w-full h-full p-10'>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${baseUrl}/assets/images/icon.svg`}
+          alt={alt}
+          tw='absolute top-10 right-10 w-72 h-72'
+        />
+        <div tw='flex flex-col justify-end items-start'>
+          <h1 tw='text-9xl' style={{ fontFamily: 'Inter' }}>
+            {twTitle}
+          </h1>
+          <span tw='text-6xl' style={{ fontFamily: 'DM Mono' }}>
+            {twDescription}
+          </span>
+        </div>
       </div>
     ),
     {
