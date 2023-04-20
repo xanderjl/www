@@ -1,23 +1,25 @@
+import type { LinkProps } from '@chakra-ui/next-js'
 import { Link } from '@chakra-ui/next-js'
-import type { FlexProps } from '@chakra-ui/react'
 import { Box, Divider, Flex, Heading, Icon, Text } from '@chakra-ui/react'
 import { GitHub } from 'iconoir-react'
 import type { FC } from 'react'
 
-export interface OSSCardProps extends FlexProps {
+export interface OSSCardProps extends LinkProps {
   name: string
   description?: string
-  url: URL | string
 }
 
 export const OSSCard: FC<OSSCardProps> = ({
   name,
   description,
-  url,
+  href,
   ...rest
 }) => {
   return (
-    <Flex
+    <Link
+      href={href}
+      display='flex'
+      background='transparent'
       flexDirection='column'
       justifyContent='space-between'
       maxW='275px'
@@ -25,6 +27,7 @@ export const OSSCard: FC<OSSCardProps> = ({
       borderWidth={1}
       borderRadius={8}
       borderColor='black'
+      _hover={{ color: 'red.400', borderColor: 'red.400' }}
       {...rest}
     >
       <Box>
@@ -34,22 +37,16 @@ export const OSSCard: FC<OSSCardProps> = ({
         {description && <Text>{description}</Text>}
       </Box>
       <Box>
-        <Divider my={4} borderColor='red.300' />
-        <Link
-          href={url}
-          display='flex'
-          justifyContent='space-between'
-          background='transparent'
-          _hover={{ color: 'red.300' }}
-        >
+        <Divider my={4} borderColor='red.400' />
+        <Flex justifyContent='space-between'>
           <Text as='span' flex={1}>
             Check it out
             <br />
             on GitHub
           </Text>
           <Icon as={GitHub} boxSize={6} />
-        </Link>
+        </Flex>
       </Box>
-    </Flex>
+    </Link>
   )
 }
