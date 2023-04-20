@@ -28,7 +28,7 @@ const OpenGraphImage = async () => {
 
   return new ImageResponse(
     (
-      <div tw='flex w-full h-full p-10'>
+      <div tw='flex w-full h-full p-10 bg-white'>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${baseUrl}/assets/images/icon.svg`}
