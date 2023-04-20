@@ -15,6 +15,10 @@ export const metadata = {
   },
   description,
   metadataBase: new URL(baseUrl),
+  openGraph: {
+    title,
+    description
+  },
   twitter: {
     title,
     description,
