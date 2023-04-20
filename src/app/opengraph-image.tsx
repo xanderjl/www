@@ -33,8 +33,8 @@ const OpenGraphImage = async () => {
         <img
           src={`${baseUrl}/assets/images/icon.svg`}
           alt={alt}
-          width='18rem'
-          height='18rem'
+          width={288}
+          height={288}
           tw='absolute top-10 right-10'
         />
         <div tw='flex flex-col justify-end items-start'>
