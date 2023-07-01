@@ -5,6 +5,8 @@ import { css } from 'styled-system/css';
 import { getCollection } from 'astro:content';
 import H1 from '@/components/Headings/H1.astro';
 
+export const prerender = true;
+
 const { pathname: path } = Astro.url;
 const writing = await getCollection('writing');
 const list = writing.map(item => item.slug);
