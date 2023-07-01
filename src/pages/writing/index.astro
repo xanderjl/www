@@ -1,0 +1,16 @@
+---
+import { Search } from '@/components/Search';
+import Layout from '@/layouts/Layout.astro';
+import { css } from 'styled-system/css';
+import { getCollection } from 'astro:content';
+import H1 from '@/components/Headings/H1.astro';
+
+const { pathname: path } = Astro.url;
+const writing = await getCollection('writing');
+const list = writing.map(item => item.slug);
+---
+
+<Layout title='Writing'>
+  <H1 class={css({ pb: 4 })}>Search Writing</H1>
+  <Search path={path} list={list} client:load />
+</Layout>

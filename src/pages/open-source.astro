@@ -1,0 +1,24 @@
+---
+import OSSCard from '@/components/OSSCard.astro';
+import Layout from '@/layouts/Layout.astro';
+import { css } from 'styled-system/css';
+import { ossProjects } from '@/utils/ossProjects';
+import H1 from '@/components/Headings/H1.astro';
+---
+
+<Layout title='Open Source'>
+  <H1 class={css({ pb: 4 })}>Open Source Projects</H1>
+  <div
+    class={css({
+      display: 'flex',
+      gap: 4,
+      flexWrap: 'wrap',
+    })}
+  >
+    {
+      ossProjects.map(({ name, description, href }) => (
+        <OSSCard name={name} description={description} href={href} />
+      ))
+    }
+  </div>
+</Layout>

@@ -1,0 +1,39 @@
+---
+import { css } from 'styled-system/css';
+import { routes } from '@/routes';
+import { container } from 'styled-system/patterns';
+import { Mobile } from './Mobile';
+---
+
+<div
+  class={css({
+    py: 4,
+    height: 'auto',
+    boxShadow: 'md',
+    zIndex: 3,
+  })}
+>
+  <nav
+    class={container({
+      display: 'flex',
+      justifyContent: 'space-between',
+    })}
+  >
+    <a href='/'>Home</a>
+    <Mobile client:load />
+    <ul
+      class={css({
+        display: { base: 'none', md: 'flex' },
+        gap: 2,
+      })}
+    >
+      {
+        routes.map(({ path, name }) => (
+          <li>
+            <a href={path}>{name}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>

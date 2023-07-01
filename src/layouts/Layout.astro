@@ -1,0 +1,52 @@
+---
+import '@/styles/globals.css';
+import '@fontsource/inter';
+import 'iconoir/css/iconoir.css';
+import { css } from 'styled-system/css';
+import { container } from 'styled-system/patterns';
+
+import Navbar from '@/components/Navbar/index.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const { pathname } = Astro.url;
+const isWriting = pathname.startsWith('/writing/');
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{`Xander Low | ${title}` ?? 'Xander Low'}</title>
+    {description && <meta name='description' content={description} />}
+  </head>
+  <body
+    class={css({
+      textStyle: 'body',
+      display: 'flex',
+      flexDir: 'column',
+      minH: '100vh',
+      w: '100%',
+    })}
+  >
+    <Navbar />
+    <main
+      class={container({
+        flex: 1,
+        display: 'flex',
+        flexDir: 'column',
+        w: '100%',
+        maxW: isWriting ? '3xl' : '8xl',
+        py: { base: 4, md: 6 },
+      })}
+    >
+      <slot />
+    </main>
+  </body>
+</html>
