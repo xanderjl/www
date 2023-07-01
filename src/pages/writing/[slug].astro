@@ -39,7 +39,7 @@ const dateFormatted = new Intl.DateTimeFormat('en-US', {
 }).format(new Date(date));
 ---
 
-<Layout title={title}>
+<Layout title={title} maxW='2xl'>
   <div class={flex({ direction: 'column', gap: 4 })}>
     <H1>{title}</H1>
     <H2 class={css({ fontSize: 'md' })}>{dateFormatted}</H2>

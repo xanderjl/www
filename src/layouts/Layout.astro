@@ -6,15 +6,14 @@ import { css } from 'styled-system/css';
 import { container } from 'styled-system/patterns';
 
 import Navbar from '@/components/Navbar/index.astro';
-
+import type { PropertyTypes } from 'styled-system/types/prop-type';
 interface Props {
   title: string;
   description?: string;
+  maxW?: PropertyTypes['maxW'];
 }
 
-const { title, description } = Astro.props;
-const { pathname } = Astro.url;
-const isWriting = pathname.startsWith('/writing/');
+const { title, description, maxW } = Astro.props;
 ---
 
 <html lang='en'>
@@ -42,7 +41,7 @@ const isWriting = pathname.startsWith('/writing/');
         display: 'flex',
         flexDir: 'column',
         w: '100%',
-        maxW: isWriting ? '3xl' : '8xl',
+        maxW: maxW ?? '8xl',
         py: { base: 4, md: 6 },
       })}
     >

@@ -10,7 +10,7 @@ const writing = await getCollection('writing');
 const list = writing.map(item => item.slug);
 ---
 
-<Layout title='Writing'>
+<Layout title='Writing' maxW='xl'>
   <H1 class={css({ pb: 4 })}>Search Writing</H1>
   <Search path={path} list={list} client:load />
 </Layout>
