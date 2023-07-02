@@ -3,6 +3,7 @@
 
 interface ImportMetaEnv {
   readonly PRIVATE_BASE_URL: string;
+  readonly VERCEL_URL: string;
 }
 
 interface ImportMeta {
