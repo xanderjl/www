@@ -1,12 +1,11 @@
 ---
-import H1 from '@/components/Headings/H1.astro';
+import { H1 } from '@/components/Headings';
 import { components } from '@/components/MDXComponents';
 import Layout from '@/layouts/Layout.astro';
 import type { GetStaticPaths } from 'astro';
 import { CollectionEntry, getCollection } from 'astro:content';
 import { flex } from 'styled-system/patterns';
 import '@/styles/prism-theme.css';
-import H2 from '@/components/Headings/H2.astro';
 import { css } from 'styled-system/css';
 
 export const prerender = true;
@@ -40,9 +39,10 @@ const dateFormatted = new Intl.DateTimeFormat('en-US', {
 ---
 
 <Layout title={title} maxW='2xl'>
-  <div class={flex({ direction: 'column', gap: 4 })}>
+  <div class={flex({ direction: 'column', gap: 2 })}>
     <H1>{title}</H1>
-    <H2 class={css({ fontSize: 'md' })}>{dateFormatted}</H2>
+    <span class={css({ fontSize: 'md' })}>{dateFormatted}</span>
+    <hr class={css({ borderColor: 'red.300', mb: 2 })} />
     <Content components={components} />
   </div>
 </Layout>
