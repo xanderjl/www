@@ -3,7 +3,7 @@ import pandacss from '@pandacss/dev/astro';
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel/edge";
 
 export default defineConfig({
   integrations: [

@@ -30,9 +30,9 @@ const { title, description, maxW } = Astro.props;
     <meta
       property='og:image'
       content={generateOgUrl({
-        title: title ?? 'Xander Low',
-        description: description ?? title,
-        alt: title ?? 'Xander Low',
+        title,
+        description,
+        alt: title,
       })}
     />
     <meta property='og:image:width' content='1200' />

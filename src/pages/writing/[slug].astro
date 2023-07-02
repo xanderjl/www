@@ -32,13 +32,13 @@ interface Props {
 const { entry } = Astro.props;
 const { data, render } = entry;
 const { Content } = await render();
-const { title, date } = data;
+const { title, date, description } = data;
 const dateFormatted = new Intl.DateTimeFormat('en-US', {
   dateStyle: 'long',
 }).format(new Date(date));
 ---
 
-<Layout title={title} maxW='2xl'>
+<Layout title={title} description={description} maxW='2xl'>
   <div class={flex({ direction: 'column', gap: 2 })}>
     <H1>{title}</H1>
     <span class={css({ fontSize: 'md' })}>{dateFormatted}</span>

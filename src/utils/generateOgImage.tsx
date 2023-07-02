@@ -23,13 +23,15 @@ export const generateOgImage: GenerateOgImage = async ({
     new URL(`${baseUrl}/fonts/DM_Mono/DMMono-Regular.ttf`, import.meta.url)
   ).then(res => res.arrayBuffer());
 
+  const padding = 16;
+
   const svg = await satori(
     <div
       style={{
         display: 'flex',
         width: '100%',
         height: '100%',
-        padding: 10,
+        padding: padding,
         backgroundColor: 'white',
       }}
     >
@@ -40,10 +42,21 @@ export const generateOgImage: GenerateOgImage = async ({
         height={288}
         style={{
           position: 'absolute',
-          top: 10,
-          right: 10,
+          top: padding,
+          right: padding,
         }}
       />
+      <h1
+        style={{
+          position: 'absolute',
+          top: padding,
+          left: padding,
+          fontFamily: 'Inter',
+          fontSize: '2.75rem',
+        }}
+      >
+        Xander Low | Developing for the web
+      </h1>
       <div
         style={{
           display: 'flex',
@@ -52,10 +65,12 @@ export const generateOgImage: GenerateOgImage = async ({
           alignItems: 'flex-start',
         }}
       >
-        <h1 style={{ fontFamily: 'Inter', fontSize: '8rem' }}>{title}</h1>
-        <span style={{ fontFamily: 'DM Mono', fontSize: '3.75rem' }}>
-          {description}
-        </span>
+        <h2 style={{ fontFamily: 'Inter', fontSize: '6rem' }}>{title}</h2>
+        {description && (
+          <span style={{ fontFamily: 'DM Mono', fontSize: '2rem' }}>
+            {description}
+          </span>
+        )}
       </div>
     </div>,
     {
