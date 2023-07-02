@@ -7,6 +7,8 @@ import { container } from 'styled-system/patterns';
 
 import Navbar from '@/components/Navbar/index.astro';
 import type { PropertyTypes } from 'styled-system/types/prop-type';
+import baseUrl from '@/utils/baseUrl';
+
 interface Props {
   title?: string;
   description?: string;
@@ -22,6 +24,9 @@ const { title, description, maxW } = Astro.props;
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
+    <meta property='og:image' content={`${baseUrl}/api/${title}.svg`} />
+    <meta property='og:image:width' content='1200' />
+    <meta property='og:image:height' content='630' />
     <title>{`Xander Low | ${title}` ?? 'Xander Low'}</title>
     {description && <meta name='description' content={description} />}
   </head>
