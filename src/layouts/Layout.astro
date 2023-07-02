@@ -32,6 +32,8 @@ const { title, description, maxW } = Astro.props;
     />
     <meta property='og:image:width' content='1200' />
     <meta property='og:image:height' content='630' />
+    <meta property='og:title' content={title} />
+    {description && <meta property='og:description' content={description} />}
     <title>{`Xander Low | ${title}` ?? 'Xander Low'}</title>
     {description && <meta name='description' content={description} />}
   </head>
