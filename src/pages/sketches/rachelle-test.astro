@@ -1,0 +1,46 @@
+---
+import { css } from 'styled-system/css';
+import Layout from '@/layouts/Layout.astro';
+import { capitalCase } from 'change-case';
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split('/').pop() ?? '');
+---
+
+<script>
+  import P5 from 'p5';
+
+  type Sketch = (p5: P5) => void;
+
+  const sketch: Sketch = p5 => {
+    p5.setup = () => {
+      p5.createCanvas(400, 400);
+    };
+
+    p5.draw = () => {
+      p5.background(220);
+      p5.ellipse(50, 50, 80, 80);
+    };
+  };
+
+  new P5(sketch, 'container' as unknown as HTMLElement);
+</script>
+
+<Layout title={title}>
+  <div
+    class={css({
+      flex: 1,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    })}
+  >
+    <div
+      id='container'
+      class={css({
+        boxShadow: '1px 3px 6px -1px rgba(0, 0, 0, 0.5)',
+      })}
+    >
+    </div>
+  </div>
+</Layout>
