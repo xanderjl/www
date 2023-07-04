@@ -1,10 +1,9 @@
 import { css } from 'styled-system/css';
 import { Cancel, Menu } from '@/components/Icons';
-import { createSignal, type Component } from 'solid-js';
+import { createSignal, type Component, Show } from 'solid-js';
 
 export const Mobile: Component = () => {
   const [isOpen, setIsOpen] = createSignal<boolean>(false);
-  const Icon = isOpen() ? Cancel : Menu;
 
   const iconStyles = css({
     w: 6,
@@ -24,7 +23,14 @@ export const Mobile: Component = () => {
         flexDir: 'column',
       })}
     >
-      <Icon class={iconStyles} onClick={() => setIsOpen(!isOpen)} />
+      <Show
+        when={isOpen()}
+        fallback={
+          <Menu class={iconStyles} onClick={() => setIsOpen(v => !v)} />
+        }
+      >
+        <Cancel class={iconStyles} onClick={() => setIsOpen(v => !v)} />
+      </Show>
     </div>
   );
 };
