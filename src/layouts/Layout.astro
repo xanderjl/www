@@ -19,6 +19,7 @@ interface Props {
 }
 
 const { title, description, maxW } = Astro.props;
+const { href } = Astro.url;
 const formattedTitle = title ? `Xander Low | ${title}` : 'Xander Low';
 const formattedDescription = description ?? 'Developing for the web';
 ---
@@ -29,6 +30,7 @@ const formattedDescription = description ?? 'Developing for the web';
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
+    <meta property='og:url' content={href} />
     <meta
       property='og:image'
       content={generateOgUrl({
