@@ -3,6 +3,8 @@ import { css } from 'styled-system/css';
 import Layout from '@/layouts/Layout.astro';
 import { capitalCase } from 'change-case';
 
+export const prerender = true;
+
 const { pathname } = Astro.url;
 const title = capitalCase(pathname.split('/').pop() ?? '');
 ---

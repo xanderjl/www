@@ -7,6 +7,7 @@ import solidJs from "@astrojs/solid-js";
 import react from "@astrojs/react";
 
 // https://astro.build/config
+// https://github.com/yisibl/resvg-js/issues/175#issuecomment-1577291297
 export default defineConfig({
   integrations: [pandacss(), mdx({
     extendMarkdownConfig: true
