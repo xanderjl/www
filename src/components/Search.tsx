@@ -1,7 +1,6 @@
 import { headerCase } from 'change-case';
 import Fuse from 'fuse.js';
-import type { FC } from 'react';
-import { useState } from 'react';
+import { For, type Component, createSignal, Show } from 'solid-js';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
@@ -10,15 +9,15 @@ interface SearchProps {
   path: string;
 }
 
-export const Search: FC<SearchProps> = ({ list, path }) => {
+export const Search: Component<SearchProps> = ({ list, path }) => {
   const fuse = new Fuse(list);
-  const [searchArray, setSearchArray] = useState<
-    Fuse.FuseResult<string>[] | undefined
-  >(undefined);
+  const [searchArray, setSearchArray] = createSignal<Fuse.FuseResult<string>[]>(
+    []
+  );
 
   return (
     <div
-      className={flex({
+      class={flex({
         direction: 'column',
         gap: 2,
       })}
@@ -26,7 +25,7 @@ export const Search: FC<SearchProps> = ({ list, path }) => {
       <input
         type='text'
         placeholder='Search'
-        className={css({
+        class={css({
           borderColor: 'gray.400',
           borderWidth: 1,
           borderRadius: 4,
@@ -35,13 +34,13 @@ export const Search: FC<SearchProps> = ({ list, path }) => {
             color: 'gray.400',
           },
         })}
-        onChange={e => {
-          const arr = fuse.search(e.currentTarget.value);
+        onInput={e => {
+          const arr = fuse.search(e.target.value);
           setSearchArray(arr);
         }}
       />
       <ul
-        className={css({
+        class={css({
           display: 'flex',
           flexDirection: 'column',
           gap: 1,
@@ -50,21 +49,30 @@ export const Search: FC<SearchProps> = ({ list, path }) => {
           listStylePosition: 'outside',
         })}
       >
-        {searchArray && searchArray.length > 0
-          ? searchArray?.map(({ item }) => (
-              <li key={item}>
-                <a href={`${path}/${item}`}>
-                  {headerCase(item).replaceAll('-', ' ')}
+        <Show
+          when={searchArray() && searchArray().length > 0}
+          fallback={
+            <For each={list}>
+              {entry => (
+                <li>
+                  <a href={`${path}/${entry}`}>
+                    {headerCase(entry).replaceAll('-', ' ')}
+                  </a>
+                </li>
+              )}
+            </For>
+          }
+        >
+          <For each={searchArray()}>
+            {entry => (
+              <li>
+                <a href={`${path}/${entry.item}`}>
+                  {headerCase(entry.item).replaceAll('-', ' ')}
                 </a>
               </li>
-            ))
-          : list.map(item => (
-              <li key={item}>
-                <a href={`${path}/${item}`}>
-                  {headerCase(item).replaceAll('-', ' ')}
-                </a>
-              </li>
-            ))}
+            )}
+          </For>
+        </Show>
       </ul>
     </div>
   );

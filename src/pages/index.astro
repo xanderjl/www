@@ -3,7 +3,7 @@ import { H1 } from '@/components/Headings';
 import Layout from '@/layouts/Layout.astro';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
-import { OpenNewWindow } from 'iconoir-react';
+import { OpenNewWindow } from '@/components/Icons';
 
 export const prerender = true;
 ---
@@ -34,8 +34,7 @@ export const prerender = true;
 				})}
 			>
 				frontend developer
-				<!-- <i class='iconoir-open-new-window'></i> -->
-				<OpenNewWindow className={css({ w: 4, h: 4 })} client:load />
+				<OpenNewWindow class={css({ w: 4, h: 4 })} client:load />
 			</a>
 		</p>, and <a href='/open-source'>OSS maintainer.</a>
 	</div>

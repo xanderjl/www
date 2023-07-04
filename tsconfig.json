@@ -5,7 +5,7 @@
     "module": "esnext",
     "plugins": [
       {
-        "name": "@astrojs/ts-plugin",
+        "name": "@astrojs/ts-plugin"
       }
     ],
     "baseUrl": ".",
@@ -15,9 +15,9 @@
       ],
       "styled-system/*": [
         "styled-system/*"
-      ],
+      ]
     },
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
   }
 }

@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
 import { css } from 'styled-system/css';
-import { Cancel, Menu } from 'iconoir-react';
+import { Cancel, Menu } from '@/components/Icons';
+import { createSignal, type Component } from 'solid-js';
 
-export const Mobile: FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const Icon = isOpen ? Cancel : Menu;
+export const Mobile: Component = () => {
+  const [isOpen, setIsOpen] = createSignal<boolean>(false);
+  const Icon = Boolean(isOpen) ? Cancel : Menu;
 
   const iconStyles = css({
     w: 6,
@@ -19,12 +19,12 @@ export const Mobile: FC = () => {
 
   return (
     <div
-      className={css({
+      class={css({
         display: { base: 'flex', md: 'none' },
         flexDir: 'column',
       })}
     >
-      <Icon className={iconStyles} onClick={() => setIsOpen(!isOpen)} />
+      <Icon class={iconStyles} onClick={() => setIsOpen(!isOpen)} />
     </div>
   );
 };

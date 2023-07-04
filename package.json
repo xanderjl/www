@@ -14,19 +14,19 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
-    "@astrojs/react": "^2.2.1",
+    "@astrojs/solid-js": "^2.2.0",
     "@astrojs/vercel": "^3.5.1",
     "@fontsource/dm-mono": "^5.0.3",
     "@fontsource/inter": "^5.0.3",
     "astro": "^2.7.1",
     "change-case": "^4.1.2",
     "fuse.js": "^6.6.2",
-    "iconoir-react": "^6.9.0",
     "p5": "^1.6.0",
     "p5.js-svg": "^1.5.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "satori": "^0.10.1"
+    "satori": "^0.10.1",
+    "solid-js": "^1.4.3"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.0.10",
