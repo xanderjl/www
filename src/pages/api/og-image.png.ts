@@ -9,6 +9,9 @@ export const get: APIRoute = async ({ request }) => {
 
   return {
     status: 200,
+    headers: {
+      'Content-Type': 'image/png',
+    },
     body: await generateOgImage({
       title,
       alt,
