@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import pandacss from '@pandacss/dev/astro';
 import mdx from "@astrojs/mdx";
-import vercel from "@astrojs/vercel/edge";
+import vercel from "@astrojs/vercel/serverless";
 import solidJs from "@astrojs/solid-js";
 
 import react from "@astrojs/react";
@@ -22,11 +22,11 @@ export default defineConfig({
       external: ['@resvg/resvg-js']
     },
     optimizeDeps: {
-      exclude: ["@resvg/resvg-js"]
+      exclude: ['@resvg/resvg-js']
     },
     build: {
       rollupOptions: {
-        external: ["@resvg/resvg-js"]
+        external: ['@resvg/resvg-js']
       }
     }
   }

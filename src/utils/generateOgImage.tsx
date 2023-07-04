@@ -11,7 +11,7 @@ type GenerateOgImage = ({
   alt?: string;
   description?: string;
   title?: string;
-}) => Promise<string>;
+}) => Promise<Buffer>;
 
 export const generateOgImage: GenerateOgImage = async ({
   alt,
