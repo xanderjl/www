@@ -16,7 +16,8 @@ export const getDirSlugs = async (path: PathLike) => {
   return slugs;
 };
 
-const list = await getDirSlugs('./src/sketches');
+// const list = await getDirSlugs('./src/sketches');
+const list = ['Brimpo', 'Brimpo', 'Brimpo'];
 
 const { pathname: path } = Astro.url;
 ---
