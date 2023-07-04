@@ -1,8 +1,7 @@
 /** @jsxImportSource react **/
 import satori from 'satori';
 import baseUrl from '@/utils/baseUrl';
-// import { Resvg } from '@resvg/resvg-js';
-import { initWasm, Resvg } from '@resvg/resvg-wasm';
+import { Resvg } from '@resvg/resvg-js';
 
 type GenerateOgImage = ({
   alt,
@@ -94,9 +93,6 @@ export const generateOgImage: GenerateOgImage = async ({
     }
   );
 
-  // const resvg = new Resvg(svg);
-  await initWasm(fetch('https://unpkg.com/@resvg/resvg-wasm/index_bg.wasm'));
-  // @ts-ignore
   const resvg = new Resvg(svg, {
     fitTo: {
       mode: 'width',
