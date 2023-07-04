@@ -25,9 +25,9 @@ dependencies:
   fuse.js:
     specifier: ^6.6.2
     version: 6.6.2
-  iconoir:
+  iconoir-react:
     specifier: ^6.9.0
-    version: 6.9.0
+    version: 6.9.0(react@18.2.0)
   p5:
     specifier: ^1.6.0
     version: 1.6.0
@@ -3076,8 +3076,12 @@ packages:
     resolution: {integrity: sha512-nZXjEF2nbo7lIw3mgYjItAfgQXog3OjJogSbKa2CQIIvSGWcKgeJnQlNXip6NglNzYH45nSRiEVimMvYL8DDqQ==}
     engines: {node: '>=14.18.0'}
 
-  /iconoir@6.9.0:
-    resolution: {integrity: sha512-Da3rBdQScrZoeov4RsfyWs4R/8KVnVztdjXymdb4XtSJcKf38UM3Gf4EzhdKaW9cV76cjHzzbOtjASOjT5UYtw==}
+  /iconoir-react@6.9.0(react@18.2.0):
+    resolution: {integrity: sha512-W5ccshULAYstQFHTILvrmqEuJJ8pq+DBQEx1WF+y9JZFx4QrHPvhx1hMB3a96qBB3NdPhHODmA2kuSU+ys6VUQ==}
+    peerDependencies:
+      react: ^16.8.6 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /ieee754@1.2.1:

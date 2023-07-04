@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import pandacss from '@pandacss/dev/astro';
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
-
 import vercel from "@astrojs/vercel/edge";
 
 export default defineConfig({
@@ -17,5 +16,5 @@ export default defineConfig({
     syntaxHighlight: 'prism'
   },
   output: "server",
-  adapter: vercel()
+  adapter: vercel(),
 });

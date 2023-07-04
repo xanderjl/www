@@ -1,7 +1,26 @@
 ---
+import { Search } from '@/components/Search';
 import Layout from '@/layouts/Layout.astro';
+import type { PathLike } from 'fs';
+import fs from 'fs/promises';
 
 export const prerender = true;
+
+export const getDirSlugs = async (path: PathLike) => {
+  const paths = await fs.readdir(path, { withFileTypes: true });
+  const dirs = paths.filter(path => path.isDirectory());
+  const slugs = dirs
+    .filter(path => path !== 'index.astro')
+    .map(dir => dir.name);
+
+  return slugs;
+};
+
+const list = await getDirSlugs('./src/sketches');
+
+const { pathname: path } = Astro.url;
 ---
 
-<Layout title='Sketches' />
+<Layout title='Sketches'>
+  <Search path={path} list={list} client:load />
+</Layout>
