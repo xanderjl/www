@@ -4,7 +4,7 @@ import { createSignal, type Component } from 'solid-js';
 
 export const Mobile: Component = () => {
   const [isOpen, setIsOpen] = createSignal<boolean>(false);
-  const Icon = Boolean(isOpen) ? Cancel : Menu;
+  const Icon = isOpen() ? Cancel : Menu;
 
   const iconStyles = css({
     w: 6,
