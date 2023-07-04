@@ -1,27 +1,28 @@
 ---
+import { H1 } from '@/components/Headings';
 import { Search } from '@/components/Search';
 import Layout from '@/layouts/Layout.astro';
 import type { PathLike } from 'fs';
 import fs from 'fs/promises';
+import { cwd } from 'process';
+import { css } from 'styled-system/css';
 
 export const prerender = true;
 
-export const getDirSlugs = async (path: PathLike) => {
-  const paths = await fs.readdir(path, { withFileTypes: true });
-  const dirs = paths.filter(path => path.isDirectory());
-  const slugs = dirs
-    .filter(path => path !== 'index.astro')
-    .map(dir => dir.name);
+export const getSketchSlugs = async () => {
+  const files = await fs.readdir(`${cwd()}/src/pages/sketches`);
+  const filteredFiles = files.filter(file => file !== 'index.astro');
+  const slugs = filteredFiles.map(file => file.replace('.astro', ''));
 
   return slugs;
 };
 
-// const list = await getDirSlugs('./src/sketches');
-const list = ['Brimpo', 'Brimpo', 'Brimpo'];
+const list = await getSketchSlugs();
 
 const { pathname: path } = Astro.url;
 ---
 
-<Layout title='Sketches'>
+<Layout title='Sketches' maxW='2xl'>
+  <H1 class={css({ pb: 4 })}>Search Sketches</H1>
   <Search path={path} list={list} client:load />
 </Layout>
