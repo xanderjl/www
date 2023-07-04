@@ -1,3 +1,4 @@
+/** @jsxImportSource react **/
 import satori from 'satori';
 import baseUrl from '@/utils/baseUrl';
 
