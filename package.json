@@ -19,6 +19,7 @@
     "@astrojs/vercel": "^3.5.1",
     "@fontsource/dm-mono": "^5.0.3",
     "@fontsource/inter": "^5.0.3",
+    "@resvg/resvg-js": "^2.4.1",
     "astro": "^2.7.1",
     "change-case": "^4.1.2",
     "fuse.js": "^6.6.2",

@@ -1,6 +1,7 @@
 /** @jsxImportSource react **/
 import satori from 'satori';
 import baseUrl from '@/utils/baseUrl';
+import { Resvg } from '@resvg/resvg-js';
 
 type GenerateOgImage = ({
   alt,
@@ -92,5 +93,9 @@ export const generateOgImage: GenerateOgImage = async ({
     }
   );
 
-  return svg;
+  const resvg = new Resvg(svg);
+  const pngData = resvg.render();
+  const pngBuffer = pngData.asPng();
+
+  return pngBuffer;
 };

@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import pandacss from '@pandacss/dev/astro';
 import mdx from "@astrojs/mdx";
-import vercel from "@astrojs/vercel/edge";
+import vercel from "@astrojs/vercel/serverless";
 import solidJs from "@astrojs/solid-js";
 
 import react from "@astrojs/react";

@@ -11,7 +11,7 @@ type GenerateOgUrl = ({
 }) => string;
 
 export const generateOgUrl: GenerateOgUrl = ({ alt, description, title }) => {
-  const url = new URL(`${baseUrl}/api/og-image.svg`);
+  const url = new URL(`${baseUrl}/api/og-image.png`);
 
   title && url.searchParams.append('title', title);
   description && url.searchParams.append('description', description);
