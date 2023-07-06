@@ -9,11 +9,11 @@ interface SearchProps {
   path: string;
 }
 
+type Result = Fuse.FuseResult<string>;
+
 export const Search: Component<SearchProps> = ({ list, path }) => {
   const fuse = new Fuse(list);
-  const [searchArray, setSearchArray] = createSignal<Fuse.FuseResult<string>[]>(
-    []
-  );
+  const [searchArray, setSearchArray] = createSignal<Result[]>([]);
 
   return (
     <div
