@@ -6,11 +6,15 @@ interface Props {
   title?: string;
   description?: string;
 }
+
 const { title, description } = Astro.props;
 const { href } = Astro.url;
 
+const padding = 48;
+
 const formattedTitle = title ? `Xander Low | ${title}` : 'Xander Low';
 const formattedDescription = description ?? 'Developing for the web';
+
 const ogImage = getShareImage({
   title: formattedTitle,
   tagline: formattedDescription,
@@ -22,6 +26,10 @@ const ogImage = getShareImage({
   taglineFont: 'futura',
   titleColor: '000000',
   taglineColor: '000000',
+  titleFontSize: 72,
+  taglineFontSize: 36,
+  titleLeftOffset: padding,
+  taglineLeftOffset: padding,
   imageWidth: 1200,
   imageHeight: 630,
 });
