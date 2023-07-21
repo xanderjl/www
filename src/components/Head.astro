@@ -1,6 +1,8 @@
 ---
 import getShareImage from '@jlengstorf/get-share-image';
+
 import baseUrl from '@/utils/baseUrl';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -54,4 +56,5 @@ const ogImage = getShareImage({
   <meta name='description' content={formattedDescription} />
   <slot />
   <title>{formattedTitle}</title>
+  <ViewTransitions />
 </head>

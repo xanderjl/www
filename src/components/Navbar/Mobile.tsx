@@ -1,6 +1,8 @@
+import type { Component } from 'solid-js';
+import {  createSignal, Show } from 'solid-js';
 import { css } from 'styled-system/css';
+
 import { Cancel, Menu } from '@/components/Icons';
-import { createSignal, type Component, Show } from 'solid-js';
 
 export const Mobile: Component = () => {
   const [isOpen, setIsOpen] = createSignal<boolean>(false);

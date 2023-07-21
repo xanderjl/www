@@ -1,7 +1,8 @@
 import { defineConfig } from '@pandacss/dev';
-import textStyles from '@/styles/textStyles';
+
 import globalCss from '@/styles/globalCss';
 import { heading } from '@/styles/heading.recipe';
+import textStyles from '@/styles/textStyles';
 
 export default defineConfig({
   preflight: true,

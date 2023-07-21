@@ -1,6 +1,7 @@
 import { headerCase } from 'change-case';
 import Fuse from 'fuse.js';
-import { For, type Component, createSignal, Show } from 'solid-js';
+import type { Component } from 'solid-js';
+import {  createSignal, For, Show } from 'solid-js';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 

@@ -13,7 +13,7 @@ export const ossProjects: OSS[] = [
   {
     name: '@react-p5/sketch',
     description:
-      "A companion library for @react-p5/core that provides an experience akin to Matt Deslaurier's canvas-sketch",
+      'A companion library for @react-p5/core that provides an experience akin to Matt Deslaurier\'s canvas-sketch',
     href: 'https://github.com/react-p5/react-p5/tree/main/packages/sketch',
   },
   {

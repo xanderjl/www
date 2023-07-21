@@ -1,12 +1,15 @@
 ---
+import '@/styles/prism-theme.css';
+
+import type { GetStaticPaths } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
+
 import { H1 } from '@/components/Headings';
 import { components } from '@/components/MDXComponents';
 import Layout from '@/layouts/Layout.astro';
-import type { GetStaticPaths } from 'astro';
-import { CollectionEntry, getCollection } from 'astro:content';
-import { flex } from 'styled-system/patterns';
-import '@/styles/prism-theme.css';
-import { css } from 'styled-system/css';
 
 export const prerender = true;
 
