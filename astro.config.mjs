@@ -1,10 +1,9 @@
-import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
+import solidJs from '@astrojs/solid-js';
+import vercel from '@astrojs/vercel/serverless';
 import pandacss from '@pandacss/dev/astro';
-import mdx from "@astrojs/mdx";
-import vercel from "@astrojs/vercel/serverless";
-import solidJs from "@astrojs/solid-js";
-
-import react from "@astrojs/react";
+import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 // https://github.com/yisibl/resvg-js/issues/175#issuecomment-1577291297
@@ -15,8 +14,11 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: 'prism'
   },
-  output: "server",
+  output: 'server',
   adapter: vercel(),
+  experimental: {
+    viewTransitions: true
+  },
   vite: {
     ssr: {
       external: ['@resvg/resvg-js']
