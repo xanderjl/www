@@ -11,6 +11,13 @@ interface ContactInfo {
   }
 }
 
+interface Social {
+  name: string
+  href: string
+}
+
+type Socials = Record<string, Social>
+
 interface ResumeEntry {
   client: string
   role: string
@@ -36,10 +43,22 @@ const contactInfo: ContactInfo = {
   }
 }
 
+const socials: Socials = {
+  github: {
+    name: 'GitHub',
+    href: 'https://www.github.com/xandydandy'
+  },
+  linkedin: {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/xander-low-5855a910a/'
+  }
+}
+
 export interface ResumeResponse {
   contactInfo: ContactInfo
   experience: ResumeEntry[]
   education: Education
+  socials: Socials
 }
 
 const experience: ResumeEntry[] = [
@@ -74,10 +93,13 @@ const education: Education = {
 }
 
 export const get: APIRoute = () => {
-  return new Response(JSON.stringify({ contactInfo, experience, education }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json'
+  return new Response(
+    JSON.stringify({ contactInfo, experience, education, socials }),
+    {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }
-  })
+  )
 }

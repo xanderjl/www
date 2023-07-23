@@ -1,10 +1,11 @@
 ---
 import { H1, H2, H3 } from '@/components/Headings'
-import { Phone, Mail } from '@/components/Icons'
+import { Phone, Mail, Github, Linkedin } from '@/components/Icons'
 import Layout from '@/layouts/Layout.astro'
 import baseUrl from '@/utils/baseUrl'
 import { css } from 'styled-system/css'
 import type { ResumeResponse } from '@/pages/api/resume.json'
+import { container } from 'styled-system/patterns'
 
 export const prerender = true
 
@@ -12,56 +13,73 @@ const res = await fetch(`${baseUrl}/api/resume.json`)
 const {
   contactInfo: { email, phoneNumber },
   education: { attendancePeriod, degree, description, school },
-  experience
+  experience,
+  socials: { github, linkedin }
 } = (await res.json()) as ResumeResponse
+
+const h2Styles = css({
+  pb: 4
+})
 ---
 
 <Layout title='Resume'>
-  <div
-    class={css({
-      display: 'flex',
-      justifyContent: 'space-between',
-      pb: 4
-    })}
-  >
-    <H1>Xander Low</H1>
+  <div class={container({ maxW: '4xl' })}>
     <div
       class={css({
         display: 'flex',
-        flexDirection: 'column'
+        justifyContent: 'space-between',
+        pb: 10
       })}
     >
-      <a href={phoneNumber.href}
-        ><Phone class={css({ display: 'inline-block' })} client:load />
-        {phoneNumber.display}</a
-      >
-      <a href={email.href}
-        ><Mail class={css({ display: 'inline-block' })} client:load />
-        {email.display}</a
-      >
-    </div>
-  </div>
-  <H2>Experience</H2>
-  {
-    experience.map(({ client, employmentPeriod, responsibilities, role }) => {
-      return (
+      <div>
+        <H1 class={css({ pb: 2 })}>Xander Low</H1>
         <div>
-          <H3>
-            {client} &mdash; {role}
-          </H3>
-          <p>{employmentPeriod}</p>
-          <ul>
-            {responsibilities.map(responsibility => (
-              <li class={css({ listStyle: 'inside' })}>{responsibility}</li>
-            ))}
-          </ul>
+          <a href={github.href} aria-label={github.name}>
+            <Github class={css({ display: 'inline-block' })} client:load />
+          </a>
+          <a href={linkedin.href} aria-label={linkedin.name}>
+            <Linkedin class={css({ display: 'inline-block' })} client:load />
+          </a>
         </div>
-      )
-    })
-  }
-  <H2>Education</H2>
-  <H3>{school}</H3>
-  <p>{degree}</p>
-  <p>{attendancePeriod}</p>
-  <p>{description}</p>
+      </div>
+      <div
+        class={css({
+          display: 'flex',
+          flexDirection: 'column'
+        })}
+      >
+        <a href={phoneNumber.href}
+          ><Phone class={css({ display: 'inline-block' })} client:load />
+          {phoneNumber.display}</a
+        >
+        <a href={email.href}
+          ><Mail class={css({ display: 'inline-block' })} client:load />
+          {email.display}</a
+        >
+      </div>
+    </div>
+    <H2 class={h2Styles}>Experience</H2>
+    {
+      experience.map(({ client, employmentPeriod, responsibilities, role }) => {
+        return (
+          <div>
+            <H3 class={css({ pb: 1 })}>
+              {client} &mdash; {role}
+            </H3>
+            <p class={css({ pb: 2 })}>{employmentPeriod}</p>
+            <ul class={css({ pb: 10 })}>
+              {responsibilities.map(responsibility => (
+                <li class={css({ listStyle: 'inside' })}>{responsibility}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      })
+    }
+    <H2 class={h2Styles}>Education</H2>
+    <H3>{school}</H3>
+    <p>{degree}</p>
+    <p>{attendancePeriod}</p>
+    <p>{description}</p>
+  </div>
 </Layout>
