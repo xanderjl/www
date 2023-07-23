@@ -8,6 +8,9 @@ import type { ResumeResponse } from '@/pages/api/resume.json'
 import { container } from 'styled-system/patterns'
 
 export const prerender = true
+const { MODE, VERCEL_URL } = import.meta.env
+
+console.log({ baseUrl, MODE, VERCEL_URL })
 
 const res = await fetch(`${baseUrl}/api/resume.json`)
 const {
