@@ -1,0 +1,67 @@
+---
+import { H1, H2, H3 } from '@/components/Headings'
+import { Phone, Mail } from '@/components/Icons'
+import Layout from '@/layouts/Layout.astro'
+import baseUrl from '@/utils/baseUrl'
+import { css } from 'styled-system/css'
+import type { ResumeResponse } from '@/pages/api/resume.json'
+
+export const prerender = true
+
+const res = await fetch(`${baseUrl}/api/resume.json`)
+const {
+  contactInfo: { email, phoneNumber },
+  education: { attendancePeriod, degree, description, school },
+  experience
+} = (await res.json()) as ResumeResponse
+---
+
+<Layout title='Resume'>
+  <div
+    class={css({
+      display: 'flex',
+      justifyContent: 'space-between',
+      pb: 4
+    })}
+  >
+    <H1>Xander Low</H1>
+    <div
+      class={css({
+        display: 'flex',
+        flexDirection: 'column'
+      })}
+    >
+      <a href={phoneNumber.href}
+        ><Phone class={css({ display: 'inline-block' })} client:load />
+        {phoneNumber.display}</a
+      >
+      <a href={email.href}
+        ><Mail class={css({ display: 'inline-block' })} client:load />
+        {email.display}</a
+      >
+    </div>
+  </div>
+  <H2>Experience</H2>
+  {
+    experience.map(({ client, employmentPeriod, responsibilities, role }) => {
+      return (
+        <div>
+          <H3>
+            {client} &mdash; {role}
+          </H3>
+          <p>{employmentPeriod}</p>
+          <ul>
+            {responsibilities.map(responsibility => (
+              <li class={css({ listStyle: 'inside' })}>{responsibility}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    })
+  }
+  <H2>Education</H2>
+  <H3>{school}</H3>
+  <p>{degree}</p>
+  <p>{attendancePeriod}</p>
+  <p>{description}</p>
+</Layout>
