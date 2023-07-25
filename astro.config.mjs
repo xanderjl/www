@@ -19,17 +19,4 @@ export default defineConfig({
   experimental: {
     viewTransitions: true
   },
-  vite: {
-    ssr: {
-      external: ['@resvg/resvg-js']
-    },
-    optimizeDeps: {
-      exclude: ['@resvg/resvg-js']
-    },
-    build: {
-      rollupOptions: {
-        external: ['@resvg/resvg-js']
-      }
-    }
-  }
 });
