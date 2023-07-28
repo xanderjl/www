@@ -1,10 +1,11 @@
 ---
-import { css } from 'styled-system/css';
-import { container } from 'styled-system/patterns';
+import { css } from 'styled-system/css'
+import { container } from 'styled-system/patterns'
 
-import { Logo } from '@/components/Icons';
-import { Mobile } from '@/components/Navbar/Mobile';
-import { routes } from '@/routes';
+import { Logo } from '@/components/Icons'
+import { Mobile } from '@/components/Navbar/Mobile'
+import { routes } from '@/routes'
+import { MobileLinks } from './MobileLinks'
 ---
 
 <div
@@ -12,24 +13,23 @@ import { routes } from '@/routes';
     py: 4,
     height: 'auto',
     boxShadow: 'md',
-    zIndex: 3,
+    zIndex: 3
   })}
 >
   <nav
     class={container({
-      display: 'flex',
+      display: { base: 'none', md: 'flex' },
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'center'
     })}
   >
     <a href='/' class={css({ background: 'none' })}>
       <Logo class={css({ w: 10, h: 10 })} client:load />
     </a>
-    <Mobile client:load />
     <ul
       class={css({
-        display: { base: 'none', md: 'flex' },
-        gap: 2,
+        display: 'flex',
+        gap: 2
       })}
     >
       {
@@ -40,5 +40,20 @@ import { routes } from '@/routes';
         ))
       }
     </ul>
+  </nav>
+  <nav class={container()}>
+    <div
+      class={css({
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      })}
+    >
+      <a href='/' class={css({ background: 'none' })}>
+        <Logo class={css({ w: 10, h: 10 })} client:load />
+      </a>
+      <Mobile client:load />
+    </div>
+    <MobileLinks client:load />
   </nav>
 </div>

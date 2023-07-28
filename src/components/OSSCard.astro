@@ -1,19 +1,20 @@
 ---
-import { css } from 'styled-system/css';
+import { css } from 'styled-system/css'
 
-import { H2 } from './Headings';
+import { H2 } from './Headings'
+import { Github } from './Icons'
 
 interface Props {
-  name: string;
-  description?: string;
-  href: URL | string;
+  name: string
+  description?: string
+  href: URL | string
 }
 
-const { name, description, href } = Astro.props;
+const { name, description, href } = Astro.props
 ---
 
 <a
-  href={href}
+  {href}
   class={css({
     display: 'flex',
     background: 'transparent',
@@ -26,8 +27,8 @@ const { name, description, href } = Astro.props;
     borderColor: 'black',
     _hover: {
       color: 'red.400',
-      borderColor: 'red.400',
-    },
+      borderColor: 'red.400'
+    }
   })}
 >
   <div class={css({ flex: 1 })}>
@@ -43,13 +44,14 @@ const { name, description, href } = Astro.props;
     class={css({
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center'
     })}
   >
     <span class={css({ flex: 1 })}>
       Check it out
       <br />
-      on GitHub
+       on GitHub
     </span>
-    <i class:list={[css({ w: 6, h: 6 }), 'iconoir-github']}></i>
+    <Github class={css({ w: 6, h: 6 })} client:load />
   </div>
 </a>
