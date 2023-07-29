@@ -1,10 +1,10 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { heading } from 'styled-system/recipes';
+import type { HTMLAttributes } from 'astro/types'
+import { heading } from 'styled-system/recipes'
 
-type Props = HTMLAttributes<'h2'>;
+type Props = HTMLAttributes<'h3'>
 
-const { class: c, ...rest } = Astro.props;
+const { class: c, ...rest } = Astro.props
 ---
 
 <h3 class:list={[heading({ size: 'md' }), c]} {...rest}>
