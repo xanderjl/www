@@ -15,7 +15,9 @@ export const MobileLinks: Component = () => {
         <For each={routes}>
           {route => (
             <li>
-              <a href={route.path}>{route.name}</a>
+              <a href={route.path} onClick={() => isNavOpen.set(!$isNavOpen())}>
+                {route.name}
+              </a>
             </li>
           )}
         </For>
