@@ -3,7 +3,7 @@ import type { Component } from 'solid-js'
 import { Show } from 'solid-js'
 import { css } from 'styled-system/css'
 
-import { Cancel, Menu } from '@/components/Icons'
+import { Cancel, Menu } from '@/components/icons'
 import { isNavOpen } from '@/stores/navbar'
 
 export const Mobile: Component = () => {

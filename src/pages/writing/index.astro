@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content'
 import { css } from 'styled-system/css'
 
 import { Search } from '@/components/Search'
-import { H1 } from '@/components/Typography'
+import { H1 } from '@/components/typography'
 import Layout from '@/layouts/Layout.astro'
 
 export const prerender = true
@@ -17,3 +17,4 @@ const list = writing.map(item => item.slug)
   <H1 class={css({ pb: 4 })}>Search Writing</H1>
   <Search {path} {list} client:load />
 </Layout>
+ @/components/typography

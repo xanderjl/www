@@ -1,4 +1,4 @@
-import { H1, H2, H3, LI, Text } from './Typography'
+import { H1, H2, H3, LI, Text } from './typography'
 
 export const components = {
   h1: H1,

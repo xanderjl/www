@@ -2,7 +2,7 @@
 import { css } from 'styled-system/css'
 
 import { Search } from '@/components/Search'
-import { H1 } from '@/components/Typography'
+import { H1 } from '@/components/typography'
 import Layout from '@/layouts/Layout.astro'
 import { getSketchSlugs } from '@/utils/getSketchUrls'
 
@@ -16,3 +16,4 @@ const { pathname: path } = Astro.url
   <H1 class={css({ pb: 4 })}>Search Sketches</H1>
   <Search {path} {list} client:load />
 </Layout>
+ @/components/typography

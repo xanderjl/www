@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content'
 import { css } from 'styled-system/css'
 
 import { components } from '@/components/MDXComponents'
-import { H1 } from '@/components/Typography'
+import { H1 } from '@/components/typography'
 import Layout from '@/layouts/Layout.astro'
 
 export const prerender = true
@@ -46,3 +46,4 @@ const dateFormatted = new Intl.DateTimeFormat('en-US', {
   <hr class={css({ my: 2 })} />
   <Content {components} />
 </Layout>
+ @/components/typography
