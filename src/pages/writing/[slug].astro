@@ -5,9 +5,8 @@ import type { GetStaticPaths } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import { css } from 'styled-system/css'
-import { flex } from 'styled-system/patterns'
 
-import { H1 } from '@/components/Headings'
+import { H1 } from '@/components/Typography'
 import { components } from '@/components/MDXComponents'
 import Layout from '@/layouts/Layout.astro'
 
@@ -42,10 +41,8 @@ const dateFormatted = new Intl.DateTimeFormat('en-US', {
 ---
 
 <Layout {title} {description} maxW='2xl'>
-  <div class={flex({ direction: 'column', gap: 2 })}>
-    <H1>{title}</H1>
-    <span class={css({ fontSize: 'md' })}>{dateFormatted}</span>
-    <hr class={css({ mb: 2 })} />
-    <Content {components} />
-  </div>
+  <H1>{title}</H1>
+  <span class={css({ fontSize: 'md' })}>{dateFormatted}</span>
+  <hr class={css({ mb: 2 })} />
+  <Content {components} />
 </Layout>

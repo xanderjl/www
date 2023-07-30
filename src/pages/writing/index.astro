@@ -1,19 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
-import { css } from 'styled-system/css';
+import { getCollection } from 'astro:content'
+import { css } from 'styled-system/css'
 
-import { H1 } from '@/components/Headings';
-import { Search } from '@/components/Search';
-import Layout from '@/layouts/Layout.astro';
+import { H1 } from '@/components/Typography'
+import { Search } from '@/components/Search'
+import Layout from '@/layouts/Layout.astro'
 
-export const prerender = true;
+export const prerender = true
 
-const { pathname: path } = Astro.url;
-const writing = await getCollection('writing');
-const list = writing.map(item => item.slug);
+const { pathname: path } = Astro.url
+const writing = await getCollection('writing')
+const list = writing.map(item => item.slug)
 ---
 
 <Layout title='Writing' maxW='2xl'>
   <H1 class={css({ pb: 4 })}>Search Writing</H1>
-  <Search path={path} list={list} client:load />
+  <Search {path} {list} client:load />
 </Layout>

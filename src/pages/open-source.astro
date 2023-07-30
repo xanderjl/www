@@ -1,12 +1,12 @@
 ---
-import { css } from 'styled-system/css';
+import { css } from 'styled-system/css'
 
-import { H1 } from '@/components/Headings';
-import OSSCard from '@/components/OSSCard.astro';
-import Layout from '@/layouts/Layout.astro';
-import { ossProjects } from '@/utils/ossProjects';
+import { H1 } from '@/components/Typography'
+import OSSCard from '@/components/OSSCard.astro'
+import Layout from '@/layouts/Layout.astro'
+import { ossProjects } from '@/utils/ossProjects'
 
-export const prerender = true;
+export const prerender = true
 ---
 
 <Layout title='Open Source'>
@@ -15,7 +15,7 @@ export const prerender = true;
     class={css({
       display: 'flex',
       gap: 4,
-      flexWrap: 'wrap',
+      flexWrap: 'wrap'
     })}
   >
     {
