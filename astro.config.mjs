@@ -1,5 +1,4 @@
 import mdx from '@astrojs/mdx';
-import react from '@astrojs/react';
 import solidJs from '@astrojs/solid-js';
 import vercel from '@astrojs/vercel/edge';
 import pandacss from '@pandacss/dev/astro';
@@ -7,9 +6,13 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [pandacss(), mdx({
-    extendMarkdownConfig: true
-  }), solidJs(), react()],
+  integrations: [
+    pandacss(),
+    mdx({
+      extendMarkdownConfig: true
+    }),
+    solidJs()
+  ],
   markdown: {
     syntaxHighlight: 'prism'
   },
