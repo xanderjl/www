@@ -3,18 +3,18 @@ import { H1, H2, H3 } from '@/components/Typography'
 import { Phone, Mail, Github, Linkedin } from '@/components/Icons'
 import Layout from '@/layouts/Layout.astro'
 import { css } from 'styled-system/css'
-import type { ResumeResponse } from '@/pages/api/resume.json'
 import { container } from 'styled-system/patterns'
+import { getCollection } from 'astro:content'
 
-// export const prerender = true
+export const prerender = true
 
-const res = await fetch(`${Astro.url.origin}/api/resume.json`)
-const {
-  contactInfo: { email, phoneNumber },
-  education: { attendancePeriod, degree, description, school },
-  experience,
-  socials: { github, linkedin }
-} = (await res.json()) as ResumeResponse
+const collection = await getCollection('work-history')
+const experience = collection.sort(
+  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
+)
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
 
 const h2Styles = css({
   pb: 4
@@ -33,10 +33,13 @@ const h2Styles = css({
       <div>
         <H1 class={css({ pb: 2 })}>Xander Low</H1>
         <div>
-          <a href={github.href} aria-label={github.name}>
+          <a href='https://www.github.com/xandydandy' aria-label='Github'>
             <Github class={css({ display: 'inline-block' })} client:load />
           </a>
-          <a href={linkedin.href} aria-label={linkedin.name}>
+          <a
+            href='https://www.linkedin.com/in/xander-low-5855a910a/'
+            aria-label='Linkedin'
+          >
             <Linkedin class={css({ display: 'inline-block' })} client:load />
           </a>
         </div>
@@ -47,38 +50,44 @@ const h2Styles = css({
           flexDirection: 'column'
         })}
       >
-        <a href={phoneNumber.href}
+        <a href='tel:519-670-9056'
           ><Phone class={css({ display: 'inline-block' })} client:load />
-          {phoneNumber.display}</a
+           519-670-9056</a
         >
-        <a href={email.href}
+        <a href='mailto:xander@xandydandy.com'
           ><Mail class={css({ display: 'inline-block' })} client:load />
-          {email.display}</a
+           xander@xandydandy.com</a
         >
       </div>
     </div>
     <H2 class={h2Styles}>Experience</H2>
     {
-      experience.map(({ client, employmentPeriod, responsibilities, role }) => {
-        return (
-          <div>
-            <H3 class={css({ pb: 1 })}>
-              {client} &mdash; {role}
-            </H3>
-            <p class={css({ pb: 2 })}>{employmentPeriod}</p>
-            <ul class={css({ pb: 10 })}>
-              {responsibilities.map(responsibility => (
-                <li class={css({ listStyle: 'inside' })}>{responsibility}</li>
-              ))}
-            </ul>
-          </div>
-        )
-      })
+      experience.map(
+        ({ data: { client, startDate, endDate, responsibilities, role } }) => {
+          return (
+            <div>
+              <H3 class={css({ pb: 1 })}>
+                {client} &mdash; {role}
+              </H3>
+              <p class={css({ pb: 2 })}>
+                {formatDate(startDate)} - {formatDate(endDate)}
+              </p>
+              <ul class={css({ pb: 10 })}>
+                {responsibilities.map(responsibility => (
+                  <li class={css({ listStyle: 'inside' })}>{responsibility}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      )
     }
     <H2 class={h2Styles}>Education</H2>
-    <H3>{school}</H3>
-    <p>{degree}</p>
-    <p>{attendancePeriod}</p>
-    <p>{description}</p>
+    <H3>Fanshawe College</H3>
+    <p>Ontario College Degree</p>
+    <p>September 2013 - April 2015</p>
+    <p>
+      Built a skillset in music production, engineering and entertainment law.
+    </p>
   </div>
 </Layout>
