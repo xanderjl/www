@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { css } from 'styled-system/css'
+
+type Props = HTMLAttributes<'p'>
+
+const { class: c, ...rest } = Astro.props
+---
+
+<p class:list={[css({ pb: 6 }), c]} {...rest}>
+  <slot />
+</p>
