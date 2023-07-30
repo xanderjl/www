@@ -6,7 +6,6 @@ import pandacss from '@pandacss/dev/astro';
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
-// https://github.com/yisibl/resvg-js/issues/175#issuecomment-1577291297
 export default defineConfig({
   integrations: [pandacss(), mdx({
     extendMarkdownConfig: true
