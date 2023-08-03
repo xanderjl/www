@@ -3,6 +3,7 @@ import { defineConfig } from '@pandacss/dev'
 import globalCss from '@/theme/globalCss'
 import { heading } from '@/theme/heading.recipe'
 import textStyles from '@/theme/textStyles'
+import tokens from '@/theme/tokens'
 
 export default defineConfig({
   preflight: true,
@@ -18,7 +19,8 @@ export default defineConfig({
       textStyles,
       recipes: {
         heading
-      }
+      },
+      tokens
     }
   }
 })
