@@ -1,16 +1,15 @@
 import type P5 from 'p5'
-import type { Color, RENDERER } from 'p5'
 
-type ColorValue = string | number | number[]
+export type ColorValue = string | number | number[]
 
-interface Setup {
+export interface Setup {
   p5: P5
-  canvasParentRef: Element
+  canvasParentRef: string | object | P5.Element
   padding?: number[]
   width?: number
   height?: number
   dimensions?: number[]
-  renderer?: RENDERER
+  renderer?: P5.RENDERER
   background?: ColorValue
   pixelDensity?: number
   seed?: number
@@ -82,5 +81,5 @@ export const setupDefaults = ({
   }
 
   pixelDensity && p5.pixelDensity(pixelDensity)
-  background && p5.background(background as unknown as Color)
+  background && p5.background(background as unknown as P5.Color)
 }
