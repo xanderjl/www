@@ -4,7 +4,6 @@ export type ColorValue = string | number | number[]
 
 export interface Setup {
   p5: P5
-  canvasParentRef: string | object | P5.Element
   padding?: number[]
   width?: number
   height?: number
@@ -18,7 +17,6 @@ export interface Setup {
 
 export const setupDefaults = ({
   p5,
-  canvasParentRef,
   width,
   height,
   dimensions,
@@ -59,7 +57,7 @@ export const setupDefaults = ({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         renderSVG ? p5.SVG : renderer
-      ).parent(canvasParentRef)
+      )
     } else {
       const newWidth = Math.round(maxHeight * aspectRatio)
       p5.createCanvas(
@@ -68,7 +66,7 @@ export const setupDefaults = ({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         renderSVG ? p5.SVG : renderer
-      ).parent(canvasParentRef)
+      )
     }
   } else {
     p5.createCanvas(
@@ -77,7 +75,7 @@ export const setupDefaults = ({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       renderSVG ? p5.SVG : renderer
-    ).parent(canvasParentRef)
+    )
   }
 
   pixelDensity && p5.pixelDensity(pixelDensity)
