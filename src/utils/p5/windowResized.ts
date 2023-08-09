@@ -2,31 +2,27 @@ import type P5 from 'p5'
 
 import type { ColorValue } from './types'
 
-export interface Setup {
+interface WindowResized {
   p5: P5
-  padding?: number[]
   width?: number
   height?: number
   dimensions?: number[]
-  renderer?: P5.RENDERER
+  padding?: number[]
   background?: ColorValue
-  pixelDensity?: number
   seed?: number
-  renderSVG?: boolean
+  noLoop?: boolean
 }
 
-export const setupDefaults = ({
+export const windowResizedDefaults = ({
   p5,
   width,
   height,
   dimensions,
   padding,
   background,
-  renderer,
-  pixelDensity,
   seed,
-  renderSVG
-}: Setup): void => {
+  noLoop
+}: WindowResized) => {
   const usedWidth = dimensions ? dimensions[0] : width ? width : p5.windowWidth
   const usedHeight = dimensions
     ? dimensions[1]
@@ -51,33 +47,16 @@ export const setupDefaults = ({
   if (usedWidth > p5.windowWidth || usedHeight > p5.windowHeight) {
     if (aspectRatio > windowRatio) {
       const newHeight = Math.round(maxWidth / aspectRatio)
-      p5.createCanvas(
-        maxWidth,
-        newHeight,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        renderSVG ? p5.SVG : renderer
-      )
+      p5.resizeCanvas(maxWidth, newHeight)
     } else {
       const newWidth = Math.round(maxHeight * aspectRatio)
-      p5.createCanvas(
-        newWidth,
-        maxHeight,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        renderSVG ? p5.SVG : renderer
-      )
+      p5.resizeCanvas(newWidth, maxHeight)
     }
   } else {
-    p5.createCanvas(
-      usedWidth,
-      usedHeight,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      renderSVG ? p5.SVG : renderer
-    )
+    p5.resizeCanvas(usedWidth, usedHeight)
   }
 
-  pixelDensity && p5.pixelDensity(pixelDensity)
   background && p5.background(background as unknown as P5.Color)
+
+  noLoop ? (p5.loop(), p5.noLoop()) : p5.loop()
 }
