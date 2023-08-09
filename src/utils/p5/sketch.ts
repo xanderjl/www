@@ -1,11 +1,10 @@
-import type P5 from 'p5'
+import P5 from 'p5'
 
 import { setupDefaults } from './setup'
 import type { ColorValue, Draw, Setup, WindowResized } from './types'
 import { windowResizedDefaults } from './windowResized'
 
 interface SketchProps {
-  p5: P5
   draw?: Draw
   setup?: Setup
   windowResized?: WindowResized
@@ -18,12 +17,11 @@ export const sketch = ({
   background,
   dimensions,
   draw,
-  p5,
   padding,
   setup,
   windowResized
 }: SketchProps) => {
-  const s = () => {
+  const s = (p5: P5) => {
     p5.setup = () => {
       setupDefaults({
         p5,
@@ -49,5 +47,5 @@ export const sketch = ({
     }
   }
 
-  new p5(s, 'container' as unknown as HTMLElement)
+  new P5(s, 'container' as unknown as HTMLElement)
 }
