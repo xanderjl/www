@@ -19,13 +19,14 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
   const background = [255, 253, 252]
 
   const draw: Draw = p5 => {
+    p5.clear(0, 0, 0, 0)
     p5.fill(0)
     p5.stroke('red')
     p5.strokeWeight(4)
     p5.ellipse(50, 50, 80, 80)
   }
 
-  sketch({ draw, dimensions, background, padding })
+  sketch({ draw, dimensions, background, padding, renderer: 'svg' })
 </script>
 <Layout {title}>
   <Sketch />

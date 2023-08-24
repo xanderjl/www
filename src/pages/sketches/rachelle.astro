@@ -88,7 +88,7 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
     p5.ellipse(50, 50, 80, 80)
   }
 
-  sketch({ draw, dimensions, padding, background })
+  sketch({ draw, dimensions, padding, background, renderer: 'svg' })
 </script>
 <Layout {title}>
   <Sketch />
