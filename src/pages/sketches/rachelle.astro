@@ -85,8 +85,7 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
   let margin = 0
 
   const draw: Draw = p5 => {
-    p5.background(220)
-    p5.ellipse(50, 50, 80, 80)
+    p5.text(poemString, 100, 100)
   }
 
   sketch({ draw, dimensions, padding, background, renderer: 'svg' })
