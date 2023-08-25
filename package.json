@@ -12,7 +12,12 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,astro}\"",
-    "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx,astro}\" --fix"
+    "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx,astro}\" --fix",
+    "sketch:a0": "npx hygen a0 new --name",
+    "sketch:a1": "npx hygen a1 new --name",
+    "sketch:a2": "npx hygen a2 new --name",
+    "sketch:a3": "npx hygen a3 new --name",
+    "sketch:a4": "npx hygen a4 new --name"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",

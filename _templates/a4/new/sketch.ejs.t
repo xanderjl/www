@@ -1,8 +1,11 @@
 ---
+to: src/pages/sketches/<%= name %>.astro
+---
+---
 import { capitalCase } from 'change-case'
 
 import Sketch from '@/components/Sketch.astro'
-import Layout from '@/layouts/Layout.astro'
+import SketchLayout from '@/layouts/SketchLayout.astro'
 
 export const prerender = true
 
@@ -11,23 +14,28 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
 ---
 
 <script>
+  import { getDimensions } from '@/utils/getDimensions'
   import { sketch } from '@/utils/p5'
   import type { Draw } from '@/utils/p5'
 
-  const dimensions: number[] = [2400, 2400]
+  const dimensions: number[] = getDimensions('A4')
   const padding: number[] = [40]
   const background = [255, 253, 252]
 
   const draw: Draw = p5 => {
     p5.clear(0, 0, 0, 0)
-    p5.fill(0)
-    p5.stroke('red')
-    p5.strokeWeight(4)
-    p5.ellipse(50, 50, 80, 80)
   }
 
-  sketch({ draw, dimensions, background, padding, renderer: 'svg' })
+  sketch({
+    draw,
+    dimensions,
+    background,
+    padding,
+    renderer: 'svg',
+    suffix: '<%= name %>'
+  })
 </script>
-<Layout {title}>
+
+<SketchLayout {title}>
   <Sketch />
-</Layout>
+</SketchLayout>
