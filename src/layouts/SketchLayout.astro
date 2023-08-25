@@ -1,0 +1,47 @@
+---
+import '@/styles/globals.css'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/700.css'
+import '@fontsource/dm-mono/400.css'
+
+import { css } from 'styled-system/css'
+import { container } from 'styled-system/patterns'
+import type { PropertyTypes } from 'styled-system/types/prop-type'
+
+import Head from '@/components/Head.astro'
+
+interface Props {
+  title?: string
+  description?: string
+  maxW?: PropertyTypes['maxW']
+}
+
+const { title, description, maxW } = Astro.props
+---
+
+<html lang='en'>
+  <Head {title} {description} />
+  <body
+    class={css({
+      textStyle: 'body',
+      display: 'flex',
+      flexDir: 'column',
+      minH: '100vh',
+      w: '100%'
+    })}
+  >
+    <main
+      class={container({
+        flex: 1,
+        display: 'flex',
+        flexDir: 'column',
+        w: '100%',
+        maxW: maxW ?? '8xl',
+        py: { base: 4, md: 6 }
+      })}
+    >
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+---
+import { H1 } from '@/components/typography'
+import Layout from '@/layouts/Layout.astro'
+import { css } from 'styled-system/css'
+import { flex } from 'styled-system/patterns'
+import { OpenNewWindow } from '@/components/icons'
+
+export const prerender = true
+---
+
+<Layout title='Home'>
+  <div
+    class={flex({
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    })}
+    })}
+  >
+    <H1 class={css({ pb: 2 })}>Hi there!</H1>
+    <p
+      class={css({
+        maxW: '52ch',
+        textAlign: 'center'
+      })}
+    >
+      I'm Xan. A <a href='/sketches'>generative artist</a>,{' '}
+      <a
+        href='https://strange.love/#team'
+        class={css({
+          display: 'inline-flex',
+          alignItems: 'center'
+        })}
+      >
+        frontend developer
+        <OpenNewWindow class={css({ w: 4, h: 4 })} client:load />
+      </a>,
+    </p> and <a href='/open-source'>OSS maintainer.</a>
+  </div>
+  <div class={css({ flex: 1 })}></div>
+</Layout>

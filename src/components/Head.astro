@@ -1,0 +1,60 @@
+---
+import getShareImage from '@jlengstorf/get-share-image';
+import { ViewTransitions } from 'astro:transitions';
+
+import baseUrl from '@/utils/baseUrl';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const { href } = Astro.url;
+
+const padding = 48;
+
+const formattedTitle = title ? `Xander Low | ${title}` : 'Xander Low';
+const formattedDescription = description ?? 'Developing for the web';
+
+const ogImage = getShareImage({
+  title: formattedTitle,
+  tagline: formattedDescription,
+  cloudName: 'dbgrselct',
+  imagePublicID: 'og-image',
+  titleFont: 'inter-bold.ttf',
+  taglineFont: 'dm-mono.ttf',
+  titleColor: '000000',
+  taglineColor: '000000',
+  titleFontSize: 72,
+  taglineFontSize: 36,
+  textLeftOffset: padding,
+  titleBottomOffset: 400,
+  taglineTopOffset: 300,
+  imageWidth: 1200,
+  imageHeight: 630,
+});
+---
+
+<head>
+  <meta charset='utf-8' />
+  <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+  <meta name='viewport' content='width=device-width' />
+  <meta name='generator' content={Astro.generator} />
+  {ogImage && (
+    <meta property='og:url' content={href} />
+    <meta property='og:image' content={new URL(ogImage)} />
+    <meta property='og:image:width' content='1200' />
+    <meta property='og:image:height' content='630' />
+    <meta property='og:title' content={formattedTitle} />
+    <meta property='og:description' content={formattedDescription} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:site' content={baseUrl} />
+    <meta name='twitter:title' content={formattedTitle} />
+    <meta name='twitter:description' content={formattedDescription} />
+  )}
+  <meta name='description' content={formattedDescription} />
+  <slot />
+  <title>{formattedTitle}</title>
+  <ViewTransitions />
+</head>

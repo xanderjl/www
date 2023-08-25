@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { heading } from 'styled-system/recipes';
+
+type Props = HTMLAttributes<'h2'>;
+
+const { class: c, ...rest } = Astro.props;
+---
+
+<h2 class:list={[heading({ size: 'lg' }), c]} {...rest}>
+  <slot />
+</h2>
