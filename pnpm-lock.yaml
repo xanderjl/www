@@ -39,8 +39,8 @@ dependencies:
     specifier: ^0.9.3
     version: 0.9.3
   p5:
-    specifier: ^1.5.0
-    version: 1.5.0
+    specifier: ^1.6.0
+    version: 1.6.0
   p5.js-svg:
     specifier: ^1.5.1
     version: 1.5.1
@@ -5473,8 +5473,8 @@ packages:
     resolution: {integrity: sha512-7p7VJ5WBpn8IVqX5b0FNkzn0+z7LNYMeM65qsLnjnEwi1ZUkSLeT49bbCAZYbmMW47ZagMdwU5UhNAvl0W/eAA==}
     dev: false
 
-  /p5@1.5.0:
-    resolution: {integrity: sha512-zZFMVUmGkXe2G5H6Sw7xsVhgdxMyEN/6SZnZqYdQ51513kTqPslLnukkwTbGf8YtW0RetTU0FTjYQMXnFD7KnQ==}
+  /p5@1.6.0:
+    resolution: {integrity: sha512-RowF+RxfVUhJm/YKXL5TCFzTqnwAIwK6W1VGs9LAqSf3PCmLz9Igbxzlf0Ry5IMV71L42wipCdH/bDiNsqAstA==}
     dev: false
 
   /param-case@3.0.4:

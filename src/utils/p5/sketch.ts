@@ -3,14 +3,23 @@ import P5 from 'p5'
 import svg from 'p5.js-svg'
 import type { SVG } from 'p5.js-svg/dist/types'
 
+import { getOs } from '../getOs'
+import { keyPressed } from './keyPressed'
 import { setupDefaults } from './setup'
-import type { ColorValue, Draw, Setup, WindowResized } from './types'
+import type {
+  ColorValue,
+  Draw,
+  KeyPressed,
+  Setup,
+  WindowResized
+} from './types'
 import { windowResizedDefaults } from './windowResized'
 
 interface SketchProps {
   draw?: Draw
   setup?: Setup
   windowResized?: WindowResized
+  keyPressed?: KeyPressed
   dimensions: number[]
   padding?: number[]
   background?: ColorValue
@@ -51,6 +60,17 @@ export const sketch = ({
 
       windowResized && windowResized(p5)
     }
+
+    p5.keyPressed = event => {
+      const os = getOs()
+      keyPressed({
+        p5,
+        event: event as KeyboardEvent,
+        os,
+        fileName: 'bingus',
+        renderer
+      })
+    }
   }
 
   const p5 = new P5(s, 'container' as unknown as HTMLElement)
@@ -59,5 +79,4 @@ export const sketch = ({
     window.p5 = p5
     svg(P5)
   }
-
 }
