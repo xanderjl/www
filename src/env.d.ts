@@ -18,6 +18,3 @@ declare global {
     p5: P5
   }
 }
-interface Window {
-  p5: P5
-}
