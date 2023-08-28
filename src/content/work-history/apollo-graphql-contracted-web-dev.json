@@ -4,8 +4,8 @@
   "startDate": "2022-01-01",
   "endDate": "2022-04-01",
   "responsibilities": [
-    "Improved team-wide DX by performing a full site migration from Gatsby v2 to v4",
+    "Revamped the team's development environment by orchestrating a seamless transition from Gatsby v2 to v4, resulting in improved Developer Experience (DX).",
     "Implemented a new editing experience in their existing CMS of choice for their marketing team",
-    "Started the push to refactor new modules of the site to use TypeScript wherever applicable"
+    "Initiated the implementation of new components in TypeScript wherever applicable"
   ]
 }
