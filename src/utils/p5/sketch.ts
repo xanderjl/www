@@ -85,7 +85,8 @@ export const sketch = ({
         event: event as KeyboardEvent,
         os,
         fileName,
-        renderer
+        renderer,
+        seed
       })
     }
   }

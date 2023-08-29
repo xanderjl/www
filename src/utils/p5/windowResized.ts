@@ -41,8 +41,10 @@ export const windowResizedDefaults = ({
   const maxWidth = Math.round(p5.windowWidth - paddingWidth)
   const maxHeight = Math.round(p5.windowHeight - paddingHeight)
 
-  seed && p5.randomSeed(seed)
-  seed && p5.noiseSeed(seed)
+  if (seed) {
+    p5.randomSeed(seed)
+    p5.noiseSeed(seed)
+  }
 
   if (usedWidth > p5.windowWidth || usedHeight > p5.windowHeight) {
     if (aspectRatio > windowRatio) {

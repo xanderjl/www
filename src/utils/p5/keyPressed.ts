@@ -31,8 +31,10 @@ export const keyPressed = ({
 }: KeyPressed) => {
   if (os === 'mac') {
     if (event?.key === 's' && event?.metaKey) {
-      seed && p5.randomSeed(seed)
-      seed && p5.noiseSeed(seed)
+      if (seed) {
+        p5.randomSeed(seed)
+        p5.noiseSeed(seed)
+      }
       event?.preventDefault()
       const ratio =
         ((dimensions && dimensions[0]) ?? width ?? p5.width) / p5.width
@@ -43,8 +45,10 @@ export const keyPressed = ({
     }
   } else {
     if (event?.key === 's' && event?.ctrlKey) {
-      seed && p5.randomSeed(seed)
-      seed && p5.noiseSeed(seed)
+      if (seed) {
+        p5.randomSeed(seed)
+        p5.noiseSeed(seed)
+      }
       event?.preventDefault()
       const ratio =
         ((dimensions && dimensions[0]) ?? width ?? p5.width) / p5.width
