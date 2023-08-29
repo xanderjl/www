@@ -25,6 +25,7 @@ interface SketchProps {
   padding?: number[]
   background?: ColorValue
   renderer?: RENDERER | SVG
+  seed?: number
 }
 
 export const sketch = ({
@@ -35,7 +36,8 @@ export const sketch = ({
   setup,
   suffix,
   windowResized,
-  renderer
+  renderer,
+  seed
 }: SketchProps) => {
   const s = (p5: P5) => {
     p5.setup = () => {
@@ -44,7 +46,8 @@ export const sketch = ({
         dimensions,
         padding,
         background,
-        renderer
+        renderer,
+        seed
       })
 
       setup && setup(p5)
@@ -57,7 +60,8 @@ export const sketch = ({
         p5,
         dimensions,
         padding,
-        background
+        background,
+        seed
       })
 
       windowResized && windowResized(p5)

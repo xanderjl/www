@@ -13,9 +13,9 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
 <script>
   import type P5 from 'p5'
 
-import { getDimensions } from '@/utils/getDimensions'
-import type { Draw } from '@/utils/p5'
-import { sketch } from '@/utils/p5'
+  import { getDimensions } from '@/utils/getDimensions'
+  import type { Draw } from '@/utils/p5'
+  import { sketch } from '@/utils/p5'
 
   type Coordinates = [number, number, string]
 
@@ -80,16 +80,21 @@ import { sketch } from '@/utils/p5'
   const background = [255, 253, 252]
 
   const poemString = poem.join()
+  const poemArr = Array.from(poemString).filter(char => char !== ' ')
   const marginRatio = 0.05
   const seed = 12341234
   let coordinates
   let margin = 0
 
   const draw: Draw = p5 => {
-    p5.text(poemString, 100, 100)
+    poemArr.map((char, i) => {
+      const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
+      const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
+      p5.text(char, x, y)
+    })
   }
 
-  sketch({ draw, dimensions, padding, background, renderer: 'svg' })
+  sketch({ draw, dimensions, padding, background, renderer: 'svg', seed })
 </script>
 <SketchLayout {title}>
   <Sketch />
