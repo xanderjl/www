@@ -17,8 +17,6 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
   import type { Draw } from '@/utils/p5'
   import { sketch } from '@/utils/p5'
 
-  type Coordinates = [number, number, string]
-
   const poem: string[] = [
     'We went to the coffee shop, where',
     'I walked up and introduced myself, I was afraid that he might run away',
@@ -45,53 +43,25 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
     minMax: [number, number]
   ) => p5.map(p5.noise(...noiseValues), 0, 1, minMax[0], minMax[1])
 
-  const initialCoordinates = (
-    p5: P5,
-    poem: string[],
-    margin: number
-  ): Coordinates[] =>
-    poem.map((string, i) => [
-      noiseMap(
-        p5,
-        [string.length * i, p5.width - margin],
-        [margin, (p5.width - margin) * 0.5]
-      ),
-      noiseMap(
-        p5,
-        [string.length * i, p5.height - margin * 2],
-        [margin, (p5.height - margin) * 0.5]
-      ),
-      string
-    ])
-
-  const shape = (p5: P5, x: number, y: number, sMod = 1) => {
-    const array = Array.from({ length: sMod })
-    array.forEach((_, i) => {
-      const xPos = x + i * 10
-      const yPos = y + i * 10
-      const w = noiseMap(p5, [x * i, y * i], [10, 100])
-      const h = i * sMod * 0.1
-      p5.rect(xPos, yPos, w, h)
-    })
-  }
-
   const dimensions: number[] = getDimensions('A4')
   const padding: number[] = [40]
   const background = [255, 253, 252]
-
-  const poemString = poem.join()
-  const poemArr = Array.from(poemString).filter(char => char !== ' ')
   const marginRatio = 0.0005
-  const seed = 12341234
-  let coordinates
+  const seed = 123
+  const poemString = poem.join()
+  const poemArr = Array.from(poemString).filter(
+    char => char !== ' ' && char !== ',' && char !== '.'
+  )
   let margin = 0
 
   const draw: Draw = p5 => {
+    p5.clear(0, 0, 0, 0)
     margin = p5.width * marginRatio
 
     poemArr.map((char, i) => {
       const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
       const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
+      p5.textSize(p5.random(i * 0.5))
       p5.text(char, x, y)
     })
   }
