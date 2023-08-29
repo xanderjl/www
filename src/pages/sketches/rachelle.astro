@@ -81,12 +81,14 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
 
   const poemString = poem.join()
   const poemArr = Array.from(poemString).filter(char => char !== ' ')
-  const marginRatio = 0.05
+  const marginRatio = 0.0005
   const seed = 12341234
   let coordinates
   let margin = 0
 
   const draw: Draw = p5 => {
+    margin = p5.width * marginRatio
+
     poemArr.map((char, i) => {
       const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
       const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
