@@ -1,7 +1,7 @@
 import { defineRecipe } from '@pandacss/dev'
 
 export const heading = defineRecipe({
-  name: 'heading',
+  className: 'heading',
   description: 'Styles for heading components',
   base: {
     fontWeight: 'bold',

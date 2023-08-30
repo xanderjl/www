@@ -1,6 +1,6 @@
 import mdx from '@astrojs/mdx';
 import solidJs from '@astrojs/solid-js';
-import vercel from '@astrojs/vercel/edge';
+import vercel from '@astrojs/vercel/serverless';
 import pandacss from '@pandacss/astro';
 import { defineConfig } from 'astro/config';
 
@@ -17,8 +17,8 @@ export default defineConfig({
     syntaxHighlight: 'prism'
   },
   output: 'server',
-  adapter: vercel(),
-  experimental: {
-    viewTransitions: true
-  },
+  adapter: vercel({
+    edgeMiddleware: true
+  }),
+
 });

@@ -6,7 +6,7 @@
   "version": "0.1.0",
   "scripts": {
     "prepare": "panda codegen",
-    "dev": "astro dev",
+    "dev": "astro dev --port 3000",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -21,14 +21,14 @@
     "sketch:a4": "npx hygen a4 new --name"
   },
   "dependencies": {
-    "@astrojs/mdx": "^0.19.7",
-    "@astrojs/solid-js": "^2.2.1",
-    "@astrojs/vercel": "^3.8.2",
+    "@astrojs/mdx": "^1.0.0",
+    "@astrojs/solid-js": "^3.0.0",
+    "@astrojs/vercel": "^4.0.0",
     "@fontsource/dm-mono": "^5.0.9",
     "@fontsource/inter": "^5.0.8",
     "@jlengstorf/get-share-image": "^0.8.0",
     "@nanostores/solid": "^0.4.2",
-    "astro": "^2.10.15",
+    "astro": "^3.0.2",
     "change-case": "^4.1.2",
     "fuse.js": "^6.6.2",
     "nanostores": "^0.9.3",
