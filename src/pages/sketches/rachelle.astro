@@ -57,12 +57,13 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
   const draw: Draw = p5 => {
     p5.clear(0, 0, 0, 0)
     margin = p5.width * marginRatio
-    p5.textSize(40)
 
     poemArr.map((char, i) => {
       const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
       const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
-      p5.rect(x, y, p5.random(5, 25), 10)
+
+      p5.textSize(p5.random(12, 48))
+      p5.text(char, x, y)
     })
   }
 

@@ -46,23 +46,37 @@ export const sketch = ({
         dimensions,
         padding,
         background,
-        renderer,
-        seed
+        renderer
       })
+      if (seed) {
+        p5.randomSeed(seed)
+        p5.noiseSeed(seed)
+      }
 
       setup && setup(p5)
     }
 
-    p5.draw = () => draw && draw(p5)
+    p5.draw = () => {
+      if (seed) {
+        p5.randomSeed(seed)
+        p5.noiseSeed(seed)
+      }
+
+      draw && draw(p5)
+    }
 
     p5.windowResized = () => {
       windowResizedDefaults({
         p5,
         dimensions,
         padding,
-        background,
-        seed
+        background
       })
+
+      if (seed) {
+        p5.randomSeed(seed)
+        p5.noiseSeed(seed)
+      }
 
       windowResized && windowResized(p5)
     }

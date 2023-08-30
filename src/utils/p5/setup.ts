@@ -12,7 +12,6 @@ export interface Setup {
   renderer?: P5.RENDERER | SVG
   background?: ColorValue
   pixelDensity?: number
-  seed?: number
 }
 
 export const setupDefaults = ({
@@ -23,8 +22,7 @@ export const setupDefaults = ({
   padding,
   background,
   renderer = 'p2d',
-  pixelDensity,
-  seed
+  pixelDensity
 }: Setup): void => {
   const usedWidth = dimensions ? dimensions[0] : width ? width : p5.windowWidth
   const usedHeight = dimensions
@@ -43,11 +41,6 @@ export const setupDefaults = ({
       : 0
   const maxWidth = Math.round(p5.windowWidth - paddingWidth)
   const maxHeight = Math.round(p5.windowHeight - paddingHeight)
-
-  if (seed) {
-    p5.randomSeed(seed)
-    p5.noiseSeed(seed)
-  }
 
   if (usedWidth > p5.windowWidth || usedHeight > p5.windowHeight) {
     if (aspectRatio > windowRatio) {
