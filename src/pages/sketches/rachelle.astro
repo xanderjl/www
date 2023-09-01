@@ -55,20 +55,27 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
   let margin = 0
 
   const draw: Draw = p5 => {
-    p5.clear(0, 0, 0, 0)
     margin = p5.width * marginRatio
+    p5.clear(0, 0, 0, 0)
+    p5.background(background)
 
     poemArr.map((char, i) => {
       const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
       const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
 
-      p5.textSize(p5.random(12, 48))
-      p5.text(char, x, y)
+      p5.rect(x, y, p5.random(10, 100), p5.random(10, 100))
     })
   }
 
-  sketch({ draw, dimensions, padding, background, renderer: 'svg', seed })
+  sketch({
+    draw,
+    dimensions,
+    padding,
+    renderer: 'svg',
+    seed
+  })
 </script>
+
 <SketchLayout {title}>
   <Sketch />
 </SketchLayout>
