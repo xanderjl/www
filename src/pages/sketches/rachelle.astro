@@ -59,7 +59,7 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
     p5.clear(0, 0, 0, 0)
     p5.background(background)
 
-    poemArr.map((char, i) => {
+    poemArr.map((_, i) => {
       const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
       const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
 
