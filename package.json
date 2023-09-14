@@ -33,7 +33,7 @@
     "change-case": "^4.1.2",
     "fuse.js": "^6.6.2",
     "nanostores": "^0.9.3",
-    "p5": "^1.6.0",
+    "p5": "1.6.0",
     "p5.js-svg": "^1.5.1",
     "solid-js": "^1.7.11"
   },
@@ -42,7 +42,7 @@
     "@happy-dom/global-registrator": "^11.0.6",
     "@pandacss/astro": "^0.15.0",
     "@pandacss/dev": "^0.15.0",
-    "@types/p5": "^1.6.0",
+    "@types/p5": "1.6.0",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "bun-types": "^1.0.1",
