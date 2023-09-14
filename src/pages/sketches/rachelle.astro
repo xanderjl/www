@@ -43,6 +43,15 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
     minMax: [number, number]
   ) => p5.map(p5.noise(...noiseValues), 0, 1, minMax[0], minMax[1])
 
+  const shape = (p5: P5, x: number, y: number) => {
+    p5.beginShape()
+    p5.vertex(x, 0)
+    p5.vertex(0, 100)
+    p5.vertex(100, 100)
+    p5.vertex(100, 0)
+    p5.endShape(p5.CLOSE)
+  }
+
   const dimensions: number[] = getDimensions('A4')
   const padding: number[] = [40]
   const background = [255, 253, 252]
@@ -56,14 +65,17 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
 
   const draw: Draw = p5 => {
     margin = p5.width * marginRatio
+
     p5.clear(0, 0, 0, 0)
-    p5.background(background)
+    // p5.background(background)
 
     poemArr.map((_, i) => {
       const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
       const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
 
+      // make a shape here
       p5.rect(x, y, p5.random(10, 100), p5.random(10, 100))
+      shape(p5, x, y)
     })
   }
 
