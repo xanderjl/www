@@ -32,11 +32,12 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
     const cy = p5.height * 0.5
 
     circles.map((_, i) => {
-      const radius = (p5.TWO_PI / length) * i
-      const x = cx + p5.cos(radius) * (p5.width * 0.25)
-      const y = cy + p5.sin(radius) * (p5.width * 0.25)
+      const mod = p5.width * 0.25
+      const r = (p5.TWO_PI / length) * i
+      const x = cx + p5.cos(r) * mod
+      const y = cy + p5.sin(r) * mod
 
-      p5.circle(x, y, 10)
+      p5.circle(x, y, Math.floor(mod * 0.0125))
     })
   }
 
@@ -45,7 +46,8 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
     dimensions,
     padding,
     renderer: 'svg',
-    suffix: 'radical-radials'
+    suffix: 'radical-radials',
+    seed: 1
   })
 </script>
 
