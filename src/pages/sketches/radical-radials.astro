@@ -17,16 +17,23 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
 
   const dimensions: number[] = getDimensions('A4')
   const padding: number[] = [40]
-  const background = [255, 253, 252]
+  const res = 10
 
   const draw: Draw = p5 => {
     p5.clear(0, 0, 0, 0)
+    p5.noFill()
+
+    const cx = p5.width * 0.5
+    const cy = p5.height * 0.5
+    const r = p5.PI
+
+    // placeholder
+    p5.circle(cx, cy, p5.width * 0.5)
   }
 
   sketch({
     draw,
     dimensions,
-    background,
     padding,
     renderer: 'svg',
     suffix: 'radical-radials'
