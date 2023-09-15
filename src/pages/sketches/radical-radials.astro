@@ -12,16 +12,20 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
 
 <script>
   import { getDimensions } from '@/utils/getDimensions'
-  import { sketch } from '@/utils/p5'
+  import { sketch, drawBorder } from '@/utils/p5'
   import type { Draw } from '@/utils/p5'
 
   const dimensions: number[] = getDimensions('A4')
   const padding: number[] = [40]
   const res = 10
+  let margin
 
   const draw: Draw = p5 => {
     p5.clear(0, 0, 0, 0)
     p5.noFill()
+    margin = p5.width * 0.05
+
+    drawBorder(p5, margin)
 
     const cx = p5.width * 0.5
     const cy = p5.height * 0.5
