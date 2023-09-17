@@ -1,12 +1,13 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
 import { heading } from 'styled-system/recipes'
+import { cx } from 'styled-system/css'
 
 type Props = HTMLAttributes<'h1'>
 
 const { class: c, ...rest } = Astro.props
 ---
 
-<h1 class:list={[heading({ size: 'xl' }), c]} {...rest}>
+<h1 class={cx(heading({ size: '2xl' }), c)} {...rest}>
   <slot />
 </h1>

@@ -1,7 +1,7 @@
 import { defineConfig } from '@pandacss/dev'
 
 import globalCss from '@/theme/globalCss'
-import { heading } from '@/theme/heading.recipe'
+import { heading } from '@/theme/recipes'
 import textStyles from '@/theme/textStyles'
 import tokens from '@/theme/tokens'
 
