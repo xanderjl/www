@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, getEntry } from 'astro:content'
 import { css } from 'styled-system/css'
 import { container } from 'styled-system/patterns'
 
@@ -7,13 +7,17 @@ import { Github, Linkedin, Mail, Phone } from '@/components/icons'
 import { H1, H2, H3 } from '@/components/typography'
 import Layout from '@/layouts/Layout.astro'
 import { formatDate } from '@/utils/formatDate'
+import { resume } from 'pdfkit'
 
 export const prerender = true
 
-const collection = await getCollection('work-history')
-const experience = collection.sort(
+const workHistory = await getCollection('work-history')
+const experience = workHistory.sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
 )
+const {
+  data: { name, socials, education, email, phone }
+} = await getEntry('resume-data', 'index')
 
 const h2Styles = css({
   pb: 4
@@ -30,15 +34,12 @@ const h2Styles = css({
       })}
     >
       <div>
-        <H1 class={css({ pb: 2 })}>Xander Low</H1>
+        <H1 class={css({ pb: 2 })}>{name}</H1>
         <div>
-          <a href='https://www.github.com/xandydandy' aria-label='Github'>
+          <a href={socials[1].url} aria-label={socials[1].name}>
             <Github class={css({ display: 'inline-block' })} client:load />
           </a>
-          <a
-            href='https://www.linkedin.com/in/xander-low-5855a910a/'
-            aria-label='Linkedin'
-          >
+          <a href={socials[0].url} aria-label={socials[0].name}>
             <Linkedin class={css({ display: 'inline-block' })} client:load />
           </a>
         </div>
@@ -82,11 +83,11 @@ const h2Styles = css({
       )
     }
     <H2 class={h2Styles}>Education</H2>
-    <H3>Fanshawe College</H3>
-    <p>Ontario College Degree</p>
-    <p>September 2013 - April 2015</p>
+    <H3>{education.school}</H3>
+    <p>{education.program}</p>
+    <p>{formatDate(education.startDate)} - {formatDate(education.endDate)}</p>
     <p>
-      Built a skillset in music production, engineering and entertainment law.
+      {education.description}
     </p>
   </div>
 </Layout>

@@ -21,7 +21,30 @@ const workHistoryCollection = defineCollection({
   })
 })
 
+const resumeCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    name: z.string().nonempty(),
+    email: z.string().nonempty(),
+    phone: z.string().nonempty(),
+    socials: z.array(
+      z.object({
+        name: z.string().nonempty(),
+        url: z.string().nonempty()
+      })
+    ),
+    education: z.object({
+      school: z.string().nonempty(),
+      program: z.string().nonempty(),
+      description: z.string().nonempty(),
+      startDate: z.string().transform(str => new Date(str)),
+      endDate: z.string().transform(str => new Date(str))
+    })
+  })
+})
+
 export const collections = {
   writing: writingCollection,
-  'work-history': workHistoryCollection
+  'work-history': workHistoryCollection,
+  'resume-data': resumeCollection
 }
