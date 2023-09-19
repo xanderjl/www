@@ -6,6 +6,7 @@ import { container } from 'styled-system/patterns'
 import { Github, Linkedin, Mail, Phone } from '@/components/icons'
 import { H1, H2, H3 } from '@/components/typography'
 import Layout from '@/layouts/Layout.astro'
+import { formatDate } from '@/utils/formatDate'
 
 export const prerender = true
 
@@ -13,9 +14,6 @@ const collection = await getCollection('work-history')
 const experience = collection.sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
 )
-
-const formatDate = (date: Date) =>
-  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
 
 const h2Styles = css({
   pb: 4
