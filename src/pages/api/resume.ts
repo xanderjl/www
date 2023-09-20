@@ -26,6 +26,14 @@ export const GET: APIRoute = async () => {
   // Heading
   doc.fontSize(24).text(name)
 
+  // Socials
+  doc
+    .fontSize(12)
+    .text(socials[0].name, { link: socials[0].url, underline: true })
+  doc
+    .fontSize(12)
+    .text(socials[1].name, { link: socials[1].url, underline: true })
+
   doc.fontSize(12).text(phone, { link: `tel:${phone}`, underline: true })
   doc.fontSize(12).text(email, {
     link: `mailto:${email}`,

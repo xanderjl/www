@@ -36,7 +36,8 @@
     "p5": "1.6.0",
     "p5.js-svg": "^1.5.1",
     "pdfkit": "^0.13.0",
-    "solid-js": "^1.7.12"
+    "solid-js": "^1.7.12",
+    "svg-to-pdfkit": "^0.1.8"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.1.3",
