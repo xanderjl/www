@@ -36,10 +36,13 @@ const h2Styles = css({
       <div>
         <H1 class={css({ pb: 2 })}>{name}</H1>
         <div>
-          <a href={socials[1].url} aria-label={socials[1].name}>
+          <a href={socials['github'].url} aria-label={socials['github'].name}>
             <Github class={css({ display: 'inline-block' })} client:load />
           </a>
-          <a href={socials[0].url} aria-label={socials[0].name}>
+          <a
+            href={socials['linkedin'].url}
+            aria-label={socials['linkedin'].name}
+          >
             <Linkedin class={css({ display: 'inline-block' })} client:load />
           </a>
         </div>

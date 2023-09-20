@@ -2,16 +2,16 @@
   "name": "Xander Low",
   "email": "xander@xandydandy.com",
   "phone": "519-670-9056",
-  "socials": [
-    {
+  "socials": {
+    "linkedin": {
       "name": "LinkedIn",
       "url": "https://www.linkedin.com/in/xander-low-5855a910a/"
     },
-    {
+    "github": {
       "name": "GitHub",
       "url": "https://www.github.com/xanderjl"
     }
-  ],
+  },
   "education": {
     "school": "Fanshawe College",
     "program": "Music Industry Arts",
