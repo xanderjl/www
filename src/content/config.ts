@@ -27,6 +27,7 @@ const resumeCollection = defineCollection({
     name: z.string().nonempty(),
     email: z.string().nonempty(),
     phone: z.string().nonempty(),
+    icons: z.record(z.string().nonempty()),
     socials: z.record(
       z.object({
         name: z.string().nonempty(),
