@@ -7,7 +7,6 @@ import { Github, Linkedin, Mail, Phone } from '@/components/icons'
 import { H1, H2, H3 } from '@/components/typography'
 import Layout from '@/layouts/Layout.astro'
 import { formatDate } from '@/utils/formatDate'
-import { resume } from 'pdfkit'
 
 export const prerender = true
 
@@ -25,7 +24,7 @@ const h2Styles = css({
 ---
 
 <Layout title='Resume'>
-  <div class={container({ maxW: '4xl' })}>
+  <div id='resume' class={container({ maxW: '4xl' })}>
     <div
       class={css({
         display: 'flex',
@@ -92,5 +91,7 @@ const h2Styles = css({
     <p>
       {education.description}
     </p>
+    <!-- TODO: complete PDF renderer -->
+    <!-- <a class={css({ mt: 12 })} href='/api/resume' download>download</a> -->
   </div>
 </Layout>
