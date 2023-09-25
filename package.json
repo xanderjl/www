@@ -7,19 +7,19 @@
   "scripts": {
     "prepare": "panda codegen",
     "dev": "astro dev --port 3000",
-    "deps:update": "bunx npm-check-updates --interactive --format group",
+    "deps:update": "pnpx npm-check-updates --interactive --format group",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,astro}\"",
     "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx,astro}\" --fix",
-    "sketch:square": "bunx hygen square new --name",
-    "sketch:a0": "bunx hygen a0 new --name",
-    "sketch:a1": "bunx hygen a1 new --name",
-    "sketch:a2": "bunx hygen a2 new --name",
-    "sketch:a3": "bunx hygen a3 new --name",
-    "sketch:a4": "bunx hygen a4 new --name"
+    "sketch:square": "pnpx hygen square new --name",
+    "sketch:a0": "pnpx hygen a0 new --name",
+    "sketch:a1": "pnpx hygen a1 new --name",
+    "sketch:a2": "pnpx hygen a2 new --name",
+    "sketch:a3": "pnpx hygen a3 new --name",
+    "sketch:a4": "pnpx hygen a4 new --name"
   },
   "dependencies": {
     "@astrojs/mdx": "1.1.0",
@@ -41,8 +41,8 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "1.1.3",
-    "@pandacss/astro": "0.15.0",
-    "@pandacss/dev": "0.15.0",
+    "@pandacss/astro": "0.15.1",
+    "@pandacss/dev": "0.15.1",
     "@types/p5": "1.6.0",
     "@types/pdfkit": "0.12.12",
     "@types/svg-to-pdfkit": "0.1.0",
