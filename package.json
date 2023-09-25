@@ -9,7 +9,7 @@
     "dev": "astro dev --port 3000",
     "deps:update": "bunx npm-check-updates --interactive --format group",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "rm -rf styled-system && bun run prepare && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,astro}\"",
