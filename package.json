@@ -7,7 +7,7 @@
   "scripts": {
     "prepare": "panda codegen",
     "dev": "astro dev --port 3000",
-    "deps:update": "bunx npm-check-updates --interactive --format group && rm bun.lockb && bun install",
+    "deps:update": "bunx npm-check-updates --interactive --format group && rm -rf node_modules bun.lockb && bun install",
     "start": "astro dev",
     "build": "rm -rf styled-system && bun run prepare && astro build",
     "preview": "astro preview",
