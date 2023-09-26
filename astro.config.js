@@ -6,9 +6,13 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [pandacss(), mdx({
-    extendMarkdownConfig: true
-  }), solidJs()],
+  integrations: [
+    pandacss(),
+    mdx({
+      extendMarkdownConfig: true
+    }),
+    solidJs()
+  ],
   markdown: {
     syntaxHighlight: 'prism'
   },
