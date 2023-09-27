@@ -19,8 +19,5 @@
     },
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "types": [
-      "bun-types"
-    ]
   }
 }

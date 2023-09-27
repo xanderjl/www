@@ -79,9 +79,6 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: 6.7.3
     version: 6.7.3(eslint@8.50.0)(typescript@5.2.2)
-  bun-types:
-    specifier: 1.0.3
-    version: 1.0.3
   eslint:
     specifier: 8.50.0
     version: 8.50.0
@@ -2157,7 +2154,7 @@ packages:
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       magic-string: 0.30.3
-      postcss: 8.4.30
+      postcss: 8.4.27
       source-map-js: 1.0.2
     dev: true
 
@@ -3250,10 +3247,6 @@ packages:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
-
-  /bun-types@1.0.3:
-    resolution: {integrity: sha512-XlyKVdYCHa7K5PHYGcwOVOrGE/bMnLS51y7zFA3ZAAXyiQ6dTaNXNCWTTufgII/6ruN770uhAXphQmzvU/r2fQ==}
-    dev: true
 
   /bundle-n-require@1.0.1:
     resolution: {integrity: sha512-gItLuU8M0uI7bcHim+wM+Y1bY9eG7j3XbGcU3ZCqsrJLj4ZIHhchHWQ1luL9c4P8yPNLC9Jkwbct/EgR0u/dzQ==}
