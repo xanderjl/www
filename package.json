@@ -8,7 +8,7 @@
     "prepare": "panda codegen --clean",
     "dev": "astro dev --port 3000",
     "start": "astro dev",
-    "build": "rm -rf styled-system && yarn prepare && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,astro}\"",
