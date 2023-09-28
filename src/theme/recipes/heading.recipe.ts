@@ -4,7 +4,7 @@ export const heading = defineRecipe({
   className: 'heading',
   description: 'Styles for heading components',
   base: {
-    fontFamily: 'DM Serif Text, serif',
+    fontFamily: '"DM Serif Text", serif',
     fontWeight: 'bold',
     pb: 3
   },
