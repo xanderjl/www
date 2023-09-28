@@ -21,5 +21,6 @@ export default defineConfig({
       }
     }
   },
-  minify: true
+  minify: true,
+  cwd: './'
 })
