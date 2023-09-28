@@ -2,7 +2,6 @@
   "name": "www",
   "description": "My personal site, rebuilt using Astro",
   "author": "Xander Low <xander@xandydandy.com> (https://www.xandydandy.com)",
-  "type": "module",
   "version": "0.1.0",
   "scripts": {
     "prepare": "panda codegen --clean",
