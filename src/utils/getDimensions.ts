@@ -1,4 +1,4 @@
-export type PaperSize = 'A0' | 'A1' | 'A2' | 'A3' | 'A4'
+export type PaperSize = "A0" | "A1" | "A2" | "A3" | "A4"
 
 export interface PaperSizes {
   [key: string]: number[]

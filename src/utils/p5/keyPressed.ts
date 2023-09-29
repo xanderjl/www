@@ -1,8 +1,8 @@
-import type { Color } from 'p5'
-import type P5 from 'p5'
-import type { SVG } from 'p5.js-svg'
+import type { Color } from "p5"
+import type P5 from "p5"
+import type { SVG } from "p5.js-svg"
 
-import type { ColorValue } from '@/utils/p5/types'
+import type { ColorValue } from "@/utils/p5/types"
 
 export interface KeyPressed {
   p5: P5
@@ -29,8 +29,8 @@ export const keyPressed = ({
   renderer,
   noLoop
 }: KeyPressed) => {
-  if (os === 'mac') {
-    if (event?.key === 's' && event?.metaKey) {
+  if (os === "mac") {
+    if (event?.key === "s" && event?.metaKey) {
       if (seed) {
         p5.randomSeed(seed)
         p5.noiseSeed(seed)
@@ -41,10 +41,10 @@ export const keyPressed = ({
       p5.pixelDensity(ratio)
       background && p5.background(background as unknown as Color)
       noLoop ? (p5.loop(), p5.noLoop()) : p5.draw()
-      renderer == 'svg' ? p5.save(fileName) : p5.saveCanvas(fileName, 'png')
+      renderer == "svg" ? p5.save(fileName) : p5.saveCanvas(fileName, "png")
     }
   } else {
-    if (event?.key === 's' && event?.ctrlKey) {
+    if (event?.key === "s" && event?.ctrlKey) {
       if (seed) {
         p5.randomSeed(seed)
         p5.noiseSeed(seed)
@@ -55,7 +55,7 @@ export const keyPressed = ({
       p5.pixelDensity(ratio)
       background && p5.background(background as unknown as Color)
       noLoop ? (p5.loop(), p5.noLoop()) : p5.draw()
-      renderer == 'svg' ? p5.save(fileName) : p5.saveCanvas(fileName, 'png')
+      renderer == "svg" ? p5.save(fileName) : p5.saveCanvas(fileName, "png")
     }
   }
 }

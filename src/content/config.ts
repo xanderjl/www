@@ -1,7 +1,7 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, z } from "astro:content"
 
 const writingCollection = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     draft: z.boolean().default(false),
     title: z.string().nonempty(),
@@ -11,7 +11,7 @@ const writingCollection = defineCollection({
 })
 
 const workHistoryCollection = defineCollection({
-  type: 'data',
+  type: "data",
   schema: z.object({
     role: z.string().nonempty(),
     client: z.string().nonempty(),
@@ -22,7 +22,7 @@ const workHistoryCollection = defineCollection({
 })
 
 const resumeCollection = defineCollection({
-  type: 'data',
+  type: "data",
   schema: z.object({
     name: z.string().nonempty(),
     email: z.string().nonempty(),
@@ -46,6 +46,6 @@ const resumeCollection = defineCollection({
 
 export const collections = {
   writing: writingCollection,
-  'work-history': workHistoryCollection,
-  'resume-data': resumeCollection
+  "work-history": workHistoryCollection,
+  "resume-data": resumeCollection
 }

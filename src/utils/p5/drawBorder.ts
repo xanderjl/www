@@ -1,4 +1,4 @@
-import type p5 from 'p5'
+import type p5 from "p5"
 
 export const drawBorder = (p5: p5, margin: number) => {
   const x = margin

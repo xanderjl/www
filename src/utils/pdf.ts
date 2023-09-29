@@ -1,5 +1,5 @@
-import PDFDocument from 'pdfkit'
-import SVGtoPDF from 'svg-to-pdfkit'
+import PDFDocument from "pdfkit"
+import SVGtoPDF from "svg-to-pdfkit"
 
 export class PDF extends PDFDocument {
   addSVG = (

@@ -1,6 +1,6 @@
-import type { Component, ComponentProps } from 'solid-js'
+import type { Component, ComponentProps } from "solid-js"
 
-export const Phone: Component<ComponentProps<'svg'>> = props => {
+export const Phone: Component<ComponentProps<"svg">> = props => {
   return (
     <svg
       width='24px'

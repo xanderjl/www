@@ -1,21 +1,21 @@
 ---
-import { capitalCase } from 'change-case'
+import { capitalCase } from "change-case"
 
-import Sketch from '@/components/Sketch.astro'
-import SketchLayout from '@/layouts/SketchLayout.astro'
+import Sketch from "@/components/Sketch.astro"
+import SketchLayout from "@/layouts/SketchLayout.astro"
 
 export const prerender = true
 
 const { pathname } = Astro.url
-const title = capitalCase(pathname.split('/').pop() ?? '')
+const title = capitalCase(pathname.split("/").pop() ?? "")
 ---
 
 <script>
-  import { getDimensions } from '@/utils/getDimensions'
-import type { Draw } from '@/utils/p5'
-import { drawBorder, sketch } from '@/utils/p5'
+  import { getDimensions } from "@/utils/getDimensions"
+import type { Draw } from "@/utils/p5"
+import { drawBorder, sketch } from "@/utils/p5"
 
-  const dimensions: number[] = getDimensions('A4')
+  const dimensions: number[] = getDimensions("A4")
   const padding: number[] = [40]
   const length = 80
   const circles = Array.from({ length })
@@ -45,8 +45,8 @@ import { drawBorder, sketch } from '@/utils/p5'
     draw,
     dimensions,
     padding,
-    renderer: 'svg',
-    suffix: 'radical-radials',
+    renderer: "svg",
+    suffix: "radical-radials",
     seed: 1
   })
 </script>

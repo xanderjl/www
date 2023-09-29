@@ -1,19 +1,19 @@
 ---
-import '@/styles/prism-theme.css'
+import "@/styles/prism-theme.css"
 
-import type { GetStaticPaths } from 'astro'
-import type { CollectionEntry } from 'astro:content'
-import { getCollection } from 'astro:content'
+import type { GetStaticPaths } from "astro"
+import type { CollectionEntry } from "astro:content"
+import { getCollection } from "astro:content"
 
-import { components } from '@/components/MDXComponents'
-import { H1 } from '@/components/typography'
-import Layout from '@/layouts/Layout.astro'
-import { css } from '@/styled-system/css'
+import { components } from "@/components/MDXComponents"
+import { H1 } from "@/components/typography"
+import Layout from "@/layouts/Layout.astro"
+import { css } from "@/styled-system/css"
 
 export const prerender = true
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const writing = await getCollection('writing')
+  const writing = await getCollection("writing")
 
   return writing.map(entry => {
     return {
@@ -28,21 +28,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 interface Props {
-  entry: CollectionEntry<'writing'>
+  entry: CollectionEntry<"writing">
 }
 
 const { entry } = Astro.props
 const { data, render } = entry
 const { Content } = await render()
 const { title, date, description } = data
-const dateFormatted = new Intl.DateTimeFormat('en-US', {
-  dateStyle: 'long'
+const dateFormatted = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "long"
 }).format(new Date(date))
 ---
 
 <Layout {title} {description} maxW='2xl'>
   <H1 transition:name={`hero-${entry.slug}`}>{title}</H1>
-  <span class={css({ fontSize: 'md' })}>{dateFormatted}</span>
+  <span class={css({ fontSize: "md" })}>{dateFormatted}</span>
   <hr class={css({ my: 2 })} />
   <Content {components} />
 </Layout>

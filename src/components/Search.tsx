@@ -1,10 +1,10 @@
-import { headerCase } from 'change-case'
-import Fuse from 'fuse.js'
-import type { Component } from 'solid-js'
-import { createSignal, For, Show } from 'solid-js'
+import { headerCase } from "change-case"
+import Fuse from "fuse.js"
+import type { Component } from "solid-js"
+import { createSignal, For, Show } from "solid-js"
 
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
+import { css } from "@/styled-system/css"
+import { flex } from "@/styled-system/patterns"
 
 interface SearchProps {
   list: string[]
@@ -14,10 +14,10 @@ interface SearchProps {
 type Result = Fuse.FuseResult<string>
 
 const liStyles = css({
-  '&:not(:last-of-type)': {
+  "&:not(:last-of-type)": {
     pb: 2,
     borderBottomWidth: 1,
-    borderColor: 'gray.400'
+    borderColor: "gray.400"
   }
 })
 
@@ -28,7 +28,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
   return (
     <div
       class={flex({
-        direction: 'column',
+        direction: "column",
         gap: 2
       })}
     >
@@ -36,12 +36,12 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
         type='text'
         placeholder='Search'
         class={css({
-          borderColor: 'gray.400',
+          borderColor: "gray.400",
           borderWidth: 1,
           borderRadius: 4,
           p: 1,
           _placeholder: {
-            color: 'gray.400'
+            color: "gray.400"
           }
         })}
         onInput={e => {
@@ -51,12 +51,12 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
       />
       <ul
         class={css({
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
           gap: 1,
           m: 0,
-          listStyleType: 'none',
-          listStylePosition: 'outside'
+          listStyleType: "none",
+          listStylePosition: "outside"
         })}
       >
         <Show
@@ -69,7 +69,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
                   style={`view-transition-name: hero-${entry}`}
                 >
                   <a href={`${path}/${entry}`}>
-                    {headerCase(entry).replaceAll('-', ' ')}
+                    {headerCase(entry).replaceAll("-", " ")}
                   </a>
                 </li>
               )}
@@ -83,7 +83,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
                 style={`view-transition-name: hero-${entry.item}`}
               >
                 <a href={`${path}/${entry.item}`}>
-                  {headerCase(entry.item).replaceAll('-', ' ')}
+                  {headerCase(entry.item).replaceAll("-", " ")}
                 </a>
               </li>
             )}

@@ -1,22 +1,22 @@
 ---
-import { getCollection, getEntry } from 'astro:content'
+import { getCollection, getEntry } from "astro:content"
 
-import { Github, Linkedin, Mail, Phone } from '@/components/icons'
-import { H1, H2, H3 } from '@/components/typography'
-import Layout from '@/layouts/Layout.astro'
-import { css } from '@/styled-system/css'
-import { container } from '@/styled-system/patterns'
-import { formatDate } from '@/utils/formatDate'
+import { Github, Linkedin, Mail, Phone } from "@/components/icons"
+import { H1, H2, H3 } from "@/components/typography"
+import Layout from "@/layouts/Layout.astro"
+import { css } from "@/styled-system/css"
+import { container } from "@/styled-system/patterns"
+import { formatDate } from "@/utils/formatDate"
 
 export const prerender = true
 
-const workHistory = await getCollection('work-history')
+const workHistory = await getCollection("work-history")
 const experience = workHistory.sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
 )
 const {
   data: { name, socials, education, email, phone }
-} = await getEntry('resume-data', 'index')
+} = await getEntry("resume-data", "index")
 
 const h2Styles = css({
   pb: 4
@@ -24,40 +24,40 @@ const h2Styles = css({
 ---
 
 <Layout title='Resume'>
-  <div id='resume' class={container({ maxW: '4xl' })}>
+  <div id='resume' class={container({ maxW: "4xl" })}>
     <div
       class={css({
-        display: 'flex',
-        justifyContent: 'space-between',
+        display: "flex",
+        justifyContent: "space-between",
         pb: 14
       })}
     >
       <div>
         <H1 class={css({ pb: 2 })}>{name}</H1>
         <div>
-          <a href={socials['github'].url} aria-label={socials['github'].name}>
-            <Github class={css({ display: 'inline-block' })} client:load />
+          <a href={socials["github"].url} aria-label={socials["github"].name}>
+            <Github class={css({ display: "inline-block" })} client:load />
           </a>
           <a
-            href={socials['linkedin'].url}
-            aria-label={socials['linkedin'].name}
+            href={socials["linkedin"].url}
+            aria-label={socials["linkedin"].name}
           >
-            <Linkedin class={css({ display: 'inline-block' })} client:load />
+            <Linkedin class={css({ display: "inline-block" })} client:load />
           </a>
         </div>
       </div>
       <div
         class={css({
-          display: 'flex',
-          flexDirection: 'column'
+          display: "flex",
+          flexDirection: "column"
         })}
       >
         <a href='tel:519-670-9056'
-          ><Phone class={css({ display: 'inline-block' })} client:load />
+          ><Phone class={css({ display: "inline-block" })} client:load />
            519-670-9056</a
         >
         <a href='mailto:xander@xandydandy.com'
-          ><Mail class={css({ display: 'inline-block' })} client:load />
+          ><Mail class={css({ display: "inline-block" })} client:load />
            xander@xandydandy.com</a
         >
       </div>
@@ -76,7 +76,7 @@ const h2Styles = css({
               </p>
               <ul class={css({ pb: 10 })}>
                 {responsibilities.map(responsibility => (
-                  <li class={css({ listStyle: 'inside' })}>{responsibility}</li>
+                  <li class={css({ listStyle: "inside" })}>{responsibility}</li>
                 ))}
               </ul>
             </div>

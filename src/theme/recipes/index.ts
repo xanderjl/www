@@ -1,1 +1,1 @@
-export * from './heading.recipe'
+export * from "./heading.recipe"

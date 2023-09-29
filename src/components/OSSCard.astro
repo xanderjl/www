@@ -1,7 +1,7 @@
 ---
-import { Github } from '@/components/icons'
-import { H2 } from '@/components/typography'
-import { css } from '@/styled-system/css'
+import { Github } from "@/components/icons"
+import { H2 } from "@/components/typography"
+import { css } from "@/styled-system/css"
 
 interface Props {
   name: string
@@ -15,18 +15,18 @@ const { name, description, href } = Astro.props
 <a
   {href}
   class={css({
-    display: 'flex',
-    background: 'transparent',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    maxWidth: '275px',
+    display: "flex",
+    background: "transparent",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    maxWidth: "275px",
     p: 4,
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: 'black',
+    borderColor: "black",
     _hover: {
-      color: 'red.400',
-      borderColor: 'red.400'
+      color: "red.400",
+      borderColor: "red.400"
     }
   })}
 >
@@ -37,13 +37,13 @@ const { name, description, href } = Astro.props
     {description && <p>{description}</p>}
   </div>
   <div>
-    <hr class={css({ my: 4, borderColor: 'red.400', borderWidth: 1 })} />
+    <hr class={css({ my: 4, borderColor: "red.400", borderWidth: 1 })} />
   </div>
   <div
     class={css({
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
     })}
   >
     <span class={css({ flex: 1 })}>

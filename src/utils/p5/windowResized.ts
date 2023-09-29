@@ -1,6 +1,6 @@
-import type P5 from 'p5'
+import type P5 from "p5"
 
-import type { ColorValue } from './types'
+import type { ColorValue } from "./types"
 
 interface WindowResized {
   p5: P5

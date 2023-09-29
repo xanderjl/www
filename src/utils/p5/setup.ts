@@ -1,7 +1,7 @@
-import type P5 from 'p5'
-import type { SVG } from 'p5.js-svg'
+import type P5 from "p5"
+import type { SVG } from "p5.js-svg"
 
-import type { ColorValue } from './types'
+import type { ColorValue } from "./types"
 
 export interface Setup {
   p5: P5
@@ -21,7 +21,7 @@ export const setupDefaults = ({
   dimensions,
   padding,
   background,
-  renderer = 'p2d',
+  renderer = "p2d",
   pixelDensity
 }: Setup): void => {
   const usedWidth = dimensions ? dimensions[0] : width ? width : p5.windowWidth

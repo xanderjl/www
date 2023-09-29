@@ -1,8 +1,8 @@
 ---
-import getShareImage from '@jlengstorf/get-share-image';
-import { ViewTransitions } from 'astro:transitions';
+import getShareImage from "@jlengstorf/get-share-image";
+import { ViewTransitions } from "astro:transitions";
 
-import baseUrl from '@/utils/baseUrl';
+import baseUrl from "@/utils/baseUrl";
 
 interface Props {
   title?: string;
@@ -14,18 +14,18 @@ const { href } = Astro.url;
 
 const padding = 60;
 
-const formattedTitle = title ? `Xander Low | ${title}` : 'Xander Low';
-const formattedDescription = description ?? 'Developing for the web';
+const formattedTitle = title ? `Xander Low | ${title}` : "Xander Low";
+const formattedDescription = description ?? "Developing for the web";
 
 const ogImage = getShareImage({
   title: formattedTitle,
   tagline: formattedDescription,
-  cloudName: 'dbgrselct',
-  imagePublicID: 'og-image',
-  titleFont: 'inter-bold.ttf',
-  taglineFont: 'dm-mono.ttf',
-  titleColor: '000000',
-  taglineColor: '000000',
+  cloudName: "dbgrselct",
+  imagePublicID: "og-image",
+  titleFont: "inter-bold.ttf",
+  taglineFont: "dm-mono.ttf",
+  titleColor: "000000",
+  taglineColor: "000000",
   titleFontSize: 72,
   taglineFontSize: 36,
   textLeftOffset: padding,

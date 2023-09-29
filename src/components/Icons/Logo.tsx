@@ -1,6 +1,6 @@
-import type { Component, ComponentProps } from 'solid-js';
+import type { Component, ComponentProps } from "solid-js";
 
-export const Logo: Component<ComponentProps<'svg'>> = props => {
+export const Logo: Component<ComponentProps<"svg">> = props => {
   return (
     <svg
       width='103'

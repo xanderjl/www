@@ -8,10 +8,5 @@
       }
     }
   ],
-  "semi": false,
-  "arrowParens": "avoid",
-  "trailingComma": "none",
-  "jsxSingleQuote": true,
-  "singleQuote": true,
   "astroAllowShorthand": true
 }

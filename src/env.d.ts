@@ -2,7 +2,7 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
-import type * as P5 from 'p5'
+import type * as P5 from "p5"
 
 interface ImportMetaEnv {
   readonly PRIVATE_BASE_URL: string
