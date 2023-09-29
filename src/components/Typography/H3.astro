@@ -1,12 +1,12 @@
 ---
-import type { HTMLAttributes } from "astro/types"
+import type { HTMLAttributes } from "astro/types";
 
-import { cx } from "@/styled-system/css"
-import { heading } from "@/styled-system/recipes"
+import { cx } from "@/styled-system/css";
+import { heading } from "@/styled-system/recipes";
 
-type Props = HTMLAttributes<"h3">
+type Props = HTMLAttributes<"h3">;
 
-const { class: c, ...rest } = Astro.props
+const { class: c, ...rest } = Astro.props;
 ---
 
 <h3 class={cx(heading({ size: "md" }), c)} {...rest}>

@@ -1,6 +1,6 @@
 import { defineGlobalStyles } from "@pandacss/dev";
 
-const globalCss = defineGlobalStyles({
+export const globalCss = defineGlobalStyles({
   "html, body": {
     background: "gray.50",
     a: {
@@ -14,5 +14,3 @@ const globalCss = defineGlobalStyles({
     },
   },
 });
-
-export default globalCss;

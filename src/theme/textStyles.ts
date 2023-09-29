@@ -1,6 +1,6 @@
 import { defineTextStyles } from "@pandacss/dev";
 
-const textStyles = defineTextStyles({
+export const textStyles = defineTextStyles({
   body: {
     value: {
       fontFamily: "'DM Mono', monospace",
@@ -13,5 +13,3 @@ const textStyles = defineTextStyles({
     },
   },
 });
-
-export default textStyles;

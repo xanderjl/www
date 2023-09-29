@@ -1,11 +1,11 @@
 ---
-import type { HTMLAttributes } from "astro/types"
+import type { HTMLAttributes } from "astro/types";
 
-import { css, cx } from "@/styled-system/css"
+import { css, cx } from "@/styled-system/css";
 
-type Props = HTMLAttributes<"p">
+type Props = HTMLAttributes<"p">;
 
-const { class: c, ...rest } = Astro.props
+const { class: c, ...rest } = Astro.props;
 ---
 
 <p class={cx(css({ pb: 6 }), c)} {...rest}>

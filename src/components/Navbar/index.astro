@@ -1,11 +1,11 @@
 ---
-import { Logo } from "@/components/icons"
-import { Mobile } from "@/components/Navbar/Mobile"
-import { routes } from "@/routes"
-import { css } from "@/styled-system/css"
-import { container } from "@/styled-system/patterns"
+import { Logo } from "@/components/icons";
+import { Mobile } from "@/components/Navbar/Mobile";
+import { routes } from "@/routes";
+import { css } from "@/styled-system/css";
+import { container } from "@/styled-system/patterns";
 
-import { MobileLinks } from "./MobileLinks"
+import { MobileLinks } from "./MobileLinks";
 ---
 
 <div
@@ -13,23 +13,23 @@ import { MobileLinks } from "./MobileLinks"
     py: 4,
     height: "auto",
     boxShadow: "md",
-    zIndex: 3
+    zIndex: 3,
   })}
 >
   <nav
     class={container({
       display: { base: "none", md: "flex" },
       justifyContent: "space-between",
-      alignItems: "center"
+      alignItems: "center",
     })}
   >
-    <a href='/' class={css({ background: "none" })}>
+    <a href="/" class={css({ background: "none" })}>
       <Logo class={css({ w: 10, h: 10 })} client:load />
     </a>
     <ul
       class={css({
         display: "flex",
-        gap: 2
+        gap: 2,
       })}
     >
       {
@@ -43,17 +43,17 @@ import { MobileLinks } from "./MobileLinks"
   </nav>
   <nav
     class={container({
-      display: { base: "block", md: "none" }
+      display: { base: "block", md: "none" },
     })}
   >
     <div
       class={css({
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
       })}
     >
-      <a href='/' class={css({ background: "none" })}>
+      <a href="/" class={css({ background: "none" })}>
         <Logo class={css({ w: 10, h: 10 })} client:load />
       </a>
       <Mobile client:load />

@@ -1,58 +1,58 @@
 ---
-import { capitalCase } from "change-case"
+import { capitalCase } from "change-case";
 
-import Sketch from "@/components/Sketch.astro"
-import SketchLayout from "@/layouts/SketchLayout.astro"
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
 
-export const prerender = true
+export const prerender = true;
 
-const { pathname } = Astro.url
-const title = capitalCase(pathname.split("/").pop() ?? "")
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions } from "@/utils/getDimensions"
-import type { Draw } from "@/utils/p5"
-import { createGrid, sketch } from "@/utils/p5"
+  import { getDimensions } from "@/utils/getDimensions";
+  import type { Draw } from "@/utils/p5";
+  import { createGrid, sketch } from "@/utils/p5";
 
-  const dimensions: number[] = getDimensions("A4")
-  const padding: number[] = [40]
-  const grid = createGrid(10)
-  const brid = createGrid(6)
-  let margin: number
-  let mod = 0.00001
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const grid = createGrid(10);
+  const brid = createGrid(6);
+  let margin: number;
+  let mod = 0.00001;
 
-  const draw: Draw = p5 => {
-    p5.clear(0, 0, 0, 0)
-    p5.frameRate(0)
-    p5.noFill()
-    margin = p5.width * 0.1
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+    p5.frameRate(0);
+    p5.noFill();
+    margin = p5.width * 0.1;
 
     grid.forEach(([u, v]) => {
-      const x = p5.lerp(margin, p5.width - margin, u * p5.noise(u, v))
-      const y = p5.lerp(margin, p5.height - margin, v * p5.noise(u, v))
+      const x = p5.lerp(margin, p5.width - margin, u * p5.noise(u, v));
+      const y = p5.lerp(margin, p5.height - margin, v * p5.noise(u, v));
 
-      p5.push()
+      p5.push();
       p5.rotate(
-        p5.PI / p5.noise(u * p5.TWO_PI, v * p5.TWO_PI * p5.random(0.25, 2))
-      )
+        p5.PI / p5.noise(u * p5.TWO_PI, v * p5.TWO_PI * p5.random(0.25, 2)),
+      );
       brid.forEach(([i, j]) => {
-        const cx = p5.lerp(x, p5.width - margin, i * p5.noise(x))
-        const cy = p5.lerp(y, p5.height + margin, j * p5.noise(i, y))
+        const cx = p5.lerp(x, p5.width - margin, i * p5.noise(x));
+        const cy = p5.lerp(y, p5.height + margin, j * p5.noise(i, y));
 
-        const x1 = cx - p5.width * p5.random(p5.width * mod)
-        const y1 = cy - p5.height * p5.random(p5.height * mod)
-        const x2 = cx + p5.width * p5.random(p5.width * mod)
-        const y2 = cy - p5.height * p5.random(p5.height * mod)
-        const x3 = cx + p5.width * p5.random(p5.width * mod)
-        const y3 = cy + p5.height * p5.random(p5.height * mod)
-        const x4 = cx - p5.width * p5.random(p5.width * mod)
-        const y4 = cy + p5.height * p5.random(p5.height * mod)
-        p5.quad(x1, y1, x2, y2, x3, y3, x4, y4)
-      })
-      p5.pop()
-    })
-  }
+        const x1 = cx - p5.width * p5.random(p5.width * mod);
+        const y1 = cy - p5.height * p5.random(p5.height * mod);
+        const x2 = cx + p5.width * p5.random(p5.width * mod);
+        const y2 = cy - p5.height * p5.random(p5.height * mod);
+        const x3 = cx + p5.width * p5.random(p5.width * mod);
+        const y3 = cy + p5.height * p5.random(p5.height * mod);
+        const x4 = cx - p5.width * p5.random(p5.width * mod);
+        const y4 = cy + p5.height * p5.random(p5.height * mod);
+        p5.quad(x1, y1, x2, y2, x3, y3, x4, y4);
+      });
+      p5.pop();
+    });
+  };
 
   sketch({
     draw,
@@ -60,8 +60,8 @@ import { createGrid, sketch } from "@/utils/p5"
     padding,
     renderer: "svg",
     suffix: "an-hour",
-    seed: 100
-  })
+    seed: 100,
+  });
 </script>
 
 <SketchLayout {title}>

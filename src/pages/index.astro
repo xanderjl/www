@@ -1,31 +1,31 @@
 ---
-import { H1 } from '@/components/typography'
-import Layout from '@/layouts/Layout.astro'
-import { css } from '@/styled-system/css'
-import { flex } from '@/styled-system/patterns'
+import { H1 } from "@/components/typography";
+import Layout from "@/layouts/Layout.astro";
+import { css } from "@/styled-system/css";
+import { flex } from "@/styled-system/patterns";
 
-export const prerender = true
+export const prerender = true;
 ---
 
-<Layout title='Home'>
+<Layout title="Home">
   <div
     class={flex({
       flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
     })}
     })}
   >
     <H1 class={css({ pb: 2 })}>Hi there!</H1>
     <p
       class={css({
-        maxW: '52ch',
-        textAlign: 'center'
+        maxW: "52ch",
+        textAlign: "center",
       })}
     >
-      I'm Xan. A <a href='/sketches'>generative artist</a>, frontend developer,
-      and <a href='/open-source'>OSS maintainer.</a>
+      I'm Xan. A <a href="/sketches">generative artist</a>, frontend developer,
+      and <a href="/open-source">OSS maintainer.</a>
     </p>
   </div>
   <div class={css({ flex: 1 })}></div>

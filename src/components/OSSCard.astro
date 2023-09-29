@@ -1,15 +1,15 @@
 ---
-import { Github } from "@/components/icons"
-import { H2 } from "@/components/typography"
-import { css } from "@/styled-system/css"
+import { Github } from "@/components/icons";
+import { H2 } from "@/components/typography";
+import { css } from "@/styled-system/css";
 
 interface Props {
-  name: string
-  description?: string
-  href: URL | string
+  name: string;
+  description?: string;
+  href: URL | string;
 }
 
-const { name, description, href } = Astro.props
+const { name, description, href } = Astro.props;
 ---
 
 <a
@@ -26,8 +26,8 @@ const { name, description, href } = Astro.props
     borderColor: "black",
     _hover: {
       color: "red.400",
-      borderColor: "red.400"
-    }
+      borderColor: "red.400",
+    },
   })}
 >
   <div class={css({ flex: 1 })}>
@@ -43,7 +43,7 @@ const { name, description, href } = Astro.props
     class={css({
       display: "flex",
       justifyContent: "space-between",
-      alignItems: "center"
+      alignItems: "center",
     })}
   >
     <span class={css({ flex: 1 })}>

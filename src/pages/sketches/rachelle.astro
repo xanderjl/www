@@ -1,21 +1,21 @@
 ---
-import { capitalCase } from "change-case"
+import { capitalCase } from "change-case";
 
-import Sketch from "@/components/Sketch.astro"
-import SketchLayout from "@/layouts/SketchLayout.astro"
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
 
-export const prerender = true
+export const prerender = true;
 
-const { pathname } = Astro.url
-const title = capitalCase(pathname.split("/").pop() ?? "")
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import type P5 from "p5"
+  import type P5 from "p5";
 
-  import { getDimensions } from "@/utils/getDimensions"
-  import type { Draw } from "@/utils/p5"
-  import { sketch } from "@/utils/p5"
+  import { getDimensions } from "@/utils/getDimensions";
+  import type { Draw } from "@/utils/p5";
+  import { sketch } from "@/utils/p5";
 
   const poem: string[] = [
     "We went to the coffee shop, where",
@@ -34,58 +34,58 @@ const title = capitalCase(pathname.split("/").pop() ?? "")
     "Big Husband.",
     "\"He's sleepy",
     "But I want to see him.",
-    "\"I hope that I was able to help you"
-  ]
+    '"I hope that I was able to help you',
+  ];
 
   const noiseMap = (
     p5: P5,
     noiseValues: [number, number?, number?],
-    minMax: [number, number]
-  ) => p5.map(p5.noise(...noiseValues), 0, 1, minMax[0], minMax[1])
+    minMax: [number, number],
+  ) => p5.map(p5.noise(...noiseValues), 0, 1, minMax[0], minMax[1]);
 
   const shape = (p5: P5, x: number, y: number) => {
-    p5.beginShape()
-    p5.vertex(x, 0)
-    p5.vertex(0, 100)
-    p5.vertex(100, 100)
-    p5.vertex(100, 0)
-    p5.endShape(p5.CLOSE)
-  }
+    p5.beginShape();
+    p5.vertex(x, 0);
+    p5.vertex(0, 100);
+    p5.vertex(100, 100);
+    p5.vertex(100, 0);
+    p5.endShape(p5.CLOSE);
+  };
 
-  const dimensions: number[] = getDimensions("A4")
-  const padding: number[] = [40]
-  const background = [255, 253, 252]
-  const marginRatio = 0.0005
-  const seed = 123
-  const poemString = poem.join()
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  const marginRatio = 0.0005;
+  const seed = 123;
+  const poemString = poem.join();
   const poemArr = Array.from(poemString).filter(
-    char => char !== " " && char !== "," && char !== "."
-  )
-  let margin = 0
+    (char) => char !== " " && char !== "," && char !== ".",
+  );
+  let margin = 0;
 
-  const draw: Draw = p5 => {
-    margin = p5.width * marginRatio
+  const draw: Draw = (p5) => {
+    margin = p5.width * marginRatio;
 
-    p5.clear(0, 0, 0, 0)
+    p5.clear(0, 0, 0, 0);
     // p5.background(background)
 
     poemArr.map((_, i) => {
-      const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin])
-      const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin])
+      const x = noiseMap(p5, [i, p5.width], [margin, p5.width - margin]);
+      const y = noiseMap(p5, [i, p5.height], [margin, p5.height - margin]);
 
       // make a shape here
-      p5.rect(x, y, p5.random(10, 100), p5.random(10, 100))
-      shape(p5, x, y)
-    })
-  }
+      p5.rect(x, y, p5.random(10, 100), p5.random(10, 100));
+      shape(p5, x, y);
+    });
+  };
 
   sketch({
     draw,
     dimensions,
     padding,
     renderer: "svg",
-    seed
-  })
+    seed,
+  });
 </script>
 
 <SketchLayout {title}>

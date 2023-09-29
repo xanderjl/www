@@ -1,45 +1,45 @@
 ---
-import { capitalCase } from "change-case"
+import { capitalCase } from "change-case";
 
-import Sketch from "@/components/Sketch.astro"
-import SketchLayout from "@/layouts/SketchLayout.astro"
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
 
-export const prerender = true
+export const prerender = true;
 
-const { pathname } = Astro.url
-const title = capitalCase(pathname.split("/").pop() ?? "")
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions } from "@/utils/getDimensions"
-import type { Draw } from "@/utils/p5"
-import { drawBorder, sketch } from "@/utils/p5"
+  import { getDimensions } from "@/utils/getDimensions";
+  import type { Draw } from "@/utils/p5";
+  import { drawBorder, sketch } from "@/utils/p5";
 
-  const dimensions: number[] = getDimensions("A4")
-  const padding: number[] = [40]
-  const length = 80
-  const circles = Array.from({ length })
-  let margin: number
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const length = 80;
+  const circles = Array.from({ length });
+  let margin: number;
 
-  const draw: Draw = p5 => {
-    p5.clear(0, 0, 0, 0)
-    p5.noFill()
-    margin = p5.width * 0.05
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+    p5.noFill();
+    margin = p5.width * 0.05;
 
-    drawBorder(p5, margin)
+    drawBorder(p5, margin);
 
-    const cx = p5.width * 0.5
-    const cy = p5.height * 0.5
+    const cx = p5.width * 0.5;
+    const cy = p5.height * 0.5;
 
     circles.map((_, i) => {
-      const mod = p5.width * 0.25
-      const r = (p5.TWO_PI / length) * i
-      const x = cx + p5.cos(r) * mod
-      const y = cy + p5.sin(r) * mod
+      const mod = p5.width * 0.25;
+      const r = (p5.TWO_PI / length) * i;
+      const x = cx + p5.cos(r) * mod;
+      const y = cy + p5.sin(r) * mod;
 
-      p5.circle(x, y, Math.floor(mod * 0.0125))
-    })
-  }
+      p5.circle(x, y, Math.floor(mod * 0.0125));
+    });
+  };
 
   sketch({
     draw,
@@ -47,8 +47,8 @@ import { drawBorder, sketch } from "@/utils/p5"
     padding,
     renderer: "svg",
     suffix: "radical-radials",
-    seed: 1
-  })
+    seed: 1,
+  });
 </script>
 
 <SketchLayout {title}>
