@@ -2,8 +2,9 @@ import { headerCase } from 'change-case'
 import Fuse from 'fuse.js'
 import type { Component } from 'solid-js'
 import { createSignal, For, Show } from 'solid-js'
-import { css } from 'styled-system/css'
-import { flex } from 'styled-system/patterns'
+
+import { css } from '@/styled-system/css'
+import { flex } from '@/styled-system/patterns'
 
 interface SearchProps {
   list: string[]

@@ -12,12 +12,12 @@
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "styled-system/*": [
-        "styled-system/*"
       ]
     },
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-  }
+  },
+  "include": [
+    "src"
+  ]
 }

@@ -11,7 +11,7 @@ export default defineConfig({
     './pages/**/*.{ts,tsx,js,jsx,astro,md,mdx}'
   ],
   exclude: [],
-  outdir: 'styled-system',
+  outdir: './src/styled-system',
   globalCss,
   theme: {
     extend: {
@@ -21,6 +21,6 @@ export default defineConfig({
       }
     }
   },
-  minify: true,
-  cwd: './'
+  clean: true,
+  minify: true
 })

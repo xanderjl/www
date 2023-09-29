@@ -1,10 +1,10 @@
 import { useStore } from '@nanostores/solid'
 import type { Component } from 'solid-js'
 import { Show } from 'solid-js'
-import { css } from 'styled-system/css'
 
 import { Cancel, Menu } from '@/components/icons'
 import { isNavOpen } from '@/stores/navbar'
+import { css } from '@/styled-system/css'
 
 export const Mobile: Component = () => {
   const $isNavOpen = useStore(isNavOpen)

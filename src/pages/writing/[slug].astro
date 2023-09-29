@@ -4,11 +4,11 @@ import '@/styles/prism-theme.css'
 import type { GetStaticPaths } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
-import { css } from 'styled-system/css'
 
 import { components } from '@/components/MDXComponents'
 import { H1 } from '@/components/typography'
 import Layout from '@/layouts/Layout.astro'
+import { css } from '@/styled-system/css'
 
 export const prerender = true
 
