@@ -5,8 +5,7 @@ import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-import { components } from "@/components/MDXComponents";
-import { H1 } from "@/components/typography";
+import { H1, H2, H3, LI, Text } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
 
@@ -44,5 +43,5 @@ const dateFormatted = new Intl.DateTimeFormat("en-US", {
   <H1 transition:name={`hero-${entry.slug}`}>{title}</H1>
   <span class={css({ fontSize: "md" })}>{dateFormatted}</span>
   <hr class={css({ my: 2 })} />
-  <Content {components} />
+  <Content components={{ h1: H1, h2: H2, h3: H3, p: Text, li: LI }} />
 </Layout>
