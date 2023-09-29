@@ -1,4 +1,4 @@
-import { defineTextStyles } from "@pandacss/dev"
+import { defineTextStyles } from "@pandacss/dev";
 
 const textStyles = defineTextStyles({
   body: {
@@ -9,9 +9,9 @@ const textStyles = defineTextStyles({
       lineHeight: 1.5,
       letterSpacing: "0",
       textDecoration: "none",
-      textTransform: "none"
-    }
-  }
-})
+      textTransform: "none",
+    },
+  },
+});
 
-export default textStyles
+export default textStyles;

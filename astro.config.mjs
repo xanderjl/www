@@ -1,23 +1,23 @@
-import mdx from '@astrojs/mdx';
-import solidJs from '@astrojs/solid-js';
-import vercel from '@astrojs/vercel/serverless';
-import pandacss from '@pandacss/astro';
-import { defineConfig } from 'astro/config';
+import mdx from "@astrojs/mdx";
+import solidJs from "@astrojs/solid-js";
+import vercel from "@astrojs/vercel/serverless";
+import pandacss from "@pandacss/astro";
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     pandacss(),
     mdx({
-      extendMarkdownConfig: true
+      extendMarkdownConfig: true,
     }),
-    solidJs()
+    solidJs(),
   ],
   markdown: {
-    syntaxHighlight: 'prism'
+    syntaxHighlight: "prism",
   },
-  output: 'server',
+  output: "server",
   adapter: vercel({
-    edgeMiddleware: true
-  })
+    edgeMiddleware: true,
+  }),
 });

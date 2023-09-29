@@ -1,15 +1,15 @@
 export const getOs = (): string => {
-  let os: string = ""
+  let os: string = "";
 
   if (typeof window !== "undefined") {
-    const userAgent = navigator.userAgent
+    const userAgent = navigator.userAgent;
     const osString = userAgent.includes("Mac")
       ? "mac"
       : userAgent.includes("Win")
       ? "win"
-      : ""
-    os = osString
+      : "";
+    os = osString;
   }
 
-  return os
-}
+  return os;
+};

@@ -1,4 +1,4 @@
-import { defineGlobalStyles } from "@pandacss/dev"
+import { defineGlobalStyles } from "@pandacss/dev";
 
 const globalCss = defineGlobalStyles({
   "html, body": {
@@ -9,10 +9,10 @@ const globalCss = defineGlobalStyles({
       _hover: {
         background:
           "linear-gradient(to top, var(--colors-red-200) 0% 50%, transparent 50% 100%)",
-        textDecoration: "none"
-      }
-    }
-  }
-})
+        textDecoration: "none",
+      },
+    },
+  },
+});
 
-export default globalCss
+export default globalCss;

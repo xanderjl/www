@@ -1,30 +1,30 @@
-import { useStore } from "@nanostores/solid"
-import type { Component } from "solid-js"
-import { Show } from "solid-js"
+import { useStore } from "@nanostores/solid";
+import type { Component } from "solid-js";
+import { Show } from "solid-js";
 
-import { Cancel, Menu } from "@/components/icons"
-import { isNavOpen } from "@/stores/navbar"
-import { css } from "@/styled-system/css"
+import { Cancel, Menu } from "@/components/icons";
+import { isNavOpen } from "@/stores/navbar";
+import { css } from "@/styled-system/css";
 
 export const Mobile: Component = () => {
-  const $isNavOpen = useStore(isNavOpen)
+  const $isNavOpen = useStore(isNavOpen);
 
   const iconStyles = css({
     w: 6,
     h: 6,
     _hover: {
-      color: "red.500"
+      color: "red.500",
     },
     _before: {
-      fontSize: "1.25rem"
-    }
-  })
+      fontSize: "1.25rem",
+    },
+  });
 
   return (
     <div
       class={css({
         display: { base: "flex", md: "none" },
-        flexDir: "column"
+        flexDir: "column",
       })}
     >
       <Show
@@ -42,5 +42,5 @@ export const Mobile: Component = () => {
         />
       </Show>
     </div>
-  )
-}
+  );
+};

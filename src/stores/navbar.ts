@@ -1,3 +1,3 @@
-import { atom } from "nanostores"
+import { atom } from "nanostores";
 
-export const isNavOpen = atom<boolean>(false)
+export const isNavOpen = atom<boolean>(false);

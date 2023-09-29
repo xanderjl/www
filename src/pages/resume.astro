@@ -1,35 +1,35 @@
 ---
-import { getCollection, getEntry } from "astro:content"
+import { getCollection, getEntry } from "astro:content";
 
-import { Github, Linkedin, Mail, Phone } from "@/components/icons"
-import { H1, H2, H3 } from "@/components/typography"
-import Layout from "@/layouts/Layout.astro"
-import { css } from "@/styled-system/css"
-import { container } from "@/styled-system/patterns"
-import { formatDate } from "@/utils/formatDate"
+import { Github, Linkedin, Mail, Phone } from "@/components/icons";
+import { H1, H2, H3 } from "@/components/typography";
+import Layout from "@/layouts/Layout.astro";
+import { css } from "@/styled-system/css";
+import { container } from "@/styled-system/patterns";
+import { formatDate } from "@/utils/formatDate";
 
-export const prerender = true
+export const prerender = true;
 
-const workHistory = await getCollection("work-history")
+const workHistory = await getCollection("work-history");
 const experience = workHistory.sort(
-  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
-)
+  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
+);
 const {
-  data: { name, socials, education, email, phone }
-} = await getEntry("resume-data", "index")
+  data: { name, socials, education, email, phone },
+} = await getEntry("resume-data", "index");
 
 const h2Styles = css({
-  pb: 4
-})
+  pb: 4,
+});
 ---
 
-<Layout title='Resume'>
-  <div id='resume' class={container({ maxW: "4xl" })}>
+<Layout title="Resume">
+  <div id="resume" class={container({ maxW: "4xl" })}>
     <div
       class={css({
         display: "flex",
         justifyContent: "space-between",
-        pb: 14
+        pb: 14,
       })}
     >
       <div>
@@ -49,14 +49,14 @@ const h2Styles = css({
       <div
         class={css({
           display: "flex",
-          flexDirection: "column"
+          flexDirection: "column",
         })}
       >
-        <a href='tel:519-670-9056'
+        <a href="tel:519-670-9056"
           ><Phone class={css({ display: "inline-block" })} client:load />
            519-670-9056</a
         >
-        <a href='mailto:xander@xandydandy.com'
+        <a href="mailto:xander@xandydandy.com"
           ><Mail class={css({ display: "inline-block" })} client:load />
            xander@xandydandy.com</a
         >
@@ -75,13 +75,13 @@ const h2Styles = css({
                 {formatDate(startDate)} - {formatDate(endDate)}
               </p>
               <ul class={css({ pb: 10 })}>
-                {responsibilities.map(responsibility => (
+                {responsibilities.map((responsibility) => (
                   <li class={css({ listStyle: "inside" })}>{responsibility}</li>
                 ))}
               </ul>
             </div>
-          )
-        }
+          );
+        },
       )
     }
     <H2 class={h2Styles}>Education</H2>
