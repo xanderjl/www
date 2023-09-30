@@ -2,20 +2,20 @@
 to: src/pages/sketches/<%= name %>.astro
 ---
 ---
-import { capitalCase } from 'change-case'
+import { capitalCase } from "change-case"
 
-import Sketch from '@/components/Sketch.astro'
-import SketchLayout from '@/layouts/SketchLayout.astro'
+import Sketch from "@/components/Sketch.astro"
+import SketchLayout from "@/layouts/SketchLayout.astro"
 
 export const prerender = true
 
 const { pathname } = Astro.url
-const title = capitalCase(pathname.split('/').pop() ?? '')
+const title = capitalCase(pathname.split("/").pop() ?? "")
 ---
 
 <script>
-  import { sketch } from '@/utils/p5'
-  import type { Draw } from '@/utils/p5'
+  import { sketch } from "@/utils/p5"
+  import type { Draw } from "@/utils/p5"
 
   const dimensions: number[] = [2400, 2400]
   const padding: number[] = [40]
@@ -30,8 +30,8 @@ const title = capitalCase(pathname.split('/').pop() ?? '')
     dimensions,
     background,
     padding,
-    renderer: 'svg',
-    suffix: '<%= name %>'
+    renderer: "svg",
+    suffix: "<%= name %>"
   })
 </script>
 
