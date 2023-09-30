@@ -8,16 +8,9 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   integrations: [
     pandacss(),
-    mdx({
-      extendMarkdownConfig: true,
-    }),
+    mdx(),
     solidJs(),
   ],
-  markdown: {
-    syntaxHighlight: "prism",
-  },
   output: "server",
-  adapter: vercel({
-    edgeMiddleware: true,
-  }),
+  adapter: vercel(),
 });
