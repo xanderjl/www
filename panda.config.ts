@@ -1,7 +1,7 @@
 import { defineConfig } from "@pandacss/dev";
 
 import { globalCss } from "./src/theme/globalCss";
-import { heading } from "./src/theme/recipes/heading.recipe";
+import { heading } from "./src/theme/recipes";
 import { textStyles } from "./src/theme/textStyles";
 
 export default defineConfig({
