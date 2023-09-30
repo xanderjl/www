@@ -1,4 +1,4 @@
-import { headerCase } from "change-case";
+import { trainCase } from "change-case";
 import Fuse from "fuse.js";
 import type { Component } from "solid-js";
 import { createSignal, For, Show } from "solid-js";
@@ -69,7 +69,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
                   style={`view-transition-name: hero-${entry}`}
                 >
                   <a href={`${path}/${entry}`}>
-                    {headerCase(entry).replaceAll("-", " ")}
+                    {trainCase(entry).replaceAll("-", " ")}
                   </a>
                 </li>
               )}
@@ -83,7 +83,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
                 style={`view-transition-name: hero-${entry.item}`}
               >
                 <a href={`${path}/${entry.item}`}>
-                  {headerCase(entry.item).replaceAll("-", " ")}
+                  {trainCase(entry.item).replaceAll("-", " ")}
                 </a>
               </li>
             )}
