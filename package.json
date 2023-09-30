@@ -40,8 +40,8 @@
     "svg-to-pdfkit": "0.1.8"
   },
   "devDependencies": {
-    "@pandacss/astro": "0.14.0",
-    "@pandacss/dev": "0.14.0",
+    "@pandacss/astro": "0.15.4",
+    "@pandacss/dev": "0.15.4",
     "@types/p5": "1.6.0",
     "@types/pdfkit": "0.12.12",
     "@types/svg-to-pdfkit": "0.1.1",
