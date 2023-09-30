@@ -3,7 +3,7 @@ import { defineTextStyles } from "@pandacss/dev";
 export const textStyles = defineTextStyles({
   body: {
     value: {
-      fontFamily: "'DM Mono', monospace",
+      fontFamily: "body",
       fontWeight: "normal",
       fontSize: "md",
       lineHeight: 1.5,
