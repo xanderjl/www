@@ -3,7 +3,7 @@ import type { SVG } from "p5.js-svg";
 
 import type { ColorValue } from "./types";
 
-export interface Setup {
+export interface SetupProps {
   p5: P5;
   padding?: number[];
   width?: number;
@@ -23,7 +23,7 @@ export const setupDefaults = ({
   background,
   renderer = "p2d",
   pixelDensity,
-}: Setup): void => {
+}: SetupProps): void => {
   const usedWidth = dimensions ? dimensions[0] : width ? width : p5.windowWidth;
   const usedHeight = dimensions
     ? dimensions[1]
