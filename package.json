@@ -7,8 +7,10 @@
   "scripts": {
     "prepare": "panda codegen",
     "dev": "astro dev --port 3000",
+    "dev:studio": "panda studio --preview",
     "start": "astro dev",
     "build": "astro build",
+    "build:studio": "panda studio --build",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write . --plugin prettier-plugin-astro",
