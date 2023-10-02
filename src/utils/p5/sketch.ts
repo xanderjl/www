@@ -10,12 +10,14 @@ import type {
   ColorValue,
   Draw,
   KeyPressed,
+  Preload,
   Setup,
   WindowResized,
 } from "./types";
 import { windowResizedDefaults } from "./windowResized";
 
 interface SketchProps {
+  preload?: Preload;
   draw?: Draw;
   setup?: Setup;
   suffix?: string;
@@ -31,6 +33,7 @@ interface SketchProps {
 export const sketch = ({
   background,
   dimensions,
+  preload,
   draw,
   padding,
   setup,
@@ -40,6 +43,8 @@ export const sketch = ({
   seed,
 }: SketchProps) => {
   const s = (p5: P5) => {
+    preload && preload(p5);
+
     p5.setup = () => {
       setupDefaults({
         p5,

@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 export const convertSeed = (seedPhrase: string): number => {
   const bufferArray = Buffer.from(seedPhrase, "utf-8");
   let value = 0;
