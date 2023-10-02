@@ -1,0 +1,5 @@
+{
+  "name": "@react-p5/utils",
+  "description": "A series of helper functions to abstract away p5.js boilerplate and complicated math.",
+  "href": "https://github.com/react-p5/react-p5/tree/main/packages/utils"
+}

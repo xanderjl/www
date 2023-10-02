@@ -10,6 +10,15 @@ const writingCollection = defineCollection({
   }),
 });
 
+const openSourceCollection = defineCollection({
+  type: "data",
+  schema: z.object({
+    name: z.string().nonempty(),
+    description: z.string().optional(),
+    href: z.string().url().nonempty(),
+  }),
+});
+
 const workHistoryCollection = defineCollection({
   type: "data",
   schema: z.object({
@@ -46,6 +55,7 @@ const resumeCollection = defineCollection({
 
 export const collections = {
   writing: writingCollection,
+  "open-source": openSourceCollection,
   "work-history": workHistoryCollection,
   "resume-data": resumeCollection,
 };

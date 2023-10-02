@@ -3,9 +3,10 @@ import OSSCard from "@/components/OSSCard.astro";
 import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
-import { ossProjects } from "@/utils/ossProjects";
+import { getCollection } from "astro:content";
 
 export const prerender = true;
+const ossProjects = await getCollection("open-source");
 ---
 
 <Layout title="Open Source">
@@ -18,7 +19,7 @@ export const prerender = true;
     })}
   >
     {
-      ossProjects.map(({ name, description, href }) => (
+      ossProjects.map(({ data: { name, description, href } }) => (
         <OSSCard name={name} description={description} href={href} />
       ))
     }
