@@ -87,7 +87,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.rectMode("center");
     const w = p5.width * 0.0075;
 
-    grid.forEach(([x, y, s]) => {
+    grid.forEach(([x, y, s], i) => {
       if (s) {
         p5.push();
         p5.fill("red");
@@ -96,7 +96,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         p5.pop();
       } else {
         const char = poemArr[Math.floor(p5.random(poemArr.length))];
-        const size = p5.map(p5.noise(x, y), 0, 1, margin * 0.05, margin * 0.3);
+        const size = p5.map(
+          p5.noise(x, y, i),
+          0,
+          1,
+          margin * 0.05,
+          margin * 0.35,
+        );
         p5.textSize(p5.random(size));
         p5.textAlign("center", "center");
         p5.text(char, x, y);
@@ -107,11 +113,18 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.stroke("red");
     p5.noFill();
     points.forEach(([x, y]) => {
+      const rdm = p5.random(1);
       const start =
-        p5.random(1) > 0.75 ? 0 : p5.random(1) < 0.25 ? p5.PI : p5.HALF_PI;
+        rdm > 0.75
+          ? 0
+          : rdm < 0.25
+          ? p5.PI
+          : rdm < 0.75 && rdm > 0.5
+          ? p5.HALF_PI + p5.PI
+          : p5.HALF_PI;
       const end = start + p5.PI;
       const d = w * 3;
-      p5.random(1) > 0.5 && p5.arc(x, y, d, d, start, end);
+      rdm > 0.5 && p5.arc(x, y, d, d, start, end);
     });
     p5.pop();
   };
@@ -124,6 +137,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     dimensions,
     padding,
     renderer: "svg",
+    suffix: "rachelle",
     seed,
   });
 </script>
