@@ -52,25 +52,30 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let grid: [number, number, boolean][] = [];
   let points: number[][] = [];
   let mono: P5.Font;
+  let pointDist: number;
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
-    letterIndex = Math.ceil(p5.random(poemString.length));
+    letterIndex = Math.floor(
+      p5.map(p5.noise(seed), 0, 1, 0, poemString.length),
+    );
     letter = poemString[letterIndex];
-    letter = "r";
 
     grid = createGrid(res).map(([u, v]) => {
-      const x = p5.lerp(margin, p5.width - margin, u);
-      const y = p5.lerp(margin, p5.height - margin, v);
+      const x = p5.lerp(margin * 1.5, p5.width - margin * 1.5, u);
+      const y = p5.lerp(margin * 1.5, p5.height - margin * 1.5, v);
       const randomChar = poemString[Math.ceil(p5.random(poemString.length))];
-      const s = Boolean(randomChar === letter);
+      let s: boolean = false;
 
-      if (randomChar === letter) {
+      if (randomChar === letter && p5.random(1) > 0.75) {
+        s = true;
         points.push([x, y]);
       }
 
       return [x, y, s];
     });
+
+    pointDist = p5.dist(grid[1][0], grid[1][1], grid[0][0], grid[0][1]);
 
     p5.textFont(mono);
   };
@@ -87,14 +92,25 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.rectMode("center");
     const w = p5.width * 0.0075;
 
+    p5.push();
+    p5.noFill();
+    p5.rectMode("corner");
+    p5.rect(margin, margin, p5.width - margin * 2, p5.height - margin * 2);
+    p5.pop();
+
     grid.forEach(([x, y, s], i) => {
       if (s) {
+        const point2 = y + pointDist * Math.floor(p5.random(1, 10));
+        const y2 = point2 > p5.height - margin * 1.5 ? y - pointDist : point2;
         p5.push();
         p5.fill("red");
         p5.stroke("red");
         p5.circle(x, y, w * 0.75);
+        p5.circle(x, y2, w * 0.5);
+        p5.line(x, y, x, y2);
         p5.pop();
       } else {
+        const rdm = p5.random(1);
         const char = poemArr[Math.floor(p5.random(poemArr.length))];
         const size = p5.map(
           p5.noise(x, y, i),
@@ -103,9 +119,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
           margin * 0.05,
           margin * 0.35,
         );
-        p5.textSize(p5.random(size));
-        p5.textAlign("center", "center");
-        p5.text(char, x, y);
+
+        if (rdm > 0.35) {
+          p5.textSize(p5.random(size));
+          p5.textAlign("center", "center");
+          p5.text(char, x, y);
+        }
       }
     });
 
@@ -114,17 +133,19 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noFill();
     points.forEach(([x, y]) => {
       const rdm = p5.random(1);
+      const length =
+        rdm > 0.75 ? p5.HALF_PI + p5.PI : rdm < 0.5 ? p5.HALF_PI : p5.PI;
       const start =
         rdm > 0.75
           ? 0
           : rdm < 0.25
           ? p5.PI
-          : rdm < 0.75 && rdm > 0.5
+          : rdm < 0.75 && rdm > 0.25
           ? p5.HALF_PI + p5.PI
           : p5.HALF_PI;
-      const end = start + p5.PI;
-      const d = w * 3;
-      rdm > 0.5 && p5.arc(x, y, d, d, start, end);
+      const end = start + length;
+      const d = rdm > 0.5 ? w * 2.25 : w * 3;
+      rdm > 0.15 && p5.arc(x, y, d, d, start, end);
     });
     p5.pop();
   };
