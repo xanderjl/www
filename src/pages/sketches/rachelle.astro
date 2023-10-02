@@ -16,6 +16,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import { getDimensions } from "@/utils/getDimensions";
   import type { Draw, Setup, WindowResized, Preload } from "@/utils/p5";
   import { convertSeed, createGrid, sketch } from "@/utils/p5";
+  import { p } from "@/styled-system-studio/_astro/jsx-runtime.024f527d";
 
   const poem: string[] = [
     "We went to the coffee shop, where",
@@ -85,18 +86,19 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.frameRate(1);
     p5.rectMode("center");
-    const w = p5.width * 0.005;
+    const w = p5.width * 0.0075;
 
     grid.forEach(([x, y, s]) => {
       if (s) {
         p5.push();
         p5.fill("red");
         p5.stroke("red");
-        p5.circle(x, y, w);
+        p5.circle(x, y, w * 0.75);
         p5.pop();
       } else {
         const char = poemArr[Math.floor(p5.random(poemArr.length))];
-        p5.textSize(p5.random(margin * 0.25));
+        const size = p5.map(p5.noise(x, y), 0, 1, margin * 0.05, margin * 0.3);
+        p5.textSize(p5.random(size));
         p5.textAlign("center", "center");
         p5.text(char, x, y);
       }
@@ -106,10 +108,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.stroke("red");
     p5.noFill();
     points.forEach(([x, y]) => {
-      const start = 0;
-      const end = p5.PI;
-      const d = w * 4;
-      p5.random(1) > 0.75 && p5.arc(x, y, d, d, start, end);
+      const start =
+        p5.random(1) > 0.75 ? 0 : p5.random(1) < 0.25 ? p5.PI : p5.HALF_PI;
+      const end = start + p5.PI;
+      const d = w * 3;
+      p5.random(1) > 0.5 && p5.arc(x, y, d, d, start, end);
     });
     p5.pop();
   };
