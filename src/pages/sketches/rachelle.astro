@@ -56,6 +56,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
+    points = [];
     letterIndex = Math.floor(
       p5.map(p5.noise(seed), 0, 1, 0, poemString.length),
     );
@@ -124,6 +125,21 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
           p5.textSize(p5.random(size));
           p5.textAlign("center", "center");
           p5.text(char, x, y);
+        } else if (rdm < 0.0125) {
+          const dist = w + p5.random(pointDist * 0.5);
+          const x1 = x - dist;
+          const x2 = x + dist;
+          const y1 = y - dist;
+          const y2 = y + dist;
+          p5.push();
+          p5.noFill();
+          p5.stroke(225, 0, 0);
+          p5.strokeWeight(4);
+          p5.line(x1, y1, x2, y2);
+          p5.push();
+          p5.line(x2, y1, x1, y2);
+          p5.pop();
+          p5.pop();
         }
       }
     });
