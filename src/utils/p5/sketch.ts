@@ -58,6 +58,7 @@ export const sketch = ({
         p5,
         padding,
         renderer,
+        saveAs,
       });
       if (seed) {
         p5.randomSeed(seed);

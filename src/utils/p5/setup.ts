@@ -1,7 +1,7 @@
 import type P5 from "p5";
 import type { SVG } from "p5.js-svg";
 
-import type { ColorValue } from "./types";
+import type { ColorValue, FileExtension } from "./types";
 
 export interface SetupProps {
   background?: ColorValue;
@@ -11,6 +11,7 @@ export interface SetupProps {
   padding?: number[];
   pixelDensity?: number;
   renderer?: P5.RENDERER | SVG;
+  saveAs?: FileExtension;
   width?: number;
 }
 
@@ -23,7 +24,9 @@ export const setupDefaults = ({
   background,
   renderer = "p2d",
   pixelDensity,
+  saveAs,
 }: SetupProps): void => {
+  const r = saveAs === "svg" ? "svg" : renderer;
   const usedWidth = dimensions ? dimensions[0] : width ? width : p5.windowWidth;
   const usedHeight = dimensions
     ? dimensions[1]
@@ -50,7 +53,7 @@ export const setupDefaults = ({
         newHeight,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        renderer,
+        r,
       );
     } else {
       const newWidth = Math.round(maxHeight * aspectRatio);
@@ -59,7 +62,7 @@ export const setupDefaults = ({
         maxHeight,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        renderer,
+        r,
       );
     }
   } else {
@@ -68,7 +71,7 @@ export const setupDefaults = ({
       usedHeight,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      renderer,
+      r,
     );
   }
 
