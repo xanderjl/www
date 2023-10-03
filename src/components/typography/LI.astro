@@ -11,10 +11,10 @@ const { class: c, ...rest } = Astro.props;
 <li
   class={cx(
     css({
-      listStyle: "inside",
       _last: {
         pb: 6,
       },
+      listStyle: "inside",
     }),
     c,
   )}

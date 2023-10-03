@@ -43,5 +43,5 @@ const dateFormatted = new Intl.DateTimeFormat("en-US", {
   <H1 transition:name={`hero-${entry.slug}`}>{title}</H1>
   <span class={css({ fontSize: "md" })}>{dateFormatted}</span>
   <hr class={css({ my: 2 })} />
-  <Content components={{ h1: H1, h2: H2, h3: H3, p: Text, li: LI }} />
+  <Content components={{ h1: H1, h2: H2, h3: H3, li: LI, p: Text }} />
 </Layout>

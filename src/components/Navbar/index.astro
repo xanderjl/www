@@ -10,21 +10,21 @@ import { MobileLinks } from "./MobileLinks";
 
 <div
   class={css({
-    py: 4,
-    height: "auto",
     boxShadow: "md",
+    height: "auto",
+    py: 4,
     zIndex: 3,
   })}
 >
   <nav
     class={container({
+      alignItems: "center",
       display: { base: "none", md: "flex" },
       justifyContent: "space-between",
-      alignItems: "center",
     })}
   >
     <a href="/" class={css({ background: "none" })}>
-      <Logo class={css({ w: 10, h: 10 })} client:load />
+      <Logo class={css({ h: 10, w: 10 })} client:load />
     </a>
     <ul
       class={css({
@@ -48,13 +48,13 @@ import { MobileLinks } from "./MobileLinks";
   >
     <div
       class={css({
+        alignItems: "center",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
       })}
     >
       <a href="/" class={css({ background: "none" })}>
-        <Logo class={css({ w: 10, h: 10 })} client:load />
+        <Logo class={css({ h: 10, w: 10 })} client:load />
       </a>
       <Mobile client:load />
     </div>

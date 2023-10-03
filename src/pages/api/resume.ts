@@ -30,11 +30,11 @@ const highlightColor = token("colors.red.100");
 
 // Instantiate a new PDFDocument
 const doc = new PDF({
-  size: "A4",
-  margin,
   info: {
     Title: `Xander Low Resume ${new Date().getFullYear()}`,
   },
+  margin,
+  size: "A4",
 });
 
 export const GET: APIRoute = async () => {
@@ -69,8 +69,8 @@ export const GET: APIRoute = async () => {
       { color: highlightColor },
     )
     .text(phone, {
-      link: `tel:${phone}`,
       align: "right",
+      link: `tel:${phone}`,
     });
 
   doc.moveDown(0.25);
@@ -91,8 +91,8 @@ export const GET: APIRoute = async () => {
       { color: highlightColor },
     )
     .text(email, {
-      link: `mailto:${email}`,
       align: "right",
+      link: `mailto:${email}`,
     });
 
   doc.moveDown(4);
@@ -135,8 +135,8 @@ export const GET: APIRoute = async () => {
 
   return new Response(doc.read(), {
     headers: {
-      "Content-Type": "application/pdf",
       "Content-Disposition": contentDisposition,
+      "Content-Type": "application/pdf",
     },
     status: 200,
     statusText: "OK",

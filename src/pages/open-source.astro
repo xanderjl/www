@@ -1,9 +1,10 @@
 ---
+import { getCollection } from "astro:content";
+
 import OSSCard from "@/components/OSSCard.astro";
 import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
-import { getCollection } from "astro:content";
 
 export const prerender = true;
 const ossProjects = await getCollection("open-source");
@@ -14,8 +15,8 @@ const ossProjects = await getCollection("open-source");
   <div
     class={css({
       display: "flex",
-      gap: 4,
       flexWrap: "wrap",
+      gap: 4,
     })}
   >
     {

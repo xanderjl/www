@@ -1,19 +1,19 @@
 export interface Route {
-  path: string;
   name: string;
+  path: string;
 }
 
 export const routes: Route[] = [
   {
-    path: "/open-source",
     name: "OSS",
+    path: "/open-source",
   },
   {
-    path: "/writing",
     name: "Writing",
+    path: "/writing",
   },
   {
-    path: "/sketches",
     name: "Sketches",
+    path: "/sketches",
   },
 ];

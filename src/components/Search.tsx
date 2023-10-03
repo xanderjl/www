@@ -15,9 +15,9 @@ type Result = Fuse.FuseResult<string>;
 
 const liStyles = css({
   "&:not(:last-of-type)": {
-    pb: 2,
     borderBottomWidth: 1,
     borderColor: "gray.400",
+    pb: 2,
   },
 });
 
@@ -36,13 +36,13 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
         type="text"
         placeholder="Search"
         class={css({
-          borderColor: "gray.400",
-          borderWidth: 1,
-          borderRadius: 4,
-          p: 1,
           _placeholder: {
             color: "gray.400",
           },
+          borderColor: "gray.400",
+          borderRadius: 4,
+          borderWidth: 1,
+          p: 1,
         })}
         onInput={(e) => {
           const arr = fuse.search(e.target.value);
@@ -54,9 +54,9 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
           display: "flex",
           flexDirection: "column",
           gap: 1,
-          m: 0,
-          listStyleType: "none",
           listStylePosition: "outside",
+          listStyleType: "none",
+          m: 0,
         })}
       >
         <Show

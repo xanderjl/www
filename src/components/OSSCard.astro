@@ -4,9 +4,9 @@ import { H2 } from "@/components/typography";
 import { css } from "@/styled-system/css";
 
 interface Props {
-  name: string;
   description?: string;
   href: URL | string;
+  name: string;
 }
 
 const { name, description, href } = Astro.props;
@@ -15,19 +15,19 @@ const { name, description, href } = Astro.props;
 <a
   {href}
   class={css({
-    display: "flex",
+    _hover: {
+      borderColor: "red.400",
+      color: "red.400",
+    },
     background: "transparent",
+    borderColor: "black",
+    borderRadius: 8,
+    borderWidth: 1,
+    display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     maxWidth: "275px",
     p: 4,
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: "black",
-    _hover: {
-      color: "red.400",
-      borderColor: "red.400",
-    },
   })}
 >
   <div class={css({ flex: 1 })}>
@@ -37,13 +37,13 @@ const { name, description, href } = Astro.props;
     {description && <p>{description}</p>}
   </div>
   <div>
-    <hr class={css({ my: 4, borderColor: "red.400", borderWidth: 1 })} />
+    <hr class={css({ borderColor: "red.400", borderWidth: 1, my: 4 })} />
   </div>
   <div
     class={css({
+      alignItems: "center",
       display: "flex",
       justifyContent: "space-between",
-      alignItems: "center",
     })}
   >
     <span class={css({ flex: 1 })}>
@@ -51,6 +51,6 @@ const { name, description, href } = Astro.props;
       <br />
        on GitHub
     </span>
-    <Github class={css({ w: 6, h: 6 })} client:load />
+    <Github class={css({ h: 6, w: 6 })} client:load />
   </div>
 </a>

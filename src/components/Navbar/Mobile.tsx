@@ -10,14 +10,14 @@ export const Mobile: Component = () => {
   const $isNavOpen = useStore(isNavOpen);
 
   const iconStyles = css({
-    w: 6,
-    h: 6,
-    _hover: {
-      color: "red.500",
-    },
     _before: {
       fontSize: "1.25rem",
     },
+    _hover: {
+      color: "red.500",
+    },
+    h: 6,
+    w: 6,
   });
 
   return (

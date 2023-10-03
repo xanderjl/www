@@ -1,61 +1,61 @@
 import { defineCollection, z } from "astro:content";
 
 const writingCollection = defineCollection({
-  type: "content",
   schema: z.object({
-    draft: z.boolean().default(false),
-    title: z.string().nonempty(),
     date: z.date().transform((str) => new Date(str)),
     description: z.string().optional(),
+    draft: z.boolean().default(false),
+    title: z.string().nonempty(),
   }),
+  type: "content",
 });
 
 const openSourceCollection = defineCollection({
-  type: "data",
   schema: z.object({
-    name: z.string().nonempty(),
     description: z.string().optional(),
     href: z.string().url().nonempty(),
+    name: z.string().nonempty(),
   }),
+  type: "data",
 });
 
 const workHistoryCollection = defineCollection({
-  type: "data",
   schema: z.object({
-    role: z.string().nonempty(),
     client: z.string().nonempty(),
-    startDate: z.string().transform((str) => new Date(str)),
     endDate: z.string().transform((str) => new Date(str)),
     responsibilities: z.string().array(),
+    role: z.string().nonempty(),
+    startDate: z.string().transform((str) => new Date(str)),
   }),
+  type: "data",
 });
 
 const resumeCollection = defineCollection({
-  type: "data",
   schema: z.object({
-    name: z.string().nonempty(),
+    education: z.object({
+      description: z.string().nonempty(),
+      endDate: z.string().transform((str) => new Date(str)),
+      program: z.string().nonempty(),
+      school: z.string().nonempty(),
+      startDate: z.string().transform((str) => new Date(str)),
+    }),
     email: z.string().nonempty(),
-    phone: z.string().nonempty(),
     icons: z.record(z.string().nonempty()),
+    name: z.string().nonempty(),
+    phone: z.string().nonempty(),
     socials: z.record(
       z.object({
         name: z.string().nonempty(),
         url: z.string().nonempty(),
       }),
     ),
-    education: z.object({
-      school: z.string().nonempty(),
-      program: z.string().nonempty(),
-      description: z.string().nonempty(),
-      startDate: z.string().transform((str) => new Date(str)),
-      endDate: z.string().transform((str) => new Date(str)),
-    }),
   }),
+  type: "data",
 });
 
 export const collections = {
-  writing: writingCollection,
   "open-source": openSourceCollection,
-  "work-history": workHistoryCollection,
   "resume-data": resumeCollection,
+  "work-history": workHistoryCollection,
+  writing: writingCollection,
 };

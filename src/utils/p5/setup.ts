@@ -4,14 +4,14 @@ import type { SVG } from "p5.js-svg";
 import type { ColorValue } from "./types";
 
 export interface SetupProps {
+  background?: ColorValue;
+  dimensions?: number[];
+  height?: number;
   p5: P5;
   padding?: number[];
-  width?: number;
-  height?: number;
-  dimensions?: number[];
-  renderer?: P5.RENDERER | SVG;
-  background?: ColorValue;
   pixelDensity?: number;
+  renderer?: P5.RENDERER | SVG;
+  width?: number;
 }
 
 export const setupDefaults = ({

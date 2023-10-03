@@ -3,11 +3,13 @@ import P5 from "p5";
 import svg from "p5.js-svg";
 import type { SVG } from "p5.js-svg/dist/types";
 
-import { getOs } from "../getOs";
+import { keyPressed as kp } from "./keyPressed";
 import { setupDefaults } from "./setup";
 import type {
   ColorValue,
   Draw,
+  FileExtension,
+  GifOptions,
   KeyPressed,
   Preload,
   Setup,
@@ -16,17 +18,19 @@ import type {
 import { windowResizedDefaults } from "./windowResized";
 
 interface SketchProps {
-  preload?: Preload;
+  background?: ColorValue;
+  dimensions: number[];
   draw?: Draw;
+  gifOptions?: GifOptions;
+  keyPressed?: KeyPressed;
+  padding?: number[];
+  preload?: Preload;
+  renderer?: RENDERER | SVG;
+  saveAs?: FileExtension;
+  seed?: number;
   setup?: Setup;
   suffix?: string;
   windowResized?: WindowResized;
-  keyPressed?: KeyPressed;
-  dimensions: number[];
-  padding?: number[];
-  background?: ColorValue;
-  renderer?: RENDERER | SVG;
-  seed?: number;
 }
 
 export const sketch = ({
@@ -41,16 +45,18 @@ export const sketch = ({
   windowResized,
   renderer,
   seed,
+  saveAs,
+  gifOptions,
 }: SketchProps) => {
   const s = (p5: P5) => {
     preload && preload(p5);
 
     p5.setup = () => {
       setupDefaults({
-        p5,
-        dimensions,
-        padding,
         background,
+        dimensions,
+        p5,
+        padding,
         renderer,
       });
       if (seed) {
@@ -72,10 +78,10 @@ export const sketch = ({
 
     p5.windowResized = () => {
       windowResizedDefaults({
-        p5,
-        dimensions,
-        padding,
         background,
+        dimensions,
+        p5,
+        padding,
       });
 
       if (seed) {
@@ -87,26 +93,27 @@ export const sketch = ({
     };
 
     const date = new Date().toLocaleString("en-US", {
-      month: "2-digit",
       day: "2-digit",
-      year: "numeric",
-      hour12: false,
       hour: "2-digit",
+      hour12: false,
       minute: "2-digit",
+      month: "2-digit",
       second: "2-digit",
+      year: "numeric",
     });
     const fileName = date + (suffix ? `-${suffix}` : "");
 
     p5.keyPressed = (event) => {
-      const os = getOs();
-      keyPressed({
-        p5,
-        event: event as KeyboardEvent,
-        os,
-        fileName,
-        renderer,
-        seed,
-      });
+      keyPressed ??
+        kp({
+          event: event as KeyboardEvent,
+          fileName,
+          gifOptions,
+          p5,
+          renderer,
+          saveAs,
+          seed,
+        });
     };
   };
 

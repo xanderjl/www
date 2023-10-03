@@ -28,17 +28,15 @@
     "simple-import-sort",
     "import",
     "unused-imports",
+    "sort-keys-fix",
+    "typescript-sort-keys",
     "@typescript-eslint"
   ],
   "rules": {
-    "sort-keys": [
-      "error",
-      "asc",
-      {
-        "caseSensitive": true,
-        "natural": false
-      }
-    ],
+    "sort-keys": "warn",
+    "sort-keys-fix/sort-keys-fix": "warn",
+    "typescript-sort-keys/interface": "warn",
+    "typescript-sort-keys/string-enum": "warn",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "import/first": "error",

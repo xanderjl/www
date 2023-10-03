@@ -5,8 +5,8 @@ import { ViewTransitions } from "astro:transitions";
 import baseUrl from "@/utils/baseUrl";
 
 interface Props {
-  title?: string;
   description?: string;
+  title?: string;
 }
 
 const { title, description } = Astro.props;
@@ -18,21 +18,21 @@ const formattedTitle = title ? `Xander Low | ${title}` : "Xander Low";
 const formattedDescription = description ?? "Developing for the web";
 
 const ogImage = getShareImage({
-  title: formattedTitle,
-  tagline: formattedDescription,
   cloudName: "dbgrselct",
   imagePublicID: "og-image",
-  titleFont: "inter-bold.ttf",
-  taglineFont: "dm-mono.ttf",
-  titleColor: "000000",
+  tagline: formattedDescription,
   taglineColor: "000000",
-  titleFontSize: 72,
-  taglineFontSize: 36,
-  textLeftOffset: padding,
-  titleBottomOffset: 400,
-  taglineTopOffset: 300,
-  imageWidth: 1200,
+  taglineFont: "dm-mono.ttf",
   imageHeight: 630,
+  taglineFontSize: 36,
+  imageWidth: 1200,
+  taglineTopOffset: 300,
+  textLeftOffset: padding,
+  title: formattedTitle,
+  titleBottomOffset: 400,
+  titleColor: "000000",
+  titleFont: "inter-bold.ttf",
+  titleFontSize: 72,
 });
 ---
 <head>

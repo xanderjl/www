@@ -4,10 +4,10 @@ export const textStyles = defineTextStyles({
   body: {
     value: {
       fontFamily: "body",
-      fontWeight: "normal",
       fontSize: "md",
-      lineHeight: 1.5,
+      fontWeight: "normal",
       letterSpacing: "0",
+      lineHeight: 1.5,
       textDecoration: "none",
       textTransform: "none",
     },

@@ -3,13 +3,13 @@ import type P5 from "p5";
 import type { ColorValue } from "./types";
 
 interface WindowResized {
-  p5: P5;
-  width?: number;
-  height?: number;
-  dimensions?: number[];
-  padding?: number[];
   background?: ColorValue;
+  dimensions?: number[];
+  height?: number;
   noLoop?: boolean;
+  p5: P5;
+  padding?: number[];
+  width?: number;
 }
 
 export const windowResizedDefaults = ({

@@ -11,9 +11,9 @@ import { container } from "@/styled-system/patterns";
 import type { PropertyTypes } from "@/styled-system/types/prop-type";
 
 interface Props {
-  title?: string;
   description?: string;
   maxW?: PropertyTypes["maxW"];
+  title?: string;
 }
 
 const { title, description, maxW } = Astro.props;
@@ -23,22 +23,22 @@ const { title, description, maxW } = Astro.props;
   <Head {title} {description} />
   <body
     class={css({
-      textStyle: "body",
       display: "flex",
       flexDir: "column",
       minH: "100vh",
+      textStyle: "body",
       w: "100%",
     })}
   >
     <Navbar />
     <main
       class={container({
-        flex: 1,
         display: "flex",
+        flex: 1,
         flexDir: "column",
-        w: "100%",
         maxW: maxW ?? "8xl",
         py: { base: 4, md: 6 },
+        w: "100%",
       })}
     >
       <slot />

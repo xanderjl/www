@@ -6,23 +6,23 @@ import { textStyles } from "@/theme/textStyles";
 import { tokens } from "@/theme/tokens";
 
 export default defineConfig({
-  preflight: true,
+  clean: true,
+  exclude: [],
+  globalCss,
   include: [
     "./src/**/*.{ts,tsx,js,jsx,astro,md,mdx}",
     "./pages/**/*.{ts,tsx,js,jsx,astro,md,mdx}",
   ],
-  exclude: [],
+  minify: true,
   outdir: "./src/styled-system",
-  globalCss,
+  preflight: true,
   theme: {
     extend: {
-      tokens,
-      textStyles,
       recipes: {
         heading,
       },
+      textStyles,
+      tokens,
     },
   },
-  clean: true,
-  minify: true,
 });
