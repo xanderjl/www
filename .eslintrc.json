@@ -32,6 +32,9 @@
     "typescript-sort-keys",
     "@typescript-eslint"
   ],
+  "ignorePatterns": [
+    "src/styled-system*/"
+  ],
   "rules": {
     "sort-keys": "warn",
     "sort-keys-fix/sort-keys-fix": "warn",

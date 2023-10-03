@@ -6,11 +6,7 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    pandacss(),
-    mdx(),
-    solidJs(),
-  ],
+  integrations: [pandacss(), mdx(), solidJs()],
   output: "server",
   adapter: vercel(),
 });
