@@ -10,11 +10,15 @@
   ],
   "overrides": [
     {
-      "files": ["*.astro"],
+      "files": [
+        "*.astro"
+      ],
       "parser": "astro-eslint-parser",
       "parserOptions": {
         "parser": "@typescript-eslint/parser",
-        "extraFileExtensions": [".astro"]
+        "extraFileExtensions": [
+          ".astro"
+        ]
       }
     }
   ],
@@ -27,6 +31,14 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "sort-keys": [
+      "error",
+      "asc",
+      {
+        "caseSensitive": true,
+        "natural": false
+      }
+    ],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "import/first": "error",
@@ -44,7 +56,10 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+    "import/consistent-type-specifier-style": [
+      "error",
+      "prefer-top-level"
+    ],
     "react/prop-types": "off",
     "object-curly-spacing": [
       "warn",
@@ -55,6 +70,9 @@
       }
     ],
     "comma-spacing": "warn",
-    "quotes": ["warn", "double"]
+    "quotes": [
+      "warn",
+      "double"
+    ]
   }
 }

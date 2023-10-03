@@ -4,7 +4,6 @@ import svg from "p5.js-svg";
 import type { SVG } from "p5.js-svg/dist/types";
 
 import { getOs } from "../getOs";
-import { keyPressed } from "./keyPressed";
 import { setupDefaults } from "./setup";
 import type {
   ColorValue,
@@ -38,6 +37,7 @@ export const sketch = ({
   padding,
   setup,
   suffix,
+  keyPressed,
   windowResized,
   renderer,
   seed,
