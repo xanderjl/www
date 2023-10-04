@@ -20,30 +20,29 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const totalFrames = 240;
 
   const draw: Draw = (p5) => {
-    p5.clear(0, 0, 0, 0);
-    p5.frameRate(60);
     p5.background(background);
+    p5.frameRate(24);
     p5.fill(0);
     p5.stroke(0);
 
     const margin = p5.width * 0.125;
-    const yMid = p5.height * 0.5;
+    const cy = p5.height * 0.5;
     const xStart = margin;
     const xEnd = p5.width - margin;
     const length = 30;
 
     Array.from({ length }, (_, i) => {
-      const amp = Math.floor(p5.height * 0.175);
-      const freq = p5.frameCount * 0.025 + i * 0.25;
+      const amp = p5.height * 0.25;
+      const freq = p5.frameCount * 0.0125;
+      const t = (freq + i * 0.025) % 1;
       const x = p5.lerp(xStart, xEnd, i / (length - 1));
-      const y = yMid + p5.sin(freq) * amp;
+      const y = cy + p5.sin(p5.TWO_PI * t) * amp;
 
       p5.circle(x, y, p5.width * 0.00825);
     });
   };
 
   sketch({
-    background,
     dimensions,
     draw,
     padding,
