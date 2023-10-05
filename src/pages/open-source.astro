@@ -26,8 +26,11 @@ const ossProjects = await getCollection("open-source");
           description={description}
           href={href}
           class={css({
-            animation:
-              "fade-in calc(250ms + ((var(--i) + 1) * 150ms)) ease-in-out",
+            animation: `
+              fade-in
+              calc(250ms + ((var(--i) + 1) * 150ms))
+              ease-in-out
+              `,
           })}
           style={{
             "--i": i,
