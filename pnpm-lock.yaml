@@ -64,6 +64,9 @@ devDependencies:
   '@pandacss/dev':
     specifier: 0.15.5
     version: 0.15.5(@internationalized/date@3.5.0)(@types/react-dom@18.2.10)(@types/react@18.2.25)(sharp@0.32.6)(typescript@5.2.2)
+  '@pandacss/types':
+    specifier: ^0.15.5
+    version: 0.15.5
   '@types/p5':
     specifier: 1.6.0
     version: 1.6.0

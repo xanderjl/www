@@ -45,6 +45,7 @@
   "devDependencies": {
     "@pandacss/astro": "0.15.5",
     "@pandacss/dev": "0.15.5",
+    "@pandacss/types": "^0.15.5",
     "@types/p5": "1.6.0",
     "@types/pdfkit": "0.12.12",
     "@types/svg-to-pdfkit": "0.1.1",
