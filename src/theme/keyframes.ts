@@ -8,8 +8,4 @@ export const keyframes = defineKeyframes({
     },
     "100%": { opacity: 1 },
   },
-  "scale-up": {
-    "0%": { transform: "scale(0)" },
-    "100%": { transform: "scale(1)" },
-  },
 });
