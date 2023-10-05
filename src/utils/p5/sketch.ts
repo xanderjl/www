@@ -107,6 +107,7 @@ export const sketch = ({
     p5.keyPressed = (event) => {
       keyPressed ??
         kp({
+          dimensions,
           event: event as KeyboardEvent,
           fileName,
           gifOptions,
