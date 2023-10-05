@@ -20,8 +20,15 @@ const ossProjects = await getCollection("open-source");
     })}
   >
     {
-      ossProjects.map(({ data: { name, description, href } }) => (
-        <OSSCard name={name} description={description} href={href} />
+      ossProjects.map(({ data: { name, description, href } }, i) => (
+        <OSSCard
+          name={name}
+          description={description}
+          href={href}
+          class={css({
+            animation: `fade-in 500ms ease-in-out`,
+          })}
+        />
       ))
     }
   </div>

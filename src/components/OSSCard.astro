@@ -1,34 +1,38 @@
 ---
 import { Github } from "@/components/icons";
 import { H2 } from "@/components/typography";
-import { css } from "@/styled-system/css";
+import { css, cx } from "@/styled-system/css";
+import type { HTMLAttributes } from "astro/types";
+import { number } from "astro/zod";
 
-interface Props {
+interface Props extends HTMLAttributes<"a"> {
   description?: string;
-  href: URL | string;
   name: string;
 }
 
-const { name, description, href } = Astro.props;
+const { name, description, class: c, ...rest } = Astro.props;
 ---
 
 <a
-  {href}
-  class={css({
-    _hover: {
-      borderColor: "red.400",
-      color: "red.400",
-    },
-    background: "transparent",
-    borderColor: "black",
-    borderRadius: 8,
-    borderWidth: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    maxWidth: "275px",
-    p: 4,
-  })}
+  class={cx(
+    css({
+      _hover: {
+        borderColor: "red.400",
+        color: "red.400",
+      },
+      background: "transparent",
+      borderColor: "black",
+      borderRadius: 8,
+      borderWidth: 1,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      maxWidth: "275px",
+      p: 4,
+    }),
+    c,
+  )}
+  {...rest}
 >
   <div class={css({ flex: 1 })}>
     <H2 class={css({ pb: 2 })}>

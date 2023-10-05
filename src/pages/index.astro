@@ -3,30 +3,53 @@ import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
 import { flex } from "@/styled-system/patterns";
+import { Image } from "astro:assets";
+import headshot from "@/assets/headshot.jpg";
 
 export const prerender = true;
 ---
 
-<Layout title="Home">
+<Layout title="Home" maxW="4xl">
   <div
     class={flex({
-      flex: 1,
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-    })}
+      flexDirection: { base: "column", md: "row" },
+      justifyContent: { md: "center" },
+      gap: { base: 10, md: 6 },
     })}
   >
-    <H1 class={css({ pb: 2 })}>Hi there!</H1>
-    <p
+    <Image
+      src={headshot}
+      alt="Bald guy in front of his bookshelf."
+      quality="low"
+      width={1200}
       class={css({
-        maxW: "52ch",
-        textAlign: "center",
+        maxW: { md: "50%" },
+        maxH: { base: "55vh", sm: "70vh", md: "auto" },
+        flex: 1,
+        borderRadius: "3xl",
+        objectFit: "cover",
+        shadow: "lg",
+        animation: "fade-in 500ms ease-in-out",
+      })}
+    />
+    <div
+      class={flex({
+        flex: 1,
+        flexDirection: "column",
+        animation: "fade-in 800ms ease-in-out",
       })}
     >
-      I'm Xan. A <a href="/sketches">generative artist</a>, frontend developer,
-      <a href="/open-source">OSS maintainer</a>, and tummy ache survivor.
-    </p>
+      <H1 class={css({ pb: 2 })}>
+        Hi there! <span class={css({ color: "red.300" })}>I'm Xan.</span>
+      </H1>
+      <p
+        class={css({
+          maxW: "52ch",
+        })}
+      >
+        <a href="/sketches">generative artist</a>, frontend developer,
+        <a href="/open-source">OSS maintainer</a>, and tummy ache survivor.
+      </p>
+    </div>
   </div>
-  <div class={css({ flex: 1 })}></div>
 </Layout>

@@ -1,6 +1,7 @@
 import { defineConfig } from "@pandacss/dev";
 
 import { globalCss } from "@/theme/globalCss";
+import { keyframes } from "@/theme/keyframes";
 import { heading } from "@/theme/recipes";
 import { textStyles } from "@/theme/textStyles";
 import { tokens } from "@/theme/tokens";
@@ -18,6 +19,7 @@ export default defineConfig({
   preflight: true,
   theme: {
     extend: {
+      keyframes,
       recipes: {
         heading,
       },
