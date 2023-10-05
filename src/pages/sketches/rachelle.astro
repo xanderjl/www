@@ -13,6 +13,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 <script>
   import type P5 from "p5";
 
+  import DMMono from "@/assets/fonts/DMMono-Regular.ttf";
   import { getDimensions } from "@/utils/getDimensions";
   import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
   import { convertSeed, createGrid, sketch } from "@/utils/p5";
@@ -34,7 +35,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     "Big Husband.",
     "\"He's sleepy",
     "But I want to see him.",
-    "\"I hope that I was able to help you",
+    '"I hope that I was able to help you',
   ];
 
   const dimensions: number[] = getDimensions("A4");
@@ -82,7 +83,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   const preload: Preload = (p5) => {
-    mono = p5.loadFont("../assets/fonts/DMMono-Regular.ttf");
+    mono = p5.loadFont(DMMono);
   };
   const setup: Setup = (p5) => handleRenders(p5);
   const windowResized: WindowResized = (p5) => handleRenders(p5);
