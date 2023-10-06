@@ -10,6 +10,7 @@ export default defineConfig({
     "./src/**/*.{ts,tsx,js,jsx,astro,md,mdx}",
     "./pages/**/*.{ts,tsx,js,jsx,astro,md,mdx}",
   ],
+  jsxFramework: "solid",
   minify: true,
   outdir: "./src/styled-system",
   preflight: true,
