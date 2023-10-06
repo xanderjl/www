@@ -20,7 +20,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const padding: number[] = [40];
   const background = [255, 253, 252];
   let grid: number[][] = [];
-  let margin: number;
 
   const p5Render = (p5: P5) => {
     grid = createGrid(10).map(([u, v]) => {

@@ -1,10 +1,11 @@
 ---
+import { Image } from "astro:assets";
+
+import headshot from "@/assets/headshot.jpg";
 import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
 import { flex } from "@/styled-system/patterns";
-import { Image } from "astro:assets";
-import headshot from "@/assets/headshot.jpg";
 
 export const prerender = true;
 ---
@@ -12,10 +13,10 @@ export const prerender = true;
 <Layout title="Home" maxW="4xl">
   <div
     class={flex({
-      pt: { base: 4, md: 10 },
       flexDirection: { base: "column", md: "row" },
-      justifyContent: { md: "center" },
       gap: { base: 10, md: 6 },
+      justifyContent: { md: "center" },
+      pt: { base: 4, md: 10 },
     })}
   >
     <Image
@@ -24,20 +25,20 @@ export const prerender = true;
       quality="low"
       width={1200}
       class={css({
-        maxW: { md: "50%" },
-        maxH: { base: "55vh", sm: "70vh", md: "auto" },
-        flex: 1,
+        animation: "fade-in 500ms ease-in-out",
         borderRadius: "3xl",
+        flex: 1,
+        maxH: { base: "55vh", md: "auto", sm: "70vh" },
+        maxW: { md: "50%" },
         objectFit: "cover",
         shadow: "lg",
-        animation: "fade-in 500ms ease-in-out",
       })}
     />
     <div
       class={flex({
+        animation: "fade-in 800ms ease-in-out",
         flex: 1,
         flexDirection: "column",
-        animation: "fade-in 800ms ease-in-out",
       })}
     >
       <H1 class={css({ pb: 2 })}>

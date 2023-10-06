@@ -45,9 +45,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   sketch({
     dimensions,
     draw,
-    padding,
-    saveAs: "gif",
-    suffix: "simple",
     gifOptions: [
       totalFrames,
       {
@@ -55,6 +52,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         units: "frames",
       },
     ],
+    padding,
+    saveAs: "gif",
+    suffix: "simple",
   });
 </script>
 

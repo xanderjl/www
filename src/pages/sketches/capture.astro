@@ -11,13 +11,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { sketch } from "@/utils/p5";
+  import type P5 from "p5";
+
   import type { Draw, Setup } from "@/utils/p5";
+  import { sketch } from "@/utils/p5";
 
   const dimensions: number[] = [2400, 2400];
   const padding: number[] = [40];
   const background = [255, 253, 252];
-  let capture: any;
+  let capture: P5.Element;
   let margin: number;
   let w: number;
   let h: number;
@@ -27,14 +29,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     w = p5.width - margin;
     h = (w * 9) / 16;
     capture = p5.createCapture({
+      audio: false,
       video: {
         mandatory: {
-          maxWidth: w,
           maxHeight: h,
+          maxWidth: w,
         },
         optional: [{ maxFrameRate: 144 }],
       },
-      audio: false,
     });
     capture.hide();
   };
@@ -46,12 +48,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    setup,
-    draw,
-    dimensions,
     background,
+    dimensions,
+    draw,
     padding,
     saveAs: "png",
+    setup,
     suffix: "capture",
   });
 </script>

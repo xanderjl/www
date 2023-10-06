@@ -52,13 +52,13 @@ const h2Styles = css({
           flexDirection: "column",
         })}
       >
-        <a href="tel:519-670-9056"
+        <a href={`tel:${phone}`}
           ><Phone class={css({ display: "inline-block" })} client:load />
-           519-670-9056</a
+          {phone}</a
         >
-        <a href="mailto:xander@xandydandy.com"
+        <a href={`mailto:${email}`}
           ><Mail class={css({ display: "inline-block" })} client:load />
-           xander@xandydandy.com</a
+          {email}</a
         >
       </div>
     </div>

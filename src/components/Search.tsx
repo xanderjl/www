@@ -63,7 +63,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
           when={searchArray() && searchArray().length > 0}
           fallback={
             <For each={list}>
-              {(entry, i) => (
+              {(entry) => (
                 <li
                   class={liStyles}
                   style={`view-transition-name: hero-${entry}`}
@@ -77,7 +77,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
           }
         >
           <For each={searchArray()}>
-            {(entry, i) => (
+            {(entry) => (
               <li
                 class={liStyles}
                 style={`view-transition-name: hero-${entry.item}`}
