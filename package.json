@@ -38,30 +38,30 @@
     "p5": "1.6.0",
     "p5.js-svg": "1.5.1",
     "pdfkit": "0.13.0",
-    "sharp": "^0.32.6",
+    "sharp": "0.32.6",
     "solid-js": "1.7.12",
     "svg-to-pdfkit": "0.1.8"
   },
   "devDependencies": {
     "@pandacss/astro": "0.15.5",
     "@pandacss/dev": "0.15.5",
-    "@pandacss/types": "^0.15.5",
+    "@pandacss/types": "0.15.5",
     "@types/p5": "1.6.0",
     "@types/pdfkit": "0.12.12",
     "@types/svg-to-pdfkit": "0.1.1",
     "@typescript-eslint/eslint-plugin": "6.7.4",
     "@typescript-eslint/parser": "6.7.4",
-    "buffer": "^6.0.3",
+    "buffer": "6.0.3",
     "eslint": "8.50.0",
     "eslint-plugin-astro": "0.29.1",
     "eslint-plugin-import": "2.28.1",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-simple-import-sort": "10.0.0",
-    "eslint-plugin-sort-keys-fix": "^1.1.2",
-    "eslint-plugin-typescript-sort-keys": "^3.0.0",
+    "eslint-plugin-sort-keys-fix": "1.1.2",
+    "eslint-plugin-typescript-sort-keys": "3.0.0",
     "eslint-plugin-unused-imports": "3.0.0",
     "prettier": "3.0.3",
     "prettier-plugin-astro": "0.12.0",
-    "typescript": "^5.2.2"
+    "typescript": "5.2.2"
   }
 }
