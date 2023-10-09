@@ -55,13 +55,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     rows = Math.floor(res);
     cols = Math.floor(res);
     grid = createGrid(rows, cols).map(([u, v]) => {
-      const x = p5.lerp(0, iw, u);
-      const y = p5.lerp(0, ih, v);
-      const ix = p5.map(x, 0, iw, 0, img.width);
-      const iy = p5.map(y, 0, ih, 0, img.height);
+      const mx = p5.lerp(0, iw, u);
+      const my = p5.lerp(0, ih, v);
+      const ix = p5.map(mx, 0, iw, 0, img.width);
+      const iy = p5.map(my, 0, ih, 0, img.height);
       const c = p5.brightness(img.get(ix, iy));
+      const x = p5.lerp(margin, p5.width - margin, u);
+      const y = p5.lerp(margin, p5.height - margin, v);
 
-      return [u, v, c];
+      return [x, y, c];
     });
   };
 
@@ -70,13 +72,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
-    p5.frameRate(1);
     p5.background(background);
     p5.fill(0);
 
-    grid.forEach(([u, v, c]) => {
-      const x = p5.lerp(margin, p5.width - margin, u);
-      const y = p5.lerp(margin, p5.height - margin, v);
+    grid.forEach(([x, y, c]) => {
       const w = p5.map(c, 0, 255, res * 0.1875, 0);
       p5.circle(x, y, w);
     });
