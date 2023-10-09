@@ -9,10 +9,6 @@ export const routes: Route[] = [
     path: "/open-source",
   },
   {
-    name: "Writing",
-    path: "/writing",
-  },
-  {
     name: "Sketches",
     path: "/sketches",
   },

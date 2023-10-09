@@ -1,15 +1,5 @@
 import { defineCollection, z } from "astro:content";
 
-const writingCollection = defineCollection({
-  schema: z.object({
-    date: z.date().transform((str) => new Date(str)),
-    description: z.string().optional(),
-    draft: z.boolean().default(false),
-    title: z.string().nonempty(),
-  }),
-  type: "content",
-});
-
 const openSourceCollection = defineCollection({
   schema: z.object({
     description: z.string().optional(),
@@ -57,5 +47,4 @@ export const collections = {
   "open-source": openSourceCollection,
   "resume-data": resumeCollection,
   "work-history": workHistoryCollection,
-  writing: writingCollection,
 };
