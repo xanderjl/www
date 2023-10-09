@@ -39,7 +39,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.05;
-    res = p5.width * 0.075;
+    res = p5.width * 0.0875;
 
     ri = img.width / img.height;
     rs = p5.width / p5.height;
@@ -61,7 +61,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       const iy = p5.map(y, 0, ih, 0, img.height);
       const c = p5.brightness(img.get(ix, iy));
 
-      return [x, y, c];
+      return [u, v, c];
     });
   };
 
@@ -70,11 +70,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
+    p5.frameRate(1);
     p5.background(background);
     p5.fill(0);
 
-    grid.forEach(([x, y, c]) => {
-      const w = p5.map(c, 0, 255, res * 0.075, 0);
+    grid.forEach(([u, v, c]) => {
+      const x = p5.lerp(margin, p5.width - margin, u);
+      const y = p5.lerp(margin, p5.height - margin, v);
+      const w = p5.map(c, 0, 255, res * 0.1875, 0);
       p5.circle(x, y, w);
     });
   };
@@ -87,7 +90,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     dimensions,
     background,
     padding,
-    saveAs: "jpg",
+    saveAs: "png",
     suffix: "rasterized",
   });
 </script>
