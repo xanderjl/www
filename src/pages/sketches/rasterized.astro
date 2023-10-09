@@ -11,16 +11,17 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { createGrid, sketch } from "@/utils/p5";
+  import { createGrid, sketch, getDimensions } from "@/utils/p5";
   import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
 
   import headshot from "@/assets/headshot.jpg";
 
-  const dimensions: number[] = [2400, 2400];
+  const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
   const background = [255, 253, 252];
   let img: P5.Image;
+  let res: number;
   let ri: number;
   let rs: number;
   let iw: number;
@@ -38,6 +39,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.05;
+    res = p5.width * 0.075;
 
     ri = img.width / img.height;
     rs = p5.width / p5.height;
@@ -50,13 +52,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         ? p5.height - margin * 4
         : img.height * (p5.width / img.width) - margin * 4;
 
-    rows = Math.floor(img.width * 0.01);
-    cols = Math.floor(img.height * 0.01);
+    rows = Math.floor(res);
+    cols = Math.floor(res);
     grid = createGrid(rows, cols).map(([u, v]) => {
-      const x = p5.lerp(margin, p5.width - margin, u);
-      const y = p5.lerp(margin, p5.height - margin, v);
+      const x = p5.lerp(0, iw, u);
+      const y = p5.lerp(0, ih, v);
+      const ix = p5.map(x, 0, iw, 0, img.width);
+      const iy = p5.map(y, 0, ih, 0, img.height);
+      const c = p5.brightness(img.get(ix, iy));
 
-      return [x, y];
+      return [x, y, c];
     });
   };
 
@@ -66,13 +71,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
-    p5.noFill();
+    p5.fill(0);
 
-    p5.imageMode(p5.CENTER);
-    p5.image(img, p5.width * 0.5, p5.height * 0.5, iw, ih);
-
-    grid.forEach(([x, y]) => {
-      p5.circle(x, y, p5.width * 0.005);
+    grid.forEach(([x, y, c]) => {
+      const w = p5.map(c, 0, 255, res * 0.075, 0);
+      p5.circle(x, y, w);
     });
   };
 

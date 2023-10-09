@@ -14,8 +14,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions } from "@/utils/getDimensions";
-  import { sketch } from "@/utils/p5";
+  import { getDimensions, sketch } from "@/utils/p5";
   import type { Draw } from "@/utils/p5";
 
   const dimensions: number[] = getDimensions("A3");

@@ -3,6 +3,7 @@ export * from "./createGrain";
 export * from "./createGrid";
 export * from "./createOverlay";
 export * from "./drawBorder";
+export * from "./getDimensions";
 export * from "./linearGradient";
 export * from "./setup";
 export * from "./sketch";
