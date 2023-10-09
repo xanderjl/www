@@ -37,7 +37,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let grid: number[][] = [];
 
   const handleRenders = (p5: P5) => {
-    margin = p5.width * 0.05;
+    margin = p5.width * 0.085;
     res = p5.width * 0.0875;
 
     ri = img.width / img.height;
@@ -71,6 +71,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
+    p5.frameRate(1);
     p5.fill(0);
 
     grid.forEach(([x, y, c]) => {
@@ -86,7 +87,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     windowResized,
     dimensions,
     padding,
-    saveAs: "png",
+    saveAs: "svg",
     suffix: "rasterized",
   });
 </script>
