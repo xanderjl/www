@@ -19,7 +19,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
-  const background = [255, 253, 252];
   let img: P5.Image;
   let res: number;
   let ri: number;
@@ -72,7 +71,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
-    p5.background(background);
     p5.fill(0);
 
     grid.forEach(([x, y, c]) => {
@@ -87,7 +85,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     windowResized,
     dimensions,
-    background,
     padding,
     saveAs: "png",
     suffix: "rasterized",
