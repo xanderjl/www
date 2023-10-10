@@ -1,0 +1,60 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup } from "@/utils/p5";
+  import data from "@/assets/data/ecg_2021-08-24.json";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  let table: number[][] = [];
+  let margin: number;
+
+  const setup: Setup = (p5) => {
+    margin = p5.width * 0.05;
+
+    const max = data.reduce((a, b) => Math.max(a, b));
+    const min = data.reduce((a, b) => Math.min(a, b));
+
+    table = data.map((n) => {
+      const x = p5.map(p5.random(n), min, max, margin, p5.width - margin);
+      const y = p5.map(p5.random(n), min, max, margin, p5.height - margin);
+
+      return [x, y];
+    });
+  };
+
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+
+    table.forEach(([x, y]) => {
+      p5.circle(x, y, 1);
+    });
+  };
+
+  sketch({
+    setup,
+    draw,
+    dimensions,
+    padding,
+    saveAs: "png",
+    suffix: "ecg",
+    seed: 0,
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
