@@ -56,9 +56,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     grid = createGrid(rows, cols).map(([u, v]) => {
       const mx = p5.lerp(0, iw, u);
       const my = p5.lerp(0, ih, v);
-      const ix = p5.map(mx, 0, iw, 0, img.width);
-      const iy = p5.map(my, 0, ih, 0, img.height);
-      const c = p5.brightness(img.get(ix, iy));
+      const ix = Math.floor(p5.map(mx, 0, iw, 0, img.width));
+      const iy = Math.floor(p5.map(my, 0, ih, 0, img.height));
+      const px = img.get(ix, iy);
+      const c = p5.brightness(px);
       const x = p5.lerp(margin, p5.width - margin, u);
       const y = p5.lerp(margin, p5.height - margin, v);
 
