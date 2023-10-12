@@ -24,14 +24,14 @@
     "sketch:a4": "pnpx hygen a4 new --name"
   },
   "dependencies": {
-    "@astrojs/mdx": "1.1.1",
+    "@astrojs/mdx": "1.1.2",
     "@astrojs/solid-js": "3.0.2",
     "@astrojs/vercel": "5.0.2",
     "@fontsource/dm-mono": "5.0.15",
     "@fontsource/dm-serif-text": "5.0.15",
     "@jlengstorf/get-share-image": "0.8.0",
     "@nanostores/solid": "0.4.2",
-    "astro": "3.2.4",
+    "astro": "3.3.0",
     "change-case": "5.0.2",
     "fuse.js": "6.6.2",
     "nanostores": "0.9.3",
