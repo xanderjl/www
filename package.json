@@ -21,7 +21,9 @@
     "sketch:a1": "pnpx hygen a1 new --name",
     "sketch:a2": "pnpx hygen a2 new --name",
     "sketch:a3": "pnpx hygen a3 new --name",
-    "sketch:a4": "pnpx hygen a4 new --name"
+    "sketch:a4": "pnpx hygen a4 new --name",
+    "sketch:legal": "pnpx hygen a4 new --name",
+    "sketch:letter": "pnpx hygen a4 new --name"
   },
   "dependencies": {
     "@astrojs/mdx": "1.1.2",
