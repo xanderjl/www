@@ -38,7 +38,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     '"I hope that I was able to help you',
   ];
 
-  const dimensions: number[] = getDimensions("letter");
+  const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
   const poemString = poem.join();
   const seed = convertSeed(poemString);
