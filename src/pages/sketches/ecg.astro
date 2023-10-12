@@ -22,33 +22,20 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let table: number[][] = [];
   let margin: number;
 
+  const chunk = <T,>(arr: T[], n: number): T[][] => {
+    const size = Math.ceil(arr.length / n);
+
+    return Array.from({ length: n }, (v, i) =>
+      arr.slice(i * size, i * size + size),
+    );
+  };
+
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.05;
 
-    const max = data.reduce((a, b) => Math.max(a, b));
-    const min = data.reduce((a, b) => Math.min(a, b));
+    table = chunk(data, 5);
 
-    table = data.map((n, i) => {
-      const rand = p5.random(n);
-      const x = p5.map(
-        p5.noise(rand, i),
-        0,
-        1,
-        margin,
-        p5.width - margin,
-        true,
-      );
-      const y = p5.map(
-        p5.noise(rand, i, min),
-        0,
-        1,
-        margin,
-        p5.height - margin,
-        true,
-      );
-
-      return [x, y];
-    });
+    console.log({ table });
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -58,10 +45,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.frameRate(1);
     p5.fill(0);
-
-    table.forEach(([x, y]) => {
-      p5.circle(x, y, p5.width * 0.0015);
-    });
   };
 
   sketch({

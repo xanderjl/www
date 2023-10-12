@@ -7,14 +7,12 @@ export interface PaperSizes {
 // Sizes are for 96 DPI
 const paperSizes: PaperSizes = {
   A0: [3179, 4494],
-
   A1: [2245, 3179],
-
   A2: [1587, 2245],
-
   A3: [1123, 1587],
-
   A4: [794, 1123],
+  Legal: [816, 1344],
+  Letter: [816, 1056],
 };
 
 export const getDimensions = (paperSize: PaperSize) => paperSizes[paperSize];
