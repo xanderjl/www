@@ -1,3 +1,14 @@
+type PaperSize =
+  | "A0"
+  | "A1"
+  | "A2"
+  | "A3"
+  | "A4"
+  | "iPhone15"
+  | "iPhoneProMax"
+  | "legal"
+  | "letter";
+
 // Sizes are for 96 DPI
 const paperSizes = {
   A0: [3179, 4494],
@@ -9,17 +20,15 @@ const paperSizes = {
   iPhoneProMax: [1170, 2532],
   legal: [816, 1344],
   letter: [816, 1056],
-} as const;
-
-export type PaperSize = typeof paperSizes;
+};
 
 export const getDimensions = (
-  paperSize: keyof PaperSize,
+  paperSize: PaperSize,
   landscape = false,
-): number[] => {
+): [number, number] => {
   if (landscape) {
-    return (paperSizes[paperSize] as unknown as number[]).reverse();
+    return paperSizes[paperSize].reverse() as [number, number];
   }
 
-  return paperSizes[paperSize] as unknown as number[];
+  return paperSizes[paperSize] as [number, number];
 };
