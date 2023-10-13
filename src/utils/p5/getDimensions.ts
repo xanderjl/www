@@ -5,6 +5,8 @@ const paperSizes = {
   A2: [1587, 2245],
   A3: [1123, 1587],
   A4: [794, 1123],
+  iPhone15: [1179, 2556],
+  iPhoneProMax: [1170, 2532],
   legal: [816, 1344],
   letter: [816, 1056],
 } as const;
