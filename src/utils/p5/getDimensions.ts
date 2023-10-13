@@ -13,5 +13,13 @@ const paperSizes = {
 
 export type PaperSize = typeof paperSizes;
 
-export const getDimensions = (paperSize: keyof PaperSize): number[] =>
-  paperSizes[paperSize] as unknown as number[];
+export const getDimensions = (
+  paperSize: keyof PaperSize,
+  landscape = false,
+): number[] => {
+  if (landscape) {
+    return (paperSizes[paperSize] as unknown as number[]).reverse();
+  }
+
+  return paperSizes[paperSize] as unknown as number[];
+};
