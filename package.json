@@ -22,8 +22,10 @@
     "sketch:a2": "pnpx hygen a2 new --name",
     "sketch:a3": "pnpx hygen a3 new --name",
     "sketch:a4": "pnpx hygen a4 new --name",
-    "sketch:legal": "pnpx hygen a4 new --name",
-    "sketch:letter": "pnpx hygen a4 new --name"
+    "sketch:iphone-15": "pnpx hygen iphone-15 new --name",
+    "sketch:iphone-pro-max": "pnpx hygen iphone-pro-max new --name",
+    "sketch:legal": "pnpx hygen legal new --name",
+    "sketch:letter": "pnpx hygen letter new --name"
   },
   "dependencies": {
     "@astrojs/mdx": "1.1.2",
