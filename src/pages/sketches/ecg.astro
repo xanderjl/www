@@ -26,7 +26,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.push();
     p5.rectMode("center");
     for (let i = 0; i < 9; i++) {
-      const x = cx + ((i % 3) - 1) * w;
+      const x = cx + i * w;
       const y = cy + Math.floor(i / 3 - 1) * w;
 
       p5.fill(i % 2 === 1 ? 0 : 255);
