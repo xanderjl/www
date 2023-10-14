@@ -71,8 +71,8 @@ devDependencies:
     specifier: 1.6.0
     version: 1.6.0
   '@types/pdfkit':
-    specifier: 0.12.12
-    version: 0.12.12
+    specifier: 0.13.0
+    version: 0.13.0
   '@types/svg-to-pdfkit':
     specifier: 0.1.1
     version: 0.1.1
@@ -1880,8 +1880,8 @@ packages:
   /@types/parse5@6.0.3:
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
 
-  /@types/pdfkit@0.12.12:
-    resolution: {integrity: sha512-plkfKdaPSVIndcsg2qFmQ/qazRivTyHALEiKufsTI6qn4hbXbFVm0n9RuY0RQpoBxM2NNK5SudCfpisDzIdXoA==}
+  /@types/pdfkit@0.13.0:
+    resolution: {integrity: sha512-/jDj/ICmZwNhXJssQ1p6l6482EZ9+pvTZ76UnLVrPVV1M4sl8mWMwE+ig9j+1zrGRdsumFzE3pMKIQgh2a4c6A==}
     dependencies:
       '@types/node': 20.8.6
     dev: true
@@ -1919,7 +1919,7 @@ packages:
   /@types/svg-to-pdfkit@0.1.1:
     resolution: {integrity: sha512-5RhWsziyyaNyxJZ3Cp3ugHgU4spnOgJbC2ZyYK+Dd3vmlKIaLQF/PQL7HlOo/WtLU06s6EpE7woosFryTDwpVQ==}
     dependencies:
-      '@types/pdfkit': 0.12.12
+      '@types/pdfkit': 0.13.0
     dev: true
 
   /@types/unist@2.0.8:
