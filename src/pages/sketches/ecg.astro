@@ -11,7 +11,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
+  import { createGrid, getDimensions, sketch } from "@/utils/p5";
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
   import data from "@/assets/data/ecg_2021-08-24.json";
@@ -20,18 +20,31 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const padding: number[] = [40];
   const background = [255, 253, 252];
   let table: number[][] = [];
+  let groups: [number, number, number[]][] = [];
   let margin: number;
+  let seed: number = data.reduce((acc, val) => acc + val, 0);
 
   const shape = (p5: P5, val: number, cx: number, cy: number, w: number) => {
-    p5.push();
-    p5.rectMode("center");
-    for (let i = 0; i < 9; i++) {
-      const x = cx + i * w;
-      const y = cy + Math.floor(i / 3 - 1) * w;
+    let fillCount = 0;
+    const grid = createGrid(3);
 
-      p5.fill(i % 2 === 1 ? 0 : 255);
-      p5.rect(x, y, w / 9, w / 9);
-    }
+    p5.push();
+    p5.noStroke();
+    p5.rectMode("center");
+    grid.forEach(([u, v]) => {
+      const x = p5.lerp(cx - w, cx + w, u);
+      const y = p5.lerp(cy - w, cy + w, v);
+      const flipped = p5.random(val) > 0.99;
+      const threshold = p5.random(1) > 0.75 ? 3 : p5.random(1) < 0.25 ? 4 : 5;
+
+      if (flipped && fillCount < threshold) {
+        p5.fill(0);
+        p5.rect(x, y, w);
+        fillCount++;
+      } else {
+        p5.noFill();
+      }
+    });
     p5.pop();
   };
 
@@ -45,7 +58,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.05;
-    table = chunk(data, 5);
+    table = chunk(data, 30);
+    groups = table.map((arr) => {
+      const x = p5.random(margin, p5.width - margin);
+      const y = p5.random(margin, p5.height - margin);
+
+      return [x, y, arr];
+    });
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -55,7 +74,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
 
-    shape(p5, 20, p5.width / 2, p5.height / 2, p5.width * 0.2);
+    groups.forEach(([x, y, arr]) => {
+      arr.forEach((val) => {
+        const a = 0;
+        const cx = x + Math.sin(Math.PI * a);
+        const cy = y + Math.cos(Math.PI * a);
+        const r = p5.width * 0.0025;
+        shape(p5, val, cx, cy, r);
+      });
+    });
   };
 
   sketch({
@@ -66,7 +93,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     padding,
     saveAs: "png",
     suffix: "ecg",
-    seed: 1,
+    seed,
   });
 </script>
 
