@@ -5,39 +5,39 @@ import { token } from "@/styled-system/tokens";
 import { formatDate } from "@/utils/formatDate";
 import { PDF } from "@/utils/pdf";
 
-// Source data
-const workHistory = await getCollection("work-history");
-const experience = workHistory.sort(
-  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
-);
-const {
-  data: { name, socials, education, email, phone, icons },
-} = await getEntry("resume-data", "index");
-
-const contentDisposition = `inline; filename="xander-low-resume-${new Date().getFullYear()}.pdf"`;
-
-// SVG and layout props
-const margin = 36;
-const iconSize = 24;
-
-// Typography
-const h1 = 36;
-const h2 = 24;
-const h3 = 20;
-const body = 12;
-
-const highlightColor = token("colors.red.100");
-
-// Instantiate a new PDFDocument
-const doc = new PDF({
-  info: {
-    Title: `Xander Low Resume ${new Date().getFullYear()}`,
-  },
-  margin,
-  size: "A4",
-});
-
 export const GET: APIRoute = async () => {
+  // Source data
+  const workHistory = await getCollection("work-history");
+  const experience = workHistory.sort(
+    (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
+  );
+  const {
+    data: { name, socials, education, email, phone, icons },
+  } = await getEntry("resume-data", "index");
+
+  const contentDisposition = `inline; filename="xander-low-resume-${new Date().getFullYear()}.pdf"`;
+
+  // SVG and layout props
+  const margin = 36;
+  const iconSize = 24;
+
+  // Typography
+  const h1 = 36;
+  const h2 = 24;
+  const h3 = 20;
+  const body = 12;
+
+  const highlightColor = token("colors.red.100");
+
+  // Instantiate a new PDFDocument
+  const doc = new PDF({
+    info: {
+      Title: `Xander Low Resume ${new Date().getFullYear()}`,
+    },
+    margin,
+    size: "LETTER",
+  });
+
   // Heading
   doc.fontSize(h1).text(name);
 
@@ -75,7 +75,7 @@ export const GET: APIRoute = async () => {
 
   doc.moveDown(0.25);
 
-  // Email
+  // // Email
   doc.addSVG(
     icons["email"],
     doc.page.width - margin * 5.5,
