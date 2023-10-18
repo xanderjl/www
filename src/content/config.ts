@@ -30,7 +30,6 @@ const resumeCollection = defineCollection({
       startDate: z.string().transform((str) => new Date(str)),
     }),
     email: z.string().nonempty(),
-    icons: z.record(z.string().nonempty()),
     name: z.string().nonempty(),
     phone: z.string().nonempty(),
     socials: z.record(
