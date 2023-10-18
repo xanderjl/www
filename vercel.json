@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/resume.pdf",
-      "destination": "https://www.xandydandy.com/api/resume"
-    }
-  ]
-}
