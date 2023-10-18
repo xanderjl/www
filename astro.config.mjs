@@ -3,6 +3,7 @@ import solidJs from "@astrojs/solid-js";
 import vercel from "@astrojs/vercel/serverless";
 import pandacss from "@pandacss/astro";
 import { defineConfig } from "astro/config";
+import glsl from "vite-plugin-glsl";
 
 export default defineConfig({
   adapter: vercel({
@@ -24,4 +25,7 @@ export default defineConfig({
     syntaxHighlight: "prism"
   },
   output: "server",
+  vite: {
+    plugins: [glsl()]
+  }
 });

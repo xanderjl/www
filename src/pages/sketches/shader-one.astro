@@ -1,0 +1,54 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { sketch } from "@/utils/p5";
+  import type { Draw, Preload, Setup } from "@/utils/p5";
+  import frag from "@/assets/shaders/shader-one.frag";
+  import vert from "@/assets/verts/shader-one.vert";
+  import type P5 from "p5";
+
+  console.log({ frag, vert });
+
+  const dimensions: number[] = [2400, 2400];
+  const padding: number[] = [40];
+
+  let firstShader: P5.Shader;
+
+  const preload: Preload = (p5) => {
+    firstShader = p5.loadShader(vert, frag);
+  };
+
+  const setup: Setup = (p5) => {
+    p5.shader(firstShader);
+    p5.noStroke();
+  };
+
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+  };
+
+  sketch({
+    preload,
+    setup,
+    draw,
+    dimensions,
+    padding,
+    renderer: "webgl",
+    saveAs: "png",
+    suffix: "shader-one",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>

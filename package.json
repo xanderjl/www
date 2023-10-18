@@ -16,16 +16,16 @@
     "format": "prettier --write . --plugin prettier-plugin-astro",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,astro}\"",
     "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx,astro}\" --fix",
-    "sketch:square": "pnpx hygen square new --name",
-    "sketch:a0": "pnpx hygen a0 new --name",
-    "sketch:a1": "pnpx hygen a1 new --name",
-    "sketch:a2": "pnpx hygen a2 new --name",
-    "sketch:a3": "pnpx hygen a3 new --name",
-    "sketch:a4": "pnpx hygen a4 new --name",
-    "sketch:iphone-15": "pnpx hygen iphone-15 new --name",
-    "sketch:iphone-pro-max": "pnpx hygen iphone-pro-max new --name",
-    "sketch:legal": "pnpx hygen legal new --name",
-    "sketch:letter": "pnpx hygen letter new --name"
+    "sketch:square": "hygen square new --name",
+    "sketch:a0": "hygen a0 new --name",
+    "sketch:a1": "hygen a1 new --name",
+    "sketch:a2": "hygen a2 new --name",
+    "sketch:a3": "hygen a3 new --name",
+    "sketch:a4": "hygen a4 new --name",
+    "sketch:iphone-15": "hygen iphone-15 new --name",
+    "sketch:iphone-pro-max": "hygen iphone-pro-max new --name",
+    "sketch:legal": "hygen legal new --name",
+    "sketch:letter": "hygen letter new --name"
   },
   "dependencies": {
     "@astrojs/mdx": "1.1.2",
@@ -62,9 +62,11 @@
     "eslint-plugin-sort-keys-fix": "1.1.2",
     "eslint-plugin-typescript-sort-keys": "3.1.0",
     "eslint-plugin-unused-imports": "3.0.0",
+    "hygen": "^6.2.11",
     "prettier": "3.0.3",
     "prettier-plugin-astro": "0.12.0",
     "typescript": "5.2.2",
-    "vite": "4.5.0"
+    "vite": "4.5.0",
+    "vite-plugin-glsl": "^1.1.2"
   }
 }
