@@ -35,7 +35,7 @@
     "@fontsource/dm-serif-text": "5.0.15",
     "@jlengstorf/get-share-image": "0.8.0",
     "@nanostores/solid": "0.4.2",
-    "astro": "3.3.1",
+    "astro": "3.3.2",
     "change-case": "5.0.2",
     "fontkit": "^2.0.2",
     "fuse.js": "6.6.2",
@@ -44,7 +44,7 @@
     "p5": "1.6.0",
     "p5.js-svg": "1.5.1",
     "sharp": "0.32.6",
-    "solid-js": "1.8.1"
+    "solid-js": "1.8.3"
   },
   "devDependencies": {
     "@pandacss/astro": "0.16.0",
@@ -65,6 +65,6 @@
     "prettier": "3.0.3",
     "prettier-plugin-astro": "0.12.0",
     "typescript": "5.2.2",
-    "vite": "4.4.11"
+    "vite": "4.5.0"
   }
 }
