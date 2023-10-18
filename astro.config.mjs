@@ -9,7 +9,7 @@ export default defineConfig({
     includeFiles: [
       "./src/assets/fonts/DMMono-Regular.ttf",
       "./src/assets/fonts/DMSerifText-Regular.ttf",
-      "./src/asets/icons/phone.png",
+      "./src/assets/icons/phone.png",
       "./src/assets/icons/email.png",
       "./src/assets/icons/github.png",
       "./src/assets/icons/linkedin.png",
