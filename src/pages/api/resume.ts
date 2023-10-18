@@ -21,18 +21,18 @@ export const GET: APIRoute = async () => {
 
   // Fonts
   const DMMonoString = getFileAsBase64String(
-    "./src/assets/fonts/DMMono-Regular.ttf",
+    "./serverless/fonts/DMMono-Regular.ttf",
   );
   const DMSerifTextString = getFileAsBase64String(
-    "./src/assets/fonts/DMSerifText-Regular.ttf",
+    "./serverless/fonts/DMSerifText-Regular.ttf",
   );
 
   // Icons
-  const phoneString = getFileAsBase64String("./src/assets/icons/phone.png");
-  const emailString = getFileAsBase64String("./src/assets/icons/email.png");
-  const githubString = getFileAsBase64String("./src/assets/icons/github.png");
+  const phoneString = getFileAsBase64String("./serverless/icons/phone.png");
+  const emailString = getFileAsBase64String("./serverless/icons/email.png");
+  const githubString = getFileAsBase64String("./serverless/icons/github.png");
   const linkedinString = getFileAsBase64String(
-    "./src/assets/icons/linkedin.png",
+    "./serverless/icons/linkedin.png",
   );
 
   // SVG and layout props

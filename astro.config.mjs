@@ -7,12 +7,12 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   adapter: vercel({
     includeFiles: [
-      "./src/assets/fonts/DMMono-Regular.ttf",
-      "./src/assets/fonts/DMSerifText-Regular.ttf",
-      "./src/assets/icons/phone.png",
-      "./src/assets/icons/email.png",
-      "./src/assets/icons/github.png",
-      "./src/assets/icons/linkedin.png",
+      "./serverless/fonts/DMMono-Regular.ttf",
+      "./serverless/fonts/DMSerifText-Regular.ttf",
+      "./serverless/icons/phone.png",
+      "./serverless/icons/email.png",
+      "./serverless/icons/github.png",
+      "./serverless/icons/linkedin.png",
     ]
   }),
   integrations: [
