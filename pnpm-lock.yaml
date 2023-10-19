@@ -15,11 +15,11 @@ dependencies:
     specifier: 5.0.2
     version: 5.0.2(astro@3.3.2)
   '@fontsource/dm-mono':
-    specifier: 5.0.15
-    version: 5.0.15
+    specifier: 5.0.16
+    version: 5.0.16
   '@fontsource/dm-serif-text':
-    specifier: 5.0.15
-    version: 5.0.15
+    specifier: 5.0.16
+    version: 5.0.16
   '@jlengstorf/get-share-image':
     specifier: 0.8.0
     version: 0.8.0
@@ -30,8 +30,8 @@ dependencies:
     specifier: 3.3.2
     version: 3.3.2(typescript@5.2.2)
   change-case:
-    specifier: 5.0.2
-    version: 5.0.2
+    specifier: 5.1.0
+    version: 5.1.0
   fontkit:
     specifier: ^2.0.2
     version: 2.0.2
@@ -63,7 +63,7 @@ devDependencies:
     version: 0.16.0(astro@3.3.2)(typescript@5.2.2)
   '@pandacss/dev':
     specifier: 0.16.0
-    version: 0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.29)(sharp@0.32.6)(typescript@5.2.2)
+    version: 0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.30)(sharp@0.32.6)(typescript@5.2.2)
   '@pandacss/types':
     specifier: 0.16.0
     version: 0.16.0
@@ -303,7 +303,7 @@ packages:
     dependencies:
       prismjs: 1.29.0
 
-  /@astrojs/react@2.2.1(@types/react-dom@18.2.14)(@types/react@18.2.29)(react-dom@18.2.0)(react@18.2.0):
+  /@astrojs/react@2.2.1(@types/react-dom@18.2.14)(@types/react@18.2.30)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-nq5Zr8iWdwjSp5fh1NReaCplwsnL4w5PXAY5XWu1jE/frxEfF/ycGHrrhwWW0uJHX9G+kUtmQLR0GBhlR4FmAw==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -314,7 +314,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.2
       '@babel/plugin-transform-react-jsx': 7.22.15(@babel/core@7.23.2)
-      '@types/react': 18.2.29
+      '@types/react': 18.2.30
       '@types/react-dom': 18.2.14
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -1544,12 +1544,12 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: true
 
-  /@fontsource/dm-mono@5.0.15:
-    resolution: {integrity: sha512-XDUdVTd1Z9NALTJPlGUV9LrkV5Xz+vPorcq3RK1IKGgjn8bMXW1RHZDXBHhP+qko1iZ8qrCubRTVqvAXPUIlRQ==}
+  /@fontsource/dm-mono@5.0.16:
+    resolution: {integrity: sha512-cQPPZDdfjaTfwbh3Dljjcrp7FaWBCSyoQ+3XLsUv0teDy2cJrjl2j5vM3wsse5lrqCJmwF6YCtOMDzSypdWOUw==}
     dev: false
 
-  /@fontsource/dm-serif-text@5.0.15:
-    resolution: {integrity: sha512-6WbPPwlTMaynLuBAvCLjmVp2PAUjHcMWLURwxuzTgGu1gM3wf9BlVaUOA9YX4T0epGL++mBCMNfXYuTC9j1kGA==}
+  /@fontsource/dm-serif-text@5.0.16:
+    resolution: {integrity: sha512-TskzCIDssvoBUx9tc+DU3W/hcaR55/8GBYuBQBN8sCJQAJ3croyT3qV4S9t7LEUBYA+RkgiNMi+GOYBXRFtrxw==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.11:
@@ -1730,7 +1730,7 @@ packages:
       ts-pattern: 5.0.5
     dev: true
 
-  /@pandacss/dev@0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.29)(sharp@0.32.6)(typescript@5.2.2):
+  /@pandacss/dev@0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.30)(sharp@0.32.6)(typescript@5.2.2):
     resolution: {integrity: sha512-LCDLM9zlq61NPAPeD14qk9ri3flUJY8WyihTPyFb93C5tkYTQY+l7xk1NyrtBwEc48/5NDg17wNPeCgv6KvSVQ==}
     hasBin: true
     dependencies:
@@ -1742,7 +1742,7 @@ packages:
       '@pandacss/postcss': 0.16.0(typescript@5.2.2)
       '@pandacss/preset-panda': 0.16.0
       '@pandacss/shared': 0.16.0
-      '@pandacss/studio': 0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.29)(sharp@0.32.6)(typescript@5.2.2)
+      '@pandacss/studio': 0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.30)(sharp@0.32.6)(typescript@5.2.2)
       '@pandacss/token-dictionary': 0.16.0
       '@pandacss/types': 0.16.0
       cac: 6.7.14
@@ -1893,11 +1893,11 @@ packages:
     resolution: {integrity: sha512-kWqAzEDVIJ2KjizJMLoDQqU21y0pyOVF3zWfxfrzwrG7Y0BzHrm/9Rk0rSoI3+33z0GqFc4/UMbKuFI1qIl4Wg==}
     dev: true
 
-  /@pandacss/studio@0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.29)(sharp@0.32.6)(typescript@5.2.2):
+  /@pandacss/studio@0.16.0(@internationalized/date@3.5.0)(@types/react-dom@18.2.14)(@types/react@18.2.30)(sharp@0.32.6)(typescript@5.2.2):
     resolution: {integrity: sha512-XadiHCXDCzkfGvnY64SEgcEBPW9x3FHsyI/0XMFzr0t1vZ4MRszQ6szMb0lb60PzSKuNI0VNlcbHelsHHOwcrw==}
     dependencies:
       '@ark-ui/react': 0.9.0(@internationalized/date@3.5.0)(react-dom@18.2.0)(react@18.2.0)
-      '@astrojs/react': 2.2.1(@types/react-dom@18.2.14)(@types/react@18.2.29)(react-dom@18.2.0)(react@18.2.0)
+      '@astrojs/react': 2.2.1(@types/react-dom@18.2.14)(@types/react@18.2.30)(react-dom@18.2.0)(react@18.2.0)
       '@pandacss/config': 0.16.0
       '@pandacss/logger': 0.16.0
       '@pandacss/node': 0.16.0(typescript@5.2.2)
@@ -2147,11 +2147,11 @@ packages:
   /@types/react-dom@18.2.14:
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
     dependencies:
-      '@types/react': 18.2.29
+      '@types/react': 18.2.30
     dev: true
 
-  /@types/react@18.2.29:
-    resolution: {integrity: sha512-Z+ZrIRocWtdD70j45izShRwDuiB4JZqDegqMFW/I8aG5DxxLKOzVNoq62UIO82v9bdgi+DO1jvsb9sTEZUSm+Q==}
+  /@types/react@18.2.30:
+    resolution: {integrity: sha512-OfqdJnDsSo4UNw0bqAjFCuBpLYQM7wvZidz0hVxHRjrEkzRlvZL1pJVyOSY55HMiKvRNEo9DUBRuEl7FNlJ/Vg==}
     dependencies:
       '@types/prop-types': 15.7.9
       '@types/scheduler': 0.16.5
@@ -3706,8 +3706,8 @@ packages:
       upper-case-first: 1.1.2
     dev: true
 
-  /change-case@5.0.2:
-    resolution: {integrity: sha512-tH6YZXViaeC2/Mnt8m4gSmbZfNorC2rhwCX2bXw8SYZWr8ljCPB7iA+1TLG9t7yroWBFauc63LlOZ1gucMVCWw==}
+  /change-case@5.1.0:
+    resolution: {integrity: sha512-YLRzoiIO62vpoI8Qy2Jfy3gLu++QfhIcNtMOAwCbIel5UQGp6/KbL7Yu309dwNQHwbI1ZW39uBFyhrwVzXJSJQ==}
     dev: false
 
   /character-entities-html4@2.1.0:
