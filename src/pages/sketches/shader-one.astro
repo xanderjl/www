@@ -13,8 +13,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 <script>
   import { sketch } from "@/utils/p5";
   import type { Draw, Preload, Setup } from "@/utils/p5";
-  import frag from "@/assets/shaders/shader-one.frag";
-  import vert from "@/assets/verts/shader-one.vert";
   import type P5 from "p5";
 
   const dimensions: number[] = [2400, 2400];
@@ -23,8 +21,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let firstShader: P5.Shader;
 
   const preload: Preload = (p5) => {
-    firstShader = p5.loadShader(vert, frag);
-    console.log({ firstShader });
+    firstShader = p5.loadShader(
+      "../src/assets/shaders/shader-one/shader.vert",
+      "../src/assets/shaders/shader-one/shader.frag",
+    );
   };
 
   const setup: Setup = (p5) => {
