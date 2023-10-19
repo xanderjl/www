@@ -7,6 +7,8 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   adapter: vercel({
     includeFiles: [
+      "./src/assets/shaders/shader-one/shader.frag",
+      "./src/assets/shaders/shader-one/shader.vert",
       "./serverless/fonts/DMMono-Regular.ttf",
       "./serverless/fonts/DMSerifText-Regular.ttf",
       "./serverless/icons/phone.png",
