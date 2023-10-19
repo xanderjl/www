@@ -17,8 +17,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import vert from "@/assets/verts/shader-one.vert";
   import type P5 from "p5";
 
-  console.log({ frag, vert });
-
   const dimensions: number[] = [2400, 2400];
   const padding: number[] = [40];
 
@@ -26,6 +24,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const preload: Preload = (p5) => {
     firstShader = p5.loadShader(vert, frag);
+    console.log({ firstShader });
   };
 
   const setup: Setup = (p5) => {
@@ -35,6 +34,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
+
+    p5.rect(0, 0, p5.width, p5.height);
   };
 
   sketch({
