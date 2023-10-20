@@ -6,7 +6,6 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
   adapter: vercel({
-    functionPerRoute: true,
     includeFiles: [
       "./serverless/fonts/DMMono-Regular.ttf",
       "./serverless/fonts/DMSerifText-Regular.ttf",
