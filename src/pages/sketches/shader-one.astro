@@ -51,5 +51,5 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 </script>
 
 <SketchLayout {title}>
-  <Sketch />
+  <Sketch client:only />
 </SketchLayout>
