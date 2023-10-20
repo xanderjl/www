@@ -37,8 +37,27 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
         gap: 2,
       })}
     >
-      <label for="file">File</label>
-      <input type="file" ref={inputRef} name="file" />
+      <label
+        for="file"
+        class={css({
+          _hover: {
+            bg: "teal.500",
+          },
+          bg: "teal.400",
+          borderRadius: "md",
+          color: "white",
+          p: 2,
+        })}
+      >
+        Choose File
+        <input
+          type="file"
+          id="file"
+          name="file"
+          ref={inputRef}
+          class={css({ display: "none" })}
+        />
+      </label>
       <button
         type="submit"
         class={css({
