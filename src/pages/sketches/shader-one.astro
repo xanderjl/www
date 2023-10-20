@@ -22,8 +22,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const preload: Preload = (p5) => {
     firstShader = p5.loadShader(
-      "../src/assets/shaders/shader-one/shader.vert",
-      "../src/assets/shaders/shader-one/shader.frag",
+      "/shaders/shader-one/shader.vert",
+      "/shaders/shader-one/shader.frag",
     );
   };
 
