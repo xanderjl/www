@@ -1,0 +1,10 @@
+---
+import { H1 } from "@/components/typography";
+import Layout from "@/layouts/Layout.astro";
+import { UploadForm } from "@/components/UploadForm";
+---
+
+<Layout title="Upload Files" maxW="4xl">
+  <H1>Upload Files</H1>
+  <UploadForm client:load />
+</Layout>

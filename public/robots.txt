@@ -1,2 +1,2 @@
 Disallow: /api/*
-Disallow: /resume
+Disallow: /resume/*

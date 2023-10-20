@@ -5,16 +5,7 @@ import pandacss from "@pandacss/astro";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  adapter: vercel({
-    includeFiles: [
-      "./serverless/fonts/DMMono-Regular.ttf",
-      "./serverless/fonts/DMSerifText-Regular.ttf",
-      "./serverless/icons/phone.png",
-      "./serverless/icons/email.png",
-      "./serverless/icons/github.png",
-      "./serverless/icons/linkedin.png",
-    ],
-  }),
+  adapter: vercel(),
   integrations: [
     pandacss(),
     mdx({ extendMarkdownConfig: true }),
