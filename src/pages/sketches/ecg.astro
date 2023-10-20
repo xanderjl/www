@@ -12,9 +12,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { createGrid, getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
-  import data from "@/assets/data/ecg_2021-08-24.json";
+
+  interface Data {
+    values: number[];
+  }
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
@@ -22,7 +25,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let table: number[][] = [];
   let groups: [number, number, number[]][] = [];
   let margin: number;
-  let seed: number = data.reduce((acc, val) => acc + val, 0);
+  let data: Data;
+  let seed: number = 1;
 
   const shape = (p5: P5, val: number, cx: number, cy: number, w: number) => {
     let fillCount = 0;
@@ -58,13 +62,17 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.05;
-    table = chunk(data, 30);
+    table = chunk(data.values, 30);
     groups = table.map((arr) => {
       const x = p5.random(margin, p5.width - margin);
       const y = p5.random(margin, p5.height - margin);
 
       return [x, y, arr];
     });
+  };
+
+  const preload: Preload = async (p5) => {
+    data = p5.loadJSON("/data/ecg_2021-08-24.json", "array") as Data;
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -86,6 +94,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
+    preload,
     setup,
     draw,
     windowResized,
