@@ -36,7 +36,7 @@
     "@jlengstorf/get-share-image": "0.8.0",
     "@nanostores/solid": "0.4.2",
     "astro": "3.3.2",
-    "change-case": "5.1.0",
+    "change-case": "5.1.1",
     "fontkit": "^2.0.2",
     "fuse.js": "6.6.2",
     "jspdf": "^2.5.1",
@@ -47,9 +47,9 @@
     "solid-js": "1.8.3"
   },
   "devDependencies": {
-    "@pandacss/astro": "0.16.0",
-    "@pandacss/dev": "0.16.0",
-    "@pandacss/types": "0.16.0",
+    "@pandacss/astro": "0.17.0",
+    "@pandacss/dev": "0.17.0",
+    "@pandacss/types": "0.17.0",
     "@types/p5": "1.6.0",
     "@typescript-eslint/eslint-plugin": "6.8.0",
     "@typescript-eslint/parser": "6.8.0",
