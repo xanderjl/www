@@ -6,16 +6,15 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
   adapter: vercel({
+    functionPerRoute: true,
     includeFiles: [
-      "./src/assets/shaders/shader-one/shader.frag",
-      "./src/assets/shaders/shader-one/shader.vert",
       "./serverless/fonts/DMMono-Regular.ttf",
       "./serverless/fonts/DMSerifText-Regular.ttf",
       "./serverless/icons/phone.png",
       "./serverless/icons/email.png",
       "./serverless/icons/github.png",
       "./serverless/icons/linkedin.png",
-    ]
+    ],
   }),
   integrations: [
     pandacss(),
