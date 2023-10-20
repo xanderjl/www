@@ -35,11 +35,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
+    renderer: "webgl",
     preload,
     draw,
     dimensions,
     padding,
-    renderer: "webgl",
     saveAs: "png",
     suffix: "shader-one",
   });
