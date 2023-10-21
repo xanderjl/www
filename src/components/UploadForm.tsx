@@ -8,13 +8,15 @@ import { flex } from "@/styled-system/patterns";
 export const UploadForm: Component<ComponentProps<"form">> = () => {
   let inputRef: HTMLInputElement | undefined;
   const [blob, setBlob] = createSignal<PutBlobResult | null>(null);
+  const [errorMessage, setErrorMessage] = createSignal<string | null>(null);
 
   const onSubmit: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
   ) => {
     event.preventDefault();
 
-    if (!inputRef && !inputRef?.files?.length > 0) {
+    if (!inputRef?.files?.length) {
+      setErrorMessage("Please select a file to submit");
       throw new Error("No file selected");
     }
 
@@ -37,30 +39,44 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
         gap: 2,
       })}
     >
-      <label
-        for="file"
-        class={css({
-          _hover: {
-            bg: "teal.500",
-          },
-          bg: "teal.400",
-          borderRadius: "md",
-          color: "white",
-          p: 2,
-        })}
-      >
-        Choose File
-        <input
-          type="file"
-          id="file"
-          name="file"
-          ref={inputRef}
-          class={css({ display: "none" })}
-        />
-      </label>
+      <div class={flex({ alignItems: "center", gap: 2 })}>
+        <label
+          for="file"
+          class={css({
+            _hover: {
+              bg: "teal.500",
+            },
+            bg: "teal.400",
+            borderRadius: "md",
+            color: "white",
+            p: 2,
+          })}
+        >
+          Choose File
+          <input
+            type="file"
+            id="file"
+            name="file"
+            ref={inputRef}
+            class={css({ display: "none" })}
+            onClick={() => setErrorMessage(null)}
+          />
+        </label>
+        <Show when={errorMessage()}>
+          <p>{errorMessage()}</p>
+        </Show>
+      </div>
       <button
         type="submit"
+        aria-disabled={Boolean(errorMessage())}
+        disabled={Boolean(errorMessage())}
         class={css({
+          _disabled: {
+            _hover: {
+              bg: "gray.500",
+            },
+            bg: "gray.400",
+          },
           _hover: {
             bg: "teal.500",
           },
