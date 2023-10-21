@@ -17,9 +17,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   import headshot from "@/assets/images/headshot.jpg";
 
-  const dimensions: number[] = getDimensions("A4", {
-    scale: 2,
-  });
+  const dimensions: number[] = getDimensions("A4");
   console.log({ dimensions });
   const padding: number[] = [40];
   let img: P5.Image;
