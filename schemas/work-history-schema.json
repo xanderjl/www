@@ -1,0 +1,39 @@
+{
+  "$ref": "#/definitions/workHistorySchema",
+  "definitions": {
+    "workHistorySchema": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "type": "string",
+          "minLength": 1
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "responsibilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "startDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "client",
+        "endDate",
+        "responsibilities",
+        "role",
+        "startDate"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

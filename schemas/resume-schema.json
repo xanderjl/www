@@ -1,0 +1,83 @@
+{
+  "$ref": "#/definitions/resumeSchema",
+  "definitions": {
+    "resumeSchema": {
+      "type": "object",
+      "properties": {
+        "education": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "endDate": {
+              "type": "string"
+            },
+            "program": {
+              "type": "string",
+              "minLength": 1
+            },
+            "school": {
+              "type": "string",
+              "minLength": 1
+            },
+            "startDate": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "endDate",
+            "program",
+            "school",
+            "startDate"
+          ],
+          "additionalProperties": false
+        },
+        "email": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "socials": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "name",
+              "url"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "education",
+        "email",
+        "name",
+        "phone",
+        "socials"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
