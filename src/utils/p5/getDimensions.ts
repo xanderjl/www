@@ -22,13 +22,28 @@ const paperSizes = {
   letter: [816, 1056],
 };
 
-export const getDimensions = (
+type GetDimensions = (
   paperSize: PaperSize,
-  landscape = false,
+  options?: {
+    landscape?: boolean;
+    scale?: number;
+  },
+) => [number, number];
+
+export const getDimensions: GetDimensions = (
+  paperSize,
+  options = {
+    landscape: false,
+    scale: 1,
+  },
 ): [number, number] => {
-  if (landscape) {
-    return paperSizes[paperSize].reverse() as [number, number];
+  if (options?.landscape) {
+    return paperSizes[paperSize]
+      .map((num) => options?.scale && num * options.scale)
+      .reverse() as [number, number];
   }
 
-  return paperSizes[paperSize] as [number, number];
+  return paperSizes[paperSize].map(
+    (num) => options?.scale && num * options.scale,
+  ) as [number, number];
 };
