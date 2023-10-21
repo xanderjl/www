@@ -6,7 +6,7 @@ export const POST: APIRoute = async ({ request }) => {
   const filename = searchParams.get("filename");
 
   if (filename) {
-    const blob = await put(filename, request.body, {
+    const blob = await put(filename, request.body as ReadableStream, {
       access: "public",
     });
 
