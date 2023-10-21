@@ -74,6 +74,7 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
           _disabled: {
             _hover: {
               bg: "gray.500",
+              cursor: "not-allowed",
             },
             bg: "gray.400",
           },
