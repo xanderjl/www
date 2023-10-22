@@ -15,11 +15,11 @@ dependencies:
     specifier: 5.0.2
     version: 5.0.2(astro@3.3.2)
   '@fontsource/dm-mono':
-    specifier: 5.0.16
-    version: 5.0.16
+    specifier: 5.0.17
+    version: 5.0.17
   '@fontsource/dm-serif-text':
-    specifier: 5.0.16
-    version: 5.0.16
+    specifier: 5.0.17
+    version: 5.0.17
   '@jlengstorf/get-share-image':
     specifier: 0.8.0
     version: 0.8.0
@@ -1357,12 +1357,12 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: true
 
-  /@fontsource/dm-mono@5.0.16:
-    resolution: {integrity: sha512-cQPPZDdfjaTfwbh3Dljjcrp7FaWBCSyoQ+3XLsUv0teDy2cJrjl2j5vM3wsse5lrqCJmwF6YCtOMDzSypdWOUw==}
+  /@fontsource/dm-mono@5.0.17:
+    resolution: {integrity: sha512-I6szJ8IwWtgDfnxWnTYgQoZQRvLzjTpNivYuBp64rvgUwv5cfLd0Wefnsx1oDsSVCe4brqpgqyABCkIKk6VAFQ==}
     dev: false
 
-  /@fontsource/dm-serif-text@5.0.16:
-    resolution: {integrity: sha512-TskzCIDssvoBUx9tc+DU3W/hcaR55/8GBYuBQBN8sCJQAJ3croyT3qV4S9t7LEUBYA+RkgiNMi+GOYBXRFtrxw==}
+  /@fontsource/dm-serif-text@5.0.17:
+    resolution: {integrity: sha512-TfCdFePxkvKLbBglkCVcyc+ulxLn5SYAy0Z93B+zjUzoa+/85pKO+YFIc4zKKJqPcdTiJEAegos9u9Cv+9cHzg==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.13:
