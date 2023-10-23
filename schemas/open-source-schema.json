@@ -17,10 +17,7 @@
           "minLength": 1
         }
       },
-      "required": [
-        "href",
-        "name"
-      ],
+      "required": ["href", "name"],
       "additionalProperties": false
     }
   },

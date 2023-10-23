@@ -11,9 +11,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { createGrid, getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
+
+import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
+import { createGrid, getDimensions, sketch } from "@/utils/p5";
 
   interface Data {
     values: number[];
@@ -52,7 +53,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.pop();
   };
 
-  const chunk = <T,>(arr: T[], n: number): T[][] => {
+  const chunk = <T, >(arr: T[], n: number): T[][] => {
     const size = Math.ceil(arr.length / n);
 
     return Array.from({ length: n }, (_, i) =>
@@ -94,15 +95,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    preload,
-    setup,
-    draw,
-    windowResized,
     dimensions,
-    padding,
-    saveAs: "png",
-    suffix: "ecg",
+    draw,
+  padding,
+    preload,
+  saveAs: "png",
     seed,
+    setup,
+    suffix: "ecg",
+  windowResized,
   });
 </script>
 

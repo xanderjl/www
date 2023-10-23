@@ -1,8 +1,9 @@
 ---
-import Layout from "@/layouts/Layout.astro";
 import { list } from "@vercel/blob";
+
 import { CopyButton } from "@/components/buttons/CopyButton";
 import { DeleteBlobButton } from "@/components/buttons/DeleteBlobButton";
+import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
 
 const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
@@ -14,8 +15,8 @@ const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
       <tr
         class={css({
           fontFamily: "heading",
-          fontWeight: 700,
           fontSize: "2xl",
+          fontWeight: 700,
           textAlign: "left",
         })}
       >

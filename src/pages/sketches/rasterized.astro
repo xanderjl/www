@@ -11,11 +11,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { createGrid, sketch, getDimensions } from "@/utils/p5";
-  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
 
-  import headshot from "@/assets/images/headshot.jpg";
+import headshot from "@/assets/images/headshot.jpg";
+import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
+import { createGrid, getDimensions, sketch } from "@/utils/p5";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
@@ -82,14 +82,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    preload,
-    setup,
-    draw,
-    windowResized,
     dimensions,
-    padding,
-    saveAs: "png",
+    draw,
+  padding,
+    preload,
+  saveAs: "png",
+    setup,
     suffix: "rasterized",
+    windowResized,
   });
 </script>
 

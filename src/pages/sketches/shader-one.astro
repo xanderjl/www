@@ -11,9 +11,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { sketch } from "@/utils/p5";
-  import type { Draw, Preload, Setup } from "@/utils/p5";
   import type P5 from "p5";
+
+import type { Draw, Preload, Setup } from "@/utils/p5";
+import { sketch } from "@/utils/p5";
 
   const dimensions: number[] = [2400, 2400];
   const padding: number[] = [40];
@@ -37,13 +38,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    preload,
-    setup,
-    draw,
     dimensions,
-    padding,
+    draw,
+  padding,
+    preload,
     renderer: "webgl",
     saveAs: "png",
+    setup,
     suffix: "shader-one",
   });
 </script>
