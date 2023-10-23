@@ -17,7 +17,9 @@ export const GET: APIRoute = async () => {
   } = await getEntry("resume-data", "index");
 
   const year = new Date().getFullYear();
-  const contentDisposition = `inline; filename="xander-low-resume-${year}.pdf"`;
+  const contentDisposition = `${
+    import.meta.env.DEV ? "inline" : "attachment"
+  }; filename="xander-low-resume-${year}.pdf"`;
 
   // Fonts
   const DMMonoString = await fetchBlobBase64(
