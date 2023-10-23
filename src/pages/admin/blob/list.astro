@@ -1,0 +1,50 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { list } from "@vercel/blob";
+import { CopyButton } from "@/components/buttons/CopyButton";
+import { css } from "@/styled-system/css";
+
+const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
+---
+
+<Layout title="VC Blob List">
+  <table>
+    <thead>
+      <tr
+        class={css({
+          fontFamily: "heading",
+          fontWeight: 700,
+          fontSize: "2xl",
+          textAlign: "left",
+        })}
+      >
+        <th>File Name</th>
+        <th>File Size</th>
+        <th>Uploaded At</th>
+        <th>URL</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        blobs.map(({ pathname, size, uploadedAt, url }) => {
+          return (
+            <tr>
+              <td>{pathname}</td>
+              <td>{Math.round((size / 1000) * 100) / 100}kb</td>
+              <td>{new Date(uploadedAt).toLocaleDateString("US")}</td>
+              <td class={css({ whiteSpace: "nowrap" })}>
+                <CopyButton copyString={url} client:load>
+                  {url.slice(0, 15) + "..."}
+                </CopyButton>
+              </td>
+              <td>
+                <a href={url}>Download</a>
+              </td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</Layout>

@@ -21,7 +21,7 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
     }
 
     const file = inputRef?.files[0];
-    const res = await fetch(`/api/resume/upload?filename=${file.name}`, {
+    const res = await fetch(`/api/blob/upload?filename=${file.name}`, {
       body: file,
       method: "POST",
     });
@@ -64,6 +64,9 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
         </label>
         <Show when={errorMessage()}>
           <p>{errorMessage()}</p>
+        </Show>
+        <Show when={Boolean(inputRef?.files?.length)}>
+          <p>{inputRef?.files![0].name}</p>
         </Show>
       </div>
       <button

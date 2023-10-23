@@ -8,6 +8,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (filename) {
     const blob = await put(filename, request.body as ReadableStream, {
       access: "public",
+      token: import.meta.env.BLOB_READ_WRITE_TOKEN,
     });
 
     return new Response(JSON.stringify(blob), {
@@ -15,6 +16,7 @@ export const POST: APIRoute = async ({ request }) => {
       statusText: "OK",
     });
   }
+
   return new Response(null, {
     status: 500,
     statusText: "Missing File",

@@ -1,3 +1,4 @@
+import { head } from "@vercel/blob";
 import type { APIRoute } from "astro";
 import { getCollection, getEntry } from "astro:content";
 import jsPDF from "jspdf";
@@ -15,6 +16,13 @@ export const GET: APIRoute = async () => {
   const {
     data: { name, socials, education, email, phone },
   } = await getEntry("resume-data", "index");
+
+  // TODO: Create base64 string from vercel blobs
+
+  const { url: DMMonoURL } = await head(
+    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/DMMono-Regular-3Q3Wbo5cowAnxmRwnIPCQqpgL5kul6.ttf",
+    { token: import.meta.env.BLOB_READ_WRITE_TOKEN },
+  );
 
   const year = new Date().getFullYear();
   const contentDisposition = `inline; filename="xander-low-resume-${year}.pdf"`;
