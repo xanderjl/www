@@ -1,9 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
+  "redirects": [
     {
       "source": "/resume.pdf",
-      "destination": "/api/resume"
+      "destination": "/api/resume",
+      "permanent": false
     }
   ]
 }
