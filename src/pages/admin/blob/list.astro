@@ -17,7 +17,7 @@ const session = await getSession(Astro.request);
 
 <Layout title="VC Blob List">
   {
-    session ? (
+    session?.user?.email === "xander@xandydandy.com" ? (
       <>
         <div class={flex({ justifyContent: "space-between", mb: 12 })}>
           <H1>Manage Files</H1>
