@@ -35,6 +35,9 @@ dependencies:
   change-case:
     specifier: 5.1.2
     version: 5.1.2
+  fetch-base64:
+    specifier: ^2.1.2
+    version: 2.1.2
   fontkit:
     specifier: ^2.0.2
     version: 2.0.2
@@ -4750,6 +4753,13 @@ packages:
     resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
     dependencies:
       reusify: 1.0.4
+
+  /fetch-base64@2.1.2:
+    resolution: {integrity: sha512-APL3vK1yYXUZ5spJFmojP/xXepjpsJUy/4oCijsvOlHBm9lEJtqOHgFJD8AMP/Rlr/1DlGxLc5InA0SqFf05zA==}
+    engines: {node: '>= 7.5.0'}
+    dependencies:
+      mime-types: 2.1.35
+    dev: false
 
   /fflate@0.4.8:
     resolution: {integrity: sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==}

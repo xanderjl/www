@@ -1,11 +1,10 @@
-import { head } from "@vercel/blob";
 import type { APIRoute } from "astro";
 import { getCollection, getEntry } from "astro:content";
 import jsPDF from "jspdf";
 
 import { token } from "@/styled-system/tokens";
 import { formatDate } from "@/utils/formatDate";
-import { getFileAsBase64String } from "@/utils/getFileAsBase64String";
+import { fetchBlobBase64 } from "@/utils/vercel/fetchBlobBase64";
 
 export const GET: APIRoute = async () => {
   // Source data
@@ -17,30 +16,29 @@ export const GET: APIRoute = async () => {
     data: { name, socials, education, email, phone },
   } = await getEntry("resume-data", "index");
 
-  // TODO: Create base64 string from vercel blobs
-
-  const { url: DMMonoURL } = await head(
-    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/DMMono-Regular-3Q3Wbo5cowAnxmRwnIPCQqpgL5kul6.ttf",
-    { token: import.meta.env.BLOB_READ_WRITE_TOKEN },
-  );
-
   const year = new Date().getFullYear();
   const contentDisposition = `inline; filename="xander-low-resume-${year}.pdf"`;
 
   // Fonts
-  const DMMonoString = getFileAsBase64String(
-    "./serverless/fonts/DMMono-Regular.ttf",
+  const DMMonoString = await fetchBlobBase64(
+    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/DMMono-Regular-3Q3Wbo5cowAnxmRwnIPCQqpgL5kul6.ttf",
   );
-  const DMSerifTextString = getFileAsBase64String(
-    "./serverless/fonts/DMSerifText-Regular.ttf",
+  const DMSerifTextString = await fetchBlobBase64(
+    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/DMSerifText-Regular-P8hzJpVkvihGuKy1WhVgDjWKjE7q70.ttf",
   );
 
   // Icons
-  const phoneString = getFileAsBase64String("./serverless/icons/phone.png");
-  const emailString = getFileAsBase64String("./serverless/icons/email.png");
-  const githubString = getFileAsBase64String("./serverless/icons/github.png");
-  const linkedinString = getFileAsBase64String(
-    "./serverless/icons/linkedin.png",
+  const phoneString = await fetchBlobBase64(
+    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/phone-wr1juRORQLT0qAellET7h5QQFxvbWH.png",
+  );
+  const emailString = await fetchBlobBase64(
+    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/email-XJsHwL5KebFovz3OzCJuKfk7SaBOBV.png",
+  );
+  const githubString = await fetchBlobBase64(
+    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/github-c82NiYMJWN3mLBccdn8dNzhRkBdEJC.png",
+  );
+  const linkedinString = await fetchBlobBase64(
+    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/linkedin-tTAkInH0hto6PcYRWavb2ttqhLeYAg.png",
   );
 
   // SVG and layout props
@@ -66,6 +64,7 @@ export const GET: APIRoute = async () => {
   });
 
   // Add fonts
+  // doc.addFileToVFS("DM-Mono.ttf", DMMonoString);
   doc.addFileToVFS("DM-Mono.ttf", DMMonoString);
   doc.addFont("DM-Mono.ttf", "DM-Mono", "normal", 400);
   doc.addFileToVFS("DM-Serif-Text.ttf", DMSerifTextString);
