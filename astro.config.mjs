@@ -5,7 +5,9 @@ import pandacss from "@pandacss/astro";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  adapter: vercel(),
+  adapter: vercel({
+    edgeMiddleware: true
+  }),
   integrations: [
     pandacss(),
     mdx({ extendMarkdownConfig: true }),
