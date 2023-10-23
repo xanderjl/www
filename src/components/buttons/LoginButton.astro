@@ -1,0 +1,21 @@
+---
+import { SignIn } from "auth-astro/components";
+import { css } from "@/styled-system/css";
+---
+
+<SignIn
+  provider="github"
+  class={css({
+    _hover: {
+      bg: "gray.600",
+    },
+    w: "max-content",
+    h: "max-content",
+    bg: "gray.700",
+    color: "white",
+    p: 2,
+    borderRadius: "md",
+  })}
+>
+  <slot />
+</SignIn>

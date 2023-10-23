@@ -5,57 +5,76 @@ import { CopyButton } from "@/components/buttons/CopyButton";
 import { DeleteBlobButton } from "@/components/buttons/DeleteBlobButton";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
+import { H1 } from "@/components/typography";
+import { getSession } from "auth-astro/server";
+import LoginButton from "@/components/buttons/LoginButton.astro";
+import LogoutButton from "@/components/buttons/LogoutButton.astro";
+import { flex } from "@/styled-system/patterns";
 
 const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
+const session = await getSession(Astro.request);
 ---
 
 <Layout title="VC Blob List">
-  <table>
-    <thead>
-      <tr
-        class={css({
-          fontFamily: "heading",
-          fontSize: "2xl",
-          fontWeight: 700,
-          textAlign: "left",
-        })}
-      >
-        <th>File Name</th>
-        <th>File Size</th>
-        <th>Uploaded At</th>
-        <th>URL</th>
-        <th>Download</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      {
-        blobs.map(({ pathname, size, uploadedAt, url }) => {
-          return (
-            <tr>
-              <td>{pathname}</td>
-              <td>{Math.round((size / 1000) * 100) / 100}kb</td>
-              <td>{new Date(uploadedAt).toLocaleDateString("US")}</td>
-              <td class={css({ whiteSpace: "nowrap" })}>
-                <CopyButton copyString={url} client:load>
-                  {url.slice(0, 15) + "..."}
-                </CopyButton>
-              </td>
-              <td>
-                <a href={url}>Download</a>
-              </td>
-              <td>
-                <DeleteBlobButton
-                  url={`/api/blob/delete?url=${url}`}
-                  client:load
-                >
-                  Delete
-                </DeleteBlobButton>
-              </td>
+  {
+    session ? (
+      <>
+        <div class={flex({ justifyContent: "space-between", mb: 12 })}>
+          <H1>Manage Files</H1>
+          <LogoutButton>Sign Out</LogoutButton>
+        </div>
+        <table>
+          <thead>
+            <tr
+              class={css({
+                fontFamily: "heading",
+                fontSize: "2xl",
+                fontWeight: 700,
+                textAlign: "left",
+              })}
+            >
+              <th>File Name</th>
+              <th>File Size</th>
+              <th>Uploaded At</th>
+              <th>URL</th>
+              <th>Download</th>
+              <th>Delete</th>
             </tr>
-          );
-        })
-      }
-    </tbody>
-  </table>
+          </thead>
+          <tbody>
+            {blobs.map(({ pathname, size, uploadedAt, url }) => {
+              return (
+                <tr>
+                  <td>{pathname}</td>
+                  <td>{Math.round((size / 1000) * 100) / 100}kb</td>
+                  <td>{new Date(uploadedAt).toLocaleDateString("US")}</td>
+                  <td class={css({ whiteSpace: "nowrap" })}>
+                    <CopyButton copyString={url} client:load>
+                      {url.slice(0, 15) + "..."}
+                    </CopyButton>
+                  </td>
+                  <td>
+                    <a href={url}>Download</a>
+                  </td>
+                  <td>
+                    <DeleteBlobButton
+                      url={`/api/blob/delete?url=${url}`}
+                      client:load
+                    >
+                      Delete
+                    </DeleteBlobButton>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </>
+    ) : (
+      <>
+        <H1>Fuck off :)</H1>
+        <LoginButton>Sign In</LoginButton>
+      </>
+    )
+  }
 </Layout>

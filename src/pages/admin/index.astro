@@ -1,0 +1,34 @@
+---
+import { getSession } from "auth-astro/server";
+import Layout from "@/layouts/Layout.astro";
+import { H1, H2 } from "@/components/typography";
+import { flex } from "@/styled-system/patterns";
+import LoginButton from "@/components/buttons/LoginButton.astro";
+import LogoutButton from "@/components/buttons/LogoutButton.astro";
+
+const session = await getSession(Astro.request);
+---
+
+<Layout title={`Admin ${session ? "Dashboard" : "Login"}`} maxW="4xl">
+  {
+    session ? (
+      <>
+        <div class={flex({ justifyContent: "space-between" })}>
+          <H1>Welcome</H1>
+          <LogoutButton>Sign Out</LogoutButton>
+        </div>
+        <H2>Navigate</H2>
+        <ul class={flex({ flexDir: "column", listStyleType: "disc" })}>
+          <li>
+            <a href="/admin/blob/list">Blob List</a>
+          </li>
+          <li>
+            <a href="/admin/blob/upload">Upload</a>
+          </li>
+        </ul>
+      </>
+    ) : (
+      <LoginButton>Sign In</LoginButton>
+    )
+  }
+</Layout>
