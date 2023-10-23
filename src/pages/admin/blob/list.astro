@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { list } from "@vercel/blob";
 import { CopyButton } from "@/components/buttons/CopyButton";
+import { DeleteBlobButton } from "@/components/buttons/DeleteBlobButton";
 import { css } from "@/styled-system/css";
 
 const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
@@ -23,6 +24,7 @@ const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
         <th>Uploaded At</th>
         <th>URL</th>
         <th>Download</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -40,6 +42,14 @@ const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
               </td>
               <td>
                 <a href={url}>Download</a>
+              </td>
+              <td>
+                <DeleteBlobButton
+                  url={`/api/blob/delete?url=${url}`}
+                  client:load
+                >
+                  Delete
+                </DeleteBlobButton>
               </td>
             </tr>
           );
