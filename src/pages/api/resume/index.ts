@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection, getEntry } from "astro:content";
-import jsPDF from "jspdf";
+import { jsPDF } from "jspdf";
 
 import { token } from "@/styled-system/tokens";
 import { formatDate } from "@/utils/formatDate";
