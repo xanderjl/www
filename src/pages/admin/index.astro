@@ -11,7 +11,7 @@ const session = await getSession(Astro.request);
 
 <Layout title={`Admin ${session ? "Dashboard" : "Login"}`} maxW="4xl">
   {
-    session?.user?.email === "xander@xandydandy.com" ? (
+    session?.user?.email === import.meta.env.AUTH_EMAIL ? (
       <>
         <div class={flex({ justifyContent: "space-between" })}>
           <H1>Welcome</H1>

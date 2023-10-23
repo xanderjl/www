@@ -8,6 +8,7 @@ declare global {
   }
 
   interface ImportMetaEnv {
+    readonly AUTH_EMAIL: string;
     readonly AUTH_SECRET: string;
     readonly AUTH_TRUST_HOST: boolean;
     readonly BASE_URL: string;
