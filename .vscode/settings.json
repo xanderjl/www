@@ -19,5 +19,13 @@
       "url": "/schemas/work-history-schema.json"
     }
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "\\.(frag|vert)$",
+        "cmd": "clang-format -i ${file}"
+      }
+    ]
+  }
 }
