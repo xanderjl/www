@@ -7,7 +7,8 @@ type PaperSize =
   | "iPhone15"
   | "iPhoneProMax"
   | "legal"
-  | "letter";
+  | "letter"
+  | "square";
 
 // Sizes are for 96 DPI
 const paperSizes = {
@@ -20,6 +21,7 @@ const paperSizes = {
   iPhoneProMax: [1170, 2532],
   legal: [816, 1344],
   letter: [816, 1056],
+  square: [2400, 2500],
 };
 
 type GetDimensions = (

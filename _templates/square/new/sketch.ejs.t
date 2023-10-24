@@ -14,10 +14,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { sketch } from "@/utils/p5";
-  import type { Draw } from "@/utils/p5";
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Preload, Setup } from "@/utils/p5";
 
-  const dimensions: number[] = [2400, 2400];
+  const dimensions: number[] = getDimensions("square");
   const padding: number[] = [40];
   const background = [255, 253, 252];
 

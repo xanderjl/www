@@ -27,7 +27,8 @@
     "sketch:iphone-15": "hygen iphone-15 new --name",
     "sketch:iphone-pro-max": "hygen iphone-pro-max new --name",
     "sketch:legal": "hygen legal new --name",
-    "sketch:letter": "hygen letter new --name"
+    "sketch:letter": "hygen letter new --name",
+    "sketch:shader": "hygen shader new --name"
   },
   "dependencies": {
     "@astrojs/mdx": "1.1.2",

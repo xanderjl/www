@@ -1,4 +1,7 @@
 ---
+to: src/pages/sketches/<%= name %>.astro
+---
+---
 import { capitalCase } from "change-case";
 
 import Sketch from "@/components/Sketch.astro";
@@ -11,20 +14,19 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Preload, Setup } from "@/utils/p5";
   import type P5 from "p5";
 
-  import type { Draw, Preload, Setup } from "@/utils/p5";
-  import { sketch } from "@/utils/p5";
-
-  const dimensions: number[] = [2400, 2400];
+  const dimensions: number[] = getDimensions("square");
   const padding: number[] = [40];
 
   let firstShader: P5.Shader;
 
   const preload: Preload = (p5) => {
     firstShader = p5.loadShader(
-      "/shaders/shader-one/shader.vert",
-      "/shaders/shader-one/shader.frag",
+      "/shaders/<%= name %>/main.vert",
+      "/shaders/<%= name %>/main.frag",
     );
   };
 
@@ -38,14 +40,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    dimensions,
-    draw,
-    padding,
     preload,
+    setup,
+    draw,
+    dimensions,
+    padding,
     renderer: "webgl",
     saveAs: "png",
-    setup,
-    suffix: "shader-one",
+    suffix: "<%= name %>"
   });
 </script>
 
