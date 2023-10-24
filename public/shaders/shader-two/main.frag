@@ -4,14 +4,6 @@ varying vec2 vTexCoord;
 
 float dot2(vec2 v) { return dot(v, v); }
 
-// vec4 smin(in vec4 a, in vec4 b, in float k) {
-//   float h = max(k - abs(a.x - b.x), 0.0);
-//   float m = 0.25 * h * h / k;
-//   float n = 0.50 * h / k;
-//   return vec3(min(a.x, b.x) - m, mix(a.yzw, b.yzw, (a.x < b.x) ? n : 1.0 -
-//   n));
-// }
-
 float sdEquilateralTriangle(in vec2 p, in float r) {
   const float k = sqrt(3.0);
   p.x = abs(p.x) - r;
