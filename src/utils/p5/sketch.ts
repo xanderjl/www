@@ -49,7 +49,9 @@ export const sketch = ({
   gifOptions,
 }: SketchProps) => {
   const s = (p5: P5) => {
-    preload && preload(p5);
+    p5.preload = () => {
+      preload && preload(p5);
+    };
 
     p5.setup = () => {
       setupDefaults({
