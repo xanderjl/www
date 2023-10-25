@@ -22,4 +22,9 @@ export default defineConfig({
     syntaxHighlight: "prism",
   },
   output: "server",
+  redirects: {
+    "/resume.pdf": {
+      destination: "/api/resume"
+    }
+  }
 });
