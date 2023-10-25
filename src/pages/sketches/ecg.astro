@@ -8,8 +8,6 @@ export const prerender = true;
 
 const { pathname } = Astro.url;
 const title = capitalCase(pathname.split("/").pop() ?? "");
-
-Astro.request.headers.set("Cache-Control", "no-cache");
 ---
 
 <script>
