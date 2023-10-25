@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
 import solidJs from "@astrojs/solid-js";
 import vercel from "@astrojs/vercel/serverless";
 import pandacss from "@pandacss/astro";
@@ -20,7 +19,7 @@ export default defineConfig({
   }),
   integrations: [pandacss(), mdx({
     extendMarkdownConfig: true
-  }), solidJs(), auth(), sitemap()],
+  }), solidJs(), auth()],
   markdown: {
     syntaxHighlight: "prism"
   },
