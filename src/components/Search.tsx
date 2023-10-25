@@ -68,7 +68,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
                   class={liStyles}
                   style={`view-transition-name: hero-${entry}`}
                 >
-                  <a href={`${path}/${entry}`}>
+                  <a href={`${path}/${entry}`} data-astro-reload>
                     {trainCase(entry).replaceAll("-", " ")}
                   </a>
                 </li>
@@ -82,7 +82,7 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
                 class={liStyles}
                 style={`view-transition-name: hero-${entry.item}`}
               >
-                <a href={`${path}/${entry.item}`}>
+                <a href={`${path}/${entry.item}`} data-astro-reload>
                   {trainCase(entry.item).replaceAll("-", " ")}
                 </a>
               </li>
