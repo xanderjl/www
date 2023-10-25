@@ -1,4 +1,5 @@
 ---
+// @ts-ignore
 import getShareImage from "@jlengstorf/get-share-image";
 import { ViewTransitions } from "astro:transitions";
 
@@ -38,6 +39,7 @@ const ogImage = getShareImage({
 <head>
   <meta charset='utf-8' />
   <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+  <link rel="sitemap" href="/sitemap-index.xml" />
   <meta name='viewport' content='width=device-width' />
   <meta name='generator' content={Astro.generator} />
   {ogImage && (
