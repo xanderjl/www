@@ -40,7 +40,7 @@
     "@jlengstorf/get-share-image": "0.8.0",
     "@nanostores/solid": "0.4.2",
     "@vercel/blob": "0.14.1",
-    "astro": "3.3.4",
+    "astro": "3.4.0",
     "auth-astro": "3.0.1",
     "change-case": "5.1.2",
     "fetch-base64": "2.1.2",
@@ -51,7 +51,7 @@
     "p5": "1.6.0",
     "p5.js-svg": "1.5.1",
     "sharp": "0.32.6",
-    "solid-js": "1.8.3",
+    "solid-js": "1.8.4",
     "zod": "3.22.4"
   },
   "devDependencies": {
