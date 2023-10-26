@@ -107,17 +107,18 @@ export const sketch = ({
     const fileName = date + (suffix ? `-${suffix}` : "");
 
     p5.keyPressed = (event) => {
-      keyPressed ??
-        kp({
-          dimensions,
-          event: event as KeyboardEvent,
-          fileName,
-          gifOptions,
-          p5,
-          renderer,
-          saveAs,
-          seed,
-        });
+      keyPressed && keyPressed(p5, event as KeyboardEvent);
+
+      kp({
+        dimensions,
+        event: event as KeyboardEvent,
+        fileName,
+        gifOptions,
+        p5,
+        renderer,
+        saveAs,
+        seed,
+      });
     };
   };
 

@@ -12,8 +12,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import type P5 from "p5";
-  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
-  import { createGrid, getDimensions, sketch } from "@/utils/p5";
+  import type {
+    Draw,
+    KeyPressed,
+    Preload,
+    Setup,
+    WindowResized,
+  } from "@/utils/p5";
+  import { getDimensions, sketch } from "@/utils/p5";
+  import { flyer } from "@/utils/p5/shapes/flyer";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
@@ -24,30 +31,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let data: number[];
   let seed: number = 1;
 
-  const shape = (p5: P5, val: number, cx: number, cy: number, w: number) => {
-    let fillCount = 0;
-    const grid = createGrid(3);
-
-    p5.push();
-    p5.noStroke();
-    p5.rectMode("center");
-    grid.forEach(([u, v]) => {
-      const x = p5.lerp(cx - w, cx + w, u);
-      const y = p5.lerp(cy - w, cy + w, v);
-      const flipped = p5.random(val) > 0.99;
-      const threshold = p5.random(1) > 0.75 ? 3 : p5.random(1) < 0.25 ? 4 : 5;
-
-      if (flipped && fillCount < threshold) {
-        p5.fill(0);
-        p5.rect(x, y, w);
-        fillCount++;
-      } else {
-        p5.noFill();
-      }
-    });
-    p5.pop();
-  };
-
   const chunk = <T,>(arr: T[], n: number): T[][] => {
     const size = Math.ceil(arr.length / n);
 
@@ -56,15 +39,20 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     );
   };
 
-  const handleRenders = (p5: P5, arr: number[]) => {
+  const handleRenders = (p5: P5) => {
+    const sliceAmt = Math.floor(Math.floor(p5.random(data.length)) * 0.05);
     margin = p5.width * 0.05;
-    table = chunk(arr, 30);
-    groups = table.map((arr) => {
+    table = chunk(data, sliceAmt);
+    groups = table.map((data) => {
       const x = p5.random(margin, p5.width - margin);
       const y = p5.random(margin, p5.height - margin);
 
-      return [x, y, arr];
+      return [x, y, data];
     });
+
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
+    p5.redraw();
   };
 
   const preload: Preload = (p5) => {
@@ -74,23 +62,52 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const setup: Setup = (p5) => {
     data = Object.values(data);
-    handleRenders(p5, data);
+    handleRenders(p5);
   };
-  const windowResized: WindowResized = (p5) => handleRenders(p5, data);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
     p5.clear(0, 0, 0, 0);
     p5.background(background);
 
-    groups.forEach(([x, y, arr]) => {
-      arr.forEach((val) => {
-        const a = 0;
-        const cx = x + Math.sin(Math.PI * a);
-        const cy = y + Math.cos(Math.PI * a);
-        const r = p5.width * 0.0025;
-        shape(p5, val, cx, cy, r);
+    groups.slice(0, Math.floor(groups.length * 0.5)).forEach(([x, y, arr]) => {
+      arr.slice(0, Math.floor(arr.length * 0.9)).forEach((val, i) => {
+        const a = p5.width * 0.1;
+        const b = p5.width * 0.3;
+        const rand = p5.random(1);
+        const sin = Math.sin(Math.PI * p5.noise(a, i)) * b;
+        const cos = Math.cos(Math.PI * p5.noise(a, i)) * b;
+        const cx = rand > 0.5 ? x + sin : x - sin;
+        const cy = rand > 0.5 ? y + cos : y - cos;
+        const bx =
+          cx > p5.width - margin
+            ? p5.width - margin
+            : cx < margin
+            ? margin
+            : cx;
+        const by =
+          cy > p5.height - margin
+            ? p5.height - margin
+            : cy < margin
+            ? margin
+            : cy;
+        const size = p5.width * p5.noise(b, i) * 0.006;
+
+        flyer(p5, val, bx, by, size);
       });
     });
+  };
+
+  const keyPressed: KeyPressed = (p5, e) => {
+    if (e?.key === "ArrowRight") {
+      seed++;
+    } else if (e?.key === "ArrowLeft") {
+      seed--;
+    }
+    p5.redraw();
   };
 
   sketch({
@@ -98,11 +115,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     setup,
     draw,
     windowResized,
+    keyPressed,
     padding,
     saveAs: "png",
     dimensions,
     seed,
-    suffix: "ecg",
+    suffix: `ecg`,
   });
 </script>
 
