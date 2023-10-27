@@ -73,6 +73,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
 
+    const d = (p5.width - margin * 2) * 0.5;
+    const r = d * 0.5;
+    const cx = p5.width * 0.5;
+    const cy = p5.height * 0.5;
+
     groups.slice(0, Math.floor(groups.length * 0.5)).forEach(([x, y, arr]) => {
       arr.slice(0, Math.floor(arr.length * 0.9)).forEach((val, i) => {
         const a = p5.width * 0.1;
@@ -80,25 +85,49 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         const rand = p5.random(1);
         const sin = Math.sin(Math.PI * p5.noise(a, i)) * b;
         const cos = Math.cos(Math.PI * p5.noise(a, i)) * b;
-        const cx = rand > 0.5 ? x + sin : x - sin;
-        const cy = rand > 0.5 ? y + cos : y - cos;
+        const arrCx = rand > 0.5 ? x + sin : x - sin;
+        const arrCy = rand > 0.5 ? y + cos : y - cos;
         const bx =
-          cx > p5.width - margin
+          arrCx > p5.width - margin
             ? p5.width - margin
-            : cx < margin
+            : arrCx < margin
             ? margin
-            : cx;
+            : arrCx;
         const by =
-          cy > p5.height - margin
+          arrCy > p5.height - margin
             ? p5.height - margin
-            : cy < margin
+            : arrCy < margin
             ? margin
-            : cy;
+            : arrCy;
         const size = p5.width * p5.noise(b, i) * 0.006;
 
         flyer(p5, val, bx, by, size);
       });
     });
+
+    p5.push();
+    p5.stroke("red");
+    p5.noFill();
+
+    p5.circle(cx, cy, d);
+
+    Array.from({ length: 80 }, (_, i) => {
+      const offset = Math.PI / i;
+      const startX = cx + Math.sin(Math.PI * 0.5 - offset) * r;
+      const startY = cy + Math.cos(Math.PI * 0.5 - offset) * r;
+      const endX = cx - Math.sin(Math.PI * 0.5 + offset) * r;
+      const endY = cy - Math.cos(Math.PI * 0.5 + offset) * r;
+
+      p5.beginShape();
+      Array.from({ length: 20 }, (_, j) => {
+        const percent = j / 20;
+        const x = p5.lerp(startX, endX, percent);
+        const y = startY + Math.sin(j) * p5.width * 0.05;
+        p5.curveVertex(x, y);
+      });
+      p5.endShape();
+    });
+    p5.pop();
   };
 
   const keyPressed: KeyPressed = (p5, e) => {
