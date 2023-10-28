@@ -73,10 +73,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
 
+    p5.push();
+    p5.stroke("red");
+    p5.fill("red");
+
     const d = (p5.width - margin * 2) * 0.5;
-    const r = d * 0.5;
     const cx = p5.width * 0.5;
     const cy = p5.height * 0.5;
+
+    p5.circle(cx, cy, d);
+    p5.pop();
 
     groups.slice(0, Math.floor(groups.length * 0.5)).forEach(([x, y, arr]) => {
       arr.slice(0, Math.floor(arr.length * 0.9)).forEach((val, i) => {
@@ -104,30 +110,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         flyer(p5, val, bx, by, size);
       });
     });
-
-    p5.push();
-    p5.stroke("red");
-    p5.noFill();
-
-    p5.circle(cx, cy, d);
-
-    Array.from({ length: 80 }, (_, i) => {
-      const offset = Math.PI / i;
-      const startX = cx + Math.sin(Math.PI * 0.5 - offset) * r;
-      const startY = cy + Math.cos(Math.PI * 0.5 - offset) * r;
-      const endX = cx - Math.sin(Math.PI * 0.5 + offset) * r;
-      const endY = cy - Math.cos(Math.PI * 0.5 + offset) * r;
-
-      p5.beginShape();
-      Array.from({ length: 20 }, (_, j) => {
-        const percent = j / 20;
-        const x = p5.lerp(startX, endX, percent);
-        const y = startY + Math.sin(j) * p5.width * 0.05;
-        p5.curveVertex(x, y);
-      });
-      p5.endShape();
-    });
-    p5.pop();
   };
 
   const keyPressed: KeyPressed = (p5, e) => {

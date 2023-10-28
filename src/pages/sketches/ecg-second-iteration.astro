@@ -1,0 +1,179 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import type P5 from "p5";
+  import type {
+    Draw,
+    KeyPressed,
+    Preload,
+    Setup,
+    WindowResized,
+  } from "@/utils/p5";
+  import { drawBorder, getDimensions, sketch } from "@/utils/p5";
+  import { flyer } from "@/utils/p5/shapes/flyer";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  let length = 80;
+  let sliceAmt = 0.5;
+  let table: number[][] = [];
+  let margin: number;
+  let data: number[];
+  let seed: number = 1;
+  let start: P5.Vector;
+  let end: P5.Vector;
+
+  // UTILS ---------------------------------------------------------------------
+  const chunk = <T,>(arr: T[], n: number): T[][] => {
+    const size = Math.ceil(arr.length / n);
+
+    return Array.from({ length: n }, (_, i) =>
+      arr.slice(i * size, i * size + size),
+    );
+  };
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    table = chunk(data, length);
+    start = p5.createVector(margin, p5.height - margin);
+    end = p5.createVector(p5.width - margin, margin);
+
+    p5.redraw();
+  };
+  // ----------------------------------------------------------------------------
+
+  // SHAPES ---------------------------------------------------------------------
+  const noiseyCircle = (
+    p5: P5,
+    cx: number,
+    cy: number,
+    d: number,
+    nodes: number[],
+  ) => {
+    nodes.slice(0, Math.floor(nodes.length * sliceAmt)).forEach((val, i) => {
+      const a = p5.width * 0.1;
+      const b = p5.width * 0.3;
+      const rand = p5.random(1);
+      const sin = Math.sin(Math.PI * p5.noise(a, i)) * b;
+      const cos = Math.cos(Math.PI * p5.noise(a, i)) * b;
+      const arrCx = rand > 0.5 ? cx + sin : cx - sin;
+      const arrCy = rand > 0.5 ? cy + cos : cy - cos;
+
+      if (
+        arrCx > p5.width - margin ||
+        arrCx < margin ||
+        arrCy > p5.height - margin ||
+        arrCy < margin
+      ) {
+        return;
+      }
+
+      const bx =
+        arrCx > p5.width - margin
+          ? p5.width - margin
+          : arrCx < margin
+          ? margin
+          : arrCx;
+      const by =
+        arrCy > p5.height - margin
+          ? p5.height - margin
+          : arrCy < margin
+          ? margin
+          : arrCy;
+      const size = p5.width * p5.noise(b, i) * 0.006;
+
+      flyer(p5, val, bx, by, size);
+    });
+  };
+  // ----------------------------------------------------------------------------
+
+  // P5 -------------------------------------------------------------------------
+  const preload: Preload = (p5) => {
+    // @ts-ignore
+    data = p5.loadJSON(`/data/ecg_2021-08-24.json`);
+  };
+
+  const setup: Setup = (p5) => {
+    data = Object.values(data);
+    handleRenders(p5);
+  };
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
+    p5.clear(0, 0, 0, 0);
+    p5.noFill();
+    drawBorder(p5, margin);
+
+    p5.push();
+    p5.stroke("red");
+    p5.fill("red");
+
+    const d = (p5.width - margin * 2) * 0.5;
+    const cx = p5.width * 0.5;
+    const cy = p5.height * 0.5;
+
+    p5.circle(cx, cy, d);
+    p5.pop();
+
+    p5.push();
+    table.forEach((nodes, i) => {
+      const p = start.lerp(end, i / length);
+      const a = p5.map(p5.noise(i), 0, 1, 0, p5.width * 0.25);
+
+      if (i != 0 && i != length) {
+        const x = p.x + Math.sin(Math.PI * 0.25) * a;
+        const y = p.y + Math.cos(Math.PI * 0.25) * a;
+
+        if (x > p5.width - margin || x < margin) {
+          noiseyCircle(p5, x, p.y, a, nodes);
+        } else if (y > p5.height - margin || y < margin) {
+          noiseyCircle(p5, p.x, y, a, nodes);
+        } else {
+          noiseyCircle(p5, x, y, a, nodes);
+        }
+      }
+      noiseyCircle(p5, p.x, p.y, a, nodes);
+    });
+    p5.pop();
+  };
+
+  const keyPressed: KeyPressed = (p5, e) => {
+    if (e?.key === "ArrowRight") {
+      seed++;
+    } else if (e?.key === "ArrowLeft") {
+      seed--;
+    }
+    p5.redraw();
+  };
+  // -----------------------------------------------------------------------------
+
+  sketch({
+    preload,
+    setup,
+    draw,
+    windowResized,
+    keyPressed,
+    padding,
+    saveAs: "svg",
+    dimensions,
+    seed,
+    suffix: "ecg-second-iteration",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>

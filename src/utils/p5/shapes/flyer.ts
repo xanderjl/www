@@ -21,7 +21,6 @@ export const flyer = (
     const threshold = p5.random(1) > 0.75 ? 3 : p5.random(1) < 0.25 ? 4 : 5;
 
     if (flipped && fillCount < threshold) {
-      p5.fill(0);
       p5.stroke(0);
       p5.rect(x, y, w);
       fillCount++;
