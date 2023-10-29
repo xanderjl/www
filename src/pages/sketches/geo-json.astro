@@ -14,18 +14,32 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import { getDimensions, sketch } from "@/utils/p5";
   import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
+  import type { FeatureCollection, LineString } from "geojson";
+
+  type GeoJSON = FeatureCollection<
+    LineString,
+    {
+      name: string;
+      time: string;
+      coordTimes: string[];
+    }
+  >;
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
   const background = [255, 253, 252];
-  let data: any;
+  let data: GeoJSON;
+  let coordinates: GeoJSON["features"][0]["geometry"]["coordinates"];
 
   const handleRenders = (p5: P5) => {
-    console.log({ data });
+    const { features } = data;
+    const { geometry } = features[0];
+
+    coordinates = geometry.coordinates;
   };
 
   const preload: Preload = (p5) => {
-    data = p5.loadJSON("/data/route_2022-10-02_6.04pm.geojson");
+    data = p5.loadJSON("/data/route_2022-10-02_6.04pm.geojson") as GeoJSON;
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -33,6 +47,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
+
+    p5.beginShape();
+    coordinates.forEach((coord, i) => {
+      const long = "finish this part";
+    });
+    p5.endShape();
   };
 
   sketch({
