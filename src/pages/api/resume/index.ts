@@ -20,25 +20,17 @@ export const GET: APIRoute = async () => {
   const contentDisposition = `inline; filename="xander-low-resume-${year}.pdf"`;
 
   // Fonts
-  const DMMonoString = await fetchBlobBase64(
-    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/DMMono-Regular-3Q3Wbo5cowAnxmRwnIPCQqpgL5kul6.ttf",
-  );
+  const DMMonoString = await fetchBlobBase64(import.meta.env.DMMONO_URL);
   const DMSerifTextString = await fetchBlobBase64(
-    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/DMSerifText-Regular-P8hzJpVkvihGuKy1WhVgDjWKjE7q70.ttf",
+    import.meta.env.DMSERIFTEXT_URL,
   );
 
   // Icons
-  const phoneString = await fetchBlobBase64(
-    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/phone-wr1juRORQLT0qAellET7h5QQFxvbWH.png",
-  );
-  const emailString = await fetchBlobBase64(
-    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/email-XJsHwL5KebFovz3OzCJuKfk7SaBOBV.png",
-  );
-  const githubString = await fetchBlobBase64(
-    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/github-c82NiYMJWN3mLBccdn8dNzhRkBdEJC.png",
-  );
+  const phoneString = await fetchBlobBase64(import.meta.env.PHONE_ICON_URL);
+  const emailString = await fetchBlobBase64(import.meta.env.EMAIL_ICON_URL);
+  const githubString = await fetchBlobBase64(import.meta.env.GITHUB_ICON_URL);
   const linkedinString = await fetchBlobBase64(
-    "https://pr63tkdud6xj8zub.public.blob.vercel-storage.com/linkedin-tTAkInH0hto6PcYRWavb2ttqhLeYAg.png",
+    import.meta.env.LINKEDIN_ICON_URL,
   );
 
   // SVG and layout props
