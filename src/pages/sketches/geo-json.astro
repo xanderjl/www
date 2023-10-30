@@ -70,6 +70,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noFill();
     p5.strokeWeight(p5.width * 0.001);
 
+    p5.push();
     coordinates.forEach((coord, i) => {
       const long = coord[0];
       const lat = coord[1];
@@ -85,6 +86,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       );
       p5.circle(x, y, z);
     });
+    p5.pop();
     createOverlay(p5, background, margin);
     drawBorder(p5, margin);
   };
