@@ -34,8 +34,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let maxXCoord: number;
   let minYCoord: number;
   let maxYCoord: number;
-  let cx: number;
-  let cy: number;
   let margin: number;
 
   const handleRenders = (p5: P5) => {
@@ -46,8 +44,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     maxXCoord = Math.max(...coordinates.map((coords) => coords[0]));
     minYCoord = Math.min(...coordinates.map((coords) => coords[1]));
     maxYCoord = Math.max(...coordinates.map((coords) => coords[1]));
-    cx = p5.width * 0.5;
-    cy = p5.height * 0.5;
     margin = p5.width * 0.075;
   };
 
