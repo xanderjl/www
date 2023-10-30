@@ -55,9 +55,9 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@pandacss/astro": "0.17.3",
-    "@pandacss/dev": "0.17.3",
-    "@pandacss/types": "0.17.3",
+    "@pandacss/astro": "0.17.4",
+    "@pandacss/dev": "0.17.4",
+    "@pandacss/types": "0.17.4",
     "@types/geojson": "^7946.0.12",
     "@types/p5": "1.6.0",
     "@typescript-eslint/eslint-plugin": "6.9.1",
