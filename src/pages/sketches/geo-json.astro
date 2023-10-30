@@ -11,7 +11,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
+  import { createOverlay, drawBorder, getDimensions, sketch } from "@/utils/p5";
   import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
   import type { FeatureCollection, LineString } from "geojson";
@@ -58,10 +58,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
     p5.stroke(0);
-    p5.strokeWeight(p5.width * 0.0085);
     p5.noFill();
+    p5.strokeWeight(p5.width * 0.001);
 
-    p5.beginShape();
     coordinates.forEach((coord, i) => {
       const long = coord[0];
       const lat = coord[1];
@@ -72,9 +71,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         p5.vertex(x, y);
         return;
       }
-      p5.curveVertex(x, y);
+      p5.circle(x, y, p5.width * 0.75);
     });
-    p5.endShape();
+    createOverlay(p5, background, margin);
+    drawBorder(p5, margin);
   };
 
   sketch({
