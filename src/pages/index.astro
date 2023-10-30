@@ -2,12 +2,17 @@
 import { Image } from "astro:assets";
 
 import headshot from "@/assets/images/headshot.jpg";
-import { H1 } from "@/components/typography";
+import { H1, H2 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
 import { flex } from "@/styled-system/patterns";
+import { Github, Linkedin, Mail } from "@/components/icons";
+import { getEntry } from "astro:content";
 
 export const prerender = true;
+
+const { data } = await getEntry("resume-data", "index");
+const { email, socials } = data;
 ---
 
 <Layout title="Home" maxW="4xl">
@@ -36,22 +41,52 @@ export const prerender = true;
     />
     <div
       class={flex({
-        animation: "fade-in 800ms ease-in-out",
-        flex: 1,
-        flexDirection: "column",
+        flexDir: "column",
+        textAlign: "center",
+        gap: { base: 8, md: 2 },
       })}
     >
-      <H1 class={css({ pb: 2 })}>
-        Hi there! <span class={css({ color: "red.300" })}>I'm Xan.</span>
-      </H1>
-      <p
-        class={css({
-          maxW: "52ch",
+      <div
+        class={flex({
+          animation: "fade-in 800ms ease-in-out",
+          flex: 1,
+          flexDirection: "column",
+          alignItems: "center",
         })}
       >
-        <a href="/sketches">generative artist</a>, frontend developer,
-        <a href="/open-source">OSS maintainer</a>, and tummy ache survivor.
-      </p>
+        <H1 class={css({ pb: 2 })}>
+          Hi there! <span class={css({ color: "red.300" })}>I'm Xan.</span>
+        </H1>
+        <p
+          class={css({
+            maxW: "52ch",
+          })}
+        >
+          <a href="/sketches">a generative artist</a>, frontend developer,
+          <a href="/open-source">OSS maintainer</a>, and tummy ache survivor.
+        </p>
+      </div>
+      <div
+        class={flex({
+          flex: 1,
+          flexDir: "column",
+          alignItems: "center",
+          gap: { base: 0, md: 2 },
+        })}
+      >
+        <H2>If you want to get in touch</H2>
+        <div class={flex({ gap: 2 })}>
+          <a href={socials["github"].url}>
+            <Github client:load />
+          </a>
+          <a href={socials["linkedin"].url}>
+            <Linkedin client:load />
+          </a>
+          <a href={`mailto:${email}`}>
+            <Mail client:load />
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </Layout>
