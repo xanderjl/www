@@ -12,18 +12,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { createOverlay, drawBorder, getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
+  import {
+    getGeoData,
+    type Draw,
+    type Preload,
+    type Setup,
+    type WindowResized,
+    type GeoJSON,
+  } from "@/utils/p5";
   import type P5 from "p5";
-  import type { FeatureCollection, LineString } from "geojson";
-
-  type GeoJSON = FeatureCollection<
-    LineString,
-    {
-      name: string;
-      time: string;
-      coordTimes: string[];
-    }
-  >;
+  import type { LineString } from "geojson";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
@@ -39,15 +37,22 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let margin: number;
 
   const handleRenders = (p5: P5) => {
-    const { features } = data;
-    const { geometry } = features[0];
-    coordinates = geometry.coordinates;
-    minXCoord = Math.min(...coordinates.map((coords) => coords[0]));
-    maxXCoord = Math.max(...coordinates.map((coords) => coords[0]));
-    minYCoord = Math.min(...coordinates.map((coords) => coords[1]));
-    maxYCoord = Math.max(...coordinates.map((coords) => coords[1]));
-    minZCoord = Math.min(...coordinates.map((coords) => coords[2]));
-    maxZCoord = Math.max(...coordinates.map((coords) => coords[2]));
+    const {
+      coordinates: coords,
+      minX,
+      maxX,
+      minY,
+      maxY,
+      minZ,
+      maxZ,
+    } = getGeoData(data);
+    coordinates = coords;
+    minXCoord = minX;
+    maxXCoord = maxX;
+    minYCoord = minY;
+    maxYCoord = maxY;
+    minZCoord = minZ;
+    maxZCoord = maxZ;
     margin = p5.width * 0.075;
   };
 
@@ -78,11 +83,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         p5.width * 0.75,
         p5.width * 0.1275,
       );
-
-      if (i == 0) {
-        p5.vertex(x, y);
-        return;
-      }
       p5.circle(x, y, z);
     });
     createOverlay(p5, background, margin);
