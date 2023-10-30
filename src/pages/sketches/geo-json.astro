@@ -48,7 +48,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   const preload: Preload = (p5) => {
-    data = p5.loadJSON("/data/route_2022-10-02_6.04pm.geojson") as GeoJSON;
+    data = p5.loadJSON("/data/geo/route_2022-10-02_6.04pm.geojson") as GeoJSON;
   };
 
   const setup: Setup = (p5) => handleRenders(p5);

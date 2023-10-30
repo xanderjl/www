@@ -40,6 +40,8 @@ export const getDimensions: GetDimensions = (
   },
 ): [number, number] => {
   if (options?.landscape) {
+    options.scale = options.scale || 1;
+
     return paperSizes[paperSize]
       .map((num) => options?.scale && num * options.scale)
       .reverse() as [number, number];
