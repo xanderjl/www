@@ -34,6 +34,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let maxXCoord: number;
   let minYCoord: number;
   let maxYCoord: number;
+  let minZCoord: number;
+  let maxZCoord: number;
   let margin: number;
 
   const handleRenders = (p5: P5) => {
@@ -44,6 +46,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     maxXCoord = Math.max(...coordinates.map((coords) => coords[0]));
     minYCoord = Math.min(...coordinates.map((coords) => coords[1]));
     maxYCoord = Math.max(...coordinates.map((coords) => coords[1]));
+    minZCoord = Math.min(...coordinates.map((coords) => coords[2]));
+    maxZCoord = Math.max(...coordinates.map((coords) => coords[2]));
     margin = p5.width * 0.075;
   };
 
@@ -64,14 +68,22 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     coordinates.forEach((coord, i) => {
       const long = coord[0];
       const lat = coord[1];
+      const elev = coord[2];
       const x = p5.map(long, minXCoord, maxXCoord, margin, p5.width - margin);
       const y = p5.map(lat, minYCoord, maxYCoord, margin, p5.height - margin);
+      const z = p5.map(
+        elev,
+        minZCoord,
+        maxZCoord,
+        p5.width * 0.75,
+        p5.width * 0.1275,
+      );
 
       if (i == 0) {
         p5.vertex(x, y);
         return;
       }
-      p5.circle(x, y, p5.width * 0.75);
+      p5.circle(x, y, z);
     });
     createOverlay(p5, background, margin);
     drawBorder(p5, margin);
