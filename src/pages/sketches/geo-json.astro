@@ -43,6 +43,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let maxZCoord: number;
   let margin: number;
   let seed = 0;
+  let overlay: P5.Graphics;
+  let grain: P5.Graphics;
 
   const handleRenders = (p5: P5) => {
     const {
@@ -64,6 +66,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     maxZCoord = maxZ;
     margin = p5.width * 0.075;
     seed = convertSeed(coordTimes.join());
+    overlay = createOverlay(p5, background, margin);
+    grain = createGrain(p5);
   };
 
   const preload: Preload = (p5) => {
@@ -99,9 +103,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       p5.circle(x, y, z);
     });
     p5.pop();
-    createOverlay(p5, background, margin);
+    p5.image(overlay, 0, 0);
     drawBorder(p5, margin);
-    createGrain(p5);
+    p5.image(grain, 0, 0);
   };
 
   sketch({
