@@ -61,12 +61,21 @@
                 "minLength": 1
               }
             },
-            "required": ["name", "url"],
+            "required": [
+              "name",
+              "url"
+            ],
             "additionalProperties": false
           }
         }
       },
-      "required": ["education", "email", "name", "phone", "socials"],
+      "required": [
+        "education",
+        "email",
+        "name",
+        "phone",
+        "socials"
+      ],
       "additionalProperties": false
     }
   },
