@@ -51,6 +51,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    overlay = createOverlay(p5, background, margin);
+    grain = createGrain(p5);
+  };
+
+  const setup: Setup = (p5) => {
     const { coordinates, minX, maxX, minY, maxY, minZ, maxZ } =
       getGeoData(data);
     coordChunks = chunk(coordinates, 4);
@@ -60,17 +66,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     maxYCoord = maxY;
     minZCoord = minZ;
     maxZCoord = maxZ;
-    margin = p5.width * 0.075;
-    overlay = createOverlay(p5, background, margin);
-    grain = createGrain(p5);
-  };
 
-  const setup: Setup = (p5) => handleRenders(p5);
+    handleRenders(p5);
+  };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+    p5.stroke(p5.width * 0.01);
 
     p5.push();
     p5.noFill();
