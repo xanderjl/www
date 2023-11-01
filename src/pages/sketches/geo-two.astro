@@ -11,7 +11,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch, getGeoData } from "@/utils/p5";
+  import {
+    getDimensions,
+    sketch,
+    getGeoData,
+    createOverlay,
+    createGrain,
+    drawBorder,
+  } from "@/utils/p5";
   import type {
     Draw,
     Preload,
@@ -35,6 +42,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let minZCoord: number;
   let maxZCoord: number;
   let margin: number;
+  let overlay: P5.Graphics;
+  let grain: P5.Graphics;
   let seed = 1;
 
   const preload: Preload = (p5) => {
@@ -52,6 +61,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     minZCoord = minZ;
     maxZCoord = maxZ;
     margin = p5.width * 0.075;
+    overlay = createOverlay(p5, background, margin);
+    grain = createGrain(p5);
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -63,10 +74,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
     p5.push();
     p5.noFill();
-    p5.beginShape();
     coordChunks.forEach((coords) => {
-      p5.stroke(p5.random(255), p5.random(255), p5.random(255));
-
       coords.forEach((c) => {
         const long = c[0];
         const lat = c[1];
@@ -74,13 +82,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
         const x = p5.map(long, minXCoord, maxXCoord, margin, p5.width - margin);
         const y = p5.map(lat, minYCoord, maxYCoord, margin, p5.height - margin);
-        const z = p5.map(elev, minZCoord, maxZCoord, 10, 100);
+        const z = p5.map(elev, minZCoord, maxZCoord, p5.width * 0.55, p5.width);
 
-        p5.vertex(x, y);
+        p5.circle(x, y, z);
       });
     });
-    p5.endShape();
     p5.pop();
+
+    drawBorder(p5, margin);
+    p5.image(overlay, 0, 0);
+    p5.image(grain, 0, 0);
   };
 
   sketch({
