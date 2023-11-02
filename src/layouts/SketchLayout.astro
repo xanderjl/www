@@ -16,19 +16,7 @@ interface Props {
 const { title, description, maxW } = Astro.props;
 ---
 
-<script>
-  import { isDark } from "@/stores/styles";
-  isDark.subscribe(() => {
-    document
-      .querySelector("[data-color-mode]")
-      ?.setAttribute(
-        "data-color-mode",
-        isDark.get() == "light" ? "light" : "dark",
-      );
-  });
-</script>
-
-<html lang="en">
+<html lang="en" id="html">
   <Head {title} {description} />
   <body
     class={css({

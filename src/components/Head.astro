@@ -1,7 +1,6 @@
 ---
 // @ts-ignore
 import getShareImage from "@jlengstorf/get-share-image";
-import { ViewTransitions } from "astro:transitions";
 
 import baseUrl from "@/utils/baseUrl";
 
@@ -56,5 +55,12 @@ const ogImage = getShareImage({
   <meta name="description" content={formattedDescription} />
   <slot />
   <title>{formattedTitle}</title>
-  <ViewTransitions />
+  <script>
+    import { isDark } from "@/stores/styles";
+    isDark.subscribe(() => {
+      document
+        .getElementById("html")
+        ?.setAttribute("data-color-mode", isDark.get());
+    });
+  </script>
 </head>
