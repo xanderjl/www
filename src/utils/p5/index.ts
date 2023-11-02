@@ -2,6 +2,7 @@ export * from "./convertSeed";
 export * from "./createGrain";
 export * from "./createGrid";
 export * from "./createOverlay";
+export * from "./createTiles";
 export * from "./drawBorder";
 export * from "./getDimensions";
 export * from "./linearGradient";
