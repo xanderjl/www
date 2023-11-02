@@ -6,6 +6,7 @@ import { css } from "@/styled-system/css";
 import { container } from "@/styled-system/patterns";
 
 import { MobileLinks } from "./MobileLinks";
+import { ThemeToggleButton } from "../buttons/ThemeToggleButton";
 
 const { pathname } = Astro.url;
 ---
@@ -28,30 +29,34 @@ const { pathname } = Astro.url;
     <a href="/" class={css({ background: "none" })}>
       <Logo class={css({ h: 10, w: 10 })} client:load />
     </a>
-    <ul
-      class={css({
-        display: "flex",
-        gap: 2,
-      })}
-    >
-      {
-        routes.map(({ path, name }) => (
-          <li>
-            <a
-              href={path}
-              aria-current={pathname === path ? "page" : "false"}
-              class={css({
-                _currentPage: {
-                  bg: "linear-gradient(to top, var(--colors-red-400) 0% 50%, transparent 50% 100%)",
-                },
-              })}
-            >
-              {name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <div class={css({ display: "flex", gap: 10 })}>
+      <ul
+        class={css({
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+        })}
+      >
+        {
+          routes.map(({ path, name }) => (
+            <li>
+              <a
+                href={path}
+                aria-current={pathname === path ? "page" : "false"}
+                class={css({
+                  _currentPage: {
+                    bg: "linear-gradient(to top, var(--colors-red-400) 0% 50%, transparent 50% 100%)",
+                  },
+                })}
+              >
+                {name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ThemeToggleButton client:load />
+    </div>
   </nav>
   <nav
     class={container({
@@ -69,6 +74,7 @@ const { pathname } = Astro.url;
         <Logo class={css({ h: 10, w: 10 })} client:load />
       </a>
       <Mobile client:load />
+      <ThemeToggleButton client:load />
     </div>
     <MobileLinks {pathname} client:load />
   </nav>

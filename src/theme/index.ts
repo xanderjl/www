@@ -1,4 +1,4 @@
-import type { ExtendableTheme } from "@pandacss/types/dist/theme";
+import type { ExtendableTheme } from "@pandacss/types";
 
 import { keyframes } from "./keyframes";
 import { recipes } from "./recipes";

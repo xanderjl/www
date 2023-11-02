@@ -5,6 +5,8 @@ export { Linkedin } from "./Linkedin";
 export { Logo } from "./Logo";
 export { Mail } from "./Mail";
 export { Menu } from "./Menu";
+export { Moon } from "./Moon";
 export { OpenNewWindow } from "./OpenNewWindow";
 export { Phone } from "./Phone";
+export { Sun } from "./Sun";
 export { Threads } from "./Threads";
