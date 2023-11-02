@@ -98,20 +98,22 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       const y2 = y1 + maxH * 0.5;
 
       // Draw Coords
-      coords.forEach((coord) => {
-        const [x, y, z] = coord;
-        const mappedX = p5.map(x, minXCoord, maxXCoord, x1, x2);
-        const mappedY = p5.map(y, minYCoord, maxYCoord, y1, y2);
-        const mappedZ = p5.map(
-          z,
-          minZCoord,
-          maxZCoord,
-          p5.width * 0.01,
-          p5.width * 0.5,
-        );
+      coords
+        .filter((_, i) => i % 2 == 0)
+        .forEach((coord) => {
+          const [x, y, z] = coord;
+          const mappedX = p5.map(x, minXCoord, maxXCoord, x1, x2);
+          const mappedY = p5.map(y, minYCoord, maxYCoord, y1, y2);
+          const mappedZ = p5.map(
+            z,
+            minZCoord,
+            maxZCoord,
+            p5.width * 0.01,
+            p5.width * 0.5,
+          );
 
-        p5.rect(mappedX, mappedY, mappedZ);
-      });
+          p5.rect(mappedX, mappedY, mappedZ);
+        });
     });
     p5.pop();
 
