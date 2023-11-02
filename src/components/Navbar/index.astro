@@ -73,8 +73,10 @@ const { pathname } = Astro.url;
       <a href="/" class={css({ background: "none" })}>
         <Logo class={css({ h: 10, w: 10 })} client:load />
       </a>
-      <Mobile client:load />
-      <ThemeToggleButton client:load />
+      <div class={css({ display: "flex", gap: 4 })}>
+        <ThemeToggleButton client:load />
+        <Mobile client:load />
+      </div>
     </div>
     <MobileLinks {pathname} client:load />
   </nav>
