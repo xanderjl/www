@@ -60,6 +60,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     maxH = p5.height - margin * 2;
     overlay = createOverlay(p5, background, margin);
     grain = createGrain(p5);
+    quadrants = createTiles({
+      rows: 2,
+      tileW: maxW * 0.5,
+      tileH: maxH * 0.5,
+    });
   };
 
   const setup: Setup = (p5) => {
@@ -73,11 +78,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     maxYCoord = maxY;
     minZCoord = minZ;
     maxZCoord = maxZ;
-    quadrants = createTiles({
-      rows: 2,
-      tileW: maxW * 0.5,
-      tileH: maxH * 0.5,
-    });
   };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
@@ -110,7 +110,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
           p5.width * 0.5,
         );
 
-        p5.circle(mappedX, mappedY, mappedZ);
+        p5.rect(mappedX, mappedY, mappedZ);
       });
     });
     p5.pop();
