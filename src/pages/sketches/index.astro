@@ -12,6 +12,13 @@ const { pathname: path } = Astro.url;
 ---
 
 <Layout title="Sketches" maxW="2xl">
-  <H1 class={css({ pb: 4 })}>Search Sketches</H1>
-  <Search {path} {list} client:load />
+  <H1 class={css({ animation: "fade-in 500ms ease-in-out", pb: 4 })}>
+    Search Sketches
+  </H1>
+  <Search
+    {path}
+    {list}
+    class={css({ animation: "fade-in 500ms ease-in-out" })}
+    client:load
+  />
 </Layout>

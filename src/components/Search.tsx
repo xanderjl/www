@@ -1,13 +1,13 @@
 import { trainCase } from "change-case";
 import type { FuseResult } from "fuse.js";
 import Fuse from "fuse.js";
-import type { Component } from "solid-js";
+import type { Component, ComponentProps } from "solid-js";
 import { createSignal, For, Show } from "solid-js";
 
-import { css } from "@/styled-system/css";
+import { css, cx } from "@/styled-system/css";
 import { flex } from "@/styled-system/patterns";
 
-interface SearchProps {
+interface SearchProps extends ComponentProps<"div"> {
   list: string[];
   path: string;
 }
@@ -27,16 +27,25 @@ const liStyles = css({
   },
 });
 
-export const Search: Component<SearchProps> = ({ list, path }) => {
+export const Search: Component<SearchProps> = ({
+  list,
+  path,
+  class: c,
+  ...rest
+}) => {
   const fuse = new Fuse(list);
   const [searchArray, setSearchArray] = createSignal<Result[]>([]);
 
   return (
     <div
-      class={flex({
-        direction: "column",
-        gap: 2,
-      })}
+      class={cx(
+        flex({
+          direction: "column",
+          gap: 2,
+        }),
+        c,
+      )}
+      {...rest}
     >
       <input
         type="text"
