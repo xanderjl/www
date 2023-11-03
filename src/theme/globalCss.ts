@@ -11,9 +11,10 @@ export const globalCss = defineGlobalStyles({
         },
         background:
           "linear-gradient(to top, var(--colors-red-800) 0% 50%, transparent 50% 100%)",
+        color: "gray.200",
       },
       background: "gray.900",
-      color: "gray.50",
+      color: "gray.400",
     },
     _light: {
       a: {

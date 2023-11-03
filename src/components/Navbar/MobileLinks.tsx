@@ -28,7 +28,12 @@ export const MobileLinks: Component<MobileLinksProps> = ({
                 href={route.path}
                 class={css({
                   _currentPage: {
-                    bg: "linear-gradient(to top, var(--colors-red-400) 0% 50%, transparent 50% 100%)",
+                    _dark: {
+                      bg: "linear-gradient(to top, var(--colors-red-600) 0% 50%, transparent 50% 100%)",
+                    },
+                    _light: {
+                      bg: "linear-gradient(to top, var(--colors-red-400) 0% 50%, transparent 50% 100%)",
+                    },
                   },
                 })}
                 onClick={() => isNavOpen.set(!$isNavOpen())}

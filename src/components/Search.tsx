@@ -53,9 +53,9 @@ export const Search: Component<SearchProps> = ({
         class={css({
           _dark: {
             _placeholder: {
-              background: "gray.800",
               color: "gray.50",
             },
+            backgroundColor: "gray.800",
           },
           _light: {
             _placeholder: {
