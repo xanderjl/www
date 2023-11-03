@@ -10,11 +10,15 @@
   ],
   "overrides": [
     {
-      "files": ["*.astro"],
+      "files": [
+        "*.astro"
+      ],
       "parser": "astro-eslint-parser",
       "parserOptions": {
         "parser": "@typescript-eslint/parser",
-        "extraFileExtensions": [".astro"]
+        "extraFileExtensions": [
+          ".astro"
+        ]
       }
     }
   ],
@@ -28,7 +32,9 @@
     "typescript-sort-keys",
     "@typescript-eslint"
   ],
-  "ignorePatterns": ["src/styled-system*/"],
+  "ignorePatterns": [
+    "src/styled-system*/"
+  ],
   "rules": {
     "sort-keys": "warn",
     "sort-keys-fix/sort-keys-fix": "warn",
@@ -42,6 +48,7 @@
     "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/ban-ts-comment": "off",
     "unused-imports/no-unused-vars": [
       "warn",
       {
@@ -51,7 +58,10 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+    "import/consistent-type-specifier-style": [
+      "error",
+      "prefer-top-level"
+    ],
     "react/prop-types": "off",
     "object-curly-spacing": [
       "warn",
@@ -62,6 +72,9 @@
       }
     ],
     "comma-spacing": "warn",
-    "quotes": ["warn", "double"]
+    "quotes": [
+      "warn",
+      "double"
+    ]
   }
 }

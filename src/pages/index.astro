@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
 
 import headshot from "@/assets/images/headshot.jpg";
+import { Github, Linkedin, Mail, Threads } from "@/components/icons";
 import { H1, H2 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
 import { flex } from "@/styled-system/patterns";
-import { Github, Linkedin, Mail, Threads } from "@/components/icons";
-import { getEntry } from "astro:content";
 
 export const prerender = true;
 
@@ -41,17 +41,17 @@ const { email, socials } = data;
     />
     <div
       class={flex({
-        flexDir: "column",
-        textAlign: "center",
-        gap: { base: 8, md: 2 },
         animation: "fade-in 800ms ease-in-out",
+        flexDir: "column",
+        gap: { base: 8, md: 2 },
+        textAlign: "center",
       })}
     >
       <div
         class={flex({
+          alignItems: "center",
           flex: 1,
           flexDirection: "column",
-          alignItems: "center",
         })}
       >
         <H1 class={css({ pb: 2 })}>
@@ -68,9 +68,9 @@ const { email, socials } = data;
       </div>
       <div
         class={flex({
+          alignItems: "center",
           flex: 1,
           flexDir: "column",
-          alignItems: "center",
           gap: { base: 0, md: 2 },
         })}
       >

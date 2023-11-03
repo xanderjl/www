@@ -16,12 +16,17 @@ const { name, description, class: c, ...rest } = Astro.props;
 <a
   class={cx(
     css({
+      _dark: {
+        borderColor: "gray.50",
+      },
       _hover: {
         borderColor: "red.400",
         color: "red.400",
       },
+      _light: {
+        borderColor: "black",
+      },
       background: "transparent",
-      borderColor: "black",
       borderRadius: 8,
       borderWidth: 1,
       display: "flex",

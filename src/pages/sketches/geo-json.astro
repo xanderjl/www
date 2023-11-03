@@ -11,24 +11,18 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import {
-    convertSeed,
-    createGrain,
-    createOverlay,
-    drawBorder,
-    getDimensions,
-    sketch,
-  } from "@/utils/p5";
-  import {
-    getGeoData,
-    type Draw,
-    type Preload,
-    type Setup,
-    type WindowResized,
-    type GeoJSON,
-  } from "@/utils/p5";
-  import type P5 from "p5";
   import type { LineString } from "geojson";
+import type P5 from "p5";
+
+import type { Draw, GeoJSON, Preload, Setup, WindowResized } from "@/utils/p5";
+import {
+  convertSeed,
+  createGrain,
+  createOverlay,
+  drawBorder,
+  getDimensions,
+  getGeoData,
+  sketch } from "@/utils/p5";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
@@ -109,15 +103,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    preload,
-    setup,
-    windowResized,
-    draw,
     dimensions,
+    draw,
     padding,
-    seed,
+  preload,
     saveAs: "png",
-    suffix: "geo-json",
+    seed,
+    setup,
+  suffix: "geo-json",
+    windowResized,
   });
 </script>
 

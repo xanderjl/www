@@ -55,12 +55,21 @@ const ogImage = getShareImage({
   <meta name="description" content={formattedDescription} />
   <slot />
   <title>{formattedTitle}</title>
+  <script is:inline>
+    const theme = window.localStorage.getItem("theme");
+
+    document
+      .getElementsByTagName("html")[0]
+      ?.setAttribute("class", theme);
+  </script>
   <script>
     import { isDark } from "@/stores/styles";
-    isDark.subscribe(() => {
+
+    isDark.subscribe((isDark) => {
       document
-        .getElementById("html")
-        ?.setAttribute("data-color-mode", isDark.get());
-    });
+        .getElementsByTagName("html")[0]
+        ?.setAttribute("class", isDark );
+    })
+    
   </script>
 </head>

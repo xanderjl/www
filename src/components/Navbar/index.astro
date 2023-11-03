@@ -5,8 +5,8 @@ import { routes } from "@/routes";
 import { css } from "@/styled-system/css";
 import { container } from "@/styled-system/patterns";
 
-import { MobileLinks } from "./MobileLinks";
 import { ThemeToggleButton } from "../buttons/ThemeToggleButton";
+import { MobileLinks } from "./MobileLinks";
 
 const { pathname } = Astro.url;
 ---
@@ -32,8 +32,8 @@ const { pathname } = Astro.url;
     <div class={css({ display: "flex", gap: 10 })}>
       <ul
         class={css({
-          display: "flex",
           alignItems: "center",
+          display: "flex",
           gap: 2,
         })}
       >

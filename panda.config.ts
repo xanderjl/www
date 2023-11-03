@@ -5,10 +5,6 @@ import { globalCss } from "@/theme/globalCss";
 
 export default defineConfig({
   clean: true,
-  conditions: {
-    dark: '[data-color-mode="dark"] &',
-    light: '[data-color-mode="light"] &',
-  },
   globalCss,
   include: [
     "./src/**/*.{ts,tsx,js,jsx,astro,md,mdx}",

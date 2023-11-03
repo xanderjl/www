@@ -8,7 +8,6 @@ import Navbar from "@/components/Navbar/index.astro";
 import { css } from "@/styled-system/css";
 import { container } from "@/styled-system/patterns";
 import type { PropertyTypes } from "@/styled-system/types/prop-type";
-import { isDark } from "@/stores/styles";
 
 interface Props {
   description?: string;
@@ -19,7 +18,7 @@ interface Props {
 const { title, description, maxW } = Astro.props;
 ---
 
-<html lang="en" id="html" data-color-mode={isDark.get()}>
+<html lang="en">
   <Head {title} {description} />
   <body
     class={css({

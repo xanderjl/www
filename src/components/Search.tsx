@@ -1,4 +1,5 @@
 import { trainCase } from "change-case";
+import type { FuseResult } from "fuse.js";
 import Fuse from "fuse.js";
 import type { Component } from "solid-js";
 import { createSignal, For, Show } from "solid-js";
@@ -11,12 +12,17 @@ interface SearchProps {
   path: string;
 }
 
-type Result = Fuse.FuseResult<string>;
+type Result = FuseResult<string>;
 
 const liStyles = css({
   "&:not(:last-of-type)": {
+    _dark: {
+      borderColor: "gray.800",
+    },
+    _light: {
+      borderColor: "gray.400",
+    },
     borderBottomWidth: 1,
-    borderColor: "gray.400",
     pb: 2,
   },
 });
@@ -36,8 +42,16 @@ export const Search: Component<SearchProps> = ({ list, path }) => {
         type="text"
         placeholder="Search"
         class={css({
-          _placeholder: {
-            color: "gray.400",
+          _dark: {
+            _placeholder: {
+              background: "gray.800",
+              color: "gray.50",
+            },
+          },
+          _light: {
+            _placeholder: {
+              color: "gray.400",
+            },
           },
           borderColor: "gray.400",
           borderRadius: 4,

@@ -7,25 +7,29 @@ import auth from "auth-astro";
 import { loadEnv } from "vite";
 
 const {
-  BASE_URL
+  BASE_URL,
   // eslint-disable-next-line no-undef
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
-
 
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel({
-    edgeMiddleware: true
+    edgeMiddleware: true,
   }),
-  integrations: [pandacss(), mdx({
-    extendMarkdownConfig: true
-  }), solidJs(), auth()],
+  integrations: [
+    pandacss(),
+    mdx({
+      extendMarkdownConfig: true,
+    }),
+    solidJs(),
+    auth(),
+  ],
   markdown: {
-    syntaxHighlight: "prism"
+    syntaxHighlight: "prism",
   },
   output: "server",
   redirects: {
-    "/resume.pdf": "/api/resume"
+    "/resume.pdf": "/api/resume",
   },
-  site: BASE_URL
+  site: BASE_URL,
 });

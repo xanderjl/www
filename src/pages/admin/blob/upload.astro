@@ -1,11 +1,12 @@
 ---
+import { getSession } from "auth-astro/server";
+
 import LoginButton from "@/components/buttons/LoginButton.astro";
 import LogoutButton from "@/components/buttons/LogoutButton.astro";
 import { H1 } from "@/components/typography";
 import { UploadForm } from "@/components/UploadForm";
 import Layout from "@/layouts/Layout.astro";
 import { flex } from "@/styled-system/patterns";
-import { getSession } from "auth-astro/server";
 
 const session = await getSession(Astro.request);
 ---
