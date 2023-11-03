@@ -34,6 +34,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
+    p5.background(background);
 
     grid.forEach(([x, y]) => {
       p5.circle(x, y, p5.width * 0.025);

@@ -33,11 +33,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     "Big Husband.",
     "\"He's sleepy",
     "But I want to see him.",
-    "\"I hope that I was able to help you",
+    '"I hope that I was able to help you',
   ];
 
   const dimensions: number[] = getDimensions("letter");
   const padding: number[] = [40];
+  const background = [255, 253, 252];
   const poemString = poem.join();
   const seed = convertSeed(poemString);
   const poemArr = Array.from(poemString).filter(
@@ -88,6 +89,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
+    p5.background(background);
     p5.frameRate(1);
     p5.rectMode("center");
     const w = p5.width * 0.0075;

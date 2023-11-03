@@ -16,12 +16,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
+  const background = [255, 253, 252];
   const length = 80;
   const circles = Array.from({ length });
   let margin: number;
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
+    p5.background(background);
     p5.noFill();
     margin = p5.width * 0.05;
 

@@ -13,13 +13,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 <script>
   import type P5 from "p5";
 
-import { chunk } from "@/utils/chunk";
-import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
-import { drawBorder, getDimensions, sketch } from "@/utils/p5";
-import { flyer } from "@/utils/p5/shapes/flyer";
+  import { chunk } from "@/utils/chunk";
+  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
+  import { drawBorder, getDimensions, sketch } from "@/utils/p5";
+  import { flyer } from "@/utils/p5/shapes/flyer";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
+  const background = [255, 253, 252];
   let length = 80;
   let sliceAmt = 0.75;
   let table: number[][] = [];
@@ -98,7 +99,7 @@ import { flyer } from "@/utils/p5/shapes/flyer";
     p5.noiseSeed(seed);
     p5.randomSeed(seed);
     p5.clear(0, 0, 0, 0);
-    p5.background(255, 253, 253);
+    p5.background(background);
     p5.noFill();
     drawBorder(p5, margin);
 
@@ -151,11 +152,11 @@ import { flyer } from "@/utils/p5/shapes/flyer";
   sketch({
     dimensions,
     draw,
-  padding,
+    padding,
     preload,
-  saveAs: "png",
+    saveAs: "png",
     seed,
-  setup,
+    setup,
     suffix: "ecg-second-iteration",
     windowResized,
   });
