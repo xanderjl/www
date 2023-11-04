@@ -109,9 +109,21 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
             z,
             minZCoord,
             maxZCoord,
-            p5.width * 0.01,
+            p5.width * 0.2,
             p5.width * 0.5,
           );
+          const dash = p5.map(
+            z,
+            minZCoord,
+            maxZCoord,
+            p5.width * 0.001,
+            p5.width * 0.075,
+          );
+
+          p5.drawingContext.setLineDash([
+            Math.floor(p5.random(dash)),
+            Math.floor(p5.random(dash)),
+          ]);
 
           p5.rect(mappedX, mappedY, mappedZ);
         });
