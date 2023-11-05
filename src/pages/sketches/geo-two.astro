@@ -107,8 +107,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
           const [x, y, z] = coord;
           const rx = p5.lerp(x1, x2, f);
           const ry = p5.lerp(y1, y2, f);
-          const rw = p5.map(f, 0, 1, w, x1);
-          const rh = p5.map(f, 0, 1, h, y1);
+          const rw = p5.map(f, 0, 1, w * f, x1);
+          const rh = p5.map(f, 0, 1, h * f, y1);
           const dash = p5.map(
             z,
             minZCoord,
@@ -118,7 +118,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
           );
 
           p5.drawingContext.setLineDash([
-            Math.floor(p5.random(dash)),
+            Math.floor(
+              p5.map(p5.noise(dash), 0, 1, p5.width * 0.001, p5.width * 0.01),
+            ),
             Math.floor(p5.random(dash)),
           ]);
 
