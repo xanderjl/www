@@ -41,6 +41,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
     p5.fill(background);
+    p5.orbitControl();
 
     p5.push();
     p5.rotateX(p5.radians(47));
