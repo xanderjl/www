@@ -1,0 +1,87 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { createTiles, getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  let grid: number[][];
+  let rows = 15;
+  let cols = 15;
+  let margin: number;
+  const seed = 3;
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    grid = createTiles({
+      rows,
+      cols,
+      tileW: (p5.width * 0.6) / cols,
+      tileH: (p5.width * 0.6) / rows,
+    });
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.fill(background);
+
+    p5.push();
+    p5.rotateX(p5.radians(47));
+    p5.rotateZ(p5.radians(45));
+    grid.forEach(([x, y, w], i) => {
+      const tx = x + w * 0.25 - p5.width * 0.35;
+      const ty = y + w * 0.25 - p5.height * 0.25;
+      const n = p5.noise(i, w);
+      const h = p5.map(n, 0, 1, w, w * 3);
+      const sinH = p5.sin(p5.PI * h) * h;
+      p5.push();
+      p5.translate(tx, ty);
+      p5.box(w, w, sinH);
+      p5.pop();
+    });
+    p5.pop();
+
+    p5.push();
+    p5.noFill();
+    p5.rect(
+      -p5.width * 0.5 + margin,
+      -p5.height * 0.5 + margin,
+      p5.width - margin * 2,
+      p5.height - margin * 2,
+    );
+    p5.pop();
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    seed,
+    renderer: "webgl",
+    saveAs: "png",
+    suffix: "sine-cubes",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>

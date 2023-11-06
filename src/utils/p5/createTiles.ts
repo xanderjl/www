@@ -22,8 +22,10 @@ export const createTiles: CreateTiles = ({
     Array.from({ length: cols }, (_, j) => {
       const x = i * tileW;
       const y = j * tileH;
+      const w = tileW;
+      const h = tileH;
 
-      tiles.push([x, y]);
+      tiles.push([x, y, w, h]);
     }),
   );
 
