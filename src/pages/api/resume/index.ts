@@ -17,7 +17,8 @@ export const GET: APIRoute = async () => {
     data: { name, socials, education, email, phone, skills },
   } = await getEntry("resume-data", "i");
 
-  const skillColumns = chunk(skills, 4);
+  const numCols = 4;
+  const skillColumns = chunk(skills, numCols);
 
   const year = new Date().getFullYear();
   const contentDisposition = `inline; filename="xander-low-resume-${year}.pdf"`;
@@ -58,6 +59,8 @@ export const GET: APIRoute = async () => {
     unit: "pt",
   });
 
+  const colWidth = (doc.internal.pageSize.width - margin * 2) / numCols;
+  console.log({ colWidth });
   // Add fonts
   // doc.addFileToVFS("DM-Mono.ttf", DMMonoString);
   doc.addFileToVFS("DM-Mono.ttf", DMMonoString);
@@ -129,17 +132,21 @@ export const GET: APIRoute = async () => {
   doc.setFont("DM-Serif-Text").setFontSize(h2).text("Skills", x, y);
   skillColumns.map((column, i) => {
     column.map((skill, j) => {
+      y = y + body;
       doc
         .setFont("DM-Mono")
         .setFontSize(body)
-        .text(skill, x, y + body * j, {
-          maxWidth,
+        .text(skill, x + i * colWidth, y, {
+          maxWidth: colWidth,
         });
     });
+    if (i !== numCols - 1) {
+      y = y - body * column.length;
+    }
   });
 
   // Experience
-  y = y + h1;
+  y = y + h1 * 2;
   doc.setFont("DM-Serif-Text").setFontSize(h2).text("Experience", x, y);
 
   y = y + textPadding * 1.5;
@@ -171,28 +178,28 @@ export const GET: APIRoute = async () => {
     },
   );
 
-  // Education
-  doc.setFont("DM-Serif-Text").setFontSize(h2).text("Education", x, y);
+  // // Education
+  // doc.setFont("DM-Serif-Text").setFontSize(h2).text("Education", x, y);
 
-  y = y + textPadding;
-  doc.setFontSize(h4).text(education.school, x, y);
+  // y = y + textPadding;
+  // doc.setFontSize(h4).text(education.school, x, y);
 
-  y = y + textPadding * 0.75;
-  doc.setFont("DM-Mono");
-  doc.setFontSize(body);
-  doc.text(education.program, x, y);
+  // y = y + textPadding * 0.75;
+  // doc.setFont("DM-Mono");
+  // doc.setFontSize(body);
+  // doc.text(education.program, x, y);
 
-  y = y + body;
-  doc
-    .setFontSize(body)
-    .text(
-      `${formatDate(education.startDate)} - ${formatDate(education.endDate)}`,
-      x,
-      y,
-    );
+  // y = y + body;
+  // doc
+  //   .setFontSize(body)
+  //   .text(
+  //     `${formatDate(education.startDate)} - ${formatDate(education.endDate)}`,
+  //     x,
+  //     y,
+  //   );
 
-  y = y + body;
-  doc.text(education.description, x, y, { maxWidth });
+  // y = y + body;
+  // doc.text(education.description, x, y, { maxWidth });
 
   /** -----------------------------------------------------------------
    *  Return document
