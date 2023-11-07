@@ -29,6 +29,7 @@ const zodResumeSchema = z.object({
   email: z.string().min(1),
   name: z.string().min(1),
   phone: z.string().min(1),
+  skills: z.string().min(1).array(),
   socials: z.record(
     z.object({
       name: z.string().min(1),

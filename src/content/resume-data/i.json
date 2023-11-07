@@ -22,5 +22,25 @@
     "startDate": "2013-09-01",
     "endDate": "2015-04-01",
     "description": "Built a skillset in music production, engineering and entertainment law."
-  }
+  },
+  "skills": [
+    "JavaScript",
+    "TypeScript",
+    "Software Engineering",
+    "Web Development",
+    "GraphQL",
+    "React",
+    "Solid.js",
+    "Astro",
+    "Next.js",
+    "Node.js",
+    "Express",
+    "CMS",
+    "Sanity",
+    "CSS",
+    "SCSS",
+    "TailwindCSS",
+    "Chakra-UI",
+    "Panda CSS"
+  ]
 }

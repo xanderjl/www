@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
   );
   const {
     data: { name, socials, education, email, phone },
-  } = await getEntry("resume-data", "index");
+  } = await getEntry("resume-data", "i");
 
   const year = new Date().getFullYear();
   const contentDisposition = `inline; filename="xander-low-resume-${year}.pdf"`;

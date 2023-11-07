@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+// Don't forget to update any changes in the schema.ts file in the root directory
 
 const openSourceCollection = defineCollection({
   schema: z.object({
@@ -32,6 +33,7 @@ const resumeCollection = defineCollection({
     email: z.string().min(1),
     name: z.string().min(1),
     phone: z.string().min(1),
+    skills: z.string().min(1).array(),
     socials: z.record(
       z.object({
         name: z.string().min(1),

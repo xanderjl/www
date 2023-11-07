@@ -47,6 +47,13 @@
           "type": "string",
           "minLength": 1
         },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
         "socials": {
           "type": "object",
           "additionalProperties": {
@@ -61,12 +68,22 @@
                 "minLength": 1
               }
             },
-            "required": ["name", "url"],
+            "required": [
+              "name",
+              "url"
+            ],
             "additionalProperties": false
           }
         }
       },
-      "required": ["education", "email", "name", "phone", "socials"],
+      "required": [
+        "education",
+        "email",
+        "name",
+        "phone",
+        "skills",
+        "socials"
+      ],
       "additionalProperties": false
     }
   },
