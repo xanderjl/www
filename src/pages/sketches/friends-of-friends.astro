@@ -1,0 +1,102 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { convertSeed, createGrid, getDimensions, sketch } from "@/utils/p5";
+  import type { ColorValue, Draw, Setup } from "@/utils/p5";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const background: ColorValue = [255, 253, 252];
+  const phrase: string = "Marty Vogin";
+  const handle: string = "@eatdrinkandbemarty";
+  const seed: number = convertSeed(phrase);
+  let margin: number;
+  let grid: number[][];
+  let nScl = 1000;
+  let nStr = 30;
+  const suffix: string = `phrase:${phrase}_seed:${seed}`;
+
+  const setup: Setup = (p5) => {
+    margin = p5.width * 0.075;
+    const res: number = 0.09;
+    const rows: number = Math.floor(p5.width * res);
+    const cols: number = Math.floor(p5.height * res);
+    const strength: number = p5.random(500, 1000);
+    const scale: number = p5.random(3000, 4000);
+    nScl = scale;
+    nStr = strength;
+    grid = createGrid(rows, cols);
+  };
+
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.frameRate(1);
+
+    // global styles
+    p5.noFill();
+
+    // global vars
+    margin = p5.width * 0.075;
+    const speed: number = p5.map(p5.noise(convertSeed(handle)), 0, 1, 100, 800);
+
+    // draw borders
+    p5.rectMode("corners");
+    p5.rect(margin, margin, p5.width - margin, p5.height - margin);
+
+    // set points
+    const points: number[][] = grid.map(([u, v]) => {
+      const inner: number = p5.width * 0.025;
+      const xl: number = margin + inner;
+      const xr: number = p5.width - (margin + inner);
+      const yt: number = margin + inner;
+      const yb: number = p5.height - (margin + inner);
+      const x: number = p5.lerp(xl, xr, u);
+      const y: number = p5.lerp(yt, yb, v);
+
+      return [x, y];
+    });
+
+    // draw at points
+    points.forEach(([x, y]) => {
+      const a: number = p5.noise(x / nScl, y / nScl) * nStr;
+      const cos: number = x + speed * Math.cos(a);
+      const sin: number = y + speed * Math.sin(a);
+      const inBounds: boolean =
+        cos >= margin &&
+        cos <= p5.width - margin &&
+        sin >= margin &&
+        sin <= p5.height - margin;
+      const selectedChar: string = phrase[Math.floor(p5.random(phrase.length))];
+
+      p5.fill(0);
+      p5.textAlign("center");
+      inBounds && p5.text(selectedChar, x, y);
+    });
+  };
+
+  sketch({
+    setup,
+    draw,
+    dimensions,
+    background,
+    padding,
+    seed,
+    saveAs: "svg",
+    suffix,
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>

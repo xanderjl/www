@@ -18,6 +18,7 @@ export const GET: APIRoute = async () => {
   } = await getEntry("resume-data", "i");
 
   const numCols = 4;
+  const colGap = 12;
   const skillColumns = chunk(skills, numCols);
 
   const year = new Date().getFullYear();
@@ -60,7 +61,7 @@ export const GET: APIRoute = async () => {
   });
 
   const colWidth = (doc.internal.pageSize.width - margin * 2) / numCols;
-  console.log({ colWidth });
+
   // Add fonts
   // doc.addFileToVFS("DM-Mono.ttf", DMMonoString);
   doc.addFileToVFS("DM-Mono.ttf", DMMonoString);
@@ -131,14 +132,15 @@ export const GET: APIRoute = async () => {
   y = y + h2 * 2;
   doc.setFont("DM-Serif-Text").setFontSize(h2).text("Skills", x, y);
   skillColumns.map((column, i) => {
-    column.map((skill, j) => {
+    const colX =
+      i == 0 || i == skillColumns.length - 1
+        ? x + i * colWidth
+        : x + i * colWidth + colGap;
+    column.map((skill) => {
       y = y + body;
-      doc
-        .setFont("DM-Mono")
-        .setFontSize(body)
-        .text(skill, x + i * colWidth, y, {
-          maxWidth: colWidth,
-        });
+      doc.setFont("DM-Mono").setFontSize(body).text(skill, colX, y, {
+        // maxWidth: colWidth,
+      });
     });
     if (i !== numCols - 1) {
       y = y - body * column.length;
