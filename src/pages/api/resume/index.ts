@@ -191,7 +191,7 @@ export const GET: APIRoute = async () => {
   doc.setFont("DM-Serif-Text").setFontSize(h2).text("Education", x, y);
 
   y = y + textPadding;
-  doc.setFontSize(h4).text(education.school, x, y);
+  doc.setFontSize(h3).text(education.school, x, y);
 
   y = y + textPadding * 0.75;
   doc.setFont("DM-Mono");
@@ -207,7 +207,7 @@ export const GET: APIRoute = async () => {
       y,
     );
 
-  y = y + body;
+  y = y + body * 2;
   doc.text(education.description, x, y, { maxWidth });
 
   /** -----------------------------------------------------------------
