@@ -3,6 +3,7 @@ import { getCollection, getEntry } from "astro:content";
 import { jsPDF } from "jspdf";
 
 import { token } from "@/styled-system/tokens";
+import { chunk } from "@/utils/chunk";
 import { formatDate } from "@/utils/formatDate";
 import { fetchBlobBase64 } from "@/utils/vercel/fetchBlobBase64";
 
@@ -13,8 +14,10 @@ export const GET: APIRoute = async () => {
     (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
   );
   const {
-    data: { name, socials, education, email, phone },
+    data: { name, socials, education, email, phone, skills },
   } = await getEntry("resume-data", "i");
+
+  const skillColumns = chunk(skills, 4);
 
   const year = new Date().getFullYear();
   const contentDisposition = `inline; filename="xander-low-resume-${year}.pdf"`;
@@ -120,6 +123,20 @@ export const GET: APIRoute = async () => {
   doc
     .setFontSize(body)
     .text(email, emailX + iconSize * 1.5, y + iconSize * 0.75);
+
+  // Skills
+  y = y + h2 * 2;
+  doc.setFont("DM-Serif-Text").setFontSize(h2).text("Skills", x, y);
+  skillColumns.map((column, i) => {
+    column.map((skill, j) => {
+      doc
+        .setFont("DM-Mono")
+        .setFontSize(body)
+        .text(skill, x, y + body * j, {
+          maxWidth,
+        });
+    });
+  });
 
   // Experience
   y = y + h1;
