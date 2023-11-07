@@ -39,16 +39,16 @@ export const GET: APIRoute = async () => {
   );
 
   // SVG and layout props
-  const margin = 48;
+  const margin = 36;
   const iconSize = 12;
   const socialSize = iconSize * 1.5;
 
   // Typography
   const h1 = 36;
-  const h2 = 18;
-  const h3 = 12;
-  const h4 = 10;
-  const body = 10;
+  const h2 = 20;
+  const h3 = 18;
+  const h4 = 14;
+  const body = 12;
 
   const highlightColor = token("colors.red.100");
   const textColor = token("colors.gray.900");
@@ -73,14 +73,13 @@ export const GET: APIRoute = async () => {
   const pageWidth = doc.internal.pageSize.getWidth();
   const maxWidth = pageWidth - margin * 2;
   const textPadding = body * 2;
-  let y = margin * 1.25;
+  let y = margin * 1.75;
   const x = margin;
 
   /** -----------------------------------------------------------------
    *  Render document
    *  -----------------------------------------------------------------
    */
-
   doc.setTextColor(textColor);
 
   // Heading
@@ -128,37 +127,35 @@ export const GET: APIRoute = async () => {
     .setFontSize(body)
     .text(email, emailX + iconSize * 1.5, y + iconSize * 0.75);
 
-  y = y + body * 2;
-  doc.line(x, y, pageWidth - margin, y);
-
   // Skills
-  y = y + h1;
+  y = y + h2 * 2;
   doc.setFont("DM-Serif-Text").setFontSize(h2).text("Skills", x, y);
 
-  y = y + body * 2;
-  const colTop = y;
+  y = y + body;
   skillColumns.map((column, i) => {
-    y = colTop;
     const colX =
       i == 0 || i == skillColumns.length - 1
         ? x + i * colWidth
         : x + i * colWidth + colGap;
 
     column.map((skill) => {
+      // y = y + body;
       const text = doc.splitTextToSize(skill, colWidth);
-      doc
-        .setFont("DM-Mono")
-        .setFontSize(body)
-        .text(skill, colX, y, { maxWidth: colWidth });
-      y = y + body * text.length + 2;
+      doc.setFont("DM-Mono").setFontSize(body).text(skill, colX, y, {
+        // maxWidth: colWidth,
+      });
     });
+
+    if (i !== numCols - 1) {
+      y = y - body * column.length;
+    }
   });
 
   // Experience
-  y = y + h1 * 1.75;
+  y = y + h1 * 2;
   doc.setFont("DM-Serif-Text").setFontSize(h2).text("Experience", x, y);
 
-  y = y + textPadding;
+  y = y + textPadding * 1.5;
   experience.map(
     ({ data: { client, endDate, responsibilities, role, startDate } }) => {
       // Heading
@@ -168,53 +165,47 @@ export const GET: APIRoute = async () => {
         .text(`${client} — ${role}`, x, y);
 
       // Start and end date
-      y = y + textPadding * 0.65;
+      y = y + textPadding * 0.75;
       doc
         .setFont("DM-Mono")
         .setFontSize(body)
-        .text(`${formatDate(startDate)} - ${formatDate(endDate)}`, x, y);
+        .text(`${formatDate(startDate)} - ${formatDate(endDate)}`, x, y, {});
 
       // Responsibilities
-      y = y + textPadding * 0.75;
+      y = y + textPadding;
       doc.setFontSize(body);
       responsibilities.map((responsibility) => {
         const text = doc.splitTextToSize(`• ${responsibility}`, maxWidth);
         doc.text(`• ${responsibility}`, x, y, { maxWidth });
-        y = y + body * (text.length + 0.5);
+        y = y + body * (text.length + 1);
       });
 
       y = y + textPadding;
     },
   );
 
-  // Education
-  doc.setFont("DM-Serif-Text").setFontSize(h2).text("Education", x, y);
-
-  y = y + textPadding;
-  doc.setFontSize(h4).text(education.school, x, y);
-
-  y = y + textPadding * 0.75;
-  doc.setFont("DM-Mono");
-  doc.setFontSize(body);
-  doc.text(education.program, x, y);
-
-  y = y + body;
-  doc
-    .setFontSize(body)
-    .text(
-      `${formatDate(education.startDate)} - ${formatDate(education.endDate)}`,
-      x,
-      y,
-    );
-
-  y = y + body;
-  doc.text(education.description, x, y, { maxWidth });
-
+  // // Education
+  // doc.setFont("DM-Serif-Text").setFontSize(h2).text("Education", x, y);
+  // y = y + textPadding;
+  // doc.setFontSize(h4).text(education.school, x, y);
+  // y = y + textPadding * 0.75;
+  // doc.setFont("DM-Mono");
+  // doc.setFontSize(body);
+  // doc.text(education.program, x, y);
+  // y = y + body;
+  // doc
+  //   .setFontSize(body)
+  //   .text(
+  //     `${formatDate(education.startDate)} - ${formatDate(education.endDate)}`,
+  //     x,
+  //     y,
+  //   );
+  // y = y + body;
+  // doc.text(education.description, x, y, { maxWidth });
   /** -----------------------------------------------------------------
    *  Return document
    *  -----------------------------------------------------------------
    */
-
   return new Response(doc.output("arraybuffer"), {
     headers: {
       "Content-Disposition": contentDisposition,
