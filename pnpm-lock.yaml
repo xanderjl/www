@@ -28,10 +28,10 @@ dependencies:
     version: 0.8.0
   '@nanostores/persistent':
     specifier: ^0.9.1
-    version: 0.9.1(nanostores@0.9.4)
+    version: 0.9.1(nanostores@0.9.5)
   '@nanostores/solid':
     specifier: 0.4.2
-    version: 0.4.2(nanostores@0.9.4)(solid-js@1.8.5)
+    version: 0.4.2(nanostores@0.9.5)(solid-js@1.8.5)
   '@vercel/blob':
     specifier: 0.15.0
     version: 0.15.0
@@ -57,8 +57,8 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0
   nanostores:
-    specifier: 0.9.4
-    version: 0.9.4
+    specifier: 0.9.5
+    version: 0.9.5
   p5:
     specifier: 1.6.0
     version: 1.6.0
@@ -1633,22 +1633,22 @@ packages:
       - supports-color
     dev: false
 
-  /@nanostores/persistent@0.9.1(nanostores@0.9.4):
+  /@nanostores/persistent@0.9.1(nanostores@0.9.5):
     resolution: {integrity: sha512-ow57Hxm5VMaI5GHET/cVk8hX/iKMmbhcGrB9owfN8p8OHiiJgUlYxe1giacwlAALJXAh2t8bxXh42hHb64BCEA==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     peerDependencies:
       nanostores: ^0.9.0
     dependencies:
-      nanostores: 0.9.4
+      nanostores: 0.9.5
     dev: false
 
-  /@nanostores/solid@0.4.2(nanostores@0.9.4)(solid-js@1.8.5):
+  /@nanostores/solid@0.4.2(nanostores@0.9.5)(solid-js@1.8.5):
     resolution: {integrity: sha512-8v32+C9KdRbnvP4x4Oiw/CtL1tZwbRxYfmFsPIY9PXevCgxSFnicG6VnLLtNAR7F0kl8Ec7OROHO34Ffv0KDzg==}
     peerDependencies:
       nanostores: '>=0.8.0'
       solid-js: ^1.6.0
     dependencies:
-      nanostores: 0.9.4
+      nanostores: 0.9.5
       solid-js: 1.8.5
     dev: false
 
@@ -6972,8 +6972,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /nanostores@0.9.4:
-    resolution: {integrity: sha512-BVFzKt6K5P8tYQLL7MItqcev7jpspA5pIjv+Ck3k6wBnUlwCJcpkGTIinj4APvx8SvdP9fXDGoMRCTY6DO/9QA==}
+  /nanostores@0.9.5:
+    resolution: {integrity: sha512-Z+p+g8E7yzaWwOe5gEUB2Ox0rCEeXWYIZWmYvw/ajNYX8DlXdMvMDj8DWfM/subqPAcsf8l8Td4iAwO1DeIIRQ==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
     dev: false
 
@@ -7022,7 +7022,7 @@ packages:
       '@panva/hkdf': 1.1.1
       cookie: 0.5.0
       jose: 4.15.4
-      next: 14.0.2(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
+      next: 14.0.2(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0)
       oauth: 0.9.15
       openid-client: 5.6.1
       preact: 10.18.2
@@ -7032,7 +7032,7 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next@14.0.2(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0):
+  /next@14.0.2(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-jsAU2CkYS40GaQYOiLl9m93RTv2DA/tTJ0NRlmZIBIL87YwQ/xR8k796z7IqgM3jydI8G25dXvyYMC9VDIevIg==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -7054,7 +7054,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(@babel/core@7.23.2)(react@18.2.0)
+      styled-jsx: 5.1.1(@babel/core@7.23.3)(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.0.2
@@ -8419,7 +8419,7 @@ packages:
       inline-style-parser: 0.1.1
     dev: false
 
-  /styled-jsx@5.1.1(@babel/core@7.23.2)(react@18.2.0):
+  /styled-jsx@5.1.1(@babel/core@7.23.3)(react@18.2.0):
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
     engines: {node: '>= 12.0.0'}
     peerDependencies:
@@ -8432,7 +8432,7 @@ packages:
       babel-plugin-macros:
         optional: true
     dependencies:
-      '@babel/core': 7.23.2
+      '@babel/core': 7.23.3
       client-only: 0.0.1
       react: 18.2.0
     dev: false
