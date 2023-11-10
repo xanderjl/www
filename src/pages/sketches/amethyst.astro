@@ -1,0 +1,130 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { convertSeed, drawBorder, getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  const seed = convertSeed("Amethyst");
+  const nodesLength = 145;
+  let margin: number;
+  let cx: number;
+  let cy: number;
+  let nodes: number[][];
+  let farthestNodes: number[][] = [];
+  let threshold: number;
+
+  const polygon = (p5: P5, x: number, y: number, r: number, sides: number) => {
+    p5.beginShape();
+    Array.from({ length: sides }, (_, i) => {
+      const angle = p5.map(i, 0, sides, 0, p5.TWO_PI);
+      const sx = x + p5.cos(angle) * r;
+      const sy = y + p5.sin(angle) * r;
+      p5.vertex(sx, sy);
+    });
+    p5.endShape("close");
+  };
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    cx = p5.width * 0.5;
+    cy = p5.height * 0.5;
+    threshold = p5.width * 0.4;
+    nodes = Array.from({ length: nodesLength }, (_, i) => {
+      const a = p5.map(i, 0, nodesLength, 0, p5.TWO_PI);
+      const offset = p5.map(p5.noise(i), 0, 1, 0, threshold);
+      const x = cx + p5.cos(a) * offset;
+      const y = cy + p5.sin(a) * offset;
+      const size = p5.map(p5.noise(i), 0, 1, p5.width * 0.005, p5.width * 0.07);
+      const sides = Math.floor(p5.random(4, 7));
+
+      return [x, y, a, offset, size, sides];
+    });
+
+    nodes.forEach(([x, y, a, o]) => {
+      const d = p5.dist(cx, cy, x, y);
+      if (d > threshold - cx * 0.28) {
+        farthestNodes.push([x, y, a, o]);
+      }
+    });
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.noFill();
+
+    p5.push();
+    p5.stroke("purple");
+    nodes.forEach(([x, y, _, __, size, sides]) =>
+      polygon(p5, x, y, size, sides),
+    );
+    p5.pop();
+
+    p5.push();
+    p5.stroke("black");
+
+    Array.from({ length: 53 }, (_, i) => {
+      const d = i * p5.width * 0.0125;
+
+      p5.beginShape();
+      farthestNodes.forEach(([x, y, a, o]) => {
+        if (i > 6) {
+          const vx = cx + p5.cos(a) * (o + d);
+          const vy = cy + p5.sin(a) * (o + d);
+          const fx =
+            vx > p5.width - margin
+              ? p5.width - margin
+              : vx < margin
+              ? margin
+              : vx;
+          const fy =
+            vy > p5.height - margin
+              ? p5.height - margin
+              : vy < margin
+              ? margin
+              : vy;
+          p5.vertex(fx, fy);
+        }
+      });
+      p5.endShape("close");
+    });
+    p5.pop();
+
+    p5.push();
+    p5.stroke(0);
+    drawBorder(p5, margin);
+    p5.pop();
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    seed,
+    saveAs: "svg",
+    suffix: "amethyst",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
