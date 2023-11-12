@@ -7,13 +7,13 @@ settings:
 dependencies:
   '@astrojs/mdx':
     specifier: 1.1.4
-    version: 1.1.4(astro@3.5.2)
+    version: 1.1.4(astro@3.5.3)
   '@astrojs/solid-js':
     specifier: 3.0.2
     version: 3.0.2(solid-js@1.8.5)(vite@4.5.0)
   '@astrojs/vercel':
     specifier: 5.2.0
-    version: 5.2.0(astro@3.5.2)
+    version: 5.2.0(astro@3.5.3)
   '@auth/core':
     specifier: 0.18.1
     version: 0.18.1
@@ -36,11 +36,11 @@ dependencies:
     specifier: 0.15.0
     version: 0.15.0
   astro:
-    specifier: 3.5.2
-    version: 3.5.2(@types/node@20.9.0)(typescript@5.2.2)
+    specifier: 3.5.3
+    version: 3.5.3(@types/node@20.9.0)(typescript@5.2.2)
   auth-astro:
     specifier: 3.0.1
-    version: 3.0.1(@auth/core@0.18.1)(astro@3.5.2)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.0.1(@auth/core@0.18.1)(astro@3.5.3)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
   change-case:
     specifier: 5.1.2
     version: 5.1.2
@@ -78,7 +78,7 @@ dependencies:
 devDependencies:
   '@pandacss/astro':
     specifier: 0.18.2
-    version: 0.18.2(astro@3.5.2)(ts-node@10.9.1)(typescript@5.2.2)
+    version: 0.18.2(astro@3.5.3)(ts-node@10.9.1)(typescript@5.2.2)
   '@pandacss/dev':
     specifier: 0.18.2
     version: 0.18.2(@internationalized/date@3.5.0)(@types/node@20.9.0)(@types/react-dom@18.2.15)(@types/react@18.2.37)(sharp@0.32.6)(typescript@5.2.2)
@@ -265,13 +265,13 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/markdown-remark@3.4.0(astro@3.5.2):
+  /@astrojs/markdown-remark@3.4.0(astro@3.5.3):
     resolution: {integrity: sha512-uzLSKBQ4e70aH8gEbBHZ2pnv/KOJKB3WrXFBOF0U5Uwjcr2LNWeIBLjPRQjA4tbtteELh84YPBHny21mhvBGVA==}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
       '@astrojs/prism': 3.0.0
-      astro: 3.5.2(@types/node@20.9.0)(typescript@5.2.2)
+      astro: 3.5.3(@types/node@20.9.0)(typescript@5.2.2)
       github-slugger: 2.0.0
       import-meta-resolve: 3.1.1
       mdast-util-definitions: 6.0.0
@@ -288,16 +288,16 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@astrojs/mdx@1.1.4(astro@3.5.2):
+  /@astrojs/mdx@1.1.4(astro@3.5.3):
     resolution: {integrity: sha512-yP5O3TuSx/vKTyrw4ZPuRH/sXIKj5zDN03AZQt4Rlv8W7mUCpQnYC3bTOrnhBvNxLRCmB1WL2cip9RUmvd4MQw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
-      '@astrojs/markdown-remark': 3.4.0(astro@3.5.2)
+      '@astrojs/markdown-remark': 3.4.0(astro@3.5.3)
       '@mdx-js/mdx': 2.3.0
       acorn: 8.11.2
-      astro: 3.5.2(@types/node@20.9.0)(typescript@5.2.2)
+      astro: 3.5.3(@types/node@20.9.0)(typescript@5.2.2)
       es-module-lexer: 1.3.1
       estree-util-visit: 1.2.1
       github-slugger: 2.0.0
@@ -389,7 +389,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@astrojs/vercel@5.2.0(astro@3.5.2):
+  /@astrojs/vercel@5.2.0(astro@3.5.3):
     resolution: {integrity: sha512-WUMgiVLbDsh2uRaMcjqx3Br7lWNvKSvDqbLwDeR21lJ4UIBB+1PYbQ3cLYLXl6GiksxPx8rg9dry9CDsPcA0nA==}
     peerDependencies:
       astro: ^3.0.0
@@ -397,7 +397,7 @@ packages:
       '@astrojs/internal-helpers': 0.2.1
       '@vercel/analytics': 1.1.1
       '@vercel/nft': 0.23.1
-      astro: 3.5.2(@types/node@20.9.0)(typescript@5.2.2)
+      astro: 3.5.3(@types/node@20.9.0)(typescript@5.2.2)
       esbuild: 0.19.5
       fast-glob: 3.3.2
       set-cookie-parser: 2.6.0
@@ -1755,13 +1755,13 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@pandacss/astro@0.18.2(astro@3.5.2)(ts-node@10.9.1)(typescript@5.2.2):
+  /@pandacss/astro@0.18.2(astro@3.5.3)(ts-node@10.9.1)(typescript@5.2.2):
     resolution: {integrity: sha512-KVUtVoFQALur+ANdeWGtC/4PPr0rsQyB8/+g3iy8k6IqxCBS6WmmSr6tCyeJ3ILNE6vNLmfSfxhRtt/diqA4yA==}
     peerDependencies:
       astro: '>=2.x'
     dependencies:
       '@pandacss/postcss': 0.18.2(typescript@5.2.2)
-      astro: 3.5.2(@types/node@20.9.0)(typescript@5.2.2)
+      astro: 3.5.3(@types/node@20.9.0)(typescript@5.2.2)
       autoprefixer: 10.4.16(postcss@8.4.31)
       postcss: 8.4.31
       postcss-load-config: 4.0.1(postcss@8.4.31)(ts-node@10.9.1)
@@ -3469,14 +3469,14 @@ packages:
       - terser
     dev: true
 
-  /astro@3.5.2(@types/node@20.9.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-AE37biXPX0fH4tmBKpYDyW8UvJ3XLNvRCuUE4RTGf+YdKPPcwGLgV8DE6GLG86pHfevTH+kM581sBDzGh54iEw==}
+  /astro@3.5.3(@types/node@20.9.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-08ya96yvQLdZjwYYpylzDTUGcyuA+Kw9zIT2RHfL7VzXtLTL1ZxhQjSo6CiTBH8Tcrdam88Fez+Q1awwKKajGw==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
       '@astrojs/compiler': 2.3.0
       '@astrojs/internal-helpers': 0.2.1
-      '@astrojs/markdown-remark': 3.4.0(astro@3.5.2)
+      '@astrojs/markdown-remark': 3.4.0(astro@3.5.3)
       '@astrojs/telemetry': 3.0.4
       '@babel/core': 7.23.3
       '@babel/generator': 7.23.3
@@ -3496,7 +3496,7 @@ packages:
       deterministic-object-hash: 1.3.1
       devalue: 4.3.2
       diff: 5.1.0
-      es-module-lexer: 1.4.0
+      es-module-lexer: 1.4.1
       esbuild: 0.19.5
       estree-walker: 3.0.3
       execa: 8.0.1
@@ -3573,7 +3573,7 @@ packages:
     hasBin: true
     dev: false
 
-  /auth-astro@3.0.1(@auth/core@0.18.1)(astro@3.5.2)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0):
+  /auth-astro@3.0.1(@auth/core@0.18.1)(astro@3.5.3)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-TcS1qVlqnAjFlOulXw85eHd7CuTGUkrNZzWiJs9gbnXEv1gA6p6m0URh7MX74P5hOMxRoK3302vc6uu6aPjA8g==}
     engines: {node: '>=17.4'}
     peerDependencies:
@@ -3581,7 +3581,7 @@ packages:
       astro: ^2.0.0
     dependencies:
       '@auth/core': 0.18.1
-      astro: 3.5.2(@types/node@20.9.0)(typescript@5.2.2)
+      astro: 3.5.3(@types/node@20.9.0)(typescript@5.2.2)
       cookie: 0.5.0
       next-auth: 4.24.4(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
       set-cookie-parser: 2.6.0
@@ -4426,6 +4426,10 @@ packages:
 
   /es-module-lexer@1.4.0:
     resolution: {integrity: sha512-lcCr3v3OLezdfFyx9r5NRYHOUTQNnFEQ9E87Mx8Kc+iqyJNkO7MJoB4GQRTlIMw9kLLTwGw0OAkm4BQQud/d9g==}
+    dev: true
+
+  /es-module-lexer@1.4.1:
+    resolution: {integrity: sha512-cXLGjP0c4T3flZJKQSuziYoq7MlT+rnvfZjfp7h+I7K9BNX54kP9nyWvdbwjQ4u1iWbOL4u96fgeZLToQlZC7w==}
 
   /es-set-tostringtag@2.0.2:
     resolution: {integrity: sha512-BuDyupZt65P9D2D2vA/zqcI3G5xRsklm5N3xCwuiy+/vKy8i0ifdsQP1sLgO4tZDSCaQUSnmC48khknGMV3D2Q==}
