@@ -1,0 +1,101 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, KeyPressed, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  let seed = 1;
+  let margin: number;
+  let lastVec: P5.Vector | undefined;
+  let rVecs: P5.Vector[];
+
+  const handleRenders = (p5: P5) => {
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
+
+    lastVec = undefined;
+    margin = p5.width * 0.075;
+    rVecs = Array.from({ length: Math.floor(p5.random(40)) }, () => {
+      if (typeof lastVec === "undefined") {
+        return p5.createVector(
+          p5.random(margin, p5.width - margin),
+          p5.random(margin, p5.height - margin),
+        );
+      } else {
+        const rx = p5.random(p5.width * 0.05, p5.width * 0.1);
+        const ry = p5.random(p5.height * 0.05, p5.height * 0.1);
+        const mx = p5.random(1) > 0.5 ? lastVec.x + rx : lastVec.x - rx;
+        const my = p5.random(1) > 0.5 ? lastVec.y + ry : lastVec.y - ry;
+        const x =
+          mx > p5.width * 0.5 ? p5.width - margin : mx < margin ? margin : mx;
+        const y =
+          my > p5.height * 0.5 ? p5.height - margin : my < margin ? margin : my;
+
+        return p5.createVector(x, y);
+      }
+    });
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+
+    rVecs.map((vec) => {
+      const { x, y } = vec;
+      p5.circle(x, y, p5.random(p5.width * 0.02, p5.width * 0.05));
+
+      if (typeof lastVec !== "undefined") {
+        p5.line(x, y, lastVec.x, lastVec.y);
+      }
+
+      lastVec = vec;
+    });
+  };
+
+  const keyPressed: KeyPressed = (p5, e) => {
+    if (e?.key === "ArrowLeft") {
+      seed--;
+    } else if (e?.key === "ArrowRight") {
+      seed++;
+    }
+
+    handleRenders(p5);
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    background,
+    padding,
+    keyPressed,
+    seed,
+    saveAs: "svg",
+    suffix: "path-memory",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
