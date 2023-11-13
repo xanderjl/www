@@ -1,0 +1,69 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  const seed = 1;
+
+  const lilGuy = (
+    p5: P5,
+    x: number,
+    y: number,
+    length: number,
+    velocity: number,
+  ) => {
+    Array.from({ length }, (_, i) => {
+      const t = p5.map(p5.noise(i), 0, 1, 0, p5.TWO_PI);
+
+      p5.push();
+      p5.translate(x, y + i * velocity);
+      p5.rotate(t);
+      p5.rect(0, 0, 10);
+      p5.pop();
+    });
+  };
+
+  const handleRenders = (p5: P5) => {
+    p5.randomSeed(seed);
+    p5.noiseSeed(seed);
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+
+    lilGuy(p5, p5.width * 0.5, p5.height * 0.5, 25, 25);
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    saveAs: "svg",
+    suffix: "flowing-rects",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
