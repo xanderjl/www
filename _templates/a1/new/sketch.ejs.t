@@ -15,23 +15,32 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { getDimensions, sketch } from "@/utils/p5";
-  import type { Draw } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("A1");
-  const padding: number[] = [40];
   const background = [255, 253, 252];
+  let margin: number;
 
-  const draw: Draw = p5 => {
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
-  }
+    p5.background(background);
+  };
 
   sketch({
+    setup,
+    windowResized,
     draw,
     dimensions,
-    background,
-    padding,
     saveAs: "svg",
-    suffix: "<%= name %>"
+    suffix: "<%= name %>",
   });
 </script>
 

@@ -1,7 +1,4 @@
 ---
-to: src/pages/sketches/<%= name %>.astro
----
----
 import { capitalCase } from "change-case";
 
 import Sketch from "@/components/Sketch.astro";
@@ -18,7 +15,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
 
-  const dimensions: number[] = getDimensions("square");
+  const dimensions: number[] = getDimensions("A4");
   const background = [255, 253, 252];
   let margin: number;
 
@@ -40,7 +37,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     dimensions,
     saveAs: "svg",
-    suffix: "<%= name %>",
+    suffix: "the-magnet",
   });
 </script>
 

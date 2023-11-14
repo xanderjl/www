@@ -19,7 +19,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("square");
-  const padding: number[] = [40];
 
   let firstShader: P5.Shader;
 
@@ -44,7 +43,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     setup,
     draw,
     dimensions,
-    padding,
     renderer: "webgl",
     saveAs: "png",
     suffix: "<%= name %>"
