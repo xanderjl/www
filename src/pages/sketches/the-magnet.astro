@@ -22,11 +22,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type P5 from "p5";
   import colors from "nice-color-palettes";
 
-  const dimensions: number[] = getDimensions("A4", { landscape: true });
+  const dimensions: number[] = getDimensions("A4", {
+    landscape: true,
+    scale: 2,
+  });
   const padding: number[] = [16];
   const background = [255, 253, 252];
-  const rows = 12;
-  const cols = 15;
+  const rows = 8;
+  const cols = rows;
   let seed = 1;
   let grid: number[][];
   let tw: number;
@@ -40,6 +43,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     h: number = w,
     color1: string,
     color2: string,
+    threshold: number = 0.15,
+    threshold2: number = threshold,
   ) => {
     const hw = w * 0.5;
     const hh = h * 0.5;
@@ -54,9 +59,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.push();
     p5.noStroke();
     p5.fill(color2);
-    p5.triangle(x1, y1, x2, y2, x3, y4);
+    p5.random(1) > threshold && p5.triangle(x1, y1, x2, y2, x3, y4);
     p5.fill(color1);
-    p5.triangle(x1, y1, x2, y2, x3, y3);
+    p5.random(1) > threshold2 && p5.triangle(x1, y1, x2, y2, x3, y3);
     p5.pop();
   };
 
@@ -68,7 +73,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       const x = p5.lerp(0, p5.width, u);
       const y = p5.lerp(0, p5.height, v);
 
-      return [x, y];
+      return [x, y, u, v];
     });
 
     tw = grid[cols][0] - grid[0][0];
@@ -108,25 +113,21 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
 
-    grid
-      .filter(([x, y]) => p5.noise(x, y) > 0.45)
-      .forEach(([x, y]) => {
-        const palette = colors[Math.floor(p5.random(colors.length))];
-        const color1 = palette[Math.floor(p5.random(palette.length))];
-        const color2 = palette[Math.floor(p5.random(palette.length))];
+    grid.forEach(([x, y, u, v]) => {
+      const palette = colors[Math.floor(p5.random(colors.length))];
+      const color1 = palette[Math.floor(p5.random(palette.length))];
+      const color2 = palette[Math.floor(p5.random(palette.length))];
 
-        triangles(p5, x, y, tw, th, color1, color2);
-      });
+      triangles(p5, x, y, tw, th, color1, color2);
+    });
 
-    grid
-      .filter(([x, y]) => p5.noise(x, y) > 0.45)
-      .forEach(([x, y]) => {
-        const palette = colors[Math.floor(p5.random(colors.length))];
-        const color1 = palette[Math.floor(p5.random(palette.length))];
-        const color2 = palette[Math.floor(p5.random(palette.length))];
+    grid.forEach(([x, y, u, v]) => {
+      const palette = colors[Math.floor(p5.random(colors.length))];
+      const color1 = palette[Math.floor(p5.random(palette.length))];
+      const color2 = palette[Math.floor(p5.random(palette.length))];
 
-        triangles(p5, x + tw * 0.5, y + th * 0.25, tw, th, color1, color2);
-      });
+      triangles(p5, x + tw * 0.5, y + th * 0.25, tw, th, color1, color2);
+    });
   };
 
   sketch({
