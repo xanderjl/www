@@ -11,34 +11,117 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import { createGrid, getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, KeyPressed, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
+  import colors from "nice-color-palettes";
 
   const dimensions: number[] = getDimensions("A4", { landscape: true });
   const padding: number[] = [16];
   const background = [255, 253, 252];
-  let margin: number;
+  const rows = 12;
+  const cols = 15;
+  let seed = 1;
+  let grid: number[][];
+  let tw: number;
+  let th: number;
+
+  const triangles = (
+    p5: P5,
+    x: number,
+    y: number,
+    w: number,
+    h: number = w,
+    color1: string,
+    color2: string,
+  ) => {
+    const hw = w * 0.5;
+    const hh = h * 0.5;
+    const x1 = x - hw;
+    const y1 = y;
+    const x2 = x + hw;
+    const y2 = y;
+    const x3 = x;
+    const y3 = y - hh * 0.5;
+    const y4 = y + hh * 0.5;
+
+    p5.push();
+    p5.noStroke();
+    p5.fill(color1);
+    p5.triangle(x1, y1, x2, y2, x3, y3);
+    p5.fill(color2);
+    p5.triangle(x1, y1, x2, y2, x3, y4);
+    p5.pop();
+  };
 
   const handleRenders = (p5: P5) => {
-    margin = p5.width * 0.075;
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
+
+    grid = createGrid(rows, cols).map(([u, v]) => {
+      const x = p5.lerp(0, p5.width, u);
+      const y = p5.lerp(0, p5.height, v);
+
+      return [x, y];
+    });
+
+    tw = grid[cols][0] - grid[0][0];
+    th = grid[2][1] - grid[0][1];
+
+    p5.redraw();
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
+  const keyPressed: KeyPressed = (p5, e) => {
+    if (e?.key === "ArrowLeft") {
+      seed = seed - 1;
+    } else if (e?.key === "ArrowRight") {
+      seed = seed + 1;
+    }
+
+    handleRenders(p5);
+  };
+
   const draw: Draw = (p5) => {
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
+
+    p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+
+    grid.forEach(([x, y]) => {
+      const r = p5.random(1) > 0.25;
+
+      const palette = colors[Math.floor(p5.random(colors.length))];
+      const color1 = palette[Math.floor(p5.random(palette.length))];
+      const color2 = palette[Math.floor(p5.random(palette.length))];
+
+      r && triangles(p5, x, y, tw, th, color1, color2);
+    });
+
+    grid.forEach(([x, y]) => {
+      const r = p5.random(1) > 0.15;
+
+      const palette = colors[Math.floor(p5.random(colors.length))];
+      const color1 = palette[Math.floor(p5.random(palette.length))];
+      const color2 = palette[Math.floor(p5.random(palette.length))];
+
+      r && triangles(p5, x + tw * 0.5, y + th * 0.25, tw, th, color1, color2);
+    });
   };
 
   sketch({
     setup,
     windowResized,
     draw,
+    keyPressed,
     dimensions,
     padding,
-    saveAs: "svg",
+    seed,
+    saveAs: "png",
     suffix: "the-magnet",
   });
 </script>

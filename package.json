@@ -49,6 +49,7 @@
     "jspdf": "2.5.1",
     "mixbox": "2.0.0",
     "nanostores": "0.9.5",
+    "nice-color-palettes": "^3.0.0",
     "p5": "1.6.0",
     "p5.js-svg": "1.5.1",
     "sharp": "0.32.6",
