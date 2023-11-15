@@ -19,6 +19,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("iPhone15");
+  const padding: number[] = [16];
   const background = [255, 253, 252];
   let margin: number;
 
@@ -39,6 +40,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     windowResized,
     draw,
     dimensions,
+    padding,
     saveAs: "svg",
     suffix: "<%= name %>",
   });
