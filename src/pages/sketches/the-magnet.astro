@@ -12,7 +12,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { createGrid, getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, KeyPressed, Setup, WindowResized } from "@/utils/p5";
+  import type {
+    Draw,
+    KeyPressed,
+    Setup,
+    WindowResized,
+    MousePressed,
+  } from "@/utils/p5";
   import type P5 from "p5";
   import colors from "nice-color-palettes";
 
@@ -47,12 +53,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
     p5.push();
     p5.noStroke();
-    p5.stroke(color1);
-    p5.fill(color1);
-    p5.triangle(x1, y1, x2, y2, x3, y3);
-    p5.stroke(color2);
     p5.fill(color2);
     p5.triangle(x1, y1, x2, y2, x3, y4);
+    p5.fill(color1);
+    p5.triangle(x1, y1, x2, y2, x3, y3);
     p5.pop();
   };
 
@@ -86,6 +90,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     handleRenders(p5);
   };
 
+  const mousePressed: MousePressed = (p5, e) => {
+    if (e?.x! > p5.width * 0.5) {
+      seed = seed + 1;
+    } else if (e?.x! < p5.width * 0.5) {
+      seed = seed - 1;
+    }
+
+    handleRenders(p5);
+  };
+
   const draw: Draw = (p5) => {
     p5.noiseSeed(seed);
     p5.randomSeed(seed);
@@ -94,25 +108,25 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
 
-    grid.forEach(([x, y]) => {
-      const r = p5.random(1) > 0.25;
+    grid
+      .filter(([x, y]) => p5.noise(x, y) > 0.45)
+      .forEach(([x, y]) => {
+        const palette = colors[Math.floor(p5.random(colors.length))];
+        const color1 = palette[Math.floor(p5.random(palette.length))];
+        const color2 = palette[Math.floor(p5.random(palette.length))];
 
-      const palette = colors[Math.floor(p5.random(colors.length))];
-      const color1 = palette[Math.floor(p5.random(palette.length))];
-      const color2 = palette[Math.floor(p5.random(palette.length))];
+        triangles(p5, x, y, tw, th, color1, color2);
+      });
 
-      r && triangles(p5, x, y, tw, th, color1, color2);
-    });
+    grid
+      .filter(([x, y]) => p5.noise(x, y) > 0.45)
+      .forEach(([x, y]) => {
+        const palette = colors[Math.floor(p5.random(colors.length))];
+        const color1 = palette[Math.floor(p5.random(palette.length))];
+        const color2 = palette[Math.floor(p5.random(palette.length))];
 
-    grid.forEach(([x, y]) => {
-      const r = p5.random(1) > 0.15;
-
-      const palette = colors[Math.floor(p5.random(colors.length))];
-      const color1 = palette[Math.floor(p5.random(palette.length))];
-      const color2 = palette[Math.floor(p5.random(palette.length))];
-
-      r && triangles(p5, x + tw * 0.5, y + th * 0.25, tw, th, color1, color2);
-    });
+        triangles(p5, x + tw * 0.5, y + th * 0.25, tw, th, color1, color2);
+      });
   };
 
   sketch({
@@ -120,6 +134,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     windowResized,
     draw,
     keyPressed,
+    mousePressed,
     dimensions,
     padding,
     seed,

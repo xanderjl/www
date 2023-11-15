@@ -11,6 +11,7 @@ import type {
   FileExtension,
   GifOptions,
   KeyPressed,
+  MousePressed,
   Preload,
   Setup,
   WindowResized,
@@ -23,6 +24,7 @@ interface SketchProps {
   draw?: Draw;
   gifOptions?: GifOptions;
   keyPressed?: KeyPressed;
+  mousePressed?: MousePressed;
   padding?: number[];
   preload?: Preload;
   renderer?: RENDERER | SVG;
@@ -42,6 +44,7 @@ export const sketch = ({
   setup,
   suffix,
   keyPressed,
+  mousePressed,
   windowResized,
   renderer,
   seed,
@@ -120,6 +123,12 @@ export const sketch = ({
         seed,
       });
     };
+
+    p5.mousePressed = (event) => {
+      mousePressed && mousePressed(p5, event as MouseEvent);
+    };
+
+    mousePressed && mousePressed(p5);
   };
 
   const p5 = new P5(s, "container" as unknown as HTMLElement);

@@ -21,3 +21,5 @@ export type Setup = (p5: P5) => void;
 export type WindowResized = (p5: P5) => void;
 
 export type KeyPressed = (p5: P5, e?: KeyboardEvent) => void;
+
+export type MousePressed = (p5: P5, e?: MouseEvent) => void;
