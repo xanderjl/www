@@ -47,8 +47,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
     p5.push();
     p5.noStroke();
+    p5.stroke(color1);
     p5.fill(color1);
     p5.triangle(x1, y1, x2, y2, x3, y3);
+    p5.stroke(color2);
     p5.fill(color2);
     p5.triangle(x1, y1, x2, y2, x3, y4);
     p5.pop();
