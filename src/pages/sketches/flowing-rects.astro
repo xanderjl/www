@@ -11,18 +11,25 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { createGrid, getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import {
+    createGrid,
+    createOverlay,
+    drawBorder,
+    getDimensions,
+    sketch,
+  } from "@/utils/p5";
+  import type { Draw, KeyPressed, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
   const background = [255, 253, 252];
-  const seed = 1;
-  const rows = 8;
-  const cols = 12;
+  const rows = 20;
+  const cols = 28;
+  let seed = 1;
   let grid: number[][];
   let margin: number;
+  let overlay: P5.Graphics;
 
   const walker = (
     p5: P5,
@@ -32,16 +39,27 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     length: number,
     amplitude: number,
     speed: number,
-    frequency: number = 0.1,
   ) => {
     Array.from({ length }, (_, i) => {
       const tx = x + i * speed;
-      const ty = y + Math.sin(a * frequency) * amplitude;
+      const ty =
+        y + Math.sin(a + i * p5.map(p5.noise(i), 0, 1, 0, speed)) * amplitude;
+      const w = p5.map(p5.noise(i, x), 0, 1, 0, p5.width * 0.075);
+      const h = p5.map(p5.noise(i, y), 0, 1, 0, p5.width * 0.05);
+
+      if (
+        tx + w > p5.width - margin &&
+        tx - w < margin &&
+        ty + h > p5.height - margin &&
+        ty - h < margin
+      ) {
+        return;
+      }
 
       p5.push();
       p5.rotate(a);
-      p5.translate(0, ty);
-      p5.rect(0, 0, 10);
+      p5.translate(tx, ty);
+      p5.rect(0, 0, w, h);
       p5.pop();
     });
   };
@@ -58,6 +76,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
       return [x, y, a];
     });
+    overlay = createOverlay(p5, background, margin);
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -74,14 +93,29 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       walker(p5, 0, 0, a, 10, 10, 12);
       p5.pop();
     });
+
+    p5.image(overlay, 0, 0);
+    drawBorder(p5, margin);
+  };
+
+  const keyPressed: KeyPressed = (p5, e) => {
+    if (e?.key === "ArrowLeft") {
+      seed = seed - 1;
+    } else if (e?.key === "ArrowRight") {
+      seed = seed + 1;
+    }
+
+    handleRenders(p5);
   };
 
   sketch({
     setup,
     windowResized,
     draw,
+    keyPressed,
     dimensions,
     padding,
+    seed,
     saveAs: "svg",
     suffix: "flowing-rects",
   });
