@@ -1,0 +1,104 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, KeyPressed, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [16];
+  const background = [255, 253, 252];
+  const lines = 200;
+  const lineRes = 9;
+  let margin: number;
+  let seed = 1;
+
+  const handleRenders = (p5: P5) => {
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
+
+    margin = p5.width * 0.05;
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noiseSeed(seed);
+    p5.randomSeed(seed);
+
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.noFill();
+
+    Array.from({ length: 3 }, (_, i) => {
+      const bx = p5.lerp(0, p5.width, i / 3);
+      const by = 0;
+      const bw = p5.width / 3;
+      const bh = p5.height * 0.66;
+
+      Array.from({ length: lines }, (_, j) => {
+        const ly = p5.lerp(by - margin, by + bh + margin, j / (lines - 1));
+
+        p5.beginShape();
+        Array.from({ length: lineRes }, (_, k) => {
+          const x = p5.lerp(bx - margin, bx + bw + margin, k / (lineRes - 1));
+          const y = ly + Math.sin(p5.noise(x, k) * 100) * p5.height * 0.025;
+
+          if (k === 0 || k === lineRes - 1) {
+            p5.vertex(x, y);
+          } else {
+            p5.curveVertex(x, y);
+          }
+        });
+        p5.endShape();
+      });
+
+      p5.rect(bx, by, bw, bh);
+    });
+
+    p5.push();
+    p5.fill(background);
+    p5.noStroke();
+    p5.rect(0, p5.height * 0.66, p5.width, p5.height * 0.33);
+    p5.pop();
+  };
+
+  const keyPressed: KeyPressed = (p5, e) => {
+    if (e?.key === "ArrowLeft") {
+      seed = seed - 1;
+    } else if (e?.key === "ArrowRight") {
+      seed = seed + 1;
+    }
+
+    handleRenders(p5);
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    keyPressed,
+    dimensions,
+    padding,
+    seed,
+    saveAs: "svg",
+    suffix: "bookmarks",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
