@@ -34,7 +34,7 @@
     "@astrojs/mdx": "1.1.5",
     "@astrojs/solid-js": "3.0.2",
     "@astrojs/vercel": "5.2.0",
-    "@auth/core": "0.18.2",
+    "@auth/core": "0.18.1",
     "@fontsource/dm-mono": "5.0.17",
     "@fontsource/dm-serif-text": "5.0.17",
     "@jlengstorf/get-share-image": "0.8.0",

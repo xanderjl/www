@@ -34,6 +34,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       ross.toISOString() +
       xan.toISOString(),
   );
+
   let margin: number;
 
   const handleRenders = (p5: P5) => {
@@ -46,6 +47,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+
+    Array.from({ length: 10 }, (_, i) => {
+      const x = p5.width * 0.5;
+      const y = p5.lerp(margin, p5.height - margin, i / 9);
+
+      p5.circle(x, y, p5.width * 0.9);
+    });
 
     createSVGOverlay(p5, margin, background);
     drawBorder(p5, margin);

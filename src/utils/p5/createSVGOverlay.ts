@@ -10,9 +10,9 @@ export const createSVGOverlay = (
   p5.push();
   p5.fill(background as unknown as P5.Color);
   p5.stroke(background as unknown as P5.Color);
-  p5.rect(0, 0, margin, p5.height);
-  p5.rect(0, 0, p5.width, margin);
-  p5.rect(0, p5.height - margin, p5.width, margin);
-  p5.rect(p5.width - margin, 0, margin, p5.height);
+  p5.rect(-margin, -margin, margin * 2, p5.height);
+  p5.rect(-margin, -margin, p5.width, margin * 2);
+  p5.rect(0, p5.height - margin, p5.width, margin * 2);
+  p5.rect(p5.width - margin, 0, margin * 2, p5.height);
   p5.pop();
 };
