@@ -13,6 +13,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 <script>
   import {
     convertSeed,
+    createGrid,
     createSVGOverlay,
     drawBorder,
     getDimensions,
@@ -34,25 +35,76 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       ross.toISOString() +
       xan.toISOString(),
   );
+  const rows = 16;
+  const cols = 24;
 
   let margin: number;
+  let grid: [number, number, boolean][];
+  let crossSize: number;
+
+  const walker = (
+    p5: P5,
+    cx: number,
+    cy: number,
+    length: number,
+    freq: number,
+    speed: number,
+  ) => {
+    Array.from({ length }, (_, i) => {
+      const a = p5.noise(p5.TWO_PI * i);
+      const x = cx + Math.cos(a * freq) * speed;
+      const y = cy + Math.sin(a * freq) * speed;
+
+      p5.circle(x, y, 10);
+    });
+  };
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
+    let fam = [
+      p5.noise(parseInt(rachelle.toTimeString())),
+      p5.noise(parseInt(lisa.toTimeString())),
+      p5.noise(parseInt(ross.toTimeString())),
+      p5.noise(parseInt(xan.toTimeString())),
+    ];
+
+    grid = createGrid(rows, cols).map(([u, v], i) => {
+      const x = p5.lerp(margin * 2, p5.width - margin * 2, u);
+      const y = p5.lerp(margin * 2, p5.height - margin * 2, v);
+
+      const control = p5.noise(i);
+      const s =
+        fam.length === 0
+          ? false
+          : control <= fam[0] && control >= fam[0] - 0.00265;
+
+      if (s === true) {
+        fam.shift();
+      }
+
+      return [x, y, s];
+    });
+    crossSize = p5.width * 0.005;
+
+    p5.redraw();
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
+    p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
 
-    Array.from({ length: 10 }, (_, i) => {
-      const x = p5.width * 0.5;
-      const y = p5.lerp(margin, p5.height - margin, i / 9);
-
-      p5.circle(x, y, p5.width * 0.9);
+    grid.forEach(([x, y, s]) => {
+      if (s) {
+        walker(p5, x, y, 100, 1000, 100);
+        p5.circle(x, y, crossSize * 4);
+      } else {
+        p5.line(x, y - crossSize, x, y + crossSize);
+        p5.line(x - crossSize, y, x + crossSize, y);
+      }
     });
 
     createSVGOverlay(p5, margin, background);
