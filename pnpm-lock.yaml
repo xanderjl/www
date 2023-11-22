@@ -15,8 +15,8 @@ dependencies:
     specifier: 5.2.0
     version: 5.2.0(astro@3.5.7)
   '@auth/core':
-    specifier: 0.18.1
-    version: 0.18.1
+    specifier: 0.18.3
+    version: 0.18.3
   '@fontsource/dm-mono':
     specifier: 5.0.17
     version: 5.0.17
@@ -40,7 +40,7 @@ dependencies:
     version: 3.5.7(@types/node@20.9.4)(typescript@5.3.2)
   auth-astro:
     specifier: 3.0.1
-    version: 3.0.1(@auth/core@0.18.1)(astro@3.5.7)(next@14.0.3)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.0.1(@auth/core@0.18.3)(astro@3.5.7)(next@14.0.3)(react-dom@18.2.0)(react@18.2.0)
   change-case:
     specifier: 5.2.0
     version: 5.2.0
@@ -373,8 +373,8 @@ packages:
       undici: 5.27.2
     dev: true
 
-  /@auth/core@0.18.1:
-    resolution: {integrity: sha512-L4MehYt/A7e5djsEid3jTSkRZ8sysxbirhmCXqSCPimGoFUtMCwTZrpzTALTSRwXGw/mps5fYlHROo3UQk9B3w==}
+  /@auth/core@0.18.3:
+    resolution: {integrity: sha512-YXQWxi3pKxngt+2vo3dq8+wDANlUH8nhQgX6EVdd3Enfe3vweBtHqzaWrtWzQnVb8wdGxdhxaoOlYroEBE+/yw==}
     peerDependencies:
       nodemailer: ^6.8.0
     peerDependenciesMeta:
@@ -3186,14 +3186,14 @@ packages:
     hasBin: true
     dev: false
 
-  /auth-astro@3.0.1(@auth/core@0.18.1)(astro@3.5.7)(next@14.0.3)(react-dom@18.2.0)(react@18.2.0):
+  /auth-astro@3.0.1(@auth/core@0.18.3)(astro@3.5.7)(next@14.0.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-TcS1qVlqnAjFlOulXw85eHd7CuTGUkrNZzWiJs9gbnXEv1gA6p6m0URh7MX74P5hOMxRoK3302vc6uu6aPjA8g==}
     engines: {node: '>=17.4'}
     peerDependencies:
       '@auth/core': ^0.5.1
       astro: ^2.0.0
     dependencies:
-      '@auth/core': 0.18.1
+      '@auth/core': 0.18.3
       astro: 3.5.7(@types/node@20.9.4)(typescript@5.3.2)
       cookie: 0.5.0
       next-auth: 4.24.5(next@14.0.3)(react-dom@18.2.0)(react@18.2.0)
