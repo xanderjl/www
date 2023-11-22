@@ -19,58 +19,141 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     getDimensions,
     sketch,
   } from "@/utils/p5";
-  import type {
-    Draw,
-    KeyPressed,
-    MousePressed,
-    Setup,
-    WindowResized,
-  } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import { GUI } from "dat.gui";
   import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("A4");
-  const padding: number[] = [16];
+  const padding: number[] = [36];
   const background = [255, 253, 252];
   const rachelle = new Date("1995-01-16");
   const lisa = new Date("1965-02-26");
   const ross = new Date("1960-03-04");
   const xan = new Date("1993-08-30");
-  const seed = convertSeed(
-    rachelle.toISOString() +
-      lisa.toISOString() +
-      ross.toISOString() +
-      xan.toISOString(),
-  );
 
-  const gridVals = {
-    rows: 16,
-    cols: 24,
+  let crosses: [number, number][];
+  let circles: [number, number][];
+
+  const dat = {
+    rows: 17,
+    cols: 27,
+    threshold: 0.00265,
+    cross: 0,
+    margin: 0,
+    seed: convertSeed(
+      rachelle.toISOString() +
+        lisa.toISOString() +
+        ross.toISOString() +
+        xan.toISOString(),
+    ),
+    accent: "#FF0000",
+    stroke: "#000000",
+    accentOn: true,
+    strokeOn: true,
+    length: 100,
+    amplitude: 0,
+    speed: 0,
+    circleSize: 0,
   };
-
-  let margin: number;
-  let grid: [number, number, boolean][];
-  let crossSize: number;
 
   const walker = (
     p5: P5,
     cx: number,
     cy: number,
+    size: number,
     length: number,
-    freq: number,
+    amplitude: number,
     speed: number,
   ) => {
-    Array.from({ length }, (_, i) => {
-      const a = p5.noise(p5.TWO_PI * i);
-      const x = cx + Math.cos(a * freq) * speed;
-      const y = cy + Math.sin(a * freq) * speed;
+    p5.push();
+    p5.fill(background);
+    p5.stroke(dat.accent);
 
-      p5.circle(x, y, 10);
+    Array.from({ length }, (_, i) => {
+      const a = p5.map(p5.noise(i), 0, 1, 0, p5.TWO_PI);
+      const x = cx + i * speed;
+      const y =
+        cy + Math.sin(a + i * p5.map(p5.noise(i), 0, 1, 0, speed)) * amplitude;
+
+      p5.push();
+      // p5.rotate(a);
+      p5.translate(x, y);
+      p5.circle(0, 0, size);
+      p5.pop();
     });
+    p5.pop();
+  };
+
+  const createGUI = (p5: P5) => {
+    const gui = new GUI();
+    const grf = gui.addFolder("grid");
+    const glf = gui.addFolder("globals");
+    const clf = gui.addFolder("colors");
+    const wlf = gui.addFolder("walkers");
+    glf
+      .add(dat, "seed", 1, 10000, 1)
+      .name("seed")
+      .onChange(() => handleRenders(p5));
+    grf
+      .add(dat, "rows", 1, 80, 1)
+      .name("rows")
+      .onChange(() => handleRenders(p5));
+    grf
+      .add(dat, "cols", 1, 80, 1)
+      .name("cols")
+      .onChange(() => handleRenders(p5));
+    glf
+      .add(dat, "threshold", 0.000000001, 0.01)
+      .name("threshold")
+      .onChange(() => handleRenders(p5));
+    glf
+      .add(dat, "margin", p5.width * 0.01, p5.width * 0.25)
+      .name("margin")
+      .onChange(() => handleRenders(p5));
+    glf
+      .add(dat, "cross", p5.width * 0.001, p5.width * 0.022, 0.00001)
+      .name("cross size")
+      .onChange(() => p5.redraw());
+    clf
+      .addColor(dat, "stroke")
+      .name("stroke")
+      .onFinishChange(() => handleRenders(p5));
+    clf
+      .addColor(dat, "accent")
+      .name("accent")
+      .onFinishChange(() => p5.redraw());
+    clf
+      .add(dat, "strokeOn")
+      .name("toggle stroke")
+      .onChange(() => p5.redraw());
+    clf
+      .add(dat, "accentOn")
+      .name("toggle accent")
+      .onChange(() => p5.redraw());
+    wlf
+      .add(dat, "length", 1, 1000, 1)
+      .name("length")
+      .onChange(() => p5.redraw());
+    wlf
+      .add(dat, "amplitude", p5.width * 0.0001, p5.width * 0.2, 0.0001)
+      .name("amplitude")
+      .onChange(() => p5.redraw());
+    wlf
+      .add(dat, "speed", p5.width * 0.0000001, p5.width * 0.01, 0.000000001)
+      .name("speed")
+      .onChange(() => p5.redraw());
+    wlf
+      .add(dat, "circleSize", p5.width * 0.01, p5.width * 0.25)
+      .name("circle size")
+      .onChange(() => p5.redraw());
   };
 
   const handleRenders = (p5: P5) => {
-    margin = p5.width * 0.075;
+    p5.noiseSeed(dat.seed);
+    p5.randomSeed(dat.seed);
+
+    crosses = [];
+    circles = [];
 
     let fam = [
       p5.noise(parseInt(rachelle.toTimeString())),
@@ -79,40 +162,36 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       p5.noise(parseInt(xan.toTimeString())),
     ];
 
-    grid = createGrid(gridVals.rows, gridVals.cols).map(([u, v], i) => {
-      const x = p5.lerp(margin * 2, p5.width - margin * 2, u);
-      const y = p5.lerp(margin * 2, p5.height - margin * 2, v);
+    createGrid(dat.rows, dat.cols).map(([u, v], i) => {
+      const x = p5.lerp(dat.margin * 2, p5.width - dat.margin * 2, u);
+      const y = p5.lerp(dat.margin * 2, p5.height - dat.margin * 2, v);
 
       const control = p5.noise(i);
       const s =
         fam.length === 0
           ? false
-          : control <= fam[0] && control >= fam[0] - 0.00265;
+          : control <= fam[0] && control >= fam[0] - dat.threshold;
 
       if (s === true) {
         fam.shift();
+        circles.push([x, y]);
+      } else {
+        crosses.push([x, y]);
       }
-
-      return [x, y, s];
     });
-    crossSize = p5.width * 0.005;
 
     p5.redraw();
   };
 
   const setup: Setup = (p5) => {
-    const gui = new GUI();
-    const gridFolder = gui.addFolder("grid");
-    gridFolder
-      .add(gridVals, "rows", 1, 80, 1)
-      .name("rows")
-      .onChange(() => handleRenders(p5));
-    gridFolder
-      .add(gridVals, "cols", 1, 80, 1)
-      .name("cols")
-      .onChange(() => handleRenders(p5));
+    dat.margin = p5.width * 0.075;
+    dat.cross = p5.width * 0.005;
+    dat.speed = p5.width * 0.001;
+    dat.amplitude = p5.width * 0.01;
+    dat.circleSize = p5.width * 0.0175;
 
     handleRenders(p5);
+    createGUI(p5);
   };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
@@ -120,18 +199,24 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+    p5.stroke(dat.stroke);
 
-    grid.forEach(([x, y, s]) => {
-      if (s) {
-        walker(p5, x, y, 100, 1000, 100);
-      } else {
-        p5.line(x, y - crossSize, x, y + crossSize);
-        p5.line(x - crossSize, y, x + crossSize, y);
+    crosses.forEach(([x, y]) => {
+      if (dat.strokeOn) {
+        p5.line(x, y - dat.cross, x, y + dat.cross);
+        p5.line(x - dat.cross, y, x + dat.cross, y);
+      }
+    });
+    circles.forEach(([x, y]) => {
+      if (dat.accentOn) {
+        walker(p5, x, y, dat.circleSize, dat.length, dat.amplitude, dat.speed);
       }
     });
 
-    createSVGOverlay(p5, margin, background);
-    drawBorder(p5, margin);
+    createSVGOverlay(p5, dat.margin, background);
+    if (dat.strokeOn) {
+      drawBorder(p5, dat.margin);
+    }
   };
 
   sketch({
@@ -140,7 +225,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     dimensions,
     padding,
-    seed,
+    seed: dat.seed,
     saveAs: "svg",
     suffix: "days",
   });
