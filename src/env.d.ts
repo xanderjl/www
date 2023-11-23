@@ -6,7 +6,7 @@ import type P5 from "p5";
 
 declare global {
   interface Window {
-    p5: P5;
+    p5?: P5;
   }
 
   interface ImportMetaEnv {

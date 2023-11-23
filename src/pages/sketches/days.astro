@@ -19,7 +19,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     getDimensions,
     sketch,
   } from "@/utils/p5";
-  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type { Draw, FileExtension, Setup, WindowResized } from "@/utils/p5";
   import { GUI } from "dat.gui";
   import type P5 from "p5";
 
@@ -32,9 +32,26 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const xan = new Date("1993-08-30");
 
   let crosses: [number, number][];
-  let circles: [number, number][];
+  let circles: [number, number, number][];
 
-  const dat = {
+  let dat: {
+    rows: number;
+    cols: number;
+    threshold: number;
+    cross: number;
+    margin: number;
+    seed: number;
+    accent: string;
+    stroke: string;
+    accentOn: boolean;
+    strokeOn: boolean;
+    length: number;
+    amplitude: number;
+    speed: number;
+    circleSize: number;
+    saveAs: FileExtension;
+    prevSave: FileExtension;
+  } = {
     rows: 17,
     cols: 27,
     threshold: 0.00265,
@@ -54,12 +71,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     amplitude: 0,
     speed: 0,
     circleSize: 0,
+    saveAs: "png",
+    prevSave: "png",
   };
 
   const walker = (
     p5: P5,
     cx: number,
     cy: number,
+    a: number,
     size: number,
     length: number,
     amplitude: number,
@@ -70,13 +90,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.stroke(dat.accent);
 
     Array.from({ length }, (_, i) => {
-      const a = p5.map(p5.noise(i), 0, 1, 0, p5.TWO_PI);
       const x = cx + i * speed;
       const y =
         cy + Math.sin(a + i * p5.map(p5.noise(i), 0, 1, 0, speed)) * amplitude;
 
       p5.push();
-      // p5.rotate(a);
+      p5.rotate(a);
       p5.translate(x, y);
       p5.circle(0, 0, size);
       p5.pop();
@@ -90,6 +109,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     const glf = gui.addFolder("globals");
     const clf = gui.addFolder("colors");
     const wlf = gui.addFolder("walkers");
+    grf.open();
+    glf.open();
+    clf.open();
+    wlf.open();
     glf
       .add(dat, "seed", 1, 10000, 1)
       .name("seed")
@@ -114,6 +137,23 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .add(dat, "cross", p5.width * 0.001, p5.width * 0.022, 0.00001)
       .name("cross size")
       .onChange(() => p5.redraw());
+    glf
+      .add(dat, "saveAs", ["png", "svg", "jpg"])
+      .name("save as")
+      .onChange(() => {
+        gui.destroy();
+        p5.remove();
+        sketch({
+          setup,
+          windowResized,
+          draw,
+          dimensions,
+          padding,
+          seed: dat.seed,
+          saveAs: dat.saveAs,
+          suffix: "days",
+        });
+      });
     clf
       .addColor(dat, "stroke")
       .name("stroke")
@@ -139,11 +179,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .name("amplitude")
       .onChange(() => p5.redraw());
     wlf
-      .add(dat, "speed", p5.width * 0.0000001, p5.width * 0.01, 0.000000001)
+      .add(dat, "speed", p5.width * 0.0000001, p5.width * 0.01)
       .name("speed")
       .onChange(() => p5.redraw());
     wlf
-      .add(dat, "circleSize", p5.width * 0.01, p5.width * 0.25)
+      .add(dat, "circleSize", p5.width * 0.01, p5.width * 0.5)
       .name("circle size")
       .onChange(() => p5.redraw());
   };
@@ -173,8 +213,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
           : control <= fam[0] && control >= fam[0] - dat.threshold;
 
       if (s === true) {
+        const a = p5.map(p5.noise(u, v), 0, 1, 0, p5.TWO_PI);
         fam.shift();
-        circles.push([x, y]);
+        circles.push([x, y, a]);
       } else {
         crosses.push([x, y]);
       }
@@ -189,6 +230,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     dat.speed = p5.width * 0.001;
     dat.amplitude = p5.width * 0.01;
     dat.circleSize = p5.width * 0.0175;
+    dat.prevSave = dat.saveAs;
 
     handleRenders(p5);
     createGUI(p5);
@@ -207,9 +249,19 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         p5.line(x - dat.cross, y, x + dat.cross, y);
       }
     });
-    circles.forEach(([x, y]) => {
+
+    circles.forEach(([x, y, a]) => {
       if (dat.accentOn) {
-        walker(p5, x, y, dat.circleSize, dat.length, dat.amplitude, dat.speed);
+        walker(
+          p5,
+          x,
+          y,
+          a,
+          dat.circleSize,
+          dat.length,
+          dat.amplitude,
+          dat.speed,
+        );
       }
     });
 
@@ -226,7 +278,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     dimensions,
     padding,
     seed: dat.seed,
-    saveAs: "svg",
+    saveAs: dat.saveAs,
     suffix: "days",
   });
 </script>
