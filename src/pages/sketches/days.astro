@@ -145,11 +145,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .onChange(() => {
         gui.destroy();
 
-        if (dat.prevSave == "svg") {
-          document.getElementById("container")!.innerHTML = "";
-        } else {
-          p5.remove();
-        }
+        p5.remove();
+        document.getElementById("container")!.innerHTML = "";
 
         sketch({
           setup,
@@ -233,11 +230,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   const setup: Setup = (p5) => {
-    dat.margin = p5.width * 0.075;
-    dat.cross = p5.width * 0.005;
-    dat.speed = p5.width * 0.001;
-    dat.amplitude = p5.width * 0.01;
-    dat.circleSize = p5.width * 0.0175;
+    if (dat.margin == 0) dat.margin = p5.width * 0.075;
+    if (dat.cross == 0) dat.cross = p5.width * 0.005;
+    if (dat.speed == 0) dat.speed = p5.width * 0.001;
+    if (dat.amplitude == 0) dat.amplitude = p5.width * 0.01;
+    if (dat.circleSize == 0) dat.circleSize = p5.width * 0.0175;
     dat.prevSave = dat.saveAs;
 
     handleRenders(p5);

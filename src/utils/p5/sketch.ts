@@ -134,7 +134,11 @@ export const sketch = ({
   const p5 = new P5(s, "container" as unknown as HTMLElement);
 
   if (typeof window !== "undefined") {
+    if (window.p5) {
+      window.p5 = undefined;
+    }
+
     window.p5 = p5;
-    svg(P5);
+    if (saveAs == "svg") svg(P5);
   }
 };
