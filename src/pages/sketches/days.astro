@@ -22,6 +22,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type { Draw, FileExtension, Setup, WindowResized } from "@/utils/p5";
   import { GUI } from "dat.gui";
   import type P5 from "p5";
+  import brip from "p5";
+  import svg from "p5.js-svg";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [36];
@@ -142,7 +144,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .name("save as")
       .onChange(() => {
         gui.destroy();
-        p5.remove();
+
+        if (dat.prevSave == "svg") {
+          document.getElementById("container")!.innerHTML = "";
+        } else {
+          p5.remove();
+        }
+
         sketch({
           setup,
           windowResized,

@@ -1,6 +1,10 @@
 import { defineGlobalStyles } from "@pandacss/dev";
 
 export const globalCss = defineGlobalStyles({
+  // style for dat.gui select
+  ".dg .c select": {
+    color: "black",
+  },
   "html, body": {
     _dark: {
       a: {
