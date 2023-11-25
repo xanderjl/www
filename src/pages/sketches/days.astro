@@ -20,6 +20,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     sketch,
   } from "@/utils/p5";
   import type { Draw, FileExtension, Setup, WindowResized } from "@/utils/p5";
+  import noopService from "astro/assets/services/noop";
   import { GUI } from "dat.gui";
   import type P5 from "p5";
 
@@ -43,15 +44,17 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     accentOn: boolean;
     strokeOn: boolean;
     length: number;
+    tendrils: number;
     amplitude: number;
     speed: number;
+    noiseScale: number;
     circleSize: number;
     saveAs: FileExtension;
     prevSave: FileExtension;
   };
 
-  let crosses: [number, number][];
-  let circles: [number, number, number][];
+  let crosses: number[][];
+  let circles: number[][];
 
   const defaults: DynamicVars = {
     rows: 17,
@@ -70,8 +73,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     accentOn: true,
     strokeOn: true,
     length: 100,
+    tendrils: 6,
     amplitude: 0,
     speed: 0,
+    noiseScale: 1000,
     circleSize: 0,
     saveAs: "png",
     prevSave: "png",
@@ -83,7 +88,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5: P5,
     cx: number,
     cy: number,
-    a: number,
     size: number,
     length: number,
     amplitude: number,
@@ -93,16 +97,17 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.fill(background);
     p5.stroke(dat.accent);
 
-    Array.from({ length }, (_, i) => {
-      const x = cx + i * speed;
-      // const y =
-      //   cy + Math.sin(a + i * p5.map(p5.noise(i), 0, 1, 0, speed)) * amplitude;
-      const y = cy;
-      p5.push();
-      p5.rotate(a);
-      p5.translate(x, y);
-      p5.circle(0, 0, size);
-      p5.pop();
+    Array.from({ length: Math.floor(p5.random(1, dat.tendrils)) }, (_, i) => {
+      let x = cx;
+      let y = cy;
+
+      Array.from({ length }, () => {
+        const a = p5.noise(x / dat.noiseScale, y / dat.noiseScale) * amplitude;
+        x += Math.cos(a + i * speed) * speed;
+        y += Math.sin(a + i * speed) * speed;
+
+        p5.circle(x, y, size);
+      });
     });
     p5.pop();
   };
@@ -183,12 +188,20 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .name("length")
       .onChange(() => p5.redraw());
     wlf
+      .add(dat, "tendrils", 1, 20, 1)
+      .name("tendrils")
+      .onChange(() => p5.redraw());
+    wlf
       .add(dat, "amplitude", p5.width * 0.0001, p5.width * 0.2, 0.0001)
       .name("amplitude")
       .onChange(() => p5.redraw());
     wlf
       .add(dat, "speed", p5.width * 0.0000001, p5.width * 0.01)
       .name("speed")
+      .onChange(() => p5.redraw());
+    wlf
+      .add(dat, "noiseScale", 1, 1000, 1)
+      .name("noise scale")
       .onChange(() => p5.redraw());
     wlf
       .add(dat, "circleSize", p5.width * 0.01, p5.width * 0.5)
@@ -221,9 +234,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
           : control <= fam[0] && control >= fam[0] - dat.threshold;
 
       if (s === true) {
-        const a = p5.map(p5.noise(u, v), 0, 1, 0, p5.TWO_PI);
         fam.shift();
-        circles.push([x, y, a]);
+        circles.push([x, y]);
       } else {
         crosses.push([x, y]);
       }
@@ -259,18 +271,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       }
     });
 
-    circles.forEach(([x, y, a]) => {
+    circles.forEach(([x, y]) => {
       if (dat.accentOn) {
-        walker(
-          p5,
-          x,
-          y,
-          a,
-          dat.circleSize,
-          dat.length,
-          dat.amplitude,
-          dat.speed,
-        );
+        const tendrils = Math.floor(p5.random(1, 10));
+        walker(p5, x, y, dat.circleSize, dat.length, dat.amplitude, dat.speed);
       }
     });
 

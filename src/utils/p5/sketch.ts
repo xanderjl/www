@@ -139,6 +139,6 @@ export const sketch = ({
     }
 
     window.p5 = p5;
-    if (saveAs == "svg") svg(P5);
+    svg(P5);
   }
 };
