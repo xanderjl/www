@@ -31,10 +31,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const ross = new Date("1960-03-04");
   const xan = new Date("1993-08-30");
 
-  let crosses: [number, number][];
-  let circles: [number, number, number][];
-
-  let dat: {
+  type DynamicVars = {
     rows: number;
     cols: number;
     threshold: number;
@@ -51,7 +48,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     circleSize: number;
     saveAs: FileExtension;
     prevSave: FileExtension;
-  } = {
+  };
+
+  let crosses: [number, number][];
+  let circles: [number, number, number][];
+
+  const defaults: DynamicVars = {
     rows: 17,
     cols: 27,
     threshold: 0.00265,
@@ -75,6 +77,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     prevSave: "png",
   };
 
+  let dat: DynamicVars = { ...defaults };
+
   const walker = (
     p5: P5,
     cx: number,
@@ -91,9 +95,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
     Array.from({ length }, (_, i) => {
       const x = cx + i * speed;
-      const y =
-        cy + Math.sin(a + i * p5.map(p5.noise(i), 0, 1, 0, speed)) * amplitude;
-
+      // const y =
+      //   cy + Math.sin(a + i * p5.map(p5.noise(i), 0, 1, 0, speed)) * amplitude;
+      const y = cy;
       p5.push();
       p5.rotate(a);
       p5.translate(x, y);
@@ -229,11 +233,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   const setup: Setup = (p5) => {
-    if (dat.margin == 0) dat.margin = p5.width * 0.075;
-    if (dat.cross == 0) dat.cross = p5.width * 0.005;
-    if (dat.speed == 0) dat.speed = p5.width * 0.001;
-    if (dat.amplitude == 0) dat.amplitude = p5.width * 0.01;
-    if (dat.circleSize == 0) dat.circleSize = p5.width * 0.0175;
+    if (dat.margin == defaults.margin) dat.margin = p5.width * 0.075;
+    if (dat.cross == defaults.cross) dat.cross = p5.width * 0.005;
+    if (dat.speed == defaults.speed) dat.speed = p5.width * 0.001;
+    if (dat.amplitude == defaults.amplitude) dat.amplitude = p5.width * 0.01;
+    if (dat.circleSize == defaults.circleSize)
+      dat.circleSize = p5.width * 0.0175;
     dat.prevSave = dat.saveAs;
 
     handleRenders(p5);
