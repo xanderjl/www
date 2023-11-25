@@ -36,6 +36,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     cols: number;
     threshold: number;
     cross: number;
+    crossThreshold: number;
     margin: number;
     seed: number;
     accent: string;
@@ -60,6 +61,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     cols: 27,
     threshold: 0.00265,
     cross: 0,
+    crossThreshold: 0,
     margin: 0,
     seed: convertSeed(
       rachelle.toISOString() +
@@ -145,6 +147,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .add(dat, "cross", p5.width * 0.001, p5.width * 0.022, 0.00001)
       .name("cross size")
       .onChange(() => p5.redraw());
+    glf
+      .add(dat, "crossThreshold", 0, 1, 0.00001)
+      .name("cross threshold")
+      .onChange(() => handleRenders(p5));
     glf
       .add(dat, "saveAs", ["png", "svg", "jpg"])
       .name("save as")
@@ -236,7 +242,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         fam.shift();
         circles.push([x, y]);
       } else {
-        crosses.push([x, y]);
+        if (p5.noise(x, y, i) > dat.crossThreshold) crosses.push([x, y]);
       }
     });
 

@@ -34,7 +34,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.rectMode("center");
     const x = p5.width * 0.5;
     const y = p5.height * 0.5;
-    const length = 100;
+    const length = 60;
 
     Array.from({ length }, (_, i) => {
       const w = (p5.width * 0.575 * (length - i)) / length;
