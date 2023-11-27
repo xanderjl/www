@@ -49,6 +49,7 @@
     "fuse.js": "7.0.0",
     "jspdf": "2.5.1",
     "mixbox": "2.0.0",
+    "motion": "^10.16.4",
     "nanostores": "0.9.5",
     "nice-color-palettes": "^3.0.0",
     "p5": "1.6.0",

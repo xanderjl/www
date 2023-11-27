@@ -6,7 +6,7 @@ import headshot from "@/assets/images/headshot.jpg";
 import { Github, Linkedin, Mail, Threads } from "@/components/icons";
 import { H1, H2 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
-import { css } from "@/styled-system/css";
+import { css, cx } from "@/styled-system/css";
 import { flex } from "@/styled-system/patterns";
 
 export const prerender = true;
@@ -14,6 +14,35 @@ export const prerender = true;
 const { data } = await getEntry("resume-data", "i");
 const { email, socials } = data;
 ---
+
+<script>
+  import { animate, spring, stagger } from "motion";
+
+  animate(
+    ".headshot",
+    {
+      opacity: [0, 1],
+      y: [100, 0],
+    },
+    {
+      duration: 0.3,
+      easing: spring(),
+    },
+  );
+
+  animate(
+    ".text",
+    {
+      opacity: [0, 1],
+      x: [-100, 0],
+    },
+    {
+      duration: 0.3,
+      delay: stagger(0.2, { start: 0.2 }),
+      easing: spring(),
+    },
+  );
+</script>
 
 <Layout title="Home" maxW="4xl">
   <div
@@ -29,30 +58,35 @@ const { email, socials } = data;
       alt="Bald guy in front of his bookshelf."
       quality="low"
       width={1200}
-      class={css({
-        animation: "fade-in 500ms ease-in-out",
-        borderRadius: "3xl",
-        flex: 1,
-        maxH: { base: "55vh", md: "auto", sm: "70vh" },
-        maxW: { md: "50%" },
-        objectFit: "cover",
-        shadow: "lg",
-      })}
+      class={cx(
+        css({
+          borderRadius: "3xl",
+          flex: 1,
+          maxH: { base: "55vh", md: "auto", sm: "70vh" },
+          maxW: { md: "50%" },
+          objectFit: "cover",
+          shadow: "lg",
+          zIndex: 1,
+        }),
+        "headshot",
+      )}
     />
     <div
       class={flex({
-        animation: "fade-in 800ms ease-in-out",
         flexDir: "column",
         gap: { base: 8, md: 2 },
         textAlign: "center",
       })}
     >
       <div
-        class={flex({
-          alignItems: "center",
-          flex: 1,
-          flexDirection: "column",
-        })}
+        class={cx(
+          flex({
+            alignItems: "center",
+            flex: 1,
+            flexDirection: "column",
+          }),
+          "text",
+        )}
       >
         <H1 class={css({ pb: 2 })}>
           Hi there! <span class={css({ color: "red.300" })}>I'm Xan.</span>
@@ -67,12 +101,15 @@ const { email, socials } = data;
         </p>
       </div>
       <div
-        class={flex({
-          alignItems: "center",
-          flex: 1,
-          flexDir: "column",
-          gap: { base: 0, md: 2 },
-        })}
+        class={cx(
+          flex({
+            alignItems: "center",
+            flex: 1,
+            flexDir: "column",
+            gap: { base: 0, md: 2 },
+          }),
+          "text",
+        )}
       >
         <H2>If you want to get in touch</H2>
         <div class={flex({ gap: 2 })}>

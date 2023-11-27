@@ -4,19 +4,34 @@ import { getCollection } from "astro:content";
 import OSSCard from "@/components/OSSCard.astro";
 import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
-import { css } from "@/styled-system/css";
+import { css, cx } from "@/styled-system/css";
 
 export const prerender = true;
 const ossProjects = await getCollection("open-source");
 ---
 
+<script>
+  import { animate, stagger, spring } from "motion";
+
+  animate(
+    ".card",
+    {
+      y: [100, 0],
+    },
+    {
+      easing: spring(),
+      delay: stagger(0.1),
+    },
+  );
+</script>
+
 <Layout title="Open Source">
-  <H1 class={css({ pb: 4 })}>Open Source Projects</H1>
+  <H1 class={css({ pb: 8 })}>Open Source Projects</H1>
   <div
     class={css({
       display: "flex",
       flexWrap: "wrap",
-      gap: 4,
+      gap: { base: 4, md: 8 },
     })}
   >
     {
@@ -25,16 +40,7 @@ const ossProjects = await getCollection("open-source");
           name={name}
           description={description}
           href={href}
-          class={css({
-            animation: `
-              fade-in
-              calc(250ms + ((var(--i) + 1) * 150ms))
-              ease-in-out
-              `,
-          })}
-          style={{
-            "--i": i,
-          }}
+          class="card"
         />
       ))
     }
