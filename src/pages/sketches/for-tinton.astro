@@ -18,7 +18,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     getDimensions,
     sketch,
   } from "@/utils/p5";
-  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type { Draw, FileExtension, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
   import { GUI } from "dat.gui";
 
@@ -31,17 +31,35 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   type Defaults = {
     rows: number;
     cols: number;
+    saveAs: FileExtension;
   };
 
   const defaults: Defaults = {
     rows: 16,
     cols: 10,
+    saveAs: "png",
   };
 
   const dat = { ...defaults };
 
   const createGUI = (p5: P5) => {
     const gui = new GUI();
+    gui.add(dat, "saveAs", ["png", "svg", "jpg"]).onFinishChange(() => {
+      p5.remove();
+      gui.destroy();
+      const container = document.getElementById("container");
+      if (container) container.innerHTML = "";
+
+      sketch({
+        setup,
+        windowResized,
+        draw,
+        dimensions,
+        padding,
+        saveAs: dat.saveAs,
+        suffix: "for-tinton",
+      });
+    });
     gui.add(dat, "rows", 1, 100, 1).onChange(() => handleRenders(p5));
     gui.add(dat, "cols", 1, 100, 1).onChange(() => handleRenders(p5));
   };
@@ -80,7 +98,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     dimensions,
     padding,
-    saveAs: "png",
+    saveAs: dat.saveAs,
     suffix: "for-tinton",
   });
 </script>
