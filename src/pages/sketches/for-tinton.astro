@@ -11,25 +11,67 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
+  import {
+    createGrid,
+    createSVGOverlay,
+    drawBorder,
+    getDimensions,
+    sketch,
+  } from "@/utils/p5";
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
+  import { GUI } from "dat.gui";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [16];
   const background = [255, 253, 252];
   let margin: number;
+  let grid: number[][];
+
+  type Defaults = {
+    rows: number;
+    cols: number;
+  };
+
+  const defaults: Defaults = {
+    rows: 16,
+    cols: 10,
+  };
+
+  const dat = { ...defaults };
+
+  const createGUI = (p5: P5) => {
+    const gui = new GUI();
+    gui.add(dat, "rows", 1, 100, 1).onChange(() => handleRenders(p5));
+    gui.add(dat, "cols", 1, 100, 1).onChange(() => handleRenders(p5));
+  };
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
+    grid = createGrid(dat.rows, dat.cols).map(([u, v]) => {
+      const x = p5.lerp(margin * 2, p5.width - margin * 2, u);
+      const y = p5.lerp(margin * 2, p5.height - margin * 2, v);
+
+      return [x, y];
+    });
   };
 
-  const setup: Setup = (p5) => handleRenders(p5);
+  const setup: Setup = (p5) => {
+    createGUI(p5);
+    handleRenders(p5);
+  };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+
+    grid.forEach(([x, y]) => {
+      p5.circle(x, y, 10);
+    });
+
+    createSVGOverlay(p5, margin, background);
+    drawBorder(p5, margin);
   };
 
   sketch({
@@ -38,7 +80,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     dimensions,
     padding,
-    saveAs: "svg",
+    saveAs: "png",
     suffix: "for-tinton",
   });
 </script>
