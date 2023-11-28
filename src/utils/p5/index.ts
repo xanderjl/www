@@ -13,4 +13,5 @@ export * from "./sketch";
 /* @ts-ignore */
 export * from "./getGeoData";
 export * from "./types";
+export * from "./ui/reloadUI";
 export * from "./windowResized";

@@ -17,12 +17,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     drawBorder,
     getDimensions,
     sketch,
+    reloadUI,
   } from "@/utils/p5";
   import type { Draw, FileExtension, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
   import { GUI } from "dat.gui";
 
-  const dimensions: number[] = getDimensions("A4");
+  const dimensions: number[] = getDimensions("A4", { scale: 1 });
   const padding: number[] = [16];
   const background = [255, 253, 252];
   let margin: number;
@@ -31,40 +32,119 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   type Defaults = {
     rows: number;
     cols: number;
+    seed: number;
+    noiseScale: number;
+    noiseStrength: number;
+    walkerSpeed: number;
+    walkerLength: number;
+    walkerLengthVariance: number;
     saveAs: FileExtension;
+    circleSize: number;
+    circleVariance: number;
   };
 
   const defaults: Defaults = {
-    rows: 16,
-    cols: 10,
+    rows: 20,
+    cols: 12,
+    seed: 1,
     saveAs: "png",
+    noiseScale: 1,
+    noiseStrength: 0,
+    walkerSpeed: 0,
+    walkerLength: 1,
+    walkerLengthVariance: 0,
+    circleSize: 0,
+    circleVariance: 0,
   };
 
   const dat = { ...defaults };
 
+  const walker = (
+    p5: P5,
+    cx: number,
+    cy: number,
+    length: number = dat.walkerLength,
+  ) => {
+    let x = cx;
+    let y = cy;
+
+    Array.from({ length }, (_, i) => {
+      const a =
+        p5.noise(x / dat.noiseScale, y / dat.noiseScale) * dat.noiseStrength;
+      const w = p5.randomGaussian(dat.circleSize, dat.circleVariance);
+
+      x += Math.cos(a + i * dat.walkerSpeed) * dat.walkerSpeed;
+      y += Math.sin(a + i * dat.walkerSpeed) * dat.walkerSpeed;
+
+      p5.circle(x, y, w);
+    });
+  };
+
   const createGUI = (p5: P5) => {
     const gui = new GUI();
-    gui.add(dat, "saveAs", ["png", "svg", "jpg"]).onFinishChange(() => {
-      p5.remove();
-      gui.destroy();
-      const container = document.getElementById("container");
-      if (container) container.innerHTML = "";
-
-      sketch({
-        setup,
-        windowResized,
-        draw,
-        dimensions,
-        padding,
-        saveAs: dat.saveAs,
-        suffix: "for-tinton",
+    const glf = gui.addFolder("global");
+    const grf = gui.addFolder("grid");
+    const clf = gui.addFolder("circles");
+    glf.open();
+    grf.open();
+    clf.open();
+    glf
+      .add(dat, "saveAs", ["png", "svg"])
+      .name("file format")
+      .onFinishChange(() => {
+        reloadUI(p5, gui, () => s());
       });
-    });
-    gui.add(dat, "rows", 1, 100, 1).onChange(() => handleRenders(p5));
-    gui.add(dat, "cols", 1, 100, 1).onChange(() => handleRenders(p5));
+    glf
+      .add(dat, "seed", 0, 100, 1)
+      .name("seed")
+      .onChange(() => p5.redraw());
+    glf
+      .add(dat, "noiseScale", 0, 1000, 1)
+      .name("noise scale")
+      .onChange(() => p5.redraw());
+    glf
+      .add(dat, "noiseStrength", 0, 10, 0.001)
+      .name("noise strength")
+      .onChange(() => p5.redraw());
+    grf
+      .add(dat, "rows", 1, 100, 1)
+      .name("rows")
+      .onChange(() => handleRenders(p5));
+    grf
+      .add(dat, "cols", 1, 100, 1)
+      .name("columns")
+      .onChange(() => handleRenders(p5));
+    clf
+      .add(dat, "circleSize", 0, 100, 1)
+      .name("circle size")
+      .onChange(() => p5.redraw());
+    clf
+      .add(dat, "circleVariance", 0, p5.width * 0.02, 0.1)
+      .name("circle variance")
+      .onChange(() => p5.redraw());
+    clf
+      .add(dat, "walkerSpeed", 0, p5.width * 0.075, 0.001)
+      .name("walker speed")
+      .onChange(() => p5.redraw());
+    clf
+      .add(dat, "walkerLength", 1, 100, 1)
+      .name("walker length")
+      .onChange(() => p5.redraw());
+    clf
+      .add(dat, "walkerLengthVariance", 0, 100, 1)
+      .name("walker variance")
+      .onChange(() => p5.redraw());
   };
 
   const handleRenders = (p5: P5) => {
+    p5.noiseSeed(dat.seed);
+    p5.randomSeed(dat.seed);
+
+    if (dat.circleSize == defaults.circleSize)
+      dat.circleSize = p5.width * 0.015;
+    if (dat.walkerSpeed == defaults.walkerSpeed)
+      dat.walkerSpeed = p5.width * 0.045;
+
     margin = p5.width * 0.075;
     grid = createGrid(dat.rows, dat.cols).map(([u, v]) => {
       const x = p5.lerp(margin * 2, p5.width - margin * 2, u);
@@ -75,32 +155,44 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   const setup: Setup = (p5) => {
-    createGUI(p5);
     handleRenders(p5);
+    createGUI(p5);
   };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
+    p5.noiseSeed(dat.seed);
+    p5.randomSeed(dat.seed);
+
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+    p5.fill(background);
 
     grid.forEach(([x, y]) => {
-      p5.circle(x, y, 10);
+      const length =
+        dat.walkerLength +
+        p5.random(-dat.walkerLengthVariance, dat.walkerLengthVariance);
+
+      walker(p5, x, y, length);
     });
 
     createSVGOverlay(p5, margin, background);
     drawBorder(p5, margin);
   };
 
-  sketch({
-    setup,
-    windowResized,
-    draw,
-    dimensions,
-    padding,
-    saveAs: dat.saveAs,
-    suffix: "for-tinton",
-  });
+  const s = () =>
+    sketch({
+      setup,
+      windowResized,
+      draw,
+      dimensions,
+      padding,
+      seed: dat.seed,
+      saveAs: dat.saveAs,
+      suffix: "for-tinton",
+    });
+
+  s();
 </script>
 
 <SketchLayout {title}>
