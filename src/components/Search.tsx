@@ -1,8 +1,9 @@
 import { trainCase } from "change-case";
 import type { FuseResult } from "fuse.js";
 import Fuse from "fuse.js";
+import { animate, spring, stagger } from "motion";
 import type { Component, ComponentProps } from "solid-js";
-import { createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show } from "solid-js";
 
 import { css, cx } from "@/styled-system/css";
 import { flex } from "@/styled-system/patterns";
@@ -14,18 +15,21 @@ interface SearchProps extends ComponentProps<"div"> {
 
 type Result = FuseResult<string>;
 
-const liStyles = css({
-  "&:not(:last-of-type)": {
-    _dark: {
-      borderColor: "gray.800",
+const liStyles = cx(
+  css({
+    "&:not(:last-of-type)": {
+      _dark: {
+        borderColor: "gray.800",
+      },
+      _light: {
+        borderColor: "gray.400",
+      },
+      borderBottomWidth: 1,
+      pb: 2,
     },
-    _light: {
-      borderColor: "gray.400",
-    },
-    borderBottomWidth: 1,
-    pb: 2,
-  },
-});
+  }),
+  "li",
+);
 
 export const Search: Component<SearchProps> = ({
   list,
@@ -35,6 +39,33 @@ export const Search: Component<SearchProps> = ({
 }) => {
   const fuse = new Fuse(list);
   const [searchArray, setSearchArray] = createSignal<Result[]>([]);
+
+  createEffect(() => {
+    animate(
+      ".input",
+      {
+        opacity: [0, 1],
+        x: [-100, 0],
+      },
+      {
+        duration: 0.3,
+        easing: spring(),
+      },
+    );
+
+    animate(
+      ".li",
+      {
+        opacity: [0, 1],
+        x: [-100, 0],
+      },
+      {
+        delay: stagger(0.05, { from: -0.2, start: 0 }),
+        duration: 0.2,
+        easing: spring(),
+      },
+    );
+  });
 
   return (
     <div
@@ -50,23 +81,26 @@ export const Search: Component<SearchProps> = ({
       <input
         type="text"
         placeholder="Search"
-        class={css({
-          _dark: {
-            _placeholder: {
-              color: "gray.50",
+        class={cx(
+          css({
+            _dark: {
+              _placeholder: {
+                color: "gray.50",
+              },
+              backgroundColor: "gray.800",
             },
-            backgroundColor: "gray.800",
-          },
-          _light: {
-            _placeholder: {
-              color: "gray.400",
+            _light: {
+              _placeholder: {
+                color: "gray.400",
+              },
             },
-          },
-          borderColor: "gray.400",
-          borderRadius: 4,
-          borderWidth: 1,
-          p: 1,
-        })}
+            borderColor: "gray.400",
+            borderRadius: 4,
+            borderWidth: 1,
+            p: 1,
+          }),
+          "input",
+        )}
         onInput={(e) => {
           const arr = fuse.search(e.target.value);
           setSearchArray(arr);
