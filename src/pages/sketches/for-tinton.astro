@@ -23,7 +23,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type P5 from "p5";
   import { GUI } from "dat.gui";
 
-  const dimensions: number[] = getDimensions("A4", { scale: 1 });
+  const dimensions: number[] = getDimensions("A4", { scale: 4 });
   const padding: number[] = [16];
   const background = [255, 253, 252];
   let margin: number;
@@ -103,7 +103,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .name("noise scale")
       .onChange(() => p5.redraw());
     glf
-      .add(dat, "noiseStrength", 0, 10, 0.001)
+      .add(dat, "noiseStrength", 0, 20, 0.001)
       .name("noise strength")
       .onChange(() => p5.redraw());
     grf
@@ -142,8 +142,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
     if (dat.circleSize == defaults.circleSize)
       dat.circleSize = p5.width * 0.015;
-    if (dat.walkerSpeed == defaults.walkerSpeed)
-      dat.walkerSpeed = p5.width * 0.045;
 
     margin = p5.width * 0.075;
     grid = createGrid(dat.rows, dat.cols).map(([u, v]) => {
