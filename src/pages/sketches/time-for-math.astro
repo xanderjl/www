@@ -29,6 +29,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     speed: number;
     length: number;
     saveGif?: () => void;
+    fileName: string;
+    frames: number;
+    delay: number;
   };
 
   const defaults: Defaults = {
@@ -36,30 +39,36 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     frequency: 8,
     speed: 0.01,
     length: 100,
+    frames: 128,
+    delay: 0,
+    fileName: "time-for-math",
   };
 
   const dat = { ...defaults };
 
   const createGUI = (p5: P5) => {
     const gui = new GUI();
+    const gf = gui.addFolder("gif");
     gui
       .add(dat, "amplitude", 0, p5.width * 0.5, 0.1)
       .onChange(() => p5.redraw());
     gui.add(dat, "frequency", 0, 1000, 0.1).onChange(() => p5.redraw());
     gui.add(dat, "speed", 0, 0.05, 0.001).onChange(() => p5.redraw());
     gui.add(dat, "length", 0, 1000).onChange(() => handleRenders(p5));
-    gui.add(dat, "saveGif");
+    gf.add(dat, "frames", 10, 800, 1).onChange(() => handleRenders(p5));
+    gf.add(dat, "delay", 0, 128, 1).onChange(() => handleRenders(p5));
+    gf.add(dat, "fileName").onChange(() => handleRenders(p5));
+    gf.add(dat, "saveGif");
   };
 
   const handleRenders = (p5: P5) => {
     if (dat.amplitude == defaults.amplitude) dat.amplitude = p5.width * 0.25;
-    if (dat.saveGif == undefined)
-      dat.saveGif = () =>
-        p5.saveGif("time-for-math", 10, {
-          delay: 0,
-          units: "frames",
-          silent: false,
-        });
+    dat.saveGif = () =>
+      p5.saveGif(dat.fileName, dat.frames, {
+        delay: dat.delay,
+        units: "frames",
+        silent: false,
+      });
     margin = p5.width * 0.075;
     points = Array.from({ length: dat.length }, (_, i) => {
       const x = p5.width * 0.5;
