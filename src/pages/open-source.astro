@@ -16,6 +16,7 @@ const ossProjects = await getCollection("open-source");
   animate(
     ".card",
     {
+      opacity: [0, 1],
       y: [100, 0],
     },
     {
@@ -40,7 +41,7 @@ const ossProjects = await getCollection("open-source");
           name={name}
           description={description}
           href={href}
-          class="card"
+          class={cx(css({ opacity: 0 }), "card")}
         />
       ))
     }

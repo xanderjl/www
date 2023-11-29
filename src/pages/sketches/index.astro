@@ -3,7 +3,7 @@ import { Search } from "@/components/Search";
 import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 import { getSketchSlugs } from "@/utils/getSketchUrls";
-
+import { cx, css } from "@/styled-system/css";
 export const prerender = true;
 
 const list = await getSketchSlugs();
@@ -27,6 +27,6 @@ const { pathname: path } = Astro.url;
 </script>
 
 <Layout title="Sketches" maxW="2xl">
-  <H1 class="heading">Search Sketches</H1>
+  <H1 class={cx(css({ opacity: 0 }), "heading")}>Search Sketches</H1>
   <Search {path} {list} client:load />
 </Layout>
