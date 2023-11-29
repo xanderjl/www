@@ -1,4 +1,4 @@
-type PaperSize =
+export type PaperSize =
   | "A0"
   | "A1"
   | "A2"

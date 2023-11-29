@@ -12,11 +12,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized, PaperSize } from "@/utils/p5";
   import { GUI } from "dat.gui";
   import type P5 from "p5";
 
-  const dimensions: number[] = getDimensions("iPhoneProMax");
   const padding: number[] = [16];
   const background = [55, 53, 52];
   const stroke = [255, 253, 252];
@@ -24,6 +23,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let points: number[][];
 
   type Defaults = {
+    dimensions: number[];
     amplitude: number;
     frequency: number;
     speed: number;
@@ -35,6 +35,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   const defaults: Defaults = {
+    dimensions: getDimensions("iPhoneProMax"),
     amplitude: 0,
     frequency: 8,
     speed: 0.01,
@@ -107,7 +108,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     setup,
     windowResized,
     draw,
-    dimensions,
+    dimensions: dat.dimensions,
     padding,
     saveAs: "png",
     suffix: "time-for-math",
