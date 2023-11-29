@@ -12,11 +12,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Setup, WindowResized, PaperSize } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import { GUI } from "dat.gui";
   import type P5 from "p5";
 
-  const padding: number[] = [16];
+  const padding: number[] = [40];
   const background = [55, 53, 52];
   const stroke = [255, 253, 252];
   let margin: number;
@@ -29,9 +29,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     speed: number;
     length: number;
     saveGif?: () => void;
-    fileName: string;
-    frames: number;
+    filename: string;
     delay: number;
+    circleSize: number;
+    fill: boolean;
   };
 
   const defaults: Defaults = {
@@ -40,9 +41,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     frequency: 8,
     speed: 0.01,
     length: 100,
-    frames: 128,
     delay: 0,
-    fileName: "time-for-math",
+    filename: "time-for-math",
+    circleSize: 0,
+    fill: true,
   };
 
   const dat = { ...defaults };
@@ -56,20 +58,28 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     gui.add(dat, "frequency", 0, 1000, 0.1).onChange(() => p5.redraw());
     gui.add(dat, "speed", 0, 0.05, 0.001).onChange(() => p5.redraw());
     gui.add(dat, "length", 0, 1000).onChange(() => handleRenders(p5));
-    gf.add(dat, "frames", 10, 800, 1).onChange(() => handleRenders(p5));
+    gui
+      .add(dat, "circleSize", 0, p5.width * 0.25, 0.01)
+      .name("circle size")
+      .onChange(() => handleRenders(p5));
+    gui.add(dat, "fill").onChange(() => p5.redraw());
     gf.add(dat, "delay", 0, 128, 1).onChange(() => handleRenders(p5));
-    gf.add(dat, "fileName").onChange(() => handleRenders(p5));
-    gf.add(dat, "saveGif");
+    gf.add(dat, "filename").onChange(() => handleRenders(p5));
+    gf.add(dat, "saveGif").name("save gif");
   };
 
   const handleRenders = (p5: P5) => {
     if (dat.amplitude == defaults.amplitude) dat.amplitude = p5.width * 0.25;
-    dat.saveGif = () =>
-      p5.saveGif(dat.fileName, dat.frames, {
+    if (dat.circleSize == defaults.circleSize) dat.circleSize = p5.width * 0.02;
+    dat.saveGif = () => {
+      const frames = p5.TWO_PI / dat.speed;
+
+      p5.saveGif(dat.filename, frames, {
         delay: dat.delay,
         units: "frames",
         silent: false,
       });
+    };
     margin = p5.width * 0.075;
     points = Array.from({ length: dat.length }, (_, i) => {
       const x = p5.width * 0.5;
@@ -88,7 +98,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
-    p5.fill(stroke);
+
+    if (dat.fill) {
+      p5.fill(stroke);
+    } else {
+      p5.noFill();
+    }
     p5.stroke(stroke);
 
     points.forEach(([x, y], i) => {
@@ -100,7 +115,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         x - dat.amplitude,
         x + dat.amplitude,
       );
-      p5.circle(mx, y, 10);
+      p5.circle(mx, y, dat.circleSize);
     });
   };
 
