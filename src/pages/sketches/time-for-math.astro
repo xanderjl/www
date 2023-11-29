@@ -28,6 +28,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     frequency: number;
     speed: number;
     length: number;
+    saveGif?: () => void;
   };
 
   const defaults: Defaults = {
@@ -47,10 +48,18 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     gui.add(dat, "frequency", 0, 1000, 0.1).onChange(() => p5.redraw());
     gui.add(dat, "speed", 0, 0.05, 0.001).onChange(() => p5.redraw());
     gui.add(dat, "length", 0, 1000).onChange(() => handleRenders(p5));
+    gui.add(dat, "saveGif");
   };
 
   const handleRenders = (p5: P5) => {
     if (dat.amplitude == defaults.amplitude) dat.amplitude = p5.width * 0.25;
+    if (dat.saveGif == undefined)
+      dat.saveGif = () =>
+        p5.saveGif("time-for-math", 10, {
+          delay: 0,
+          units: "frames",
+          silent: false,
+        });
     margin = p5.width * 0.075;
     points = Array.from({ length: dat.length }, (_, i) => {
       const x = p5.width * 0.5;
@@ -91,7 +100,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     dimensions,
     padding,
-    saveAs: "svg",
+    saveAs: "png",
     suffix: "time-for-math",
   });
 </script>

@@ -28,5 +28,5 @@ const { pathname: path } = Astro.url;
 
 <Layout title="Sketches" maxW="2xl">
   <H1 class={cx(css({ opacity: 0 }), "heading")}>Search Sketches</H1>
-  <Search {path} {list} client:load />
+  <Search {path} {list} client:only />
 </Layout>
