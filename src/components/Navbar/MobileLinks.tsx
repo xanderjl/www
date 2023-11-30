@@ -1,6 +1,7 @@
 import { useStore } from "@nanostores/solid";
+import { animate, stagger } from "motion";
 import type { Component, ComponentProps } from "solid-js";
-import { For, Show } from "solid-js";
+import { createEffect, For, Show } from "solid-js";
 
 import { routes } from "@/routes";
 import { isNavOpen } from "@/stores/navbar";
@@ -17,12 +18,26 @@ export const MobileLinks: Component<MobileLinksProps> = ({
 }) => {
   const $isNavOpen = useStore(isNavOpen);
 
+  createEffect(() => {
+    if (!$isNavOpen()) return;
+    animate(".li", { x: [-100, 0] }, { delay: stagger(0.1) });
+  });
+
   return (
     <Show when={$isNavOpen()}>
-      <ul class={cx(css({ pt: 2 }), c)} {...rest}>
+      <ul
+        class={cx(
+          css({
+            position: "relative",
+            pt: 2,
+          }),
+          c,
+        )}
+        {...rest}
+      >
         <For each={routes}>
           {(route) => (
-            <li>
+            <li class="li">
               <a
                 aria-current={pathname === route.path ? "page" : "false"}
                 href={route.path}
