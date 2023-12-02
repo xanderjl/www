@@ -1,0 +1,38 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { css } from "@/styled-system/css";
+---
+
+<Layout>
+  <div
+    id="lights"
+    class={css({
+      position: "absolute",
+      textAlign: "center",
+      whiteSpace: "nowrap",
+      width: "100vw",
+      top: -80,
+      _light: {
+        borderBottom: "3px solid gray.800",
+      },
+      _dark: {
+        borderBottom: "3px solid gray.200",
+      },
+    })}
+  >
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </div>
+  <slot />
+</Layout>
