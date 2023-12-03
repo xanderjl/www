@@ -12,12 +12,7 @@ export const getStaticPaths = async () => {
   const paths = collection.map(({ slug: day, data: { date } }) => {
     const year = date.getFullYear().toString();
 
-    return {
-      params: {
-        year,
-        day,
-      },
-    };
+    return { params: { year, day } };
   });
 
   return paths;

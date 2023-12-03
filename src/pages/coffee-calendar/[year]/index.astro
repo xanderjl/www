@@ -11,11 +11,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const collection = await getCollection("coffee-calendar");
   const paths = collection.map(({ data: { date } }) => {
     const year = date.getFullYear().toString();
-    return {
-      params: {
-        year,
-      },
-    };
+
+    return { params: { year } };
   });
 
   return paths;
