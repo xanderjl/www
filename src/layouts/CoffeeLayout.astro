@@ -1,9 +1,19 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { css } from "@/styled-system/css";
+import type { PropertyTypes } from "@/styled-system/types/prop-type";
+import type { defineCollection } from "astro:content";
+
+interface Props {
+  description?: string;
+  maxW?: PropertyTypes["maxW"];
+  title?: string;
+}
+
+const props = Astro.props;
 ---
 
-<Layout>
+<Layout {...props}>
   <div
     id="lights"
     class={css({

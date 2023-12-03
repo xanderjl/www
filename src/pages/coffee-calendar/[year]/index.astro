@@ -1,7 +1,32 @@
 ---
-import CoffeeLayout from "@/layouts/CoffeeLayout.astro";
+import type { GetStaticPaths } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { Search } from "@/components/Search";
+import { H1 } from "@/components/typography";
+
+export const prerender = true;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const collection = await getCollection("coffee-calendar");
+  const paths = collection.map(({ data: { date } }) => {
+    const year = date.getFullYear().toString();
+    return {
+      params: {
+        year,
+      },
+    };
+  });
+
+  return paths;
+};
+
+const collection = await getCollection("coffee-calendar");
+const list = collection.map(({ slug }) => slug);
+const { pathname: path } = Astro.url;
 ---
 
-<CoffeeLayout>
-  <h1>HELLO</h1>
-</CoffeeLayout>
+<Layout maxW="2xl">
+  <H1>Days</H1>
+  <Search {path} {list} client:load />
+</Layout>

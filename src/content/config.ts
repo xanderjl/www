@@ -44,7 +44,25 @@ const resumeCollection = defineCollection({
   type: "data",
 });
 
+const cofeeCalenderCollection = defineCollection({
+  schema: z.object({
+    bean: z.string().min(1),
+    brewMethod: z.string().min(1),
+    classification: z.enum(["Daily coffee", "Special occasion", "Other"]),
+    coffee: z.string().min(1),
+    date: z.string().transform((str) => new Date(str)),
+    processingMethod: z.string().min(1),
+    rating: z.number().min(1).max(5),
+    roaster: z.string().min(1),
+    soundtrack: z.optional(z.string().or(z.string().url())),
+    time: z.string().min(1),
+    weather: z.string().min(1),
+  }),
+  type: "content",
+});
+
 export const collections = {
+  "coffee-calendar": cofeeCalenderCollection,
   "open-source": openSourceCollection,
   "resume-data": resumeCollection,
   "work-history": workHistoryCollection,

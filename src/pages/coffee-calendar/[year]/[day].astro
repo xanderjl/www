@@ -1,0 +1,62 @@
+---
+import CoffeeLayout from "@/layouts/CoffeeLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { H1, H2, LI } from "@/components/typography";
+import { css } from "@/styled-system/css";
+import { grid } from "@/styled-system/patterns";
+
+export const prerender = true;
+
+export const getStaticPaths = async () => {
+  const collection = await getCollection("coffee-calendar");
+  const paths = collection.map(({ slug: day, data: { date } }) => {
+    const year = date.getFullYear().toString();
+
+    return {
+      params: {
+        year,
+        day,
+      },
+    };
+  });
+
+  return paths;
+};
+
+const { day } = Astro.params;
+const entry = await getEntry("coffee-calendar", day);
+const { Content } = await entry.render();
+const data = entry.data;
+const dayNum = day.split("-")[1];
+const dateDay = data.date.getDate().toString().padStart(2, "0");
+const dateMonth = data.date.getMonth().toString().padStart(2, "0");
+const dateYear = data.date.getFullYear().toString();
+---
+
+<CoffeeLayout maxW="4xl">
+  <div
+    class={grid({
+      gridTemplateRows: 2,
+      gridTemplateColumns: 5,
+    })}
+  >
+    <H1
+      class={css({
+        gridRowStart: 1,
+        gridRowEnd: 3,
+      })}
+    >
+      {dayNum}
+    </H1>
+    <span>DAY</span>
+    <span>MONTH</span>
+    <span>YEAR</span>
+    <span>TIME</span>
+    <span>{dateDay}</span>
+    <span>{dateMonth}</span>
+    <span>{dateYear}</span>
+    <span>{data.time}</span>
+  </div>
+  <pre>{JSON.stringify(data, null, 2)}</pre>
+  <Content components={{ h1: H1, h2: H2, li: LI }} />
+</CoffeeLayout>
