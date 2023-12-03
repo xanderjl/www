@@ -31,14 +31,14 @@ const dateYear = data.date.getFullYear().toString();
 <CoffeeLayout maxW="4xl">
   <div
     class={grid({
-      gridTemplateRows: 2,
+      gridTemplateRows: 5,
       gridTemplateColumns: 5,
     })}
   >
     <H1
       class={css({
         gridRowStart: 1,
-        gridRowEnd: 3,
+        gridRowEnd: 4,
       })}
     >
       {dayNum}
@@ -51,6 +51,18 @@ const dateYear = data.date.getFullYear().toString();
     <span>{dateMonth}</span>
     <span>{dateYear}</span>
     <span>{data.time}</span>
+    <div
+      class={css({
+        gridColumnStart: 2,
+        gridColumnEnd: 6,
+      })}
+      })}
+    >
+      <p>COFFEE</p>
+      <p>
+        {data.coffee}
+      </p>
+    </div>
   </div>
   <pre>{JSON.stringify(data, null, 2)}</pre>
   <Content components={{ h1: H1, h2: H2, li: LI }} />
