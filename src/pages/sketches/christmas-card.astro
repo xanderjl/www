@@ -18,10 +18,29 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const dimensions: number[] = getDimensions("A4", { landscape: true });
   const padding: number[] = [16];
   const background = [255, 253, 252];
+  // Define working area
+  let x1: number;
+  let y1: number;
+  let x2: number;
+  let y2: number;
+  let bx1: number;
+  let by1: number;
+  let bx2: number;
+  let by2: number;
   let margin: number;
 
   const handleRenders = (p5: P5) => {
-    margin = p5.width * 0.075;
+    x1 = p5.width * 0.5;
+    y1 = 0;
+    x2 = p5.width;
+    y2 = p5.height;
+
+    margin = x1 * 0.075;
+
+    bx1 = x1 + margin;
+    by1 = y1 + margin;
+    bx2 = x2 - margin;
+    by2 = y2 - margin;
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -30,6 +49,23 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+
+    // Overlay
+    p5.push();
+    p5.fill(background);
+    p5.noStroke();
+    p5.rect(x1, y1, margin, y2);
+    p5.rect(x1, y1, x2, margin);
+    p5.rect(x1, y2 - margin, x2, margin);
+    p5.rect(x2 - margin, y1, margin, y2);
+    p5.pop();
+
+    // Border
+    p5.rect(bx1, by1, bx2 - bx1, by2 - by1);
+
+    // Mark fold
+    p5.line(x1, y1, x1, y1 + p5.height * 0.01);
+    p5.line(x1, y2, x1, y2 - p5.height * 0.01);
   };
 
   sketch({
