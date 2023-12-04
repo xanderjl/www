@@ -1,5 +1,5 @@
 ---
-import CoffeeLayout from "@/layouts/CoffeeLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 import { getCollection, getEntry } from "astro:content";
 import { H1, H2, LI } from "@/components/typography";
 import { css, cx } from "@/styled-system/css";
@@ -84,7 +84,7 @@ const beanStyles = css({
   );
 </script>
 
-<CoffeeLayout {title} {description} maxW="3xl">
+<Layout {title} {description} maxW="3xl">
   <div
     class={grid({
       gridTemplateColumns: "fit-content(20ch) repeat(4, 1fr)",
@@ -256,4 +256,4 @@ const beanStyles = css({
     )}
     client:load
   />
-</CoffeeLayout>
+</Layout>

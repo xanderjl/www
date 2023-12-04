@@ -14,7 +14,11 @@ const list = years.filter((year, index) => years.indexOf(year) === index);
 const { pathname: path } = Astro.url;
 ---
 
-<Layout maxW="2xl">
+<Layout
+  title="Coffee Calendar"
+  description="The digitized record of coffee advent calendars I've participated in over the years."
+  maxW="2xl"
+>
   <H1>Coffee Calendars</H1>
   <Search {path} {list} client:load />
 </Layout>
