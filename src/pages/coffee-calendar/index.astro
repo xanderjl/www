@@ -7,9 +7,10 @@ import { getCollection } from "astro:content";
 export const prerender = true;
 
 const collection = await getCollection("coffee-calendar");
-const list = collection.map(({ data: { date } }) =>
+const years = collection.map(({ data: { date } }) =>
   date.getFullYear().toString(),
 );
+const list = years.filter((year, index) => years.indexOf(year) === index);
 const { pathname: path } = Astro.url;
 ---
 

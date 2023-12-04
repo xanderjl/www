@@ -12,4 +12,8 @@ export const routes: Route[] = [
     name: "Sketches",
     path: "/sketches",
   },
+  {
+    name: "Coffee Calendar",
+    path: "/coffee-calendar",
+  },
 ];
