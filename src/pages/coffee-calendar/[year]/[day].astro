@@ -34,7 +34,7 @@ const description = `${data.processingMethod}, ${data.bean}`;
 const thStyles = css({ fontWeight: "extrabold", pb: { base: 0, md: 1 } });
 const beanStyles = css({
   position: "absolute",
-  width: "3rem",
+  width: { base: 6, md: 12 },
   height: "auto",
   opacity: 0,
 });
@@ -43,10 +43,12 @@ const beanStyles = css({
 <script>
   import { animate } from "motion";
 
+  const isMobile = window.matchMedia("(max-width: 640px)").matches;
+
   animate(
     "#bean1",
     {
-      right: ["8rem", "0rem"],
+      right: ["8rem", isMobile ? "1rem" : "0rem"],
       transform: ["rotate(-180deg)", "rotate(0deg)"],
       opacity: [0, 1],
     },
@@ -59,7 +61,7 @@ const beanStyles = css({
   animate(
     "#bean2",
     {
-      right: ["15rem", "3rem"],
+      right: ["15rem", isMobile ? "2.5rem" : "3rem"],
       transform: ["rotate(-180deg)", "rotate(0deg)"],
       opacity: [0, 1],
     },
@@ -72,7 +74,7 @@ const beanStyles = css({
   animate(
     "#bean3",
     {
-      right: ["11rem", "1rem"],
+      right: ["11rem", isMobile ? "1.5rem" : "1rem"],
       transform: ["rotate(-195deg)", "rotate(-15deg)"],
       opacity: [0, 1],
     },
@@ -87,6 +89,7 @@ const beanStyles = css({
 <Layout {title} {description} maxW="3xl">
   <div
     class={grid({
+      position: "relative",
       gridTemplateColumns: "fit-content(20ch) repeat(4, 1fr)",
       gridAutoRows: "auto",
       borderTop: "4px solid",
@@ -221,39 +224,39 @@ const beanStyles = css({
     >
       <p>{data.rating}</p>
     </div>
+    <CoffeeBean
+      id="bean1"
+      class={cx(
+        beanStyles,
+        css({
+          bottom: -8,
+          right: 0,
+        }),
+      )}
+      client:load
+    />
+    <CoffeeBean
+      id="bean2"
+      class={cx(
+        beanStyles,
+        css({
+          bottom: -8,
+          right: 12,
+        }),
+      )}
+      client:load
+    />
+    <CoffeeBean
+      id="bean3"
+      class={cx(
+        beanStyles,
+        css({
+          bottom: { base: -3, md: 0 },
+          right: { base: 6, md: 4 },
+          transform: "rotate(-15deg)",
+        }),
+      )}
+      client:load
+    />
   </div>
-  <CoffeeBean
-    id="bean1"
-    class={cx(
-      beanStyles,
-      css({
-        bottom: 0,
-        right: 0,
-      }),
-    )}
-    client:load
-  />
-  <CoffeeBean
-    id="bean2"
-    class={cx(
-      beanStyles,
-      css({
-        bottom: 0,
-        right: "3rem",
-      }),
-    )}
-    client:load
-  />
-  <CoffeeBean
-    id="bean3"
-    class={cx(
-      beanStyles,
-      css({
-        bottom: "2rem",
-        right: "1rem",
-        transform: "rotate(-15deg)",
-      }),
-    )}
-    client:load
-  />
 </Layout>
