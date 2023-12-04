@@ -1,4 +1,5 @@
 export { Cancel } from "./Cancel";
+export { CoffeeBean } from "./CoffeeBean";
 export { Copy } from "./Copy";
 export { Github } from "./Github";
 export { Linkedin } from "./Linkedin";

@@ -1,0 +1,20 @@
+---
+import { Search } from "@/components/Search";
+import { H1 } from "@/components/typography";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export const prerender = true;
+
+const collection = await getCollection("coffee-calendar");
+const years = collection.map(({ data: { date } }) =>
+  date.getFullYear().toString(),
+);
+const list = years.filter((year, index) => years.indexOf(year) === index);
+const { pathname: path } = Astro.url;
+---
+
+<Layout maxW="2xl">
+  <H1>Coffee Calendars</H1>
+  <Search {path} {list} client:load />
+</Layout>

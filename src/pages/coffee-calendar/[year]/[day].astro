@@ -1,0 +1,255 @@
+---
+import CoffeeLayout from "@/layouts/CoffeeLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { H1, H2, LI } from "@/components/typography";
+import { css, cx } from "@/styled-system/css";
+import { flex, grid } from "@/styled-system/patterns";
+import { CoffeeBean } from "@/components/icons";
+
+export const prerender = true;
+
+export const getStaticPaths = async () => {
+  const collection = await getCollection("coffee-calendar");
+  const paths = collection.map(({ slug: day, data: { date } }) => {
+    const year = date.getFullYear().toString();
+
+    return { params: { year, day } };
+  });
+
+  return paths;
+};
+
+const { day } = Astro.params;
+const entry = await getEntry("coffee-calendar", day);
+const { Content } = await entry.render();
+const data = entry.data;
+const dayNum = day.split("-")[1];
+const dateDay = data.date.getDate().toString().padStart(2, "0");
+const dateMonth = data.date.getMonth().toString().padStart(2, "0");
+const dateYear = data.date.getFullYear().toString();
+
+const thStyles = css({ fontWeight: "extrabold", pb: { base: 0, md: 1 } });
+const beanStyles = css({
+  position: "absolute",
+  width: "3rem",
+  height: "auto",
+});
+---
+
+<script>
+  import { animate } from "motion";
+
+  animate(
+    "#bean1",
+    {
+      right: ["8rem", "0rem"],
+      transform: ["rotate(-180deg)", "rotate(0deg)"],
+      opacity: [0, 1],
+    },
+    {
+      duration: 0.5,
+      easing: "ease-out",
+    },
+  );
+
+  animate(
+    "#bean2",
+    {
+      right: ["15rem", "3rem"],
+      transform: ["rotate(-180deg)", "rotate(0deg)"],
+      opacity: [0, 1],
+    },
+    {
+      duration: 0.5,
+      delay: 0.2,
+      easing: "ease-out",
+    },
+  );
+  animate(
+    "#bean3",
+    {
+      right: ["11rem", "1rem"],
+      transform: ["rotate(-195deg)", "rotate(-15deg)"],
+      opacity: [0, 1],
+    },
+    {
+      duration: 0.5,
+      delay: 0.1,
+      easing: "ease-out",
+    },
+  );
+</script>
+
+<CoffeeLayout maxW="3xl">
+  <div
+    class={grid({
+      gridTemplateColumns: "fit-content(20ch) repeat(4, 1fr)",
+      gridAutoRows: "auto",
+      borderTop: "4px solid",
+      gap: 0,
+      "& div": {
+        fontSize: { base: "xs", sm: "md" },
+        border: "1px solid",
+        borderColor: "inherit",
+        p: { base: 2, md: 4 },
+      },
+      _light: {
+        borderColor: "gray.900",
+        backgroundColor: "gray.50",
+      },
+      _dark: {
+        borderColor: "gray.500",
+        backgroundColor: "gray.900",
+      },
+    })}
+  >
+    <div
+      class={flex({
+        alignItems: "center",
+        justifyContent: "center",
+        gridRowStart: 1,
+        gridRowEnd: 3,
+      })}
+    >
+      <H1
+        class={css({
+          fontSize: {
+            base: "4xl",
+            sm: "6xl",
+            md: "8xl",
+          },
+        })}
+      >
+        {dayNum}
+      </H1>
+    </div>
+    <div>
+      <p class={thStyles}>DAY</p>
+      <p>{dateDay}</p>
+    </div>
+    <div>
+      <p class={thStyles}>MONTH</p>
+      <p>{dateMonth}</p>
+    </div>
+    <div>
+      <p class={thStyles}>YEAR</p>
+      <p>{dateYear}</p>
+    </div>
+    <div>
+      <p class={thStyles}>TIME</p>
+      <p>{data.time}</p>
+    </div>
+    <div
+      class={css({
+        gridColumnStart: 2,
+        gridColumnEnd: -1,
+      })}
+      })}
+    >
+      <p class={thStyles}>COFFEE</p>
+      <p>
+        {data.coffee}
+      </p>
+    </div>
+    <div>
+      <p class={thStyles}>WEATHER</p>
+      <p>{data.weather}</p>
+    </div>
+    <div
+      class={css({
+        gridColumnStart: 2,
+        gridColumnEnd: -1,
+      })}
+    >
+      <p class={thStyles}>ROASTER</p>
+      <p>{data.roaster}</p>
+    </div>
+    <div>
+      <p class={thStyles}>BREW METHOD</p>
+      <p>{data.brewMethod}</p>
+    </div>
+    <div
+      class={css({
+        gridColumnStart: 2,
+        gridColumnEnd: -1,
+      })}
+    >
+      <p class={thStyles}>PROCESSING METHOD</p>
+      <p>{data.processingMethod}</p>
+    </div>
+    <div
+      class={css({
+        gridColumnStart: 1,
+        gridColumnEnd: -1,
+      })}
+    >
+      <p class={thStyles}>SOUNDTRACK</p>
+      <p>{data.soundtrack}</p>
+    </div>
+    <div
+      class={css({
+        gridColumnStart: 1,
+        gridColumnEnd: -1,
+      })}
+    >
+      <p class={cx(thStyles, css({ pb: 2 }))}>NOTES</p>
+      <Content components={{ h1: H1, h2: H2, li: LI }} />
+    </div>
+    <div>
+      <p class={cx(thStyles, css({ whiteSpace: "nowrap" }))}>CLASSIFICATION</p>
+    </div>
+    <div
+      class={css({
+        gridColumnStart: 2,
+        gridColumnEnd: -1,
+      })}
+    >
+      {data.classification}
+    </div>
+    <div>
+      <p class={thStyles}>RATING</p>
+    </div>
+    <div
+      class={css({
+        gridColumnStart: 2,
+        gridColumnEnd: -1,
+      })}
+    >
+      <p>{data.rating}</p>
+    </div>
+  </div>
+  <CoffeeBean
+    id="bean1"
+    class={cx(
+      beanStyles,
+      css({
+        bottom: 0,
+        right: 0,
+      }),
+    )}
+    client:load
+  />
+  <CoffeeBean
+    id="bean2"
+    class={cx(
+      beanStyles,
+      css({
+        bottom: 0,
+        right: "3rem",
+      }),
+    )}
+    client:load
+  />
+  <CoffeeBean
+    id="bean3"
+    class={cx(
+      beanStyles,
+      css({
+        bottom: "2rem",
+        right: "1rem",
+        transform: "rotate(-15deg)",
+      }),
+    )}
+    client:load
+  />
+</CoffeeLayout>

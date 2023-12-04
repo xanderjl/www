@@ -1,0 +1,17 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { css } from "@/styled-system/css";
+import type { PropertyTypes } from "@/styled-system/types/prop-type";
+
+interface Props {
+  description?: string;
+  maxW?: PropertyTypes["maxW"];
+  title?: string;
+}
+
+const props = Astro.props;
+---
+
+<Layout {...props}>
+  <slot />
+</Layout>
