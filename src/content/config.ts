@@ -48,7 +48,12 @@ const cofeeCalenderCollection = defineCollection({
   schema: z.object({
     bean: z.string().min(1),
     brewMethod: z.string().min(1),
-    classification: z.enum(["Daily coffee", "Special occasion", "Retry"]),
+    classification: z.enum([
+      "Daily coffee",
+      "Special occasion",
+      "Retry",
+      "Not for me",
+    ]),
     coffee: z.string().min(1),
     date: z.string().transform((str) => new Date(str)),
     processingMethod: z.string().min(1),
