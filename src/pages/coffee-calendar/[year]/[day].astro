@@ -5,6 +5,7 @@ import { H1, H2, LI } from "@/components/typography";
 import { css, cx } from "@/styled-system/css";
 import { flex, grid } from "@/styled-system/patterns";
 import { CoffeeBean } from "@/components/icons";
+import { capitalCase } from "change-case";
 
 export const prerender = true;
 
@@ -27,12 +28,15 @@ const dayNum = day.split("-")[1];
 const dateDay = data.date.getDate().toString().padStart(2, "0");
 const dateMonth = data.date.getMonth().toString().padStart(2, "0");
 const dateYear = data.date.getFullYear().toString();
+const title = `${capitalCase(day)}: ${data.coffee}`;
+const description = `${data.processingMethod}, ${data.bean}`;
 
 const thStyles = css({ fontWeight: "extrabold", pb: { base: 0, md: 1 } });
 const beanStyles = css({
   position: "absolute",
   width: "3rem",
   height: "auto",
+  opacity: 0,
 });
 ---
 
@@ -80,7 +84,7 @@ const beanStyles = css({
   );
 </script>
 
-<CoffeeLayout maxW="3xl">
+<CoffeeLayout {title} {description} maxW="3xl">
   <div
     class={grid({
       gridTemplateColumns: "fit-content(20ch) repeat(4, 1fr)",
