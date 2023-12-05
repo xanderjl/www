@@ -27,7 +27,21 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let by1: number;
   let bx2: number;
   let by2: number;
+  let bcx: number;
+  let bcy: number;
   let margin: number;
+
+  const flake = (p5: P5, x: number, y: number) => {
+    p5.push();
+    p5.translate(x, y);
+    Array.from({ length: 6 }).forEach((_, i) => {
+      p5.push();
+      p5.rotate(p5.TWO_PI / i);
+      p5.triangle(0, 0, 10, 10, -10, 10);
+      p5.pop();
+    });
+    p5.pop();
+  };
 
   const handleRenders = (p5: P5) => {
     x1 = p5.width * 0.5;
@@ -41,6 +55,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     by1 = y1 + margin;
     bx2 = x2 - margin;
     by2 = y2 - margin;
+    bcx = x1 + x1 * 0.5;
+    bcy = p5.height * 0.5;
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -49,12 +65,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+    p5.noFill();
+
+    // Draw flakes
+    flake(p5, bcx, bcy);
 
     // Overlay
     p5.push();
     p5.fill(background);
     p5.noStroke();
-    p5.rect(x1, y1, margin, y2);
+    p5.rect(0, y1, x1 + margin, y2);
     p5.rect(x1, y1, x2, margin);
     p5.rect(x1, y2 - margin, x2, margin);
     p5.rect(x2 - margin, y1, margin, y2);
@@ -64,8 +84,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.rect(bx1, by1, bx2 - bx1, by2 - by1);
 
     // Mark fold
-    p5.line(x1, y1, x1, y1 + p5.height * 0.01);
-    p5.line(x1, y2, x1, y2 - p5.height * 0.01);
+    p5.line(x1, y1, x1, y1 + p5.height * 0.005);
+    p5.line(x1, y2, x1, y2 - p5.height * 0.005);
   };
 
   sketch({
