@@ -2,7 +2,7 @@
 import { Logo } from "@/components/icons";
 import { Mobile } from "@/components/Navbar/Mobile";
 import { routes } from "@/routes";
-import { css } from "@/styled-system/css";
+import { css, cx } from "@/styled-system/css";
 import { container } from "@/styled-system/patterns";
 
 import { ThemeToggleButton } from "../buttons/ThemeToggleButton";
@@ -10,6 +10,21 @@ import { MobileLinks } from "./MobileLinks";
 
 const { pathname } = Astro.url;
 ---
+
+<script>
+  import { animate } from "motion";
+  import { isNavOpen } from "@/stores/navbar";
+
+  isNavOpen.subscribe((open) => {
+    if (open) {
+      animate(
+        ".mobile-nav",
+        { maxHeight: ["40px", "500px"] },
+        { duration: 1, easing: "ease-out" },
+      );
+    }
+  });
+</script>
 
 <div
   class={css({
@@ -70,9 +85,13 @@ const { pathname } = Astro.url;
     </div>
   </nav>
   <nav
-    class={container({
-      display: { base: "block", md: "none" },
-    })}
+    class={cx(
+      container({
+        display: { base: "block", md: "none" },
+        overflow: "hidden",
+      }),
+      "mobile-nav",
+    )}
   >
     <div
       class={css({

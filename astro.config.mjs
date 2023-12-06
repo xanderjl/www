@@ -16,6 +16,9 @@ export default defineConfig({
   adapter: vercel({
     edgeMiddleware: true,
   }),
+  devToolbar: {
+    enabled: true,
+  },
   integrations: [
     pandacss(),
     mdx({

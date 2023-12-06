@@ -31,7 +31,10 @@ const dateYear = data.date.getFullYear().toString();
 const title = `${capitalCase(day)}: ${data.coffee}`;
 const description = `${data.processingMethod}, ${data.bean}`;
 
-const thStyles = css({ fontWeight: "extrabold", pb: { base: 0, md: 1 } });
+const thStyles = css({
+  fontWeight: "extrabold",
+  pb: { base: 0, md: 1 },
+});
 const beanStyles = css({
   position: "absolute",
   width: { base: 6, md: 12 },
@@ -41,49 +44,9 @@ const beanStyles = css({
 ---
 
 <script>
-  import { animate } from "motion";
+  import { beansAnimation } from "@/animations";
 
-  const isMobile = window.matchMedia("(max-width: 640px)").matches;
-
-  animate(
-    "#bean1",
-    {
-      right: ["8rem", isMobile ? "1rem" : "0rem"],
-      transform: ["rotate(-180deg)", "rotate(0deg)"],
-      opacity: [0, 1],
-    },
-    {
-      duration: 0.5,
-      easing: "ease-out",
-    },
-  );
-
-  animate(
-    "#bean2",
-    {
-      right: ["15rem", isMobile ? "2.5rem" : "3rem"],
-      transform: ["rotate(-180deg)", "rotate(0deg)"],
-      opacity: [0, 1],
-    },
-    {
-      duration: 0.5,
-      delay: 0.2,
-      easing: "ease-out",
-    },
-  );
-  animate(
-    "#bean3",
-    {
-      right: ["11rem", isMobile ? "1.5rem" : "1rem"],
-      transform: ["rotate(-195deg)", "rotate(-15deg)"],
-      opacity: [0, 1],
-    },
-    {
-      duration: 0.5,
-      delay: 0.1,
-      easing: "ease-out",
-    },
-  );
+  beansAnimation();
 </script>
 
 <Layout {title} {description} maxW="3xl">

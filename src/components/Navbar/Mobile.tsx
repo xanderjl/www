@@ -4,7 +4,7 @@ import { Show } from "solid-js";
 
 import { Cancel, Menu } from "@/components/icons";
 import { isNavOpen } from "@/stores/navbar";
-import { css } from "@/styled-system/css";
+import { css, cx } from "@/styled-system/css";
 
 export const Mobile: Component = () => {
   const $isNavOpen = useStore(isNavOpen);
@@ -22,10 +22,13 @@ export const Mobile: Component = () => {
 
   return (
     <div
-      class={css({
-        display: { base: "flex", md: "none" },
-        flexDir: "column",
-      })}
+      class={cx(
+        css({
+          display: { base: "flex", md: "none" },
+          flexDir: "column",
+        }),
+        "mobile_nav",
+      )}
     >
       <Show
         when={$isNavOpen()}

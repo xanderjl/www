@@ -19,7 +19,9 @@ const { title, description, maxW } = Astro.props;
 ---
 
 <html lang="en">
-  <Head {title} {description} />
+  <Head {title} {description}>
+    <slot name="head" />
+  </Head>
   <body
     class={css({
       display: "flex",
