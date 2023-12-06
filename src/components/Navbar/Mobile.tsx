@@ -46,9 +46,8 @@ export const Mobile: Component = () => {
             animate(
               ".mobile-nav",
               { maxHeight: ["358px", "40px"] },
-              { duration: 0.15, easing: "ease-in-out" },
-            );
-            setTimeout(() => isNavOpen.set(!$isNavOpen()), 200);
+              { duration: 0.2, easing: "ease-in-out" },
+            ).finished.then(() => isNavOpen.set(!$isNavOpen()));
           }}
         />
       </Show>
