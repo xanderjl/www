@@ -35,8 +35,8 @@
     "@astrojs/solid-js": "3.0.2",
     "@astrojs/vercel": "6.0.0",
     "@auth/core": "0.18.4",
-    "@fontsource/dm-mono": "5.0.17",
-    "@fontsource/dm-serif-text": "5.0.17",
+    "@fontsource/dm-mono": "5.0.18",
+    "@fontsource/dm-serif-text": "5.0.18",
     "@jlengstorf/get-share-image": "0.8.0",
     "@nanostores/persistent": "0.9.1",
     "@nanostores/solid": "0.4.2",
@@ -80,8 +80,8 @@
     "prettier": "3.1.0",
     "prettier-plugin-astro": "0.12.2",
     "ts-node": "10.9.1",
-    "typescript": "5.3.2",
-    "vite": "5.0.5",
+    "typescript": "5.3.3",
+    "vite": "5.0.6",
     "zod-to-json-schema": "3.22.1"
   }
 }
