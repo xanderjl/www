@@ -1,7 +1,6 @@
 import { useStore } from "@nanostores/solid";
-import { animate } from "motion";
 import type { Component, ComponentProps } from "solid-js";
-import { createEffect, For, onCleanup } from "solid-js";
+import { For } from "solid-js";
 
 import { routes } from "@/routes";
 import { isNavOpen } from "@/stores/navbar";
@@ -13,15 +12,6 @@ interface ListProps extends ComponentProps<"ul"> {
 
 export const List: Component<ListProps> = ({ class: c, pathname, ...rest }) => {
   const $isNavOpen = useStore(isNavOpen);
-  createEffect(() => {
-    onCleanup(async () => {
-      animate(
-        ".mobile-nav",
-        { maxHeight: ["500px", "40px"] },
-        { duration: 1, easing: "ease-out" },
-      );
-    });
-  });
 
   return (
     <ul

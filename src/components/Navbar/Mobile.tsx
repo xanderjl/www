@@ -1,4 +1,5 @@
 import { useStore } from "@nanostores/solid";
+import { animate } from "motion";
 import type { Component } from "solid-js";
 import { Show } from "solid-js";
 
@@ -41,7 +42,14 @@ export const Mobile: Component = () => {
       >
         <Cancel
           class={iconStyles}
-          onClick={() => isNavOpen.set(!$isNavOpen())}
+          onClick={() => {
+            animate(
+              ".mobile-nav",
+              { maxHeight: ["358px", "40px"] },
+              { duration: 0.15, easing: "ease-in-out" },
+            );
+            setTimeout(() => isNavOpen.set(!$isNavOpen()), 200);
+          }}
         />
       </Show>
     </div>
