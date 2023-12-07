@@ -11,7 +11,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { createTiles, getDimensions, sketch } from "@/utils/p5";
+  import { convertSeed, createTiles, getDimensions, sketch } from "@/utils/p5";
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
 
@@ -29,7 +29,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let by2: number;
   let tiles: number[][];
   let margin: number;
-  let seed = 1;
+  let seed = convertSeed("The Lacailles");
   let rows = 15;
   let cols = 10;
   const length = 4;
@@ -104,7 +104,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     });
   };
 
-  const setup: Setup = (p5) => handleRenders(p5);
+  const setup: Setup = (p5) => {
+    p5.pixelDensity(1);
+    handleRenders(p5);
+  };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
