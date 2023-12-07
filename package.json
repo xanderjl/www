@@ -33,7 +33,7 @@
   "dependencies": {
     "@astrojs/mdx": "2.0.0",
     "@astrojs/solid-js": "3.0.2",
-    "@astrojs/vercel": "6.0.0",
+    "@astrojs/vercel": "6.0.1",
     "@auth/core": "0.18.4",
     "@fontsource/dm-mono": "5.0.18",
     "@fontsource/dm-serif-text": "5.0.18",

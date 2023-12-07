@@ -12,8 +12,8 @@ dependencies:
     specifier: 3.0.2
     version: 3.0.2(solid-js@1.8.7)(vite@5.0.6)
   '@astrojs/vercel':
-    specifier: 6.0.0
-    version: 6.0.0(astro@4.0.3)
+    specifier: 6.0.1
+    version: 6.0.1(astro@4.0.3)
   '@auth/core':
     specifier: 0.18.4
     version: 0.18.4
@@ -264,10 +264,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@astrojs/vercel@6.0.0(astro@4.0.3):
-    resolution: {integrity: sha512-PNv2h4XvZHAN0waZcH15TFEj5xjLfqbfoUQ81kxJgb9YHqDObgmVL/Wbh8rYk1HxpxB7/R+SRcqR+yscCySfVw==}
+  /@astrojs/vercel@6.0.1(astro@4.0.3):
+    resolution: {integrity: sha512-VX32LMSWdV2BvoEW3GcD6hBlE+oZ+zU3pbvX4P2tGMjqE4Em9RDb4GYyvwhncsISQD9jgEwjWmvqT/koSIVBxQ==}
     peerDependencies:
-      astro: ^4.0.0-beta.0
+      astro: ^4.0.2
     dependencies:
       '@astrojs/internal-helpers': 0.2.1
       '@vercel/analytics': 1.1.1
