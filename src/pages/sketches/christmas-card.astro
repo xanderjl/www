@@ -11,7 +11,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
+  import { createTiles, getDimensions, sketch } from "@/utils/p5";
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
 
@@ -27,20 +27,59 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let by1: number;
   let bx2: number;
   let by2: number;
-  let bcx: number;
-  let bcy: number;
+  let tiles: number[][];
   let margin: number;
+  let seed = 1;
+  let rows = 15;
+  let cols = 10;
+  const length = 4;
 
-  const flake = (p5: P5, x: number, y: number) => {
-    p5.push();
-    p5.translate(x, y);
-    Array.from({ length: 6 }).forEach((_, i) => {
-      p5.push();
-      p5.rotate(p5.TWO_PI / i);
-      p5.triangle(0, 0, 10, 10, -10, 10);
-      p5.pop();
+  const tile1 = (p5: P5, x: number, y: number, w: number, h: number) => {
+    const x1 = x + w;
+    const y1 = y;
+
+    Array.from({ length }).forEach((_, i) => {
+      const p = i / 4 - 1;
+      const aw = p5.map(p, 0, 1, 0, w * 2);
+      const ah = p5.map(p, 0, 1, 0, h * 2);
+      p5.arc(x1, y1, aw, ah, p5.HALF_PI, p5.PI);
     });
-    p5.pop();
+  };
+
+  const tile2 = (p5: P5, x: number, y: number, w: number, h: number) => {
+    const x1 = x;
+    const y1 = y + h;
+
+    Array.from({ length }).forEach((_, i) => {
+      const p = i / 4 - 1;
+      const aw = p5.map(p, 0, 1, 0, w * 2);
+      const ah = p5.map(p, 0, 1, 0, h * 2);
+      p5.arc(x1, y1, aw, ah, p5.HALF_PI + p5.PI, 0);
+    });
+  };
+
+  const tile3 = (p5: P5, x: number, y: number, w: number, h: number) => {
+    const x1 = x;
+    const y1 = y;
+
+    Array.from({ length }).forEach((_, i) => {
+      const p = i / 4 - 1;
+      const aw = p5.map(p, 0, 1, 0, w * 2);
+      const ah = p5.map(p, 0, 1, 0, h * 2);
+      p5.arc(x1, y1, aw, ah, 0, p5.HALF_PI);
+    });
+  };
+
+  const tile4 = (p5: P5, x: number, y: number, w: number, h: number) => {
+    const x1 = x + w;
+    const y1 = y + h;
+
+    Array.from({ length }).forEach((_, i) => {
+      const p = i / 4 - 1;
+      const aw = p5.map(p, 0, 1, 0, w * 2);
+      const ah = p5.map(p, 0, 1, 0, h * 2);
+      p5.arc(x1, y1, aw, ah, p5.PI, p5.HALF_PI + p5.PI);
+    });
   };
 
   const handleRenders = (p5: P5) => {
@@ -55,8 +94,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     by1 = y1 + margin;
     bx2 = x2 - margin;
     by2 = y2 - margin;
-    bcx = x1 + x1 * 0.5;
-    bcy = p5.height * 0.5;
+    tiles = createTiles({
+      rows,
+      cols,
+      tileW: (bx2 - bx1) / cols,
+      tileH: (by2 - by1) / rows,
+      xStart: bx1,
+      yStart: by1,
+    });
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -67,12 +112,50 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.background(background);
     p5.noFill();
 
-    // Draw flakes
-    flake(p5, bcx, bcy);
+    p5.push();
+    p5.stroke("red");
+    p5.strokeWeight(p5.width * 0.0025);
+    p5.strokeCap("butt");
+    p5.fill(background);
+
+    // Tiles
+    tiles.forEach(([x, y, w, h]) => {
+      // randomly select a tile
+      const tile = Math.floor(p5.random(1, 6));
+      if (tile === 1) {
+        tile1(p5, x, y, w, h);
+        tile3(p5, x, y, w, h);
+      }
+      if (tile === 2) {
+        tile2(p5, x, y, w, h);
+        tile4(p5, x, y, w, h);
+      }
+      if (tile === 3) {
+        tile1(p5, x, y, w, h);
+        tile2(p5, x, y, w, h);
+      }
+      if (tile === 4) {
+        tile3(p5, x, y, w, h);
+        tile4(p5, x, y, w, h);
+      }
+      if (tile === 5) {
+        tile1(p5, x, y, w, h);
+        tile4(p5, x, y, w, h);
+      }
+      if (tile === 6) {
+        tile2(p5, x, y, w, h);
+        tile3(p5, x, y, w, h);
+      }
+    });
+    p5.pop();
+    // tiles.forEach(([x, y, w, h]) => {
+    //   p5.rect(x, y, w, h);
+    // }); // debug
 
     // Overlay
     p5.push();
     p5.fill(background);
+    // p5.fill(255, 0, 0, 100); // debug
     p5.noStroke();
     p5.rect(0, y1, x1 + margin, y2);
     p5.rect(x1, y1, x2, margin);
@@ -84,8 +167,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.rect(bx1, by1, bx2 - bx1, by2 - by1);
 
     // Mark fold
+    p5.push();
+    p5.stroke("blue");
     p5.line(x1, y1, x1, y1 + p5.height * 0.005);
     p5.line(x1, y2, x1, y2 - p5.height * 0.005);
+    p5.pop();
   };
 
   sketch({
@@ -94,6 +180,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     dimensions,
     padding,
+    seed,
     saveAs: "svg",
     suffix: "christmas-card",
   });
