@@ -11,7 +11,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
+  import {
+    createSVGOverlay,
+    drawBorder,
+    getDimensions,
+    sketch,
+  } from "@/utils/p5";
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
 
@@ -40,7 +45,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.background(background);
     p5.noFill();
 
-    circles(p5, p5.width * 0.5, p5.height * 0.5, 30);
+    circles(p5, p5.width * 0.5, p5.height * 0.5, 60);
+
+    createSVGOverlay(p5, margin, background);
+    drawBorder(p5, margin);
   };
 
   sketch({
