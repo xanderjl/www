@@ -16,4 +16,8 @@ export const routes: Route[] = [
     name: "Coffee Calendar",
     path: "/coffee-calendar",
   },
+  {
+    name: "Genuary",
+    path: "/genuary",
+  }
 ];

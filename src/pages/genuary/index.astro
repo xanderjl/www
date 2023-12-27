@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Search } from "@/components/Search";
+import { getSketchSlugs } from "@/utils/getSketchUrls";
+import { cwd } from "process";
+
+const list = await getSketchSlugs(`${cwd()}/src/pages/genuary`);
+
+const { pathname: path } = Astro.url;
+---
+
+<Layout maxW="2xl">
+  <Search {path} {list} />
+</Layout>
