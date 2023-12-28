@@ -83,5 +83,8 @@
     "typescript": "5.3.3",
     "vite": "5.0.10",
     "zod-to-json-schema": "3.22.3"
-  }
+  },
+  "trustedDependencies": [
+    "sharp"
+  ]
 }
