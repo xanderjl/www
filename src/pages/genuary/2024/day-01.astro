@@ -11,21 +11,77 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import type { Draw } from "@/utils/p5";
-  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import { createGrid, getDimensions, sketch } from "@/utils/p5";
+  import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("square");
   const padding: number[] = [40];
   const background = [255, 253, 252];
+  const seed = 20;
+  let grid: number[][];
+  let margin: number;
+  let overlay: P5.Graphics;
+
+  const particleSpray = (p5: P5, x: number, y: number, count: number = 100) => {
+    Array.from({ length: count }).forEach(() => {
+      const rgb = p5.random(0, 255);
+      const angle = p5.random(0, p5.TWO_PI);
+      const radius = p5.random(0, margin);
+      const px = x + p5.cos(angle) * radius;
+      const py = y + p5.sin(angle) * radius;
+
+      p5.stroke(rgb, rgb, rgb, 100);
+      p5.strokeWeight(2);
+      p5.point(px, py);
+    });
+  };
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    grid = createGrid(200).map(([u, v]) => {
+      const x = p5.lerp(margin, p5.width - margin, u);
+      const y = p5.lerp(margin, p5.height - margin, v);
+      const a = p5.noise(u, v) * p5.TWO_PI;
+
+      return [x, y, a];
+    });
+
+    overlay = p5.createGraphics(p5.width, p5.height);
+    overlay.background(background as unknown as P5.Color);
+    overlay.erase();
+    overlay.circle(p5.width * 0.5, p5.height * 0.5, p5.width - margin * 2);
+    overlay.noErase();
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
+    p5.noLoop();
     p5.background(background);
+    p5.rectMode("center");
+
+    grid.forEach(([x, y, a]) => {
+      p5.push();
+      p5.translate(x, y);
+      p5.rotate(a);
+      p5.rect(0, 0, p5.width * 0.01);
+      p5.pop();
+    });
+
+    p5.image(overlay, 0, 0);
   };
 
   sketch({
     dimensions,
+    setup,
+    windowResized,
     draw,
     padding,
+    seed,
     saveAs: "png",
     suffix: "day-01",
   });
