@@ -34,7 +34,7 @@
   "dependencies": {
     "@astrojs/mdx": "2.0.3",
     "@astrojs/solid-js": "3.0.3",
-    "@astrojs/vercel": "6.1.1",
+    "@astrojs/vercel": "6.1.2",
     "@auth/core": "0.19.0",
     "@fontsource/dm-mono": "5.0.18",
     "@fontsource/dm-serif-text": "5.0.18",
@@ -42,7 +42,7 @@
     "@nanostores/persistent": "0.9.1",
     "@nanostores/solid": "0.4.2",
     "@vercel/blob": "0.16.1",
-    "astro": "4.0.8",
+    "astro": "4.0.9",
     "auth-astro": "4.1.0",
     "change-case": "5.3.0",
     "dat.gui": "^0.7.9",
@@ -60,9 +60,9 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@pandacss/astro": "0.23.0",
-    "@pandacss/dev": "0.23.0",
-    "@pandacss/types": "0.23.0",
+    "@pandacss/astro": "0.24.1",
+    "@pandacss/dev": "0.24.1",
+    "@pandacss/types": "0.24.1",
     "@types/dat.gui": "^0.7.12",
     "@types/geojson": "7946.0.13",
     "@types/p5": "1.6.0",
