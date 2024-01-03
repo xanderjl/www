@@ -21,7 +21,7 @@ const paperSizes = {
   iPhoneProMax: [1170, 2532],
   legal: [816, 1344],
   letter: [816, 1056],
-  square: [2400, 2500],
+  square: [2400, 2400],
 };
 
 type GetDimensions = (
