@@ -23,20 +23,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let margin: number;
   let overlay: P5.Graphics;
 
-  const particleSpray = (p5: P5, x: number, y: number, count: number = 100) => {
-    Array.from({ length: count }).forEach(() => {
-      const rgb = p5.random(0, 255);
-      const angle = p5.random(0, p5.TWO_PI);
-      const radius = p5.random(0, margin);
-      const px = x + p5.cos(angle) * radius;
-      const py = y + p5.sin(angle) * radius;
-
-      p5.stroke(rgb, rgb, rgb, 100);
-      p5.strokeWeight(2);
-      p5.point(px, py);
-    });
-  };
-
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
     grid = createGrid(200).map(([u, v]) => {
