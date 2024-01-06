@@ -1,0 +1,67 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("square");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  const seed = 1;
+  let margin: number;
+  let img: P5.Image;
+  let sorted: P5.Image;
+
+  const preload: Preload = (p5) => {
+    img = p5.loadImage("../../images/bust.png");
+  };
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    img.loadPixels();
+    img.resize(p5.width, p5.height);
+    img.filter("gray");
+    p5.updatePixels();
+
+    sorted = img.get();
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.background(background);
+
+    p5.image(sorted, 0, 0);
+  };
+
+  sketch({
+    dimensions,
+    preload,
+    setup,
+    windowResized,
+    draw,
+    padding,
+    seed,
+    saveAs: "png",
+    suffix: "day-03",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>

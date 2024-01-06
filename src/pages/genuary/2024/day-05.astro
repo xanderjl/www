@@ -1,0 +1,87 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import { createGrain, createGrid, getDimensions, sketch } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("square");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  const seed = 1;
+  const rows = 4;
+  const cols = 9;
+  let margin: number;
+  let grid: number[][] = [];
+  let grain: P5.Graphics;
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.25;
+    grid = createGrid(rows, cols).map(([u, v]) => [
+      p5.lerp(margin, p5.width - margin, u),
+      p5.lerp(margin, p5.height - margin, v),
+    ]);
+    grain = createGrain(p5, 10);
+  };
+
+  const setup: Setup = (p5) => {
+    p5.rectMode("center");
+    p5.noStroke();
+    p5.fill(255, 0, 0, 150);
+
+    handleRenders(p5);
+  };
+  const windowResized: WindowResized = (p5) => {
+    handleRenders(p5);
+    p5.redraw();
+  };
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.background(background);
+
+    grid.forEach(([u, v]) => {
+      const p = p5.width * 0.0125;
+      const q = p5.width * 0.0005;
+      const cf = p5.width / (cols * 20);
+      const rf = p5.height / (rows * 13);
+      const x = u + p5.random(-p, p);
+      const y = v + p5.random(-p, p);
+      const w = p * cf + p5.random(-q, q);
+      const h = p * rf + +p5.random(-q, q);
+
+      p5.push();
+      p5.translate(x, y);
+      p5.rotate(p5.random(p5.radians(-3), p5.radians(3)));
+      p5.rect(0, 0, w, h);
+      p5.pop();
+    });
+
+    p5.image(grain, 0, 0);
+  };
+
+  sketch({
+    dimensions,
+    setup,
+    windowResized,
+    draw,
+    padding,
+    seed,
+    saveAs: "png",
+    suffix: "day-05",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
