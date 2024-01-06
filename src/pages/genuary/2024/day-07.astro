@@ -12,24 +12,42 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
-  import { createGrain, getDimensions, sketch } from "@/utils/p5";
+  import { createGrain, createTiles, getDimensions, sketch } from "@/utils/p5";
   import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("square");
   const padding: number[] = [40];
   const background = [255, 253, 252];
   const seed = 1;
+  const rows = 15;
+  let cols: number;
   let margin: number;
   let grain: P5.Graphics;
   let progress: number;
   let h: number;
+  let tileW: number;
+  let tileH: number;
+  let tiles: number[][];
 
   const handleRenders = (p5: P5) => {
-    const ratio = 7 / 31;
-    h = p5.height * 0.025;
-    margin = p5.width * 0.25;
+    const ratio = 16 / 31;
+    margin = p5.width * 0.125;
     grain = createGrain(p5, 10);
     progress = (p5.width - margin * 2) * ratio;
+    h = p5.height * 0.025;
+    tileH = h / rows;
+    tileW = tileH;
+    cols = progress / tileW;
+    tiles = createTiles({
+      rows,
+      cols,
+      tileW,
+      tileH,
+      xStart: margin,
+      yStart: p5.height * 0.5 - h * 0.5,
+    });
+
+    p5.strokeWeight(p5.width * 0.001);
   };
 
   const setup: Setup = (p5) => handleRenders(p5);
@@ -42,10 +60,21 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noLoop();
     p5.background(background);
 
+    p5.noStroke();
+    tiles.forEach(([x, y, w, h]) => {
+      const threshold = p5.map(x, margin, margin + progress, 0, 1);
+
+      if (p5.random() > threshold) {
+        p5.fill(0);
+      } else {
+        p5.noFill();
+      }
+      p5.rect(x, y, w, h);
+    });
+
+    p5.stroke(0);
     p5.noFill();
     p5.rect(margin, p5.height * 0.5 - h * 0.5, p5.width - margin * 2, h);
-    p5.fill(0);
-    p5.rect(margin, p5.height * 0.5 - h * 0.5, progress, h);
 
     p5.image(grain, 0, 0);
   };
