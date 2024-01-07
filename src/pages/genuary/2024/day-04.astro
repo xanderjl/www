@@ -12,16 +12,20 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
-  import { getDimensions, sketch } from "@/utils/p5";
+  import { createGrain, createTiles, getDimensions, sketch } from "@/utils/p5";
   import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("square");
   const padding: number[] = [40];
   const background = [255, 253, 252];
   const seed = 1;
-  let margin: number;
+  const rows = 190;
   let img: P5.Image;
+  let mask: P5.Image;
   let sorted: P5.Image;
+  let tiles: number[][];
+  let grain: P5.Graphics;
+  let margin: number;
 
   const preload: Preload = (p5) => {
     img = p5.loadImage("../../images/bust.png");
@@ -30,11 +34,66 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
     img.loadPixels();
-    img.resize(p5.width, p5.height);
+    img.resize(p5.width - margin * 2, p5.height - margin * 2);
     img.filter("gray");
-    p5.updatePixels();
+    img.updatePixels();
+
+    mask = p5.createImage(img.width, img.height);
+    mask.copy(img, 0, 0, img.width, img.height, 0, 0, img.width, img.height);
+    // mask.filter("threshold", 0.185);
+    mask.filter("threshold", 0.195);
 
     sorted = img.get();
+    sorted.loadPixels();
+    Array.from({ length: sorted.height }, (_, i): void => {
+      const pxRow: [number, number, number[]][] = [];
+
+      Array.from({ length: sorted.width }, (_, j) => {
+        const px = mask.get(i, j);
+        if (px[0] === 0) {
+          sorted.set(i, j, [0, 0, 0, 0]);
+          pxRow.push([i, j, img.get(i, j)]);
+        } else if (px[0] === 255) {
+          const b = p5.brightness(img.get(i, j));
+          const t = b > 30;
+          t && sorted.set(i, j, [255, 255, 255, 255]);
+        }
+      });
+      if (pxRow.length) {
+        pxRow.forEach(([x, y], index) => {
+          sorted.set(x, y, [index, 0, 0, 255]);
+        });
+      }
+    });
+
+    sorted.updatePixels();
+
+    sorted.loadPixels();
+    Array.from({ length: Math.floor(p5.random(35)) }, () => {
+      sorted.copy(
+        sorted,
+        p5.random(sorted.width),
+        p5.random(sorted.height),
+        p5.random(sorted.width),
+        p5.random(sorted.height),
+        p5.random(sorted.width),
+        p5.random(sorted.height),
+        p5.random(sorted.width),
+        p5.random(sorted.height),
+      );
+    });
+    sorted.updatePixels();
+
+    tiles = createTiles({
+      rows,
+      cols: rows,
+      xStart: margin,
+      yStart: margin,
+      tileW: img.width / rows,
+      tileH: img.height / rows,
+    });
+
+    grain = createGrain(p5);
 
     p5.redraw();
   };
@@ -46,7 +105,20 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noLoop();
     p5.background(background);
 
-    p5.image(sorted, 0, 0);
+    p5.image(sorted, margin, margin);
+
+    tiles.forEach(([x, y, w, h]) => {
+      const px = sorted.get(x - margin, y - margin);
+      const b = p5.brightness(px);
+      const t = b > 30;
+      if (t) {
+        p5.fill(px);
+        p5.noStroke();
+        p5.rect(x, y, w, h);
+      }
+    });
+
+    p5.image(grain, 0, 0);
   };
 
   sketch({
@@ -58,7 +130,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     padding,
     seed,
     saveAs: "png",
-    suffix: "day-03",
+    suffix: "day-04",
   });
 </script>
 
