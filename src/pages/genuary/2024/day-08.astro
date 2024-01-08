@@ -1,0 +1,115 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import {
+    createOverlay,
+    createTiles,
+    getDimensions,
+    sketch,
+  } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("square");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  const seed = 1;
+  const rows = 50;
+  const cols = 50;
+  let margin: number;
+  let tiles: number[][];
+  let render: P5.Graphics;
+  let inverted: P5.Image;
+  let overlay: P5.Graphics;
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.125;
+    tiles = createTiles({
+      rows,
+      cols,
+      xStart: margin,
+      yStart: margin,
+      tileW: (p5.width - margin * 2) / cols,
+      tileH: (p5.height - margin * 2) / rows,
+    });
+    render = p5.createGraphics(p5.width, p5.height);
+
+    tiles.forEach(([x, y, w, h]) => {
+      const randRed = p5.random(255);
+      const randElse = randRed - p5.random(10, 200);
+      const color = [randRed, randElse, randElse];
+      render.fill(color);
+      render.stroke(color);
+      render.rect(x, y, w, h);
+    });
+
+    inverted = p5.createImage(p5.width, p5.height);
+    inverted.copy(render, 0, 0, p5.width, p5.height, 0, 0, p5.width, p5.height);
+    inverted.filter("gray");
+
+    overlay = createOverlay(p5, background, margin);
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.background(background);
+
+    Array.from({ length: 20 }, (): void => {
+      const sx = p5.random(margin, render.width - margin);
+      const sy = p5.random(margin, render.height - margin);
+      const sw = p5.random(margin, render.width - margin);
+      const sh = p5.random(margin, render.height - margin);
+      const dx = p5.random(margin, p5.width - margin);
+      const dy = p5.random(margin, p5.height - margin);
+      const dw = p5.random(margin, p5.width - margin);
+      const dh = p5.random(margin, p5.height - margin);
+
+      p5.copy(
+        p5.random() > 0.5 ? render : inverted,
+        sx,
+        sy,
+        sw,
+        sh,
+        dx,
+        dy,
+        dw,
+        dh,
+      );
+    });
+
+    p5.image(overlay, 0, 0);
+
+    p5.fill(0);
+    p5.circle(margin * 2, margin * 2, margin * 1.5);
+  };
+
+  sketch({
+    dimensions,
+    setup,
+    windowResized,
+    draw,
+    padding,
+    seed,
+    saveAs: "png",
+    suffix: "day-08",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
