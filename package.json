@@ -7,7 +7,6 @@
   "version": "2.2.0",
   "scripts": {
     "prepare": "panda codegen",
-    "up": "bunx npm-check-updates -ui",
     "dev": "rm -rf .astro/ && astro dev --port 3000",
     "dev:studio": "panda studio --preview",
     "start": "astro dev",

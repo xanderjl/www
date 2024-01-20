@@ -1,0 +1,52 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("square");
+  const padding: number[] = [40];
+  const background = [255, 253, 252];
+  const seed = 1;
+  let margin: number;
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.125;
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.background(background);
+  };
+
+  sketch({
+    dimensions,
+    setup,
+    windowResized,
+    draw,
+    padding,
+    seed,
+    saveAs: "png",
+    suffix: "day-09",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
