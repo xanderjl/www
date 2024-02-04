@@ -19,10 +19,59 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const padding: number[] = [40];
   const background = [255, 253, 252];
   const seed = 1;
+  const rows = 12;
+  const cols = 12;
   let margin: number;
+  let width: number;
+  let height: number;
+  let size: number;
+  let grid: number[][];
+  let h: number;
+  let v: number;
+  let x: number;
+  let y: number;
+
+  const hexagon = (p5: P5, x: number, y: number, size: number) => {
+    p5.beginShape();
+    Array.from({ length: 6 }).forEach((_, i) => {
+      const angle = p5.radians(60) * i - p5.radians(30);
+      const sx = x + p5.cos(angle) * size;
+      const sy = y + p5.sin(angle) * size;
+      p5.vertex(sx, sy);
+    });
+    p5.endShape(p5.CLOSE);
+  };
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.125;
+    size = (p5.width / rows) * 0.75;
+    width = Math.sqrt(3) * size;
+    height = size * 2;
+    h = width;
+    v = height * 0.75;
+    x = p5.width * 0.5;
+    y = p5.height * 0.5;
+    const offsetGrid = () => {
+      const points: number[][] = [];
+
+      Array.from({ length: cols }, (_, i) =>
+        Array.from({ length: rows }, (_, j) => {
+          const u = i / (cols - 1);
+          const v = j / (rows - 1);
+          const x =
+            j % 2 === 0
+              ? p5.lerp(0, p5.width, u) + size * 0.75
+              : p5.lerp(0, p5.width, u);
+          const y = p5.lerp(0, p5.height, v);
+
+          points.push([x, y]);
+        }),
+      );
+
+      return points;
+    };
+
+    grid = offsetGrid();
 
     p5.redraw();
   };
@@ -33,6 +82,17 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const draw: Draw = (p5) => {
     p5.noLoop();
     p5.background(background);
+
+    grid.forEach(([x, y], i) => {
+      if (i % 2 === 0) {
+        // p5.fill(0);
+      } else {
+        p5.fill(255);
+      }
+
+      hexagon(p5, x, y, size);
+      p5.circle(x, y, 5);
+    });
   };
 
   sketch({
