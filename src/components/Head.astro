@@ -1,6 +1,6 @@
 ---
 // @ts-ignore
-import getShareImage from "@jlengstorf/get-share-image";
+import { generateSocialImage } from "@jlengstorf/get-share-image";
 
 import baseUrl from "@/utils/baseUrl";
 
@@ -17,7 +17,7 @@ const padding = 60;
 const formattedTitle = title ? `Xander Low | ${title}` : "Xander Low";
 const formattedDescription = description ?? "Developing for the web";
 
-const ogImage = getShareImage({
+const ogImage = generateSocialImage({
   cloudName: "dbgrselct",
   imageHeight: 630,
   imagePublicID: "og-image",
@@ -63,12 +63,12 @@ const ogImage = getShareImage({
       ?.setAttribute("class", theme);
   </script>
   <script>
-    import { isDark } from "@/stores/styles";
+    import { theme } from "@/stores/styles";
 
-    isDark.subscribe((isDark) => {
+    theme.subscribe((theme) => {
       document
         .getElementsByTagName("html")[0]
-        ?.setAttribute("class", isDark );
+        ?.setAttribute("class", theme );
     })
     
   </script>

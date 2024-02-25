@@ -1,8 +1,8 @@
 import { persistentAtom } from "@nanostores/persistent";
-import { action } from "nanostores";
 
-export const isDark = persistentAtom<"light" | "dark">("theme", "light");
+type Theme = "light" | "dark";
 
-export const toggle = action(isDark, "toggle", (isDark) => {
-  return isDark.set(isDark.get() === "light" ? "dark" : "light");
-});
+export const theme = persistentAtom<Theme>("theme", "light");
+
+export const toggle = (t: typeof theme) => t.set(t.get() === "light" ? "dark" : "light")
+

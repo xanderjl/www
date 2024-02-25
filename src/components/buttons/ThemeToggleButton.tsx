@@ -2,7 +2,7 @@ import { useStore } from "@nanostores/solid";
 import type { Component, ComponentProps } from "solid-js";
 import { Match, Switch } from "solid-js";
 
-import { isDark, toggle } from "@/stores/styles";
+import { theme, toggle } from "@/stores/styles";
 import { css } from "@/styled-system/css";
 
 import { Moon, Sun } from "../icons";
@@ -10,7 +10,7 @@ import { Moon, Sun } from "../icons";
 export const ThemeToggleButton: Component<ComponentProps<"button">> = (
   props,
 ) => {
-  const $isDark = useStore(isDark);
+  const $isDark = useStore(theme);
 
   return (
     <button onClick={toggle} {...props}>
