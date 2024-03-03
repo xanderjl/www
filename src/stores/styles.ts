@@ -4,5 +4,4 @@ type Theme = "light" | "dark";
 
 export const theme = persistentAtom<Theme>("theme", "light");
 
-export const toggle = (t: typeof theme) => t.set(t.get() === "light" ? "dark" : "light")
-
+export const toggle = () => theme.set(theme.get() === "light" ? "dark" : "light");

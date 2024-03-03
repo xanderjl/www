@@ -10,15 +10,15 @@ import { Moon, Sun } from "../icons";
 export const ThemeToggleButton: Component<ComponentProps<"button">> = (
   props,
 ) => {
-  const $isDark = useStore(theme);
+  const $theme = useStore(theme);
 
   return (
-    <button onClick={toggle} {...props}>
+    <button onClick={() => toggle()} {...props}>
       <Switch>
-        <Match when={$isDark() === "light"}>
+        <Match when={$theme() === "light"}>
           <Sun class={css({ h: "inherit", w: "inherit" })} />
         </Match>
-        <Match when={$isDark() === "dark"}>
+        <Match when={$theme() === "dark"}>
           <Moon class={css({ h: "inherit", w: "inherit" })} />
         </Match>
       </Switch>
