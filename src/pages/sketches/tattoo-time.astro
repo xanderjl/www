@@ -1,0 +1,161 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+export const prerender = true;
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { getDimensions, sketch, createTiles } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+  import { GUI } from "dat.gui";
+  import type { GUIController } from "dat.gui/index.d.ts";
+
+  /**
+   * RULES:
+   * 1. The system must rely on a tiles
+   * 2. There must be one red circle somewhere in the piece
+   * 3. It must not be too complex, as it will need to be tattooed
+   * 4. There will only be black and red elements
+   */
+
+  const dimensions: number[] = getDimensions("square");
+  const padding: number[] = [48];
+  const background = [255, 253, 252];
+  let tiles: number[][];
+  let tileW: number;
+  let tileH: number;
+  let seed = 1;
+  let redCircleExists: boolean;
+
+  const dat = {
+    threshold: 0.9,
+    margin: 0,
+    strokeWeight: 1,
+    rows: 4,
+    useCols: false,
+    cols: 4,
+    blackFillThreshold: 1,
+    redFill: true,
+  };
+
+  const createGUI = (p5: P5) => {
+    const gui = new GUI();
+    gui.width = 400;
+
+    dat.margin = p5.width * 0.075;
+
+    const global = gui.addFolder("Global");
+    global
+      .add(dat, "threshold", 0, 1, 0.01)
+      .name("Circle Placement Chance")
+      .onChange(() => p5.redraw());
+    global
+      .add(dat, "margin", 0, p5.width * 0.25, 1)
+      .onChange(() => p5.redraw());
+    global.add(dat, "strokeWeight", 1, 100, 1).onChange(() => p5.redraw());
+
+    const tiles = gui.addFolder("Tiles");
+    let cols: GUIController;
+    tiles.add(dat, "rows", 1, 10, 1).onChange(() => p5.redraw());
+    tiles.add(dat, "useCols").onChange((val) => {
+      if (val) {
+        cols = tiles.add(dat, "cols", 1, 10, 1).onChange(() => p5.redraw());
+      } else {
+        tiles.remove(cols);
+        p5.redraw();
+      }
+    });
+    const black = gui.addFolder("Black");
+    black
+      .add(dat, "blackFillThreshold", 0, 1, 0.01)
+      .name("Fill Chance")
+      .onChange(() => p5.redraw());
+    const red = gui.addFolder("Red");
+    red
+      .add(dat, "redFill")
+      .name("Fill")
+      .onChange(() => p5.redraw());
+  };
+
+  const setup: Setup = (p5) => createGUI(p5);
+
+  const windowResized: WindowResized = (p5) => p5.redraw();
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.noFill();
+    p5.strokeWeight(dat.strokeWeight);
+    p5.background(background);
+    redCircleExists = false;
+    const cols = dat.useCols ? dat.cols : dat.rows;
+    tileW = (p5.height - dat.margin * 2) / cols;
+    tileH = (p5.width - dat.margin * 2) / dat.rows;
+    tiles = createTiles({
+      rows: dat.rows,
+      cols,
+      tileW,
+      tileH,
+      xStart: dat.margin,
+      yStart: dat.margin,
+    });
+
+    tiles.forEach(([x, y]) => {
+      p5.push();
+      if (p5.random() > dat.threshold && !redCircleExists) {
+        dat.redFill && p5.fill(255, 0, 0);
+        p5.stroke(255, 0, 0);
+        p5.ellipse(x + tileW * 0.5, y + tileH * 0.5, tileW, tileW);
+
+        redCircleExists = true;
+      } else {
+        p5.random() < dat.blackFillThreshold && p5.fill(0);
+        p5.stroke(0);
+
+        const rand = p5.random();
+
+        if (rand < 0.2) {
+          p5.arc(x, y, tileW * 2, tileH * 2, 0, p5.HALF_PI);
+        } else if (rand > 0.2 && rand < 0.4) {
+          p5.arc(x, y + tileH, tileW * 2, tileH * 2, -p5.HALF_PI, 0);
+        } else if (rand > 0.4 && rand < 0.6) {
+          p5.arc(
+            x + tileW,
+            y + tileH,
+            tileW * 2,
+            tileH * 2,
+            -p5.PI,
+            -p5.HALF_PI,
+          );
+        } else if (rand > 0.6 && rand < 0.8) {
+          p5.arc(x + tileW, y, tileW * 2, tileH * 2, p5.HALF_PI, -p5.PI);
+        } else {
+          p5.rect(x, y, tileW, tileH);
+        }
+      }
+      p5.pop();
+    });
+  };
+
+  sketch({
+    seed,
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    saveAs: "png",
+    suffix: "tattoo-time",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
