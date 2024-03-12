@@ -1,21 +1,9 @@
 ---
 import { SignOut } from "auth-astro/components";
-
-import { css } from "@/styled-system/css";
 ---
 
 <SignOut
-  class={css({
-    _hover: {
-      bg: "red.600",
-    },
-    bg: "red.500",
-    borderRadius: "md",
-    color: "white",
-    h: "max-content",
-    p: 2,
-    w: "max-content",
-  })}
+  class="h-max w-max rounded-md bg-red-500 p-2 text-white hover:bg-red-600"
 >
   <slot />
 </SignOut>

@@ -1,7 +1,5 @@
 import type { Component, ComponentProps } from "solid-js";
 
-import { css, cx } from "@/styled-system/css";
-
 interface DeleteBlobButtonProps extends ComponentProps<"button"> {
   url: string;
 }
@@ -14,18 +12,7 @@ export const DeleteBlobButton: Component<DeleteBlobButtonProps> = ({
 }) => {
   return (
     <button
-      class={cx(
-        css({
-          _hover: {
-            bg: "red.500",
-          },
-          bg: "red.400",
-          borderRadius: "md",
-          color: "white",
-          p: 2,
-        }),
-        c,
-      )}
+      class={`rounded-md bg-red-400 p-2 text-white hover:bg-red-500${c ? ` ${c}` : ""}`}
       onClick={() => {
         fetch(url, { method: "DELETE" });
       }}

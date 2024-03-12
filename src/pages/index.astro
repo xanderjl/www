@@ -6,8 +6,6 @@ import headshot from "@/assets/images/headshot.jpg";
 import { Github, Linkedin, Mail, Threads } from "@/components/icons";
 import { H1, H2 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
-import { css, cx } from "@/styled-system/css";
-import { flex } from "@/styled-system/patterns";
 
 export const prerender = true;
 
@@ -44,78 +42,32 @@ const { email, socials } = data;
   );
 </script>
 
-<Layout title="Home" maxW="4xl">
+<Layout title="Home" class="max-w-4xl">
   <div
-    class={flex({
-      flexDirection: { base: "column", md: "row" },
-      gap: { base: 10, md: 6 },
-      justifyContent: { md: "center" },
-      pt: { base: 4, md: 10 },
-    })}
+    class="flex flex-col gap-10 pt-4 md:flex-row md:justify-center md:gap-6 md:pt-10"
   >
     <Image
       src={headshot}
       alt="Bald guy in front of his bookshelf."
       quality="low"
       width={1200}
-      class={cx(
-        css({
-          opacity: 0,
-          borderRadius: "3xl",
-          flex: 1,
-          maxH: { base: "55vh", md: "auto", sm: "70vh" },
-          maxW: { md: "50%" },
-          objectFit: "cover",
-          shadow: "lg",
-          zIndex: 1,
-        }),
-        "headshot",
-      )}
+      class="headshot md:max-h-auto z-1 max-h-[55vh] flex-1 rounded-3xl object-cover opacity-0 shadow-lg sm:max-h-[70vh] md:max-w-[50%]"
     />
-    <div
-      class={flex({
-        flexDir: "column",
-        gap: { base: 8, md: 2 },
-        textAlign: "center",
-      })}
-    >
-      <div
-        class={cx(
-          flex({
-            alignItems: "center",
-            flex: 1,
-            flexDirection: "column",
-            opacity: 0,
-          }),
-          "text",
-        )}
-      >
-        <H1 class={css({ pb: 2 })}>
-          Hi there! <span class={css({ color: "red.300" })}>I'm Xan.</span>
+    <div class="flex flex-col gap-8 text-center md:gap-2">
+      <div class="text flex flex-1 flex-col items-center opacity-0">
+        <H1 class="pb-2">
+          Hi there! <span class="text-red-300">I'm Xan.</span>
         </H1>
-        <p
-          class={css({
-            maxW: "52ch",
-          })}
-        >
+        <p class="max-w-[52ch]">
           <a href="/sketches">a generative artist</a>, frontend developer,
           <a href="/open-source">OSS maintainer</a>, and tummy ache survivor.
         </p>
       </div>
       <div
-        class={cx(
-          flex({
-            alignItems: "center",
-            flex: 1,
-            flexDir: "column",
-            gap: { base: 0, md: 2 },
-            opacity: 0,
-          }),
-          "text",
-        )}
+        class="text flex flex-1 flex-col items-center gap-0 opacity-0 md:gap-2"
       >
         <H2>If you want to get in touch</H2>
-        <div class={flex({ gap: 2 })}>
+        <div class="flex gap-2">
           <a href={socials["github"].url}>
             <Github client:load />
           </a>

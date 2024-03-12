@@ -1,7 +1,6 @@
 import type { Component, ComponentProps, JSX } from "solid-js";
 
 import { Copy } from "@/components/icons";
-import { css, cx } from "@/styled-system/css";
 
 interface CopyButtonProps extends ComponentProps<"button"> {
   copyString: string;
@@ -21,15 +20,7 @@ export const CopyButton: Component<CopyButtonProps> = ({
 
   return (
     <button
-      class={cx(
-        css({
-          _hover: {
-            color: "gray.800",
-            cursor: "pointer",
-          },
-        }),
-        c,
-      )}
+      class={`hover:cursor-pointer hover:text-gray-800${c ? ` ${c}` : ""}`}
       onClick={onClick}
       {...rest}
     >

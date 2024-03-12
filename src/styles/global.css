@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gray-100: #F5F5F4;
+  --color-gray-200: #E7E5E4;
+  --color-gray-300: #D6D3D1;
+  --color-gray-400: #A8A29E;
+  --color-gray-50: #FAFAF9;
+  --color-gray-500: #78716C;
+  --color-gray-600: #57534E;
+  --color-gray-700: #44403C;
+  --color-gray-800: #292524;
+  --color-gray-900: #1C1917;
+  --color-gray-950: #0D0C0A;
+
+  --font-family-body: "DM Mono", monospace;
+  --font-family-heading: "DM Serif Text", serif;
+}
+
+/* style for dat.gui select */
+.dg .c select {
+  color: var(--color-black);
+}
+
+html,
+body {
+  transition: background 300ms ease;
+
+  &.dark {
+    background: var(--color-gray-900);
+    color: var(--color-gray-400);
+
+    a {
+      background: linear-gradient(to top, var(--color-red-800) 0% 50%, transparent 50% 100%);
+      color: var(--color-gray-200);
+
+      &:hover {
+        background: linear-gradient(to top, var(--color-red-700) 0% 50%, transparent 50% 100%);
+        text-decoration: none;
+      }
+    }
+  }
+
+  &.light {
+    background: var(--color-gray-50);
+    color: var(--color-gray-900);
+
+    a {
+      background: linear-gradient(to top, var(--color-red-100) 0% 50%, transparent 50% 100%);
+
+      &:hover {
+        background: linear-gradient(to top, var(--color-red-200) 0% 50%, transparent 50% 100%);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+p, li, a {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: none;
+}

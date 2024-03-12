@@ -1,7 +1,7 @@
 import mdx from "@astrojs/mdx";
 import solidJs from "@astrojs/solid-js";
 import vercel from "@astrojs/vercel/serverless";
-import pandacss from "@pandacss/astro";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import auth from "auth-astro";
 import { loadEnv } from "vite";
@@ -20,7 +20,6 @@ export default defineConfig({
     enabled: true,
   },
   integrations: [
-    pandacss(),
     mdx({
       extendMarkdownConfig: true,
     }),
@@ -35,4 +34,7 @@ export default defineConfig({
     "/resume.pdf": "/api/resume",
   },
   site: BASE_URL,
+  vite: {
+    plugins: [tailwindcss()],
+  }
 });

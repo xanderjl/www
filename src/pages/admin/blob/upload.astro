@@ -6,16 +6,15 @@ import LogoutButton from "@/components/buttons/LogoutButton.astro";
 import { H1 } from "@/components/typography";
 import { UploadForm } from "@/components/UploadForm";
 import Layout from "@/layouts/Layout.astro";
-import { flex } from "@/styled-system/patterns";
 
 const session = await getSession(Astro.request);
 ---
 
-<Layout title="Upload Files" maxW="4xl">
+<Layout title="Upload Files" class="max-w-4xl">
   {
     session?.user?.email === import.meta.env.AUTH_EMAIL ? (
       <>
-        <div class={flex({ justifyContent: "space-between", mb: 12 })}>
+        <div class="mb-12 flex justify-between">
           <H1>Upload Files</H1>
           <LogoutButton>Sign Out</LogoutButton>
         </div>

@@ -3,7 +3,6 @@ import type { HTMLAttributes } from "astro/types";
 
 import { Github } from "@/components/icons";
 import { H2 } from "@/components/typography";
-import { css, cx } from "@/styled-system/css";
 
 interface Props extends HTMLAttributes<"a"> {
   description?: string;
@@ -14,52 +13,27 @@ const { name, description, class: c, ...rest } = Astro.props;
 ---
 
 <a
-  class={cx(
-    css({
-      _dark: {
-        borderColor: "gray.50",
-      },
-      _hover: {
-        borderColor: "red.400",
-        color: "red.400",
-      },
-      _light: {
-        borderColor: "black",
-      },
-      background: "transparent",
-      borderRadius: 8,
-      borderWidth: 1,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      maxWidth: "275px",
-      p: 4,
-    }),
+  class:list={[
+    "flex max-w-[275px] flex-col justify-between rounded-lg border-1 border-black !bg-none p-4 dark:border-gray-50 dark:hover:border-red-400 dark:hover:text-red-400",
     c,
-  )}
+  ]}
   {...rest}
 >
-  <div class={css({ flex: 1 })}>
-    <H2 class={css({ pb: 2 })}>
+  <div class="flex-1">
+    <H2 class="pb-2">
       {name}
     </H2>
     {description && <p>{description}</p>}
   </div>
   <div>
-    <hr class={css({ borderColor: "red.400", borderWidth: 1, my: 4 })} />
+    <hr class="my-4 border-1 border-red-400" />
   </div>
-  <div
-    class={css({
-      alignItems: "center",
-      display: "flex",
-      justifyContent: "space-between",
-    })}
-  >
-    <span class={css({ flex: 1 })}>
+  <div class="flex items-center justify-between">
+    <span class="flex-1">
       Check it out
       <br />
-       on GitHub
+      on GitHub
     </span>
-    <Github class={css({ h: 6, w: 6 })} client:load />
+    <Github class="h-6 w-6" client:load />
   </div>
 </a>

@@ -4,7 +4,6 @@ import { getCollection } from "astro:content";
 import OSSCard from "@/components/OSSCard.astro";
 import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
-import { css, cx } from "@/styled-system/css";
 
 export const prerender = true;
 const ossProjects = await getCollection("open-source");
@@ -26,22 +25,16 @@ const ossProjects = await getCollection("open-source");
   );
 </script>
 
-<Layout title="Open Source">
-  <H1 class={css({ pb: 8 })}>Open Source Projects</H1>
-  <div
-    class={css({
-      display: "flex",
-      flexWrap: "wrap",
-      gap: { base: 4, md: 8 },
-    })}
-  >
+<Layout title="Open Source" class="max-w-4xl">
+  <H1 class="pb-8">Open Source Projects</H1>
+  <div class="flex flex-wrap gap-4 md:gap-8">
     {
       ossProjects.map(({ data: { name, description, href } }, i) => (
         <OSSCard
           name={name}
           description={description}
           href={href}
-          class={cx(css({ opacity: 0 }), "card")}
+          class="card opacity-0"
         />
       ))
     }

@@ -1,41 +1,26 @@
 ---
 import "@fontsource/dm-mono/400.css";
 import "@fontsource/dm-serif-text/400.css";
+import "@/styles/global.css";
 
 import Head from "@/components/Head.astro";
-import { css } from "@/styled-system/css";
-import { container } from "@/styled-system/patterns";
-import type { PropertyTypes } from "@/styled-system/types/prop-type";
-
 interface Props {
   description?: string;
-  maxW?: PropertyTypes["maxW"];
+  class?: string;
   title?: string;
 }
 
-const { title, description, maxW } = Astro.props;
+const { title, description, class: c } = Astro.props;
 ---
 
 <html lang="en">
   <Head {title} {description} />
-  <body
-    class={css({
-      display: "flex",
-      flexDir: "column",
-      minH: "100vh",
-      textStyle: "body",
-      w: "100%",
-    })}
-  >
+  <body class="font-body flex min-h-screen w-full flex-col">
     <main
-      class={container({
-        display: "flex",
-        flex: 1,
-        flexDir: "column",
-        maxW: maxW ?? "8xl",
-        py: { base: 4, md: 6 },
-        w: "100%",
-      })}
+      class:list={[
+        "container max-w-8xl mx-auto flex w-full flex-1 flex-col py-4 px-6 md:py-6",
+        c,
+      ]}
     >
       <slot />
     </main>

@@ -1,24 +1,11 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-import { css, cx } from "@/styled-system/css";
-
 type Props = HTMLAttributes<"li">;
 
 const { class: c, ...rest } = Astro.props;
 ---
 
-<li
-  class={cx(
-    css({
-      _last: {
-        pb: 6,
-      },
-      listStyle: "inside",
-    }),
-    c,
-  )}
-  {...rest}
->
+<li class:list={["list-inside last:pb-6", c]} {...rest}>
   <slot />
 </li>

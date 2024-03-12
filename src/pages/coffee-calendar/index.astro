@@ -17,7 +17,7 @@ const { pathname: path } = Astro.url;
 <Layout
   title="Coffee Calendar"
   description="The digitized record of coffee advent calendars I've participated in over the years."
-  maxW="2xl"
+  class="max-w-2xl"
 >
   <H1>Coffee Calendars</H1>
   <Search {path} {list} client:load />

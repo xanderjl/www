@@ -5,32 +5,14 @@ import { Show } from "solid-js";
 
 import { Cancel, Menu } from "@/components/icons";
 import { isNavOpen } from "@/stores/navbar";
-import { css, cx } from "@/styled-system/css";
 
 export const Mobile: Component = () => {
   const $isNavOpen = useStore(isNavOpen);
 
-  const iconStyles = css({
-    _before: {
-      fontSize: "1.25rem",
-    },
-    _hover: {
-      color: "red.500",
-    },
-    h: 6,
-    w: 6,
-  });
+  const iconStyles = "before:text-xl hover:text-red-500 h-6 w-6";
 
   return (
-    <div
-      class={cx(
-        css({
-          display: { base: "flex", md: "none" },
-          flexDir: "column",
-        }),
-        "mobile_nav",
-      )}
-    >
+    <div class="mobile_nav flex flex-col md:hidden">
       <Show
         when={$isNavOpen()}
         fallback={

@@ -8,8 +8,6 @@ import LoginButton from "@/components/buttons/LoginButton.astro";
 import LogoutButton from "@/components/buttons/LogoutButton.astro";
 import { H1 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
-import { css } from "@/styled-system/css";
-import { flex } from "@/styled-system/patterns";
 
 const { blobs } = await list({ token: import.meta.env.BLOB_READ_WRITE_TOKEN });
 const session = await getSession(Astro.request);
@@ -19,20 +17,13 @@ const session = await getSession(Astro.request);
   {
     session?.user?.email === import.meta.env.AUTH_EMAIL ? (
       <>
-        <div class={flex({ justifyContent: "space-between", mb: 12 })}>
+        <div class="mb-12 flex justify-between">
           <H1>Manage Files</H1>
           <LogoutButton>Sign Out</LogoutButton>
         </div>
         <table>
           <thead>
-            <tr
-              class={css({
-                fontFamily: "heading",
-                fontSize: "2xl",
-                fontWeight: 700,
-                textAlign: "left",
-              })}
-            >
+            <tr class="font-heading text-left text-2xl font-bold">
               <th>File Name</th>
               <th>File Size</th>
               <th>Uploaded At</th>
@@ -48,7 +39,7 @@ const session = await getSession(Astro.request);
                   <td>{pathname}</td>
                   <td>{Math.round((size / 1000) * 100) / 100}kb</td>
                   <td>{new Date(uploadedAt).toLocaleDateString("US")}</td>
-                  <td class={css({ whiteSpace: "nowrap" })}>
+                  <td class="whitespace-nowrap">
                     <CopyButton copyString={url} client:load>
                       {url.slice(0, 15) + "..."}
                     </CopyButton>

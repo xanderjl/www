@@ -10,6 +10,6 @@ const list = await getSketchSlugs(`${process.cwd()}/src/pages/genuary/2024`);
 const { pathname: path } = Astro.url;
 ---
 
-<Layout maxW="2xl">
+<Layout class="max-w-2xl">
   <Search {path} {list} />
 </Layout>

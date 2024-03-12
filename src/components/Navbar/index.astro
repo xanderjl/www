@@ -2,8 +2,6 @@
 import { Logo } from "@/components/icons";
 import { Mobile } from "@/components/Navbar/Mobile";
 import { routes } from "@/routes";
-import { css, cx } from "@/styled-system/css";
-import { container } from "@/styled-system/patterns";
 
 import { ThemeToggleButton } from "../buttons/ThemeToggleButton";
 import { MobileLinks } from "./MobileLinks";
@@ -27,53 +25,22 @@ const { pathname } = Astro.url;
 </script>
 
 <div
-  class={css({
-    boxShadow: "md",
-    height: "auto",
-    py: 4,
-    zIndex: 3,
-    _dark: {
-      background: "gray.900",
-    },
-    _light: {
-      background: "gray.50",
-    },
-  })}
+  class="dark:background-gray-900 light:background-gray-50 z-3 h-auto py-4 shadow-md"
 >
   <nav
-    class={container({
-      alignItems: "center",
-      display: { base: "none", md: "flex" },
-      justifyContent: "space-between",
-    })}
+    class="container mx-auto hidden items-center justify-between px-6 md:flex"
   >
-    <a href="/" class={css({ background: "none" })}>
-      <Logo class={css({ h: 10, w: 10 })} client:load />
+    <a href="/" class="!bg-none">
+      <Logo class="h-10 w-10" client:load />
     </a>
-    <div class={css({ display: "flex", gap: 10 })}>
-      <ul
-        class={css({
-          alignItems: "center",
-          display: "flex",
-          gap: 4,
-        })}
-      >
+    <div class="flex gap-10">
+      <ul class="flex items-center gap-4">
         {
           routes.map(({ path, name }) => (
             <li>
               <a
                 href={path}
                 aria-current={pathname === path ? "page" : "false"}
-                class={css({
-                  _currentPage: {
-                    _dark: {
-                      bg: "linear-gradient(to top, var(--colors-red-600) 0% 50%, transparent 50% 100%)",
-                    },
-                    _light: {
-                      bg: "linear-gradient(to top, var(--colors-red-400) 0% 50%, transparent 50% 100%)",
-                    },
-                  },
-                })}
               >
                 {name}
               </a>
@@ -85,25 +52,13 @@ const { pathname } = Astro.url;
     </div>
   </nav>
   <nav
-    class={cx(
-      container({
-        display: { base: "block", md: "none" },
-        overflow: "hidden",
-      }),
-      "mobile-nav",
-    )}
+    class="mobile-nav container mx-auto block overflow-hidden px-6 md:hidden"
   >
-    <div
-      class={css({
-        alignItems: "center",
-        display: "flex",
-        justifyContent: "space-between",
-      })}
-    >
-      <a href="/" class={css({ background: "none" })}>
-        <Logo class={css({ h: 10, w: 10 })} client:load />
+    <div class="flex items-center justify-between">
+      <a href="/" class="!bg-none">
+        <Logo class="h-10 w-10" client:load />
       </a>
-      <div class={css({ display: "flex", gap: 4 })}>
+      <div class="flex gap-4">
         <ThemeToggleButton client:load />
         <Mobile client:load />
       </div>

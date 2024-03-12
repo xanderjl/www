@@ -5,9 +5,6 @@ import { animate, spring, stagger } from "motion";
 import type { Component, ComponentProps } from "solid-js";
 import { createEffect, createSignal, For, Show } from "solid-js";
 
-import { css, cx } from "@/styled-system/css";
-import { flex } from "@/styled-system/patterns";
-
 interface SearchProps extends ComponentProps<"div"> {
   list: string[];
   path: string;
@@ -15,21 +12,8 @@ interface SearchProps extends ComponentProps<"div"> {
 
 type Result = FuseResult<string>;
 
-const liStyles = cx(
-  css({
-    "&:not(:last-of-type)": {
-      _dark: {
-        borderColor: "gray.800",
-      },
-      _light: {
-        borderColor: "gray.400",
-      },
-      borderBottomWidth: 1,
-      pb: 2,
-    },
-  }),
-  "li",
-);
+const liStyles =
+  "li [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:pb-2 [&:not(:last-of-type)]:dark:border-gray-800 [&:not(:last-of-type)]:light:border-gray-400";
 
 export const Search: Component<SearchProps> = ({
   list,
@@ -68,54 +52,17 @@ export const Search: Component<SearchProps> = ({
   });
 
   return (
-    <div
-      class={cx(
-        flex({
-          direction: "column",
-          gap: 2,
-        }),
-        c,
-      )}
-      {...rest}
-    >
+    <div class={`flex flex-col gap-2${c ? ` ${c}` : ""}`} {...rest}>
       <input
         type="text"
         placeholder="Search"
-        class={cx(
-          css({
-            _dark: {
-              _placeholder: {
-                color: "gray.50",
-              },
-              backgroundColor: "gray.800",
-            },
-            _light: {
-              _placeholder: {
-                color: "gray.400",
-              },
-            },
-            borderColor: "gray.400",
-            borderRadius: 4,
-            borderWidth: 1,
-            p: 1,
-          }),
-          "input",
-        )}
+        class="input rounded border border-gray-800 p-1 placeholder:text-gray-800 dark:border-gray-400 dark:placeholder:text-gray-400"
         onInput={(e) => {
           const arr = fuse.search(e.target.value);
           setSearchArray(arr);
         }}
       />
-      <ul
-        class={css({
-          display: "flex",
-          flexDirection: "column",
-          gap: 1,
-          listStylePosition: "outside",
-          listStyleType: "none",
-          m: 0,
-        })}
-      >
+      <ul class="m-0 flex list-outside list-none flex-col gap-1">
         <Show
           when={searchArray() && searchArray().length > 0}
           fallback={

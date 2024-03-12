@@ -5,21 +5,20 @@ import LoginButton from "@/components/buttons/LoginButton.astro";
 import LogoutButton from "@/components/buttons/LogoutButton.astro";
 import { H1, H2 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
-import { flex } from "@/styled-system/patterns";
 
 const session = await getSession(Astro.request);
 ---
 
-<Layout title={`Admin ${session ? "Dashboard" : "Login"}`} maxW="4xl">
+<Layout title={`Admin ${session ? "Dashboard" : "Login"}`} class="max-w-4xl">
   {
     session?.user?.email === import.meta.env.AUTH_EMAIL ? (
       <>
-        <div class={flex({ justifyContent: "space-between" })}>
+        <div class="flex justify-between">
           <H1>Welcome</H1>
           <LogoutButton>Sign Out</LogoutButton>
         </div>
         <H2>Navigate</H2>
-        <ul class={flex({ flexDir: "column", listStyleType: "disc" })}>
+        <ul class="flex list-disc flex-col">
           <li>
             <a href="/admin/blob/list">Blob List</a>
           </li>

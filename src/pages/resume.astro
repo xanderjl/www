@@ -4,8 +4,6 @@ import { getCollection, getEntry } from "astro:content";
 import { Github, Linkedin, Mail, Phone } from "@/components/icons";
 import { H1, H2, H3 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
-import { css } from "@/styled-system/css";
-import { container } from "@/styled-system/patterns";
 import { formatDate } from "@/utils/formatDate";
 import { chunk } from "@/utils/chunk";
 
@@ -21,63 +19,43 @@ const {
 
 const skillColumns = chunk(skills, 4);
 
-const h2Styles = css({
-  pb: 4,
-});
+const h2Styles = "pb-4";
 ---
 
 <Layout title="Resume">
-  <div id="resume" class={container({ maxW: "4xl" })}>
-    <div
-      class={css({
-        display: "flex",
-        justifyContent: "space-between",
-        pb: 7,
-      })}
-    >
+  <div id="resume" class="container mx-auto max-w-4xl">
+    <div class="flex justify-between pb-7">
       <div>
-        <H1 class={css({ pb: 2 })}>{name}</H1>
+        <H1 class="pb-2">{name}</H1>
         <div>
           <a href={socials["github"].url} aria-label={socials["github"].name}>
-            <Github class={css({ display: "inline-block" })} client:load />
+            <Github class="inline-block" client:load />
           </a>
           <a
             href={socials["linkedin"].url}
             aria-label={socials["linkedin"].name}
           >
-            <Linkedin class={css({ display: "inline-block" })} client:load />
+            <Linkedin class="inline-block" client:load />
           </a>
         </div>
       </div>
-      <div
-        class={css({
-          display: "flex",
-          flexDirection: "column",
-        })}
-      >
+      <div class="flex flex-col">
         <a href={`tel:${phone}`}
-          ><Phone class={css({ display: "inline-block" })} client:load />
+          ><Phone class="inline-block" client:load />
           {phone}</a
         >
         <a href={`mailto:${email}`}
-          ><Mail class={css({ display: "inline-block" })} client:load />
+          ><Mail class="inline-block" client:load />
           {email}</a
         >
       </div>
     </div>
-    <hr class={css({ mb: 7 })} />
+    <hr class="mb-7" />
     <H2 class={h2Styles}>Skills</H2>
-    <div
-      class={css({
-        display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
-        gap: 4,
-        mb: 6,
-      })}
-    >
+    <div class="mb-6 grid grid-cols-4 gap-4">
       {
         skillColumns.map((skills) => (
-          <div class={css({ display: "flex", flexDirection: "column" })}>
+          <div class="flex flex-col">
             {skills.map((skill) => (
               <p>{skill}</p>
             ))}
@@ -92,15 +70,15 @@ const h2Styles = css({
         ({ data: { client, startDate, endDate, responsibilities, role } }) => {
           return (
             <div>
-              <H3 class={css({ pb: 1 })}>
+              <H3 class="pb-1">
                 {client} &mdash; {role}
               </H3>
-              <p class={css({ pb: 2 })}>
+              <p class="pb-2">
                 {formatDate(startDate)} - {formatDate(endDate)}
               </p>
-              <ul class={css({ pb: 10 })}>
+              <ul class="pb-10">
                 {responsibilities.map((responsibility) => (
-                  <li class={css({ listStyle: "inside" })}>{responsibility}</li>
+                  <li class="list-inside">{responsibility}</li>
                 ))}
               </ul>
             </div>

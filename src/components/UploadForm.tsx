@@ -2,9 +2,6 @@ import type { PutBlobResult } from "@vercel/blob";
 import type { Component, ComponentProps, JSX } from "solid-js";
 import { createSignal, Show } from "solid-js";
 
-import { css } from "@/styled-system/css";
-import { flex } from "@/styled-system/patterns";
-
 export const UploadForm: Component<ComponentProps<"form">> = () => {
   let inputRef: HTMLInputElement | undefined;
   const [blob, setBlob] = createSignal<PutBlobResult | null>(null);
@@ -31,26 +28,11 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
   };
 
   return (
-    <form
-      onSubmit={onSubmit}
-      class={flex({
-        alignItems: "start",
-        flexDir: "column",
-        gap: 2,
-      })}
-    >
-      <div class={flex({ alignItems: "center", gap: 2 })}>
+    <form onSubmit={onSubmit} class="flex flex-col items-start gap-2">
+      <div class="flex items-center gap-2">
         <label
           for="file"
-          class={css({
-            _hover: {
-              bg: "teal.500",
-            },
-            bg: "teal.400",
-            borderRadius: "md",
-            color: "white",
-            p: 2,
-          })}
+          class="rounded-md bg-teal-400 p-2 text-white hover:bg-teal-500"
         >
           Choose File
           <input
@@ -58,7 +40,7 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
             id="file"
             name="file"
             ref={inputRef}
-            class={css({ display: "none" })}
+            class="hidden"
             onClick={() => setErrorMessage(null)}
           />
         </label>
@@ -73,22 +55,7 @@ export const UploadForm: Component<ComponentProps<"form">> = () => {
         type="submit"
         aria-disabled={Boolean(errorMessage())}
         disabled={Boolean(errorMessage())}
-        class={css({
-          _disabled: {
-            _hover: {
-              bg: "gray.500",
-              cursor: "not-allowed",
-            },
-            bg: "gray.400",
-          },
-          _hover: {
-            bg: "teal.500",
-          },
-          bg: "teal.400",
-          borderRadius: "md",
-          color: "white",
-          p: 2,
-        })}
+        class="hover:bg-tea-500 cursor-not-allowed rounded-md bg-teal-400 p-2 text-white disabled:bg-gray-400 disabled:hover:bg-gray-500"
       >
         Submit
       </button>
