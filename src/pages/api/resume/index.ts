@@ -2,7 +2,6 @@ import type { APIRoute } from "astro";
 import { getCollection, getEntry } from "astro:content";
 import { jsPDF } from "jspdf";
 
-import { token } from "@/styled-system/tokens";
 import { chunk } from "@/utils/chunk";
 import { formatDate } from "@/utils/formatDate";
 import { fetchBlobBase64 } from "@/utils/vercel/fetchBlobBase64";
@@ -50,8 +49,8 @@ export const GET: APIRoute = async () => {
   const h4 = 10;
   const body = 10;
 
-  const highlightColor = token("colors.red.100");
-  const textColor = token("colors.gray.900");
+  const highlightColor = "#fee2e2";
+  const textColor = "#1C1917";
 
   // Instantiate a new PDFDocument
   const doc = new jsPDF({
