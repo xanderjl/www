@@ -39,7 +39,7 @@
     "@nanostores/solid": "0.4.2",
     "@types/dat.gui": "^0.7.12",
     "@vercel/blob": "0.22.1",
-    "astro": "4.5.3",
+    "astro": "4.5.5",
     "auth-astro": "4.1.1",
     "change-case": "5.4.3",
     "dat.gui": "^0.7.9",
