@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { Search } from "@/components/Search";
 import { getSketchSlugs } from "@/utils/getSketchUrls";
 import { cwd } from "process";
+import { H1 } from "@/components/typography";
 
 export const prerender = true;
 
@@ -11,6 +12,23 @@ const list = await getSketchSlugs(`${cwd()}/src/pages/genuary`);
 const { pathname: path } = Astro.url;
 ---
 
+<script>
+  import { animate, spring } from "motion";
+
+  animate(
+    ".heading",
+    {
+      opacity: [0, 1],
+      x: [-100, 0],
+    },
+    {
+      duration: 0.3,
+      easing: spring(),
+    },
+  );
+</script>
+
 <Layout class="max-w-2xl">
+  <H1 class="heading opacity-0">Genuary</H1>
   <Search {path} {list} />
 </Layout>
