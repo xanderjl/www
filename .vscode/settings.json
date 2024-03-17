@@ -29,5 +29,11 @@
         "cmd": "clang-format -i ${file}"
       }
     ]
+  },
+  "prettier.documentSelectors": [
+    "**/*.astro"
+  ],
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

@@ -11,43 +11,103 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
+  import { getDimensions, sketch, createGrid } from "@/utils/p5";
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
   import dat from "dat.gui";
 
   const gui = new dat.GUI();
+  const seed = 1;
 
-  const initDat = {
-    layers: 10,
+  const data = {
+    rows: 17,
+    cols: 10,
+    margin: 0,
+    strokeWeight: 0,
+    maxDiameter: 0,
+    noiseScale: 1000,
   };
 
   const createGUI = (p5: P5) => {
     gui
-      .add(initDat, "layers", 1, 20, 1)
-      .name("Layers")
+      .add(data, "rows", 1, 50, 1)
+      .name("Rows")
+      .onChange(() => handleRenders(p5));
+    gui
+      .add(data, "cols", 1, 50, 1)
+      .name("Columns")
+      .onChange(() => handleRenders(p5));
+    gui
+      .add(data, "margin", 0, p5.width * 0.5, 1)
+      .name("Margin")
+      .onChange(() => handleRenders(p5));
+    gui
+      .add(data, "strokeWeight", 1, p5.width * 0.01, 1)
+      .name("Stroke Weight")
       .onChange(() => p5.redraw());
+    gui
+      .add(data, "maxDiameter", 1, p5.width * 0.5, 1)
+      .name("Max Diameter")
+      .onChange(() => p5.redraw());
+    gui
+      .add(data, "noiseScale", 100, 10000, 100)
+      .name("Noise Scale")
+      .onChange(() => p5.redraw());
+
+    gui.width = 375;
   };
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [16];
   const background = [255, 253, 252];
-  let margin: number;
+  let grid: number[][];
 
   const handleRenders = (p5: P5) => {
-    margin = p5.width * 0.075;
-    createGUI(p5);
+    grid = createGrid(data.rows, data.cols).map(([u, v]) => {
+      const x = p5.lerp(data.margin, p5.width - data.margin, u);
+      const y = p5.lerp(data.margin, p5.height - data.margin, v);
+
+      return [x, y];
+    });
+
+    p5.redraw();
   };
 
-  const setup: Setup = (p5) => handleRenders(p5);
+  const setup: Setup = (p5) => {
+    data.margin = p5.width * 0.2;
+    data.strokeWeight = p5.width * 0.001;
+    data.maxDiameter = p5.width * 0.033;
+
+    handleRenders(p5);
+    createGUI(p5);
+  };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
+    p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+    p5.noFill();
+    p5.strokeWeight(data.strokeWeight);
+
+    grid.forEach(([x, y], i) => {
+      const d = p5.map(p5.noise(x, y), 0, 1, 0, data.maxDiameter);
+      const d2 = p5.map(p5.noise(x, y, i), 0, 1, 0, data.maxDiameter);
+
+      p5.push();
+      p5.stroke(9);
+      p5.circle(x, y, d);
+      p5.pop();
+
+      p5.push();
+      p5.stroke(255, 0, 0);
+      p5.circle(x, y, d2);
+      p5.pop();
+    });
   };
 
   sketch({
+    seed,
     setup,
     windowResized,
     draw,
