@@ -19,6 +19,9 @@ export default defineConfig({
   devToolbar: {
     enabled: true,
   },
+  experimental: {
+    contentCollectionJsonSchema: true
+  },
   integrations: [
     mdx({
       extendMarkdownConfig: true,

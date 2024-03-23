@@ -11,7 +11,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "schema": "pnpm dlx tsx ./schema.ts",
     "format": "prettier --write . --plugin prettier-plugin-astro",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx,astro}\"",
     "lint:fix": "eslint \"**/*.{js,jsx,ts,tsx,astro}\" --fix",
@@ -53,8 +52,7 @@
     "p5": "1.9.2",
     "p5.js-svg": "1.5.1",
     "sharp": "0.33.3",
-    "solid-js": "1.8.16",
-    "zod": "3.22.4"
+    "solid-js": "1.8.16"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.0.0-alpha.8",
@@ -78,8 +76,7 @@
     "tailwindcss": "4.0.0-alpha.8",
     "ts-node": "10.9.2",
     "typescript": "5.4.3",
-    "vite": "5.2.4",
-    "zod-to-json-schema": "3.22.5"
+    "vite": "5.2.4"
   },
   "trustedDependencies": [
     "sharp"

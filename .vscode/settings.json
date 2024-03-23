@@ -4,19 +4,19 @@
       "fileMatch": [
         "/src/content/open-source/*.json"
       ],
-      "url": "/schemas/open-source-schema.json"
+      "url": "/.astro/collections/open-source.schema.json"
     },
     {
       "fileMatch": [
         "/src/content/resume-data/*.json"
       ],
-      "url": "/schemas/resume-schema.json"
+      "url": "/.astro/collections/resume-data.schema.json"
     },
     {
       "fileMatch": [
         "/src/content/work-history/*.json"
       ],
-      "url": "/schemas/work-history-schema.json"
+      "url": "/.astro/collections/work-history.schema.json"
     }
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
