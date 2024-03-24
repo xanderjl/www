@@ -20,8 +20,6 @@
     }
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  // "typescript.inlayHints.parameterNames.enabled": "all",
-  // "typescript.inlayHints.variableTypes.enabled": true,
   "emeraldwalk.runonsave": {
     "commands": [
       {
