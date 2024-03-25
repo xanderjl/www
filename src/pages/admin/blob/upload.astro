@@ -7,6 +7,8 @@ import { H1 } from "@/components/typography";
 import { UploadForm } from "@/components/UploadForm";
 import Layout from "@/layouts/Layout.astro";
 
+export const prerender = false;
+
 const session = await getSession(Astro.request);
 ---
 
