@@ -4,8 +4,6 @@ import { capitalCase } from "change-case";
 import Sketch from "@/components/Sketch.astro";
 import SketchLayout from "@/layouts/SketchLayout.astro";
 
-export const prerender = true;
-
 const { pathname } = Astro.url;
 const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
@@ -13,16 +11,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 <script>
   import type P5 from "p5";
 
-import { chunk } from "@/utils/chunk";
-import type {
-  Draw,
-  KeyPressed,
-  Preload,
-  Setup,
-  WindowResized,
-} from "@/utils/p5";
-import { getDimensions, sketch } from "@/utils/p5";
-import { flyer } from "@/utils/p5/shapes/flyer";
+  import { chunk } from "@/utils/chunk";
+  import type {
+    Draw,
+    KeyPressed,
+    Preload,
+    Setup,
+    WindowResized,
+  } from "@/utils/p5";
+  import { getDimensions, sketch } from "@/utils/p5";
+  import { flyer } from "@/utils/p5/shapes/flyer";
 
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [40];
@@ -91,14 +89,14 @@ import { flyer } from "@/utils/p5/shapes/flyer";
           arrCx > p5.width - margin
             ? p5.width - margin
             : arrCx < margin
-            ? margin
-            : arrCx;
+              ? margin
+              : arrCx;
         const by =
           arrCy > p5.height - margin
             ? p5.height - margin
             : arrCy < margin
-            ? margin
-            : arrCy;
+              ? margin
+              : arrCy;
         const size = p5.width * p5.noise(b, i) * 0.006;
 
         flyer(p5, val, bx, by, size);
@@ -118,12 +116,12 @@ import { flyer } from "@/utils/p5/shapes/flyer";
   sketch({
     dimensions,
     draw,
-  keyPressed,
+    keyPressed,
     padding,
-  preload,
+    preload,
     saveAs: "svg",
     seed,
-  setup,
+    setup,
     suffix: "ecg",
     windowResized,
   });

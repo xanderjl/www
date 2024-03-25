@@ -5,8 +5,6 @@ import { H1, H2, LI } from "@/components/typography";
 import { CoffeeBean } from "@/components/icons";
 import { capitalCase } from "change-case";
 
-export const prerender = true;
-
 export const getStaticPaths = async () => {
   const collection = await getCollection("coffee-calendar");
   const paths = collection.map(({ slug: day, data: { date } }) => {

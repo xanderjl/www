@@ -32,7 +32,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: "prism",
   },
-  output: "server",
+  output: "hybrid",
   redirects: {
     "/resume.pdf": "/api/resume",
   },

@@ -7,7 +7,7 @@ import { capitalCase } from "change-case";
 import Sketch from "@/components/Sketch.astro";
 import SketchLayout from "@/layouts/SketchLayout.astro";
 
-export const prerender = true;
+;
 
 const { pathname } = Astro.url;
 const title = capitalCase(pathname.split("/").pop() ?? "");

@@ -4,8 +4,6 @@ import { capitalCase } from "change-case";
 import Sketch from "@/components/Sketch.astro";
 import SketchLayout from "@/layouts/SketchLayout.astro";
 
-export const prerender = true;
-
 const { pathname } = Astro.url;
 const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
@@ -156,10 +154,10 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         rdm > 0.75
           ? 0
           : rdm < 0.25
-          ? p5.PI
-          : rdm < 0.75 && rdm > 0.25
-          ? p5.HALF_PI + p5.PI
-          : p5.HALF_PI;
+            ? p5.PI
+            : rdm < 0.75 && rdm > 0.25
+              ? p5.HALF_PI + p5.PI
+              : p5.HALF_PI;
       const end = start + length;
       const d = rdm > 0.5 ? w * 2.25 : w * 3;
       rdm > 0.15 && p5.arc(x, y, d, d, start, end);

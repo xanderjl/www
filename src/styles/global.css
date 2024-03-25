@@ -18,8 +18,13 @@
 }
 
 /* style for dat.gui select */
-.dg .c select {
-  color: var(--color-black);
+.dg .main {
+  & select {
+    border-radius: var(--radius-md);
+  }
+  & span, input {
+    font-size: 12px;
+  }
 }
 
 html,

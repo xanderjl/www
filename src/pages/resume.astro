@@ -7,8 +7,6 @@ import Layout from "@/layouts/Layout.astro";
 import { formatDate } from "@/utils/formatDate";
 import { chunk } from "@/utils/chunk";
 
-export const prerender = true;
-
 const workHistory = await getCollection("work-history");
 const experience = workHistory.sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),

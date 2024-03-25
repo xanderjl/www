@@ -4,8 +4,6 @@ import { Search } from "@/components/Search";
 import { getSketchSlugs } from "@/utils/getSketchUrls";
 import { H1 } from "@/components/typography";
 
-export const prerender = true;
-
 const list = await getSketchSlugs(`${process.cwd()}/src/pages/genuary/2024`);
 
 const { pathname: path } = Astro.url;

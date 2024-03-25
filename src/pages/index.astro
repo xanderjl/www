@@ -7,8 +7,6 @@ import { Github, Linkedin, Mail, Threads } from "@/components/icons";
 import { H1, H2 } from "@/components/typography";
 import Layout from "@/layouts/Layout.astro";
 
-export const prerender = true;
-
 const { data } = await getEntry("resume-data", "i");
 const { email, socials } = data;
 ---

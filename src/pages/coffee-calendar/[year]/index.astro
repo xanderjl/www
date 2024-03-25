@@ -5,8 +5,6 @@ import { getCollection } from "astro:content";
 import { Search } from "@/components/Search";
 import { H1 } from "@/components/typography";
 
-export const prerender = true;
-
 export const getStaticPaths: GetStaticPaths = async () => {
   const collection = await getCollection("coffee-calendar");
   const paths = collection.map(({ data: { date } }) => {
