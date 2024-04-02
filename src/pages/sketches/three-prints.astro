@@ -21,6 +21,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type P5 from "p5";
 
   const seed = convertSeed("Cardinal (Expanded Edition)");
+  // const seed = convertSeed("Cerulean");
+  // const seed = convertSeed("The Holdovers");
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [16];
   const background = [255, 253, 252];
@@ -53,6 +55,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+
+    p5.push();
     grid.forEach(([x, y, a]) => {
       p5.push();
       p5.stroke(255, 0, 0);
@@ -62,6 +66,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       p5.rect(0, 0, tileW, tileH);
       p5.pop();
     });
+    p5.pop();
 
     createSVGOverlay(p5, margin, background);
     drawBorder(p5, margin);
