@@ -1,0 +1,80 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { drawBorder, getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const seed = 1;
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [16];
+  const background = [255, 253, 252];
+  const layers = 60;
+  let margin: number;
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.125;
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+
+    let prevAmp = p5.width * 0.5 - margin * 2;
+
+    p5.push();
+    Array.from({ length: layers }, (_, i) => {
+      const amp = p5.map(i, 0, layers, 0, prevAmp);
+      const r = p5.map(i, 0, layers, p5.width - margin * 3, 0);
+      const cx = p5.width * 0.5;
+      const cy = p5.height * 0.5;
+      const t = p5.map(i, 0, layers, 0, p5.TWO_PI);
+      const x = cx + p5.sin(t) * amp;
+      const y = cy + p5.cos(t) * amp;
+
+      p5.circle(x, y, r);
+      prevAmp = prevAmp - amp * 0.4;
+    });
+    p5.pop();
+
+    p5.push();
+    p5.fill(255, 0, 0);
+    p5.noStroke();
+    const rx = p5.random(margin * 2.5, p5.width - margin * 2.5);
+    const ry = p5.random(margin * 2.5, p5.height - margin * 2.5);
+
+    p5.circle(rx, ry, p5.width * 0.2);
+    p5.pop();
+
+    drawBorder(p5, margin);
+  };
+
+  sketch({
+    seed,
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    saveAs: "svg",
+    suffix: "some-circles",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
