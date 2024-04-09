@@ -33,6 +33,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+    p5.noFill();
 
     let prevAmp = p5.width * 0.5 - margin * 2;
 
