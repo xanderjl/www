@@ -58,8 +58,8 @@
     "@tailwindcss/vite": "4.0.0-alpha.8",
     "@types/geojson": "7946.0.14",
     "@types/p5": "1.7.6",
-    "@typescript-eslint/eslint-plugin": "7.6.0",
-    "@typescript-eslint/parser": "7.6.0",
+    "@typescript-eslint/eslint-plugin": "7.7.0",
+    "@typescript-eslint/parser": "7.7.0",
     "buffer": "6.0.3",
     "eslint": "9.0.0",
     "eslint-plugin-astro": "0.34.0",
@@ -72,11 +72,11 @@
     "hygen": "6.2.11",
     "prettier": "3.2.5",
     "prettier-plugin-astro": "0.13.0",
-    "prettier-plugin-tailwindcss": "^0.5.13",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "4.0.0-alpha.8",
     "ts-node": "10.9.2",
     "typescript": "5.4.5",
-    "vite": "5.2.8"
+    "vite": "5.2.9"
   },
   "trustedDependencies": [
     "sharp"
