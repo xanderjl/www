@@ -1,0 +1,111 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+  import dat from "dat.gui";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [16];
+  const background = [255, 253, 252];
+  let margin: number;
+  let cx: number;
+  let cy: number;
+  let rings: number[][][];
+
+  const dg = {
+    ringsLength: 10,
+    resolution: 60,
+    rMod: 0.33,
+  };
+
+  const createGUI = (p5: P5) => {
+    const gui = new dat.GUI();
+    gui.width = 333;
+    gui
+      .add(dg, "ringsLength", 1, 50)
+      .name("number of rings")
+      .onChange((value) => {
+        dg.ringsLength = value;
+        handleRenders(p5);
+      });
+    gui.add(dg, "resolution", 3, 100).onChange((value) => {
+      dg.resolution = value;
+      handleRenders(p5);
+    });
+    gui
+      .add(dg, "rMod", 0.1, 1)
+      .name("radius")
+      .onChange((value) => {
+        dg.rMod = value;
+        handleRenders(p5);
+      });
+  };
+
+  const handleRenders = (p5: P5) => {
+    rings = [];
+    margin = p5.width * 0.075;
+    cx = p5.width * 0.5;
+    cy = p5.height * 0.5;
+    Array.from({ length: dg.ringsLength }, (_, i) => {
+      const coords = Array.from({ length: dg.resolution }, (_, j) => {
+        const angle = p5.map(j, 0, dg.resolution, 0, p5.TWO_PI);
+        const x =
+          cx +
+          p5.cos(angle) *
+            (margin + (i * (p5.width * dg.rMod - margin)) / dg.ringsLength);
+        const y =
+          cy +
+          p5.sin(angle) *
+            (margin + (i * (p5.width * dg.rMod - margin)) / dg.ringsLength);
+        return [x, y];
+      });
+      rings.push(coords);
+    });
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => {
+    handleRenders(p5);
+    createGUI(p5);
+  };
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.noFill();
+    rings.forEach((ring, i) => {
+      p5.beginShape();
+      ring.forEach(([x, y]) => {
+        p5.curveVertex(x, y);
+      });
+      p5.endShape("close");
+    });
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    saveAs: "svg",
+    suffix: "tattoo-colab",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
