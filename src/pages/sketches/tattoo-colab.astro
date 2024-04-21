@@ -9,7 +9,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 ---
 
 <script>
-  import { getDimensions, sketch } from "@/utils/p5";
+  import { drawBorder, getDimensions, sketch } from "@/utils/p5";
   import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import type P5 from "p5";
   import dat from "dat.gui";
@@ -17,6 +17,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [16];
   const background = [255, 253, 252];
+  const seed = 1;
   let margin: number;
   let cx: number;
   let cy: number;
@@ -26,6 +27,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     ringsLength: 10,
     resolution: 60,
     rMod: 0.33,
+    turbulence: 100,
   };
 
   const createGUI = (p5: P5) => {
@@ -49,6 +51,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
         dg.rMod = value;
         handleRenders(p5);
       });
+    gui
+      .add(dg, "turbulence", 0, 200)
+      .name("turbulence")
+      .onChange((value) => {
+        dg.turbulence = value;
+        handleRenders(p5);
+      });
   };
 
   const handleRenders = (p5: P5) => {
@@ -58,7 +67,8 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     cy = p5.height * 0.5;
     Array.from({ length: dg.ringsLength }, (_, i) => {
       const coords = Array.from({ length: dg.resolution }, (_, j) => {
-        const angle = p5.map(j, 0, dg.resolution, 0, p5.TWO_PI);
+        // const angle = p5.map(j, 0, dg.resolution, 0, p5.TWO_PI);
+        const angle = p5.TWO_PI * (j / dg.resolution);
         const x =
           cx +
           p5.cos(angle) *
@@ -86,7 +96,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.clear(0, 0, 0, 0);
     p5.background(background);
     p5.noFill();
-    rings.forEach((ring, i) => {
+    rings.forEach((ring) => {
       p5.beginShape();
       ring.forEach(([x, y]) => {
         p5.curveVertex(x, y);
@@ -96,6 +106,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
+    seed,
     setup,
     windowResized,
     draw,
