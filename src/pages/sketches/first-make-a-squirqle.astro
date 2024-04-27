@@ -28,22 +28,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const draw: Draw = (p5) => {
     p5.clear(0, 0, 0, 0);
     p5.background(background);
+    p5.noFill();
+    p5.stroke(0);
 
     p5.push();
-    p5.fill(255, 0, 0);
-    p5.stroke(255, 0, 0);
-    p5.rect(margin, margin, p5.width - margin * 2, p5.height - margin * 2);
-    p5.pop();
-
-    p5.push();
-    p5.fill(background);
-    p5.stroke(background);
     p5.circle(p5.width * 0.5, p5.height * 0.5, p5.width - margin * 6);
     p5.pop();
 
     p5.push();
     p5.fill(0);
-    p5.stroke(0);
     const length = 200;
     const buffer = p5.height * 0.025;
     Array.from({ length }, (_, i) => {
@@ -57,6 +50,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.pop();
 
     createSVGOverlay(p5, margin, background);
+
+    p5.push();
+    p5.stroke(0);
+    p5.rect(margin, margin, p5.width - margin * 2, p5.height - margin * 2);
+    p5.pop();
   };
 
   sketch({
