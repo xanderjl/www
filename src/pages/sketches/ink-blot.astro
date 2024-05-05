@@ -18,6 +18,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const dimensions: number[] = getDimensions("A4");
   const padding: number[] = [16];
   const background = [255, 253, 252];
+  const maxDrops = 100;
   let margin: number;
   let drops: ReturnType<InkBlot>[] = [];
 
@@ -33,13 +34,14 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const mousePressed: MousePressed = (p5, e) => {
     if (!e) return;
 
-    const drop = inkBlot(p5, e.offsetX, e.offsetY, 20, 80);
+    const drop = inkBlot(p5, e.offsetX, e.offsetY, 60, 200);
 
     drops.forEach((other) => {
       other.marble(drop);
     });
 
     drops.push(drop);
+    if (drops.length > maxDrops) drops.shift();
     p5.redraw();
   };
 
@@ -47,7 +49,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
-    p5.fill(0);
+    p5.fill(background);
 
     drops.forEach((drop) => {
       drop.show();
