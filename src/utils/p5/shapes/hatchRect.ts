@@ -1,3 +1,5 @@
+import type P5 from "p5";
+
 export const hatchRect = (
   p5: P5,
   x: number,
@@ -11,26 +13,26 @@ export const hatchRect = (
     x - w * 0.5 > p5.width - margin
       ? p5.width - margin
       : x - w * 0.5 < margin
-      ? margin
-      : x - w * 0.5;
+        ? margin
+        : x - w * 0.5;
   const x2 =
     x + w * 0.5 > p5.width - margin
       ? p5.width - margin
       : x + w * 0.5 < margin
-      ? margin
-      : x + w * 0.5;
+        ? margin
+        : x + w * 0.5;
   const y1 =
     y - h * 0.5 > p5.height - margin
       ? p5.height - margin
       : y - h * 0.5 < margin
-      ? margin
-      : y - h * 0.5;
+        ? margin
+        : y - h * 0.5;
   const y2 =
     y + h * 0.5 > p5.height - margin
       ? p5.height - margin
       : y + h * 0.5 < margin
-      ? margin
-      : y + h * 0.5;
+        ? margin
+        : y + h * 0.5;
   const mw = x2 - x1;
   const mh = y2 - y1;
 

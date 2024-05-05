@@ -1,0 +1,73 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { createSVGOverlay, getDimensions, sketch } from "@/utils/p5";
+  import { inkBlot } from "@/utils/p5/shapes/inkBlot";
+  import type { Draw, MousePressed, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+  import type { InkBlot } from "@/utils/p5/shapes/inkBlot";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [16];
+  const background = [255, 253, 252];
+  let margin: number;
+  let drops: ReturnType<InkBlot>[] = [];
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const mousePressed: MousePressed = (p5, e) => {
+    if (!e) return;
+
+    const drop = inkBlot(p5, e.offsetX, e.offsetY, 20, 80);
+
+    drops.forEach((other) => {
+      other.marble(drop);
+    });
+
+    drops.push(drop);
+    p5.redraw();
+  };
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.fill(0);
+
+    drops.forEach((drop) => {
+      drop.show();
+    });
+
+    createSVGOverlay(p5, margin, background);
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    mousePressed,
+    saveAs: "svg",
+    suffix: "ink-blot",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
