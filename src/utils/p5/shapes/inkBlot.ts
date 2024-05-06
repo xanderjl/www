@@ -6,14 +6,16 @@ export type InkBlot = (
   y: number,
   r: number,
   resolution?: number,
+  fill?: P5.Color,
 ) => {
   show: () => void;
   marble: (other: ReturnType<InkBlot>) => void;
   center: P5.Vector;
   r: number;
+  fill?: P5.Color;
 };
 
-export const inkBlot: InkBlot = (p5, x, y, r, resolution) => {
+export const inkBlot: InkBlot = (p5, x, y, r, resolution, fill) => {
   const vertices: P5.Vector[] = [];
   const length = resolution ?? 10;
   const center = p5.createVector(x, y);
@@ -28,7 +30,7 @@ export const inkBlot: InkBlot = (p5, x, y, r, resolution) => {
 
   const show = () => {
     p5.beginShape();
-    vertices.forEach((v, i) => {
+    vertices.forEach((v) => {
       p5.vertex(v.x, v.y);
     });
     p5.endShape("close");
@@ -47,5 +49,5 @@ export const inkBlot: InkBlot = (p5, x, y, r, resolution) => {
     });
   };
 
-  return { show, marble, center, r };
+  return { show, marble, center, r, fill };
 };

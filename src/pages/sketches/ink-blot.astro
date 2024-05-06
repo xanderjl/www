@@ -21,6 +21,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   const maxDrops = 100;
   let margin: number;
   let drops: ReturnType<InkBlot>[] = [];
+  let clicks = 1;
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
@@ -33,8 +34,15 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   const mousePressed: MousePressed = (p5, e) => {
     if (!e) return;
-
-    const drop = inkBlot(p5, e.offsetX, e.offsetY, 60, 200);
+    const fill = clicks % 2 === 0 ? background : 0;
+    const drop = inkBlot(
+      p5,
+      e.offsetX,
+      e.offsetY,
+      60,
+      200,
+      fill as unknown as P5.Color,
+    );
 
     drops.forEach((other) => {
       other.marble(drop);
@@ -43,15 +51,19 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     drops.push(drop);
     if (drops.length > maxDrops) drops.shift();
     p5.redraw();
+    clicks++;
   };
 
   const draw: Draw = (p5) => {
     p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
-    p5.fill(background);
 
     drops.forEach((drop) => {
+      if (typeof drop.fill !== "undefined") {
+        p5.stroke(drop.fill);
+        p5.fill(drop.fill);
+      }
       drop.show();
     });
 
