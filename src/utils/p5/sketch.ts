@@ -64,6 +64,7 @@ export const sketch = ({
         padding,
         renderer,
         saveAs,
+        mousePressed,
       });
       if (seed) {
         p5.randomSeed(seed);
@@ -123,12 +124,6 @@ export const sketch = ({
         seed,
       });
     };
-
-    p5.mousePressed = (event) => {
-      mousePressed && mousePressed(p5, event as MouseEvent);
-    };
-
-    mousePressed && mousePressed(p5);
   };
 
   const p5 = new P5(s, "container" as unknown as HTMLElement);
