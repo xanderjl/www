@@ -1,0 +1,150 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { createSVGOverlay, getDimensions, sketch } from "@/utils/p5";
+  import { inkBlot } from "@/utils/p5/shapes/inkBlot";
+  import type { Draw, MousePressed, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+  import type { InkBlot } from "@/utils/p5/shapes/inkBlot";
+  import dat from "dat.gui";
+
+  type Drops = ReturnType<InkBlot>[];
+
+  const dg = {
+    maxDrops: 200,
+    resolution: 200,
+    blotRadius: 60,
+    blotRadiusMod: 0,
+    blotFill: "#000",
+    steps: 10,
+    stepSpeed: 0,
+  };
+
+  const createDatGUI = (p5: P5) => {
+    const d = new dat.GUI({
+      width: 300,
+      closed: true,
+    });
+
+    d.add(dg, "maxDrops", 50, 300, 1).name("Max Drops");
+    d.add(dg, "resolution", 50, 400, 1).name("Resolution");
+    d.add(dg, "blotRadius", p5.width * 0.01, p5.width * 0.25).name(
+      "Blot Radius",
+    );
+    d.add(dg, "blotRadiusMod", 0, p5.width * 0.1, 1).name("Blot Radius Mod");
+    d.addColor(dg, "blotFill").name("Blot Fill");
+    d.add(dg, "steps", 1, 50, 1).name("Steps");
+    d.add(dg, "stepSpeed", p5.width * 0.01, p5.width * 0.5).name("Step Speed");
+  };
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [16];
+  const background = [255, 253, 252];
+  const seed = 1;
+  let margin: number;
+  let drops: Drops = [];
+
+  const walker = (
+    p5: P5,
+    dropsArray: Drops,
+    x: number,
+    y: number,
+    r: number,
+    steps = 10,
+    stepSpeed = p5.width * 0.05,
+  ) => {
+    let prevX = x;
+    let prevY = y;
+
+    Array.from({ length: steps }, (_, i) => {
+      const fill = i % 2 === 0 ? background : dg.blotFill;
+      const dropX = prevX + p5.cos(p5.random(p5.TWO_PI * i)) * stepSpeed;
+      const dropY = prevY + p5.sin(p5.random(p5.TWO_PI * i)) * stepSpeed;
+      const drop = inkBlot(
+        p5,
+        dropX,
+        dropY,
+        r,
+        dg.resolution,
+        fill as unknown as P5.Color,
+      );
+
+      dropsArray.forEach((other) => {
+        other.marble(drop);
+      });
+
+      dropsArray.push(drop);
+      prevX = dropX;
+      prevY = dropY;
+    });
+  };
+
+  const handleRenders = (p5: P5) => {
+    margin = p5.width * 0.075;
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => {
+    dg.stepSpeed = p5.width * 0.08;
+    handleRenders(p5);
+    createDatGUI(p5);
+  };
+
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const mousePressed: MousePressed = (p5, e) => {
+    if (!e) return;
+
+    walker(
+      p5,
+      drops,
+      p5.mouseX,
+      p5.mouseY,
+      dg.blotRadius + p5.random(dg.blotRadiusMod),
+      dg.steps,
+      dg.stepSpeed,
+    );
+
+    if (drops.length > dg.maxDrops) drops.splice(0, drops.length - dg.maxDrops);
+    p5.redraw();
+  };
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+
+    drops.forEach((drop) => {
+      if (typeof drop.fill !== "undefined") {
+        p5.stroke(drop.fill);
+        p5.fill(drop.fill);
+      }
+      drop.show();
+    });
+
+    createSVGOverlay(p5, margin, background);
+  };
+  sketch({
+    seed,
+    setup,
+    windowResized,
+    draw,
+    mousePressed,
+    dimensions,
+    padding,
+    saveAs: "svg",
+    suffix: "ink-animation",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
