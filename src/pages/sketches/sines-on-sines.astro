@@ -1,0 +1,109 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { createGrid, getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+  import dat from "dat.gui";
+  import p5 from "p5";
+
+  const dimensions: number[] = getDimensions("A4");
+  const padding: number[] = [16];
+  const background = [255, 253, 252];
+  const rows = 100;
+  const cols = Math.floor(rows * 0.66);
+  const seed = 1;
+  let margin: number;
+  let grid: number[][];
+
+  const dg = {
+    amplitude: 0.01,
+    frequencyMod: 1,
+    rows: 100,
+    cols: Math.floor(100 * 0.67),
+    independantCols: false,
+  };
+
+  const createGUI = (p5: P5) => {
+    const gui = new dat.GUI();
+    gui.add(dg, "amplitude", 0, 0.5, 0.001).onChange(() => handleRenders(p5));
+    gui.add(dg, "frequencyMod", 0, 5).onChange(() => handleRenders(p5));
+    gui.add(dg, "rows", 10, 200, 1).onChange(() => handleRenders(p5));
+    gui.add(dg, "independantCols").onFinishChange((checked) => {
+      if (!checked) {
+        const guiCols = gui.__controllers.find((c) => c.property === "cols");
+        guiCols && gui.remove(guiCols);
+
+        handleRenders(p5);
+      } else {
+        gui.add(dg, "cols", 10, 200, 1).onChange(() => handleRenders(p5));
+      }
+    });
+  };
+
+  const handleRenders = (p5: P5) => {
+    const cols = dg.independantCols ? dg.cols : Math.floor(dg.rows * 0.66);
+
+    margin = p5.width * 0.125;
+    grid = createGrid(dg.rows, cols).map(([u, v]) => {
+      const x = p5.lerp(margin, p5.width - margin, u);
+      const y = p5.lerp(margin, p5.height - margin, v);
+      const a = p5.map(p5.noise(u, v), 0, 1, 0, p5.TWO_PI);
+      const x1 = x + p5.cos(a * dg.frequencyMod) * p5.width * dg.amplitude;
+      const y1 = y + p5.sin(a * dg.frequencyMod) * p5.width * dg.amplitude;
+      const x2 =
+        x1 < margin ? margin : x1 > p5.width - margin ? p5.width - margin : x1;
+      const y2 =
+        y1 < margin
+          ? margin
+          : y1 > p5.height - margin
+            ? p5.height - margin
+            : y1;
+
+      return [x2, y2, a];
+    });
+
+    p5.redraw();
+  };
+
+  const setup: Setup = (p5) => {
+    handleRenders(p5);
+    createGUI(p5);
+  };
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.fill(0);
+    p5.strokeWeight(2);
+
+    grid.forEach(([x, y]) => {
+      p5.point(x, y);
+    });
+  };
+
+  sketch({
+    seed,
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    saveAs: "svg",
+    suffix: "sines-on-sines",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
