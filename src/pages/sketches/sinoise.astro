@@ -23,6 +23,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     frequency: Math.PI * 1.25,
     phase: 0,
     amplitude: 0,
+    fold: false,
     seed: 0,
     noise: 0,
     noiseAmplitude: 0,
@@ -55,13 +56,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       .add(dg, "amplitude", 0, (p5.height - margin * 2) / dg.rows)
       .step(1)
       .onChange(() => handleRenders(p5));
+    dOsc.add(dg, "fold").onChange(() => {
+      handleRenders(p5);
+    });
     dRand
       .add(dg, "seed", 0, 1000)
       .step(1)
       .onChange(() => handleRenders(p5));
     dRand
       .add(dg, "noise", 0, 1)
-      .step(0.01)
+      .step(0.001)
       .onChange(() => handleRenders(p5));
     dRand
       .add(dg, "noiseAmplitude", 0, p5.width * 0.25)
@@ -77,10 +81,13 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
       const rand = p5.random() > 0.5;
       const a1 = i / dg.cols;
       const a2 = a1 + p5.noise(u, v) * dg.noise * dg.noiseAmplitude;
+      const a = a2 * dg.frequency + dg.phase;
       const xMod = p5.noise(u, v) * dg.noise * dg.noiseAmplitude;
       const x = p5.lerp(margin, p5.width - margin, u) + (rand ? xMod : -xMod);
       const y1 = p5.lerp(margin, p5.height - margin, v);
-      const y2 = y1 + Math.cos(a2 * dg.frequency + dg.phase) * dg.amplitude;
+      const y2 =
+        y1 +
+        Math.cos(dg.fold ? Math.cos(a * dg.noiseAmplitude) : a) * dg.amplitude;
 
       return [x, y2];
     });
