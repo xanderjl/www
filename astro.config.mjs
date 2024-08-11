@@ -20,7 +20,7 @@ export default defineConfig({
     enabled: true,
   },
   experimental: {
-    contentCollectionJsonSchema: true
+    contentCollectionCache: true,
   },
   integrations: [
     mdx({
