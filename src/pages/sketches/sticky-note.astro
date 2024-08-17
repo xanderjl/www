@@ -29,17 +29,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   ) => {
     p5.beginShape();
     Array.from({ length: density + 1 }, (_, i) => {
-      const amp = i * 0.1;
-      const freq = 10;
-      const x = p5.lerp(x1, x2, i / density);
-      const y = p5.lerp(y1, y2, i / density);
-      const sinX = amp * Math.sin(freq * x);
-      const sinY = amp * Math.sin(freq * y);
-      // p5.vertex(x, y);
-      if (i === 0 || i === density) {
-        p5.vertex(x, y);
-      }
-      p5.curveVertex(x, y - sinY);
+      p5.circle(p5.lerp(x1, x2, i / density), p5.lerp(y1, y2, i / density), 2);
     });
     p5.endShape();
   };
