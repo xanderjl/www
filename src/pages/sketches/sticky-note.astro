@@ -1,0 +1,92 @@
+---
+import { capitalCase } from "change-case";
+
+import Sketch from "@/components/Sketch.astro";
+import SketchLayout from "@/layouts/SketchLayout.astro";
+
+const { pathname } = Astro.url;
+const title = capitalCase(pathname.split("/").pop() ?? "");
+---
+
+<script>
+  import { getDimensions, sketch } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
+  import type P5 from "p5";
+
+  const dimensions: number[] = getDimensions("square");
+  const padding: number[] = [16];
+  const background = [255, 253, 252];
+  let r: number;
+  let points: number = 100;
+
+  const line = (
+    p5: P5,
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    density: number,
+  ) => {
+    p5.beginShape();
+    Array.from({ length: density + 1 }, (_, i) => {
+      const amp = i * 0.1;
+      const freq = 10;
+      const x = p5.lerp(x1, x2, i / density);
+      const y = p5.lerp(y1, y2, i / density);
+      const sinX = amp * Math.sin(freq * x);
+      const sinY = amp * Math.sin(freq * y);
+      // p5.vertex(x, y);
+      if (i === 0 || i === density) {
+        p5.vertex(x, y);
+      }
+      p5.curveVertex(x, y - sinY);
+    });
+    p5.endShape();
+  };
+
+  const handleRenders = (p5: P5) => {
+    r = p5.width * 0.33;
+  };
+
+  const setup: Setup = (p5) => handleRenders(p5);
+  const windowResized: WindowResized = (p5) => handleRenders(p5);
+
+  const draw: Draw = (p5) => {
+    p5.noLoop();
+    p5.clear(0, 0, 0, 0);
+    p5.background(background);
+    p5.noFill();
+
+    Array.from({ length: points }, (_, i) => {
+      const cx = p5.width * 0.5;
+      const cy = p5.height * 0.5;
+      const rotation = p5.PI;
+
+      const a = p5.map(i, 0, points, 0, rotation) + p5.HALF_PI + i / points;
+      const x = Math.cos(a) * r + cx;
+      const y = Math.sin(a) * r + cy;
+
+      const a2 =
+        p5.map(i + 1, 0, points, 0, -rotation) + p5.HALF_PI + i / points;
+      const x2 = Math.cos(a2) * r + cx;
+      const y2 = Math.sin(a2) * r + cy;
+
+      line(p5, x, y, x2, y2, 50);
+      p5.rectMode(p5.CENTER);
+    });
+  };
+
+  sketch({
+    setup,
+    windowResized,
+    draw,
+    dimensions,
+    padding,
+    saveAs: "svg",
+    suffix: "sticky-note",
+  });
+</script>
+
+<SketchLayout {title}>
+  <Sketch />
+</SketchLayout>
