@@ -12,7 +12,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type P5 from "p5";
 
   import { chunk } from "@/utils/chunk";
-  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import {
     createSVGOverlay,
     drawBorder,
@@ -84,13 +84,11 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   // ----------------------------------------------------------------------------
 
   // P5 -------------------------------------------------------------------------
-  const preload: Preload = (p5) => {
-    // @ts-ignore
-    data = p5.loadJSON("/data/ecg_2021-08-24.json");
-  };
 
-  const setup: Setup = (p5) => {
-    data = Object.values(data);
+  const setup: Setup = async (p5) => {
+    const json = await p5.loadJSON("/data/ecg_2021-08-24.json");
+    data = Object.values(json);
+    console.log({ json, data });
     handleRenders(p5);
   };
   const windowResized: WindowResized = (p5) => {
@@ -158,7 +156,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     dimensions,
     draw,
     padding,
-    preload,
     saveAs: "svg",
     seed,
     setup,

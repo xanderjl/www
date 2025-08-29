@@ -1,9 +1,8 @@
 import mdx from "@astrojs/mdx";
 import solidJs from "@astrojs/solid-js";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import auth from "auth-astro";
 import { loadEnv } from "vite";
 
 const {
@@ -19,25 +18,21 @@ export default defineConfig({
   devToolbar: {
     enabled: true,
   },
-  experimental: {
-    contentCollectionCache: true,
-  },
   integrations: [
     mdx({
       extendMarkdownConfig: true,
     }),
     solidJs(),
-    auth(),
   ],
   markdown: {
     syntaxHighlight: "prism",
   },
-  output: "hybrid",
+  output: "static",
   redirects: {
     "/resume.pdf": "/api/resume",
   },
   site: BASE_URL,
   vite: {
     plugins: [tailwindcss()],
-  }
+  },
 });

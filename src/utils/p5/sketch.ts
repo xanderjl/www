@@ -1,7 +1,6 @@
 import type { RENDERER } from "p5";
 import P5 from "p5";
-import svg from "p5.js-svg";
-import type { SVG } from "p5.js-svg/dist/types";
+import p5plot from "p5.plotsvg";
 
 import { keyPressed as kp } from "./keyPressed";
 import { setupDefaults } from "./setup";
@@ -12,7 +11,6 @@ import type {
   GifOptions,
   KeyPressed,
   MousePressed,
-  Preload,
   Setup,
   WindowResized,
 } from "./types";
@@ -26,8 +24,7 @@ interface SketchProps {
   keyPressed?: KeyPressed;
   mousePressed?: MousePressed;
   padding?: number[];
-  preload?: Preload;
-  renderer?: RENDERER | SVG;
+  renderer?: RENDERER | "svg";
   saveAs?: FileExtension;
   seed?: number;
   setup?: Setup;
@@ -38,7 +35,6 @@ interface SketchProps {
 export const sketch = ({
   background,
   dimensions,
-  preload,
   draw,
   padding,
   setup,
@@ -51,10 +47,8 @@ export const sketch = ({
   saveAs,
   gifOptions,
 }: SketchProps) => {
-  const s = (p5: P5) => {
-    p5.preload = () => {
-      preload && preload(p5);
-    };
+  const sketch = (p5: P5) => {
+    const isSvg = renderer === "svg" || saveAs === "svg";
 
     p5.setup = () => {
       setupDefaults({
@@ -66,11 +60,13 @@ export const sketch = ({
         saveAs,
         mousePressed,
       });
+      if (isSvg) {
+        p5plot.beginRecordSVG(p5);
+      }
       if (seed) {
         p5.randomSeed(seed);
         p5.noiseSeed(seed);
       }
-
       setup && setup(p5);
     };
 
@@ -79,7 +75,6 @@ export const sketch = ({
         p5.randomSeed(seed);
         p5.noiseSeed(seed);
       }
-
       draw && draw(p5);
     };
 
@@ -90,12 +85,10 @@ export const sketch = ({
         p5,
         padding,
       });
-
       if (seed) {
         p5.randomSeed(seed);
         p5.noiseSeed(seed);
       }
-
       windowResized && windowResized(p5);
     };
 
@@ -108,11 +101,11 @@ export const sketch = ({
       second: "2-digit",
       year: "numeric",
     });
+
     const fileName = date + (suffix ? `-${suffix}` : "");
 
     p5.keyPressed = (event) => {
       keyPressed && keyPressed(p5, event as KeyboardEvent);
-
       kp({
         dimensions,
         event: event as KeyboardEvent,
@@ -126,7 +119,10 @@ export const sketch = ({
     };
   };
 
-  const p5 = new P5(s, "container" as unknown as HTMLElement);
+  const p5 = new P5(
+    sketch,
+    document.getElementById("container") as HTMLElement,
+  );
 
   if (typeof window !== "undefined") {
     if (window.p5) {
@@ -134,6 +130,5 @@ export const sketch = ({
     }
 
     window.p5 = p5;
-    svg(P5);
   }
 };

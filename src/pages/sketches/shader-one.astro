@@ -11,7 +11,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 <script>
   import type P5 from "p5";
 
-  import type { Draw, Preload, Setup } from "@/utils/p5";
+  import type { Draw, Setup } from "@/utils/p5";
   import { sketch } from "@/utils/p5";
 
   const dimensions: number[] = [2400, 2400];
@@ -19,14 +19,31 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   let firstShader: P5.Shader;
 
-  const preload: Preload = (p5) => {
-    firstShader = p5.loadShader(
-      "/shaders/shader-one/shader.vert",
-      "/shaders/shader-one/shader.frag",
-    );
-  };
+  const fragSrc = `
+  precision mediump float;
+  varying vec2 vTexCoord;
+
+  void main() {
+    vec2 uv = vTexCoord;
+    gl_FragColor = vec4(uv, 0.5, 1.0);
+  }
+  `;
+  const vertSrc = `
+  attribute vec3 aPosition;
+  attribute vec2 aTexCoord;
+  varying vec2 vTexCoord;
+
+  void main() {
+    vTexCoord = aTexCoord;
+
+    vec4 positionVec4 = vec4(aPosition, 1.0);
+    positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
+    gl_Position = positionVec4;
+  }
+  `;
 
   const setup: Setup = (p5) => {
+    firstShader = p5.createShader(vertSrc, fragSrc);
     p5.noStroke();
   };
 
@@ -39,7 +56,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     dimensions,
     draw,
     padding,
-    preload,
     renderer: "webgl",
     saveAs: "png",
     setup,

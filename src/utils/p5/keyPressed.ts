@@ -1,7 +1,6 @@
 import type { Color } from "p5";
 import type P5 from "p5";
-import type { SVG } from "p5.js-svg";
-
+import p5plot from "p5.plotsvg";
 import { getOs } from "@/utils/getOs";
 import type { ColorValue, FileExtension, GifOptions } from "@/utils/p5/types";
 
@@ -13,7 +12,7 @@ export interface KeyPressed {
   gifOptions?: GifOptions;
   noLoop?: boolean;
   p5: P5;
-  renderer?: P5.RENDERER | SVG;
+  renderer?: P5.RENDERER | "svg";
   saveAs?: FileExtension;
   seed?: number;
   width?: number;
@@ -32,13 +31,14 @@ export const keyPressed = ({
   noLoop,
   gifOptions = [60, { delay: 0, units: "frames" }],
 }: KeyPressed) => {
+  const isSvg = saveAs === "svg" || renderer === "svg";
   const os = getOs();
   const saveFile = () =>
-    saveAs === "svg" || renderer == "svg"
-      ? p5.save(fileName)
+    isSvg
+      ? p5plot.endRecordSVG()
       : saveAs === "gif"
-      ? p5.saveGif(fileName, gifOptions[0], gifOptions[1])
-      : p5.saveCanvas(fileName, saveAs);
+        ? p5.saveGif(fileName, gifOptions[0], gifOptions[1])
+        : p5.saveCanvas(fileName, saveAs);
 
   if (os === "mac") {
     if (event?.key === "s" && event?.metaKey) {

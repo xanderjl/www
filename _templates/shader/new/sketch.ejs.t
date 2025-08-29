@@ -15,7 +15,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Preload, Setup } from "@/utils/p5";
+  import type { Draw, Setup } from "@/utils/p5";
   import type P5 from "p5";
 
   const dimensions: number[] = getDimensions("square");
@@ -23,14 +23,25 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
   let firstShader: P5.Shader;
 
-  const preload: Preload = (p5) => {
-    firstShader = p5.loadShader(
-      "/shaders/<%= name %>/main.vert",
-      "/shaders/<%= name %>/main.frag",
-    );
-  };
+  const fragSrc = `
+  precision mediump float;
+  varying vec2 vTexCoord;
+  void main() {
+    gl_FragColor = vec4(vTexCoord, 0.5, 1.0);
+  }
+  `;
+  const vertSrc = `
+  attribute vec3 aPosition;
+  attribute vec2 aTexCoord;
+  varying vec2 vTexCoord;
+  void main() {
+    vTexCoord = aTexCoord;
+    gl_Position = vec4(aPosition, 1.0);
+  }
+  `;  
 
   const setup: Setup = (p5) => {
+    firstShader = p5.createShader(vertSrc, fragSrc);
     p5.noStroke();
   };
 
@@ -40,7 +51,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    preload,
     setup,
     draw,
     dimensions,

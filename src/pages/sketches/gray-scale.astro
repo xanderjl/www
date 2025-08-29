@@ -10,7 +10,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
 
 <script>
   import { createGrid, getDimensions, sketch } from "@/utils/p5";
-  import type { Draw, Preload, Setup, WindowResized } from "@/utils/p5";
+  import type { Draw, Setup, WindowResized } from "@/utils/p5";
   import { hatchRect } from "@/utils/p5/shapes/hatchRect";
   import type P5 from "p5";
 
@@ -26,10 +26,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   let font: P5.Font;
   let grid: [string, number[][]][];
   let margin: number;
-
-  const preload: Preload = (p5) => {
-    font = p5.loadFont("/fonts/DMMono-Regular.ttf");
-  };
 
   const handleRenders = (p5: P5) => {
     margin = p5.width * 0.075;
@@ -65,13 +61,16 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.redraw();
   };
 
-  const setup: Setup = (p5) => handleRenders(p5);
+  const setup: Setup = async (p5) => {
+    font = await p5.loadFont("/fonts/DMMono-Regular.ttf");
+    handleRenders(p5);
+  };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
+    p5.noLoop();
     p5.clear(0, 0, 0, 0);
     p5.background(background);
-    p5.noLoop();
 
     p5.push();
     p5.noFill();
@@ -113,7 +112,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   };
 
   sketch({
-    preload,
     setup,
     windowResized,
     draw,

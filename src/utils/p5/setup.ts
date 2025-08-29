@@ -1,5 +1,4 @@
 import type P5 from "p5";
-import type { SVG } from "p5.js-svg";
 
 import type { ColorValue, FileExtension, MousePressed } from "./types";
 
@@ -10,7 +9,7 @@ export interface SetupProps {
   p5: P5;
   padding?: number[];
   pixelDensity?: number;
-  renderer?: P5.RENDERER | SVG;
+  renderer?: P5.RENDERER | "svg";
   saveAs?: FileExtension;
   width?: number;
   mousePressed?: MousePressed;
@@ -22,14 +21,12 @@ export const setupDefaults = ({
   height,
   dimensions,
   padding,
+  renderer,
   background,
-  renderer = "p2d",
   pixelDensity,
-  saveAs,
   mousePressed,
 }: SetupProps) => {
   let cnv: P5.Renderer | undefined;
-  const r = saveAs === "svg" ? "svg" : renderer;
   const usedWidth = dimensions ? dimensions[0] : width ? width : p5.windowWidth;
   const usedHeight = dimensions
     ? dimensions[1]
@@ -54,27 +51,21 @@ export const setupDefaults = ({
       cnv = p5.createCanvas(
         maxWidth,
         newHeight,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        r,
+        renderer !== "svg" && renderer ? renderer : undefined,
       );
     } else {
       const newWidth = Math.round(maxHeight * aspectRatio);
       cnv = p5.createCanvas(
         newWidth,
         maxHeight,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        r,
+        renderer !== "svg" && renderer ? renderer : undefined,
       );
     }
   } else {
     cnv = p5.createCanvas(
       usedWidth,
       usedHeight,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      r,
+      renderer !== "svg" && renderer ? renderer : undefined,
     );
   }
 

@@ -12,13 +12,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type { LineString } from "geojson";
   import type P5 from "p5";
 
-  import type {
-    Draw,
-    GeoJSON,
-    Preload,
-    Setup,
-    WindowResized,
-  } from "@/utils/p5";
+  import type { Draw, GeoJSON, Setup, WindowResized } from "@/utils/p5";
   import {
     convertSeed,
     createGrain,
@@ -69,11 +63,12 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     grain = createGrain(p5);
   };
 
-  const preload: Preload = (p5) => {
-    data = p5.loadJSON("/data/geo/route_2022-10-02_6.04pm.geojson") as GeoJSON;
+  const setup: Setup = async (p5) => {
+    data = (await p5.loadJSON(
+      "/data/geo/route_2022-10-02_6.04pm.geojson",
+    )) as GeoJSON;
+    handleRenders(p5);
   };
-
-  const setup: Setup = (p5) => handleRenders(p5);
   const windowResized: WindowResized = (p5) => handleRenders(p5);
 
   const draw: Draw = (p5) => {
@@ -111,7 +106,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     dimensions,
     draw,
     padding,
-    preload,
     saveAs: "png",
     seed,
     setup,

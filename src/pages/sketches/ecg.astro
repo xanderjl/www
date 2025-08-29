@@ -12,13 +12,7 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
   import type P5 from "p5";
 
   import { chunk } from "@/utils/chunk";
-  import type {
-    Draw,
-    KeyPressed,
-    Preload,
-    Setup,
-    WindowResized,
-  } from "@/utils/p5";
+  import type { Draw, KeyPressed, Setup, WindowResized } from "@/utils/p5";
   import { getDimensions, sketch } from "@/utils/p5";
   import { flyer } from "@/utils/p5/shapes/flyer";
 
@@ -47,13 +41,9 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     p5.redraw();
   };
 
-  const preload: Preload = (p5) => {
-    // @ts-ignore
-    data = p5.loadJSON("/data/ecg_2021-08-24.json");
-  };
-
-  const setup: Setup = (p5) => {
-    data = Object.values(data);
+  const setup: Setup = async (p5) => {
+    const json = await p5.loadJSON("/data/ecg_2021-08-24.json");
+    data = Object.values(json);
     handleRenders(p5);
   };
   const windowResized: WindowResized = (p5) => handleRenders(p5);
@@ -118,7 +108,6 @@ const title = capitalCase(pathname.split("/").pop() ?? "");
     draw,
     keyPressed,
     padding,
-    preload,
     saveAs: "svg",
     seed,
     setup,
